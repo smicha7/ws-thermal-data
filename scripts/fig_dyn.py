@@ -69,9 +69,9 @@ def figA(theme, phone):
 TP = [(D, *dm.core_pred(p2, D, 2)) for D in tests]
 def figB(theme, phone):
     th = THEMES[theme]; fs = 17 if phone else 11; rc(phone); plt.rcParams["font.size"] = fs
-    fig = plt.figure(figsize=(5, 30) if phone else (11, 11.5)); fig.patch.set_facecolor(th["bg"])
-    gs = GridSpec(4, 1, figure=fig, hspace=0.32) if phone else GridSpec(2, 2, figure=fig, hspace=0.3, wspace=0.32)
-    for i, (D, yc, X) in enumerate(TP):
+    fig = plt.figure(figsize=(5, 15.5) if phone else (11, 11.5)); fig.patch.set_facecolor(th["bg"])
+    gs = GridSpec(2, 1, figure=fig, hspace=0.3) if phone else GridSpec(2, 2, figure=fig, hspace=0.3, wspace=0.32)
+    for i, (D, yc, X) in enumerate([TP[0], TP[3]] if phone else TP):   # phone: manual series + night grid only
         sub = GridSpecFromSubplotSpec(4, 1, subplot_spec=gs[i], height_ratios=[3, 1.0, 1.0, 1.0] if phone else [3, 0.8, 0.8, 0.8], hspace=0.14)
         ax = fig.add_subplot(sub[0]); ins = [fig.add_subplot(sub[j], sharex=ax) for j in (1, 2, 3)]
         for a in [ax, *ins]: style(a, th, fs)
@@ -85,7 +85,7 @@ def figB(theme, phone):
     h = [plt.Line2D([], [], c=th["meas"], lw=1.4), plt.Line2D([], [], c=RED, lw=1.4), plt.Line2D([], [], c=th["dim"], lw=1.4), plt.Line2D([], [], c=PURPLE, lw=1.4)]
     l = ["core, measured", "core, model", "memory, measured", "memory, model"]
     fig.legend(h, l, loc="lower center", ncol=2 if phone else 4, fontsize=fs - 2, frameon=False, labelcolor=th["fg"])
-    fig.subplots_adjust(left=0.2 if phone else 0.08, right=0.8 if phone else 0.93, top=0.975 if phone else 0.96, bottom=0.06 if phone else 0.08)
+    fig.subplots_adjust(left=0.2 if phone else 0.08, right=0.8 if phone else 0.93, top=0.955 if phone else 0.96, bottom=0.1 if phone else 0.08)
     save(fig, th, f"gpu-map-2026-10-21-dyn-test{'-phone' if phone else ''}-{theme}")
 for t in THEMES:
     for ph in (False, True): figA(t, ph); figB(t, ph)
