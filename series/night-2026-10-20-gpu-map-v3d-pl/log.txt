@@ -1,0 +1,519 @@
+2026-10-21 01:40:57 start (próba 1), tryb pl · limity mocy 575/500/425/350 W, budżet 3 h, obudowa: open top (case top panel removed); 1 GPU (RTX 5090); front 3× SWP4 intake onto the GPU, 1× SWP4 rear exhaust
+2026-10-21 01:40:57 spis czujników: 341
+2026-10-21 01:40:58 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 88, hot spot 95
+2026-10-21 01:40:58 etap: MinSearch
+2026-10-21 01:41:17 min. obudowy: 40 % → 1403 rpm
+2026-10-21 01:41:37 min. obudowy: 35 % → 1256 rpm
+2026-10-21 01:41:57 min. obudowy: 30 % → 1109 rpm
+2026-10-21 01:42:17 min. obudowy: 25 % → 962 rpm
+2026-10-21 01:42:37 min. obudowy: 20 % → 805 rpm
+2026-10-21 01:42:57 min. obudowy: 15 % → 655 rpm
+2026-10-21 01:43:17 min. obudowy: 10 % → 624 rpm
+2026-10-21 01:43:17 obciążenie: proces w sesji użytkownika
+2026-10-21 01:43:17 etap: Calibrate
+2026-10-21 obciążenie 01:43:17 start: plik stanu jest, tryb alu
+2026-10-21 obciążenie 01:43:17 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-21 obciążenie 01:43:17 NVIDIA GeForce RTX 5090: tryb alu
+2026-10-21 01:44:02 kalibracja: alu → 575 W (±0.1 %)
+2026-10-21 obciążenie 01:44:03 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-21 obciążenie 01:44:03 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-21 01:44:47 kalibracja: mix64 → 575 W (±0.0 %)
+2026-10-21 obciążenie 01:44:49 NVIDIA GeForce RTX 5090: tryb mix16
+2026-10-21 01:45:32 kalibracja: mix16 → 406 W (±0.2 %)
+2026-10-21 obciążenie 01:45:34 NVIDIA GeForce RTX 5090: tryb mix4
+2026-10-21 01:46:17 kalibracja: mix4 → 357 W (±0.3 %)
+2026-10-21 obciążenie 01:46:19 NVIDIA GeForce RTX 5090: tryb stream
+2026-10-21 01:47:02 kalibracja: stream → 341 W (±0.2 %)
+2026-10-21 01:47:02 obciążenie skalibrowane: mix64 = 575 W (limit 575 W; sam ALU 575 W)
+2026-10-21 01:47:02 etap: Warmup
+2026-10-21 obciążenie 01:47:03 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-21 01:50:51 etap: Points
+2026-10-21 01:52:01   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.0±0.0 τ 25 s · T∞ 66.0±0.0 τ 10 s · T∞ 71.7±0.2 τ 20 s
+2026-10-21 01:52:01 punkt f_g 100 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 60 · pamięć 66 · hot spot 71.77 · 575.04 W
+2026-10-21 01:52:31   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 01:52:31 punkt f_g 95 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 60 · pamięć 66 · hot spot 72.05 · 575 W
+2026-10-21 01:53:01   dopasowanie (rdzeń · pamięć · hot spot): T∞ 61.0±? τ 5 s · T∞ 66.0±0.0 τ 15 s · T∞ 72.8±? τ 5 s
+2026-10-21 01:53:01 punkt f_g 90 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 60.57 · pamięć 66 · hot spot 72.63 · 575 W
+2026-10-21 01:53:31   dopasowanie (rdzeń · pamięć · hot spot): T∞ 61.0±0.0 τ 10 s · T∞ 174.4±? τ 900 s · T∞ 73.9±0.2 τ 10 s
+2026-10-21 01:53:31 punkt f_g 85 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 60.96 · pamięć 66.64 · hot spot 73.39 · 575 W
+2026-10-21 01:54:01   dopasowanie (rdzeń · pamięć · hot spot): T∞ 62.0±0.0 τ 10 s · T∞ 68.0±0.0 τ 10 s · T∞ 74.5±? τ 5 s
+2026-10-21 01:54:01 punkt f_g 80 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 61.93 · pamięć 68 · hot spot 74.25 · 575.07 W
+2026-10-21 01:54:31   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 01:54:31 punkt f_g 75 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 62.48 · pamięć 68 · hot spot 75.04 · 575 W
+2026-10-21 01:55:41   dopasowanie (rdzeń · pamięć · hot spot): T∞ 64.1±0.1 τ 15 s · T∞ 70.2±0.2 τ 15 s · T∞ 88.9±2.3 τ 465 s
+2026-10-21 01:55:41 punkt f_g 70 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 63.75 · pamięć 69.75 · hot spot 76.68 · 574.89 W
+2026-10-21 01:56:11   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 01:56:11 punkt f_g 65 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 64.68 · pamięć 70.07 · hot spot 77.74 · 575.04 W
+2026-10-21 01:56:41   dopasowanie (rdzeń · pamięć · hot spot): T∞ 66.3±0.3 τ 10 s · T∞ 72.0±? τ 5 s · T∞ 79.1±? τ 5 s
+2026-10-21 01:56:41 punkt f_g 60 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 65.46 · pamięć 71.93 · hot spot 78.51 · 575 W
+2026-10-21 01:57:11   dopasowanie (rdzeń · pamięć · hot spot): T∞ 67.0±? τ 5 s · T∞ 72.0±0.0 τ 235 s · T∞ 81.7±0.7 τ 45 s
+2026-10-21 01:57:11 punkt f_g 55 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 66.46 · pamięć 72 · hot spot 79.73 · 575.04 W
+2026-10-21 01:58:22   dopasowanie (rdzeń · pamięć · hot spot): T∞ 69.7±0.2 τ 35 s · T∞ 101.8±? τ 900 s · T∞ 84.6±0.3 τ 65 s
+2026-10-21 01:58:22 punkt f_g 50 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 68.38 · pamięć 74.25 · hot spot 82.16 · 575 W
+2026-10-21 01:58:52   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 01:58:52 punkt f_g 45 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 69.68 · pamięć 76 · hot spot 83.69 · 575 W
+2026-10-21 01:59:22   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 01:59:22 punkt f_g 40 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 71 · pamięć 76.86 · hot spot 85.2 · 575.04 W
+2026-10-21 01:59:52   dopasowanie (rdzeń · pamięć · hot spot): T∞ 103.6±? τ 900 s · T∞ 137.1±? τ 900 s · T∞ 81.8±1.2 τ 10 s
+2026-10-21 01:59:52 punkt f_g 35 % · f_c 100 % · 575 W (100 %): 60 s · rdzeń 72.39 · pamięć 78.21 · hot spot 84.94 · 575 W
+2026-10-21 02:02:55   dopasowanie (rdzeń · pamięć · hot spot): T∞ 82.6±0.5 τ 110 s · T∞ 86.8±0.9 τ 90 s · T∞ 90.6±0.2 τ 60 s
+2026-10-21 02:02:55 punkt f_g 30 % · f_c 100 % · 575 W (100 %): ZA GORĄCO · rdzeń 79.82 · pamięć 86.04 · hot spot 91.04 · 575.02 W
+2026-10-21 02:02:55 etap: Cooldown
+2026-10-21 02:03:32 etap: Points
+2026-10-21 02:04:02   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:04:02 punkt f_g 100 % · f_c 95 % · 575 W (100 %): 60 s · rdzeń 64.81 · pamięć 75.85 · hot spot 74.6 · 574.96 W
+2026-10-21 02:04:32   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:04:32 punkt f_g 100 % · f_c 90 % · 575 W (100 %): 60 s · rdzeń 61.75 · pamięć 71.5 · hot spot 71.44 · 575 W
+2026-10-21 02:05:02   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:05:02 punkt f_g 100 % · f_c 85 % · 575 W (100 %): 60 s · rdzeń 60.36 · pamięć 69 · hot spot 69.96 · 575 W
+2026-10-21 02:05:32   dopasowanie (rdzeń · pamięć · hot spot): T∞ 58.6±0.4 τ 15 s · T∞ 44.6±? τ 900 s · T∞ 69.0±? τ 5 s
+2026-10-21 02:05:32 punkt f_g 100 % · f_c 80 % · 575 W (100 %): 60 s · rdzeń 59.46 · pamięć 67.93 · hot spot 69.19 · 575 W
+2026-10-21 02:06:03   dopasowanie (rdzeń · pamięć · hot spot): T∞ 58.9±? τ 5 s · T∞ 65.7±0.7 τ 20 s · T∞ 60.0±? τ 900 s
+2026-10-21 02:06:03 punkt f_g 100 % · f_c 75 % · 575 W (100 %): 60 s · rdzeń 58.96 · pamięć 66.36 · hot spot 68.68 · 574.96 W
+2026-10-21 02:06:33   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:06:33 punkt f_g 100 % · f_c 70 % · 575 W (100 %): 60 s · rdzeń 58.89 · pamięć 66 · hot spot 68.22 · 575 W
+2026-10-21 02:07:03   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:07:03 punkt f_g 100 % · f_c 65 % · 575 W (100 %): 60 s · rdzeń 58.82 · pamięć 66 · hot spot 68.23 · 575 W
+2026-10-21 02:07:33   dopasowanie (rdzeń · pamięć · hot spot): T∞ 58.6±? τ 5 s · T∞ 66.0±0.0 τ 10 s · T∞ 68.9±? τ 900 s
+2026-10-21 02:07:33 punkt f_g 100 % · f_c 60 % · 575 W (100 %): 60 s · rdzeń 58.68 · pamięć 66 · hot spot 68.24 · 575 W
+2026-10-21 02:08:03   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:08:03 punkt f_g 100 % · f_c 55 % · 575 W (100 %): 60 s · rdzeń 58.67 · pamięć 66 · hot spot 68.17 · 575 W
+2026-10-21 02:09:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 58.9±? τ 5 s · T∞ 66.0±0.0 τ 695 s · T∞ 69.9±? τ 900 s
+2026-10-21 02:09:13 punkt f_g 100 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 58.87 · pamięć 66 · hot spot 68.36 · 575 W
+2026-10-21 02:09:43   dopasowanie (rdzeń · pamięć · hot spot): T∞ 59.1±0.3 τ 15 s · T∞ 66.0±0.0 τ 260 s · T∞ 88.0±? τ 900 s
+2026-10-21 02:09:43 punkt f_g 95 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 58.96 · pamięć 66 · hot spot 68.62 · 574.93 W
+2026-10-21 02:10:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.5±0.6 τ 20 s · T∞ 66.0±0.0 τ 15 s · T∞ 69.3±? τ 5 s
+2026-10-21 02:10:13 punkt f_g 90 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 59.29 · pamięć 66 · hot spot 69.13 · 575 W
+2026-10-21 02:10:43   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.0±0.0 τ 10 s · T∞ 105.7±? τ 900 s · T∞ 70.0±? τ 5 s
+2026-10-21 02:10:43 punkt f_g 85 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 59.96 · pamięć 66.14 · hot spot 69.7 · 575.11 W
+2026-10-21 02:11:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 61.0±? τ 5 s · T∞ 68.0±0.0 τ 85 s · T∞ 70.8±? τ 5 s
+2026-10-21 02:11:13 punkt f_g 80 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 60.5 · pamięć 67.93 · hot spot 70.47 · 575.11 W
+2026-10-21 02:11:43   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:11:43 punkt f_g 75 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 61.3 · pamięć 68 · hot spot 71.27 · 574.93 W
+2026-10-21 02:12:53   dopasowanie (rdzeń · pamięć · hot spot): T∞ 63.1±0.1 τ 10 s · T∞ 70.0±? τ 5 s · T∞ 74.3±0.3 τ 65 s
+2026-10-21 02:12:53 punkt f_g 70 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 62.84 · pamięć 69.89 · hot spot 72.96 · 574.98 W
+2026-10-21 02:13:23   dopasowanie (rdzeń · pamięć · hot spot): T∞ 64.0±? τ 5 s · T∞ 123.6±? τ 900 s · T∞ 101.6±? τ 900 s
+2026-10-21 02:13:23 punkt f_g 65 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 63.89 · pamięć 71 · hot spot 73.84 · 574.96 W
+2026-10-21 02:13:53   dopasowanie (rdzeń · pamięć · hot spot): T∞ 96.7±? τ 900 s · T∞ 72.0±0.0 τ 225 s · T∞ 121.2±? τ 900 s
+2026-10-21 02:13:53 punkt f_g 60 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 64.82 · pamięć 72 · hot spot 75.05 · 574.93 W
+2026-10-21 02:14:23   dopasowanie (rdzeń · pamięć · hot spot): T∞ 129.8±? τ 900 s · T∞ 75.2±0.7 τ 15 s · T∞ 126.9±? τ 900 s
+2026-10-21 02:14:23 punkt f_g 55 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 66.29 · pamięć 72.93 · hot spot 76.45 · 575 W
+2026-10-21 02:15:33   dopasowanie (rdzeń · pamięć · hot spot): T∞ 72.4±0.3 τ 75 s · T∞ 77.6±0.4 τ 35 s · T∞ 84.5±0.5 τ 95 s
+2026-10-21 02:15:33 punkt f_g 50 % · f_c 50 % · 575 W (100 %): 60 s · rdzeń 69.16 · pamięć 75.79 · hot spot 79.54 · 574.96 W
+2026-10-21 02:15:33   pominięte 1 punktów (niżej w tym rzędzie): niebezpieczne przy tej mocy
+2026-10-21 02:16:03   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:16:03 punkt f_g 100 % · f_c 45 % · 575 W (100 %): 60 s · rdzeń 68.19 · pamięć 76.52 · hot spot 78.24 · 575 W
+2026-10-21 02:16:33   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:16:33 punkt f_g 100 % · f_c 40 % · 575 W (100 %): 60 s · rdzeń 63.61 · pamięć 72.93 · hot spot 73.55 · 575.04 W
+2026-10-21 02:17:03   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:17:03 punkt f_g 100 % · f_c 35 % · 575 W (100 %): 60 s · rdzeń 61.79 · pamięć 70.5 · hot spot 71.7 · 575.04 W
+2026-10-21 02:17:33   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.9±0.2 τ 10 s · T∞ 43.5±10.0 τ 205 s · T∞ 69.1±? τ 900 s
+2026-10-21 02:17:33 punkt f_g 100 % · f_c 30 % · 575 W (100 %): 60 s · rdzeń 60.96 · pamięć 69.21 · hot spot 70.95 · 575.04 W
+2026-10-21 02:18:03   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.9±? τ 5 s · T∞ 68.0±0.0 τ 10 s · T∞ 73.2±? τ 900 s
+2026-10-21 02:18:03 punkt f_g 100 % · f_c 25 % · 575 W (100 %): 60 s · rdzeń 60.86 · pamięć 68 · hot spot 70.74 · 575 W
+2026-10-21 02:18:33   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.8±? τ 5 s · T∞ 68.0±0.0 τ 10 s · T∞ 70.5±? τ 5 s
+2026-10-21 02:18:33 punkt f_g 100 % · f_c 20 % · 575 W (100 %): 60 s · rdzeń 60.75 · pamięć 68 · hot spot 70.57 · 574.93 W
+2026-10-21 02:19:43   dopasowanie (rdzeń · pamięć · hot spot): T∞ 58.5±? τ 900 s · T∞ 68.0±0.0 τ 30 s · T∞ 70.6±? τ 5 s
+2026-10-21 02:19:43 punkt f_g 100 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 60.8 · pamięć 68 · hot spot 70.57 · 574.96 W
+2026-10-21 02:20:13   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:20:13 punkt f_g 95 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 60.89 · pamięć 68 · hot spot 70.84 · 575 W
+2026-10-21 02:20:43   dopasowanie (rdzeń · pamięć · hot spot): T∞ 105.5±? τ 900 s · T∞ 68.0±0.0 τ 40 s · T∞ 72.1±0.6 τ 25 s
+2026-10-21 02:20:43 punkt f_g 90 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 61.21 · pamięć 68 · hot spot 71.31 · 574.96 W
+2026-10-21 02:21:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 62.0±? τ 5 s · T∞ 185.7±? τ 900 s · T∞ 72.4±0.2 τ 10 s
+2026-10-21 02:21:13 punkt f_g 85 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 61.93 · pamięć 68.64 · hot spot 72.04 · 575.04 W
+2026-10-21 02:21:43   dopasowanie (rdzeń · pamięć · hot spot): T∞ 63.0±? τ 5 s · T∞ 70.0±? τ 5 s · T∞ 73.5±0.1 τ 10 s
+2026-10-21 02:21:43 punkt f_g 80 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 62.75 · pamięć 69.86 · hot spot 72.94 · 575.04 W
+2026-10-21 02:22:13   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:22:13 punkt f_g 75 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 63.52 · pamięć 70.15 · hot spot 73.82 · 575.04 W
+2026-10-21 02:23:23   dopasowanie (rdzeń · pamięć · hot spot): T∞ 77.8±2.0 τ 450 s · T∞ 110.2±? τ 900 s · T∞ 77.2±0.2 τ 55 s
+2026-10-21 02:23:23 punkt f_g 70 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 65.42 · pamięć 72.65 · hot spot 75.66 · 574.95 W
+2026-10-21 02:23:53   dopasowanie (rdzeń · pamięć · hot spot): T∞ 67.1±? τ 5 s · T∞ 74.0±0.0 τ 400 s · T∞ 77.6±0.3 τ 20 s
+2026-10-21 02:23:53 punkt f_g 65 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 66.54 · pamięć 74 · hot spot 76.74 · 575 W
+2026-10-21 02:24:23   dopasowanie (rdzeń · pamięć · hot spot): T∞ 68.0±0.0 τ 655 s · T∞ 77.3±1.4 τ 25 s · T∞ 117.9±? τ 900 s
+2026-10-21 02:24:23 punkt f_g 60 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 67.71 · pamięć 75.14 · hot spot 77.92 · 575 W
+2026-10-21 02:24:53   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:24:53 punkt f_g 55 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 69.19 · pamięć 76.52 · hot spot 79.46 · 574.93 W
+2026-10-21 02:26:03   dopasowanie (rdzeń · pamięć · hot spot): T∞ 76.0±0.4 τ 80 s · T∞ 82.3±0.5 τ 50 s · T∞ 85.5±0.2 τ 50 s
+2026-10-21 02:26:03 punkt f_g 50 % · f_c 15 % · 575 W (100 %): 60 s · rdzeń 72.33 · pamięć 79.56 · hot spot 82.74 · 575.02 W
+2026-10-21 02:26:03   pominięte 1 punktów (niżej w tym rzędzie): niebezpieczne przy tej mocy
+2026-10-21 02:27:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 54.7±0.2 τ 35 s · T∞ 60.2±0.7 τ 75 s · T∞ 63.1±0.1 τ 35 s
+2026-10-21 02:27:13 punkt f_g 100 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 61.51 · pamięć 74.29 · hot spot 69.96 · 500 W
+2026-10-21 02:27:43   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:27:43 punkt f_g 95 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 56.64 · pamięć 67.86 · hot spot 65.07 · 500 W
+2026-10-21 02:28:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 56.0±0.0 τ 45 s · T∞ 66.0±0.0 τ 25 s · T∞ 64.2±0.2 τ 10 s
+2026-10-21 02:28:13 punkt f_g 90 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 56 · pamięć 66 · hot spot 64.29 · 500 W
+2026-10-21 02:28:43   dopasowanie (rdzeń · pamięć · hot spot): T∞ 56.0±? τ 5 s · T∞ 65.5±? τ 5 s · T∞ 64.3±? τ 5 s
+2026-10-21 02:28:43 punkt f_g 85 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 56 · pamięć 65.79 · hot spot 64.18 · 500 W
+2026-10-21 02:29:14   dopasowanie (rdzeń · pamięć · hot spot): T∞ 56.0±0.0 τ 70 s · T∞ 67.7±3.2 τ 45 s · T∞ 78.9±? τ 900 s
+2026-10-21 02:29:14 punkt f_g 80 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 56 · pamięć 65.36 · hot spot 64.49 · 500 W
+2026-10-21 02:29:44   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:29:44 punkt f_g 75 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 56.32 · pamięć 65.71 · hot spot 64.96 · 500 W
+2026-10-21 02:30:54   dopasowanie (rdzeń · pamięć · hot spot): T∞ 59.7±0.4 τ 95 s · T∞ 66.0±0.0 τ 15 s · T∞ 67.8±0.4 τ 110 s
+2026-10-21 02:30:54 punkt f_g 70 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 57.55 · pamięć 66 · hot spot 66.04 · 500 W
+2026-10-21 02:31:24   dopasowanie (rdzeń · pamięć · hot spot): T∞ 88.0±? τ 900 s · T∞ 157.7±? τ 900 s · T∞ 67.1±0.1 τ 10 s
+2026-10-21 02:31:24 punkt f_g 65 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 58.14 · pamięć 66.57 · hot spot 66.78 · 500.04 W
+2026-10-21 02:31:54   dopasowanie (rdzeń · pamięć · hot spot): T∞ 66.0±? τ 900 s · T∞ 68.0±0.0 τ 655 s · T∞ 105.5±? τ 900 s
+2026-10-21 02:31:54 punkt f_g 60 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 58.79 · pamięć 67.93 · hot spot 67.44 · 500 W
+2026-10-21 02:32:25   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.0±0.0 τ 70 s · T∞ 68.0±0.0 τ 70 s · T∞ 101.6±? τ 900 s
+2026-10-21 02:32:25 punkt f_g 55 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 59.79 · pamięć 68 · hot spot 68.36 · 500 W
+2026-10-21 02:33:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ 63.6±0.4 τ 90 s · T∞ 70.0±? τ 5 s · T∞ 72.0±0.2 τ 65 s
+2026-10-21 02:33:35 punkt f_g 50 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 61.53 · pamięć 69.85 · hot spot 70.23 · 499.96 W
+2026-10-21 02:34:05   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:34:05 punkt f_g 45 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 62.71 · pamięć 71 · hot spot 71.42 · 500 W
+2026-10-21 02:34:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ 64.1±? τ 5 s · T∞ 72.0±0.0 τ 225 s · T∞ 74.6±0.3 τ 35 s
+2026-10-21 02:34:35 punkt f_g 40 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 63.68 · pamięć 72 · hot spot 72.63 · 500 W
+2026-10-21 02:35:06   dopasowanie (rdzeń · pamięć · hot spot): T∞ 123.4±? τ 900 s · T∞ 74.1±? τ 5 s · T∞ 79.5±1.0 τ 80 s
+2026-10-21 02:35:06 punkt f_g 35 % · f_c 100 % · 500 W (87 %): 60 s · rdzeń 65.21 · pamięć 73.36 · hot spot 74.14 · 500 W
+2026-10-21 02:41:06   dopasowanie (rdzeń · pamięć · hot spot): T∞ 71.3±0.3 τ 70 s · T∞ 116.5±? τ 900 s · T∞ 81.2±0.2 τ 75 s
+2026-10-21 02:41:06 punkt f_g 30 % · f_c 100 % · 500 W (87 %): nieustalony · rdzeń 73 · pamięć 82 · hot spot 82.43 · 500 W
+2026-10-21 02:41:36   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:41:36 punkt f_g 100 % · f_c 95 % · 500 W (87 %): 60 s · rdzeń 68.96 · pamięć 80 · hot spot 77.6 · 500 W
+2026-10-21 02:42:06   dopasowanie (rdzeń · pamięć · hot spot): T∞ 57.7±0.3 τ 15 s · T∞ 69.4±1.0 τ 25 s · T∞ 65.6±0.2 τ 15 s
+2026-10-21 02:42:06 punkt f_g 100 % · f_c 90 % · 500 W (87 %): 60 s · rdzeń 60.75 · pamięć 73.71 · hot spot 68.94 · 500 W
+2026-10-21 02:42:36   dopasowanie (rdzeń · pamięć · hot spot): T∞ -12.7±? τ 900 s · T∞ 67.3±0.4 τ 10 s · T∞ 63.7±0.5 τ 25 s
+2026-10-21 02:42:36 punkt f_g 100 % · f_c 85 % · 500 W (87 %): 60 s · rdzeń 57.07 · pamięć 69.14 · hot spot 65.39 · 500 W
+2026-10-21 02:43:06   dopasowanie (rdzeń · pamięć · hot spot): T∞ 54.6±0.2 τ 10 s · T∞ 66.0±0.0 τ 10 s · T∞ 27.1±? τ 900 s
+2026-10-21 02:43:06 punkt f_g 100 % · f_c 80 % · 500 W (87 %): 60 s · rdzeń 55.5 · pamięć 66.36 · hot spot 63.7 · 500 W
+2026-10-21 02:43:36   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:43:36 punkt f_g 100 % · f_c 75 % · 500 W (87 %): 60 s · rdzeń 54.33 · pamięć 64.67 · hot spot 62.91 · 500 W
+2026-10-21 02:44:06   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:44:06 punkt f_g 100 % · f_c 70 % · 500 W (87 %): 60 s · rdzeń 54 · pamięć 64 · hot spot 62.32 · 500 W
+2026-10-21 02:44:36   dopasowanie (rdzeń · pamięć · hot spot): T∞ 53.9±? τ 5 s · T∞ 64.0±? τ 5 s · T∞ 58.9±? τ 900 s
+2026-10-21 02:44:36 punkt f_g 100 % · f_c 65 % · 500 W (87 %): 60 s · rdzeń 53.93 · pamięć 64 · hot spot 61.99 · 500 W
+2026-10-21 02:45:07   dopasowanie (rdzeń · pamięć · hot spot): T∞ 53.6±0.3 τ 10 s · T∞ 62.9±0.9 τ 10 s · T∞ 61.8±? τ 5 s
+2026-10-21 02:45:07 punkt f_g 100 % · f_c 60 % · 500 W (87 %): 60 s · rdzeń 53.79 · pamięć 63.43 · hot spot 61.91 · 500 W
+2026-10-21 02:45:37   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:45:37 punkt f_g 100 % · f_c 55 % · 500 W (87 %): 60 s · rdzeń 53.75 · pamięć 62.57 · hot spot 61.87 · 500 W
+2026-10-21 02:46:47   dopasowanie (rdzeń · pamięć · hot spot): T∞ 58.0±? τ 900 s · T∞ 65.6±? τ 900 s · T∞ 64.7±? τ 900 s
+2026-10-21 02:46:47 punkt f_g 100 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 53.89 · pamięć 62.39 · hot spot 62.03 · 500 W
+2026-10-21 02:47:17   dopasowanie (rdzeń · pamięć · hot spot): T∞ 64.4±? τ 900 s · T∞ 65.3±1.2 τ 20 s · T∞ 70.9±? τ 900 s
+2026-10-21 02:47:17 punkt f_g 95 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 53.93 · pamięć 63.14 · hot spot 62.27 · 500 W
+2026-10-21 02:47:48   dopasowanie (rdzeń · pamięć · hot spot): T∞ 61.9±? τ 900 s · T∞ 71.4±? τ 900 s · T∞ 63.5±0.5 τ 45 s
+2026-10-21 02:47:48 punkt f_g 90 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 54.04 · pamięć 63.86 · hot spot 62.67 · 500 W
+2026-10-21 02:48:18   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:48:18 punkt f_g 85 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 54.89 · pamięć 64 · hot spot 63.1 · 500 W
+2026-10-21 02:48:48   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:48:48 punkt f_g 80 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 55.25 · pamięć 64 · hot spot 63.75 · 500 W
+2026-10-21 02:49:18   dopasowanie (rdzeń · pamięć · hot spot): T∞ 56.0±0.0 τ 115 s · T∞ 79.6±11.1 τ 195 s · T∞ 65.0±0.1 τ 10 s
+2026-10-21 02:49:18 punkt f_g 75 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 55.96 · pamięć 65.14 · hot spot 64.6 · 500 W
+2026-10-21 02:50:29   dopasowanie (rdzeń · pamięć · hot spot): T∞ 79.0±? τ 900 s · T∞ 82.9±? τ 900 s · T∞ 67.2±0.2 τ 65 s
+2026-10-21 02:50:29 punkt f_g 70 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 57.49 · pamięć 66.25 · hot spot 65.92 · 500 W
+2026-10-21 02:50:59   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:50:59 punkt f_g 65 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 58.21 · pamięć 68 · hot spot 66.76 · 500 W
+2026-10-21 02:51:29   dopasowanie (rdzeń · pamięć · hot spot): T∞ 107.7±? τ 900 s · T∞ 68.0±0.0 τ 355 s · T∞ 106.4±? τ 900 s
+2026-10-21 02:51:29 punkt f_g 60 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 59.18 · pamięć 68 · hot spot 67.75 · 500 W
+2026-10-21 02:51:59   dopasowanie (rdzeń · pamięć · hot spot): T∞ 63.1±0.9 τ 40 s · T∞ 70.1±? τ 5 s · T∞ 122.0±? τ 900 s
+2026-10-21 02:51:59 punkt f_g 55 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 60.36 · pamięć 69.29 · hot spot 68.92 · 500 W
+2026-10-21 02:53:09   dopasowanie (rdzeń · pamięć · hot spot): T∞ 70.1±0.8 τ 160 s · T∞ 72.4±0.2 τ 20 s · T∞ 73.6±0.1 τ 45 s
+2026-10-21 02:53:09 punkt f_g 50 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 62.91 · pamięć 71.46 · hot spot 71.63 · 500 W
+2026-10-21 02:53:39   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:53:39 punkt f_g 45 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 64.52 · pamięć 73.19 · hot spot 73.41 · 500 W
+2026-10-21 02:54:09   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 02:54:09 punkt f_g 40 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 65.96 · pamięć 74.5 · hot spot 74.94 · 500 W
+2026-10-21 02:54:39   dopasowanie (rdzeń · pamięć · hot spot): T∞ 146.3±? τ 900 s · T∞ 159.4±? τ 900 s · T∞ 77.7±0.2 τ 10 s
+2026-10-21 02:54:39 punkt f_g 35 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 67.79 · pamięć 76.29 · hot spot 76.77 · 500 W
+2026-10-21 02:58:53   dopasowanie (rdzeń · pamięć · hot spot): T∞ 78.6±0.6 τ 115 s · T∞ 144.3±? τ 900 s · T∞ 86.8±0.3 τ 95 s
+2026-10-21 02:58:53 punkt f_g 30 % · f_c 50 % · 500 W (87 %): ZA GORĄCO · rdzeń 77 · pamięć 86.04 · hot spot 86.59 · 500 W
+2026-10-21 02:58:53 etap: Cooldown
+2026-10-21 02:59:31 etap: Points
+2026-10-21 03:00:02   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.1±1.4 τ 65 s · T∞ -132.0±? τ 900 s · T∞ 64.4±0.4 τ 25 s
+2026-10-21 03:00:02 punkt f_g 100 % · f_c 95 % · 500 W (87 %): 60 s · rdzeń 61.54 · pamięć 75.14 · hot spot 69.91 · 505.57 W
+2026-10-21 03:00:32   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:00:32 punkt f_g 100 % · f_c 90 % · 500 W (87 %): 60 s · rdzeń 57.5 · pamięć 69.93 · hot spot 65.61 · 500 W
+2026-10-21 03:01:02   dopasowanie (rdzeń · pamięć · hot spot): T∞ 54.6±0.2 τ 10 s · T∞ 65.9±? τ 5 s · T∞ 25.0±? τ 900 s
+2026-10-21 03:01:02 punkt f_g 100 % · f_c 85 % · 500 W (87 %): 60 s · rdzeń 55.54 · pamięć 67 · hot spot 63.72 · 500 W
+2026-10-21 03:01:32   dopasowanie (rdzeń · pamięć · hot spot): T∞ 15.4±? τ 900 s · T∞ 63.9±? τ 5 s · T∞ 55.8±? τ 900 s
+2026-10-21 03:01:32 punkt f_g 100 % · f_c 80 % · 500 W (87 %): 60 s · rdzeń 54.61 · pamięć 64.93 · hot spot 62.63 · 500 W
+2026-10-21 03:02:02   dopasowanie (rdzeń · pamięć · hot spot): T∞ 54.0±0.0 τ 10 s · T∞ 64.0±? τ 5 s · T∞ 57.2±? τ 900 s
+2026-10-21 03:02:02 punkt f_g 100 % · f_c 75 % · 500 W (87 %): 60 s · rdzeń 54 · pamięć 64 · hot spot 62.14 · 500 W
+2026-10-21 03:02:32   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:02:32 punkt f_g 100 % · f_c 70 % · 500 W (87 %): 60 s · rdzeń 54 · pamięć 64 · hot spot 61.79 · 500 W
+2026-10-21 03:03:02   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:03:02 punkt f_g 100 % · f_c 65 % · 500 W (87 %): 60 s · rdzeń 53.89 · pamięć 63.64 · hot spot 61.62 · 500 W
+2026-10-21 03:03:32   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:03:32 punkt f_g 100 % · f_c 60 % · 500 W (87 %): 60 s · rdzeń 53.46 · pamięć 62.57 · hot spot 61.53 · 500 W
+2026-10-21 03:04:02   dopasowanie (rdzeń · pamięć · hot spot): T∞ 53.8±0.3 τ 10 s · T∞ 57.5±? τ 900 s · T∞ 61.5±? τ 5 s
+2026-10-21 03:04:02 punkt f_g 100 % · f_c 55 % · 500 W (87 %): 60 s · rdzeń 53.82 · pamięć 62.07 · hot spot 61.55 · 500 W
+2026-10-21 03:04:32   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:04:32 punkt f_g 100 % · f_c 50 % · 500 W (87 %): 60 s · rdzeń 53.81 · pamięć 62.22 · hot spot 61.7 · 500 W
+2026-10-21 03:05:02   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:05:02 punkt f_g 100 % · f_c 45 % · 500 W (87 %): 60 s · rdzeń 54 · pamięć 62.86 · hot spot 61.94 · 500 W
+2026-10-21 03:05:32   dopasowanie (rdzeń · pamięć · hot spot): T∞ 54.0±0.0 τ 10 s · T∞ 102.7±? τ 900 s · T∞ 62.0±? τ 900 s
+2026-10-21 03:05:32 punkt f_g 100 % · f_c 40 % · 500 W (87 %): 60 s · rdzeń 54 · pamięć 63.21 · hot spot 62.14 · 500 W
+2026-10-21 03:06:02   dopasowanie (rdzeń · pamięć · hot spot): T∞ 54.0±0.0 τ 655 s · T∞ 77.9±? τ 900 s · T∞ 72.8±? τ 900 s
+2026-10-21 03:06:02 punkt f_g 100 % · f_c 35 % · 500 W (87 %): 60 s · rdzeń 54 · pamięć 63.79 · hot spot 62.36 · 500 W
+2026-10-21 03:06:33   dopasowanie (rdzeń · pamięć · hot spot): T∞ 84.1±? τ 900 s · T∞ 64.0±? τ 5 s · T∞ 63.0±0.3 τ 25 s
+2026-10-21 03:06:33 punkt f_g 100 % · f_c 30 % · 500 W (87 %): 60 s · rdzeń 54.54 · pamięć 64 · hot spot 62.76 · 500 W
+2026-10-21 03:07:03   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:07:03 punkt f_g 100 % · f_c 25 % · 500 W (87 %): 60 s · rdzeń 55 · pamięć 64 · hot spot 62.99 · 500 W
+2026-10-21 03:07:33   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:07:33 punkt f_g 100 % · f_c 20 % · 500 W (87 %): 60 s · rdzeń 55 · pamięć 64 · hot spot 63.19 · 500 W
+2026-10-21 03:08:43   dopasowanie (rdzeń · pamięć · hot spot): T∞ 55.0±0.0 τ 10 s · T∞ 64.0±? τ 5 s · T∞ 63.7±0.2 τ 35 s
+2026-10-21 03:08:43 punkt f_g 100 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 55 · pamięć 64 · hot spot 63.43 · 500 W
+2026-10-21 03:09:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 55.6±? τ 5 s · T∞ 64.0±? τ 5 s · T∞ 64.0±0.1 τ 10 s
+2026-10-21 03:09:13 punkt f_g 95 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 55.32 · pamięć 64 · hot spot 63.75 · 500 W
+2026-10-21 03:09:43   dopasowanie (rdzeń · pamięć · hot spot): T∞ 61.9±? τ 900 s · T∞ 140.2±? τ 900 s · T∞ 64.6±0.2 τ 10 s
+2026-10-21 03:09:43 punkt f_g 90 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 55.96 · pamięć 64.71 · hot spot 64.28 · 500 W
+2026-10-21 03:10:13   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:10:13 punkt f_g 85 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 56.52 · pamięć 66 · hot spot 64.86 · 500 W
+2026-10-21 03:10:43   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:10:43 punkt f_g 80 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 57.21 · pamięć 66 · hot spot 65.66 · 500 W
+2026-10-21 03:11:13   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:11:13 punkt f_g 75 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 57.96 · pamięć 67.07 · hot spot 66.55 · 500 W
+2026-10-21 03:12:23   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.7±0.2 τ 45 s · T∞ 103.3±? τ 900 s · T∞ 69.5±0.2 τ 40 s
+2026-10-21 03:12:23 punkt f_g 70 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 59.61 · pamięć 68.61 · hot spot 68.25 · 500 W
+2026-10-21 03:12:53   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.9±? τ 5 s · T∞ 70.0±? τ 5 s · T∞ 71.0±0.7 τ 35 s
+2026-10-21 03:12:53 punkt f_g 65 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 60.68 · pamięć 70 · hot spot 69.34 · 500 W
+2026-10-21 03:13:23   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:13:23 punkt f_g 60 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 61.63 · pamięć 70.96 · hot spot 70.51 · 500 W
+2026-10-21 03:13:53   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:13:53 punkt f_g 55 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 62.96 · pamięć 72 · hot spot 71.91 · 500 W
+2026-10-21 03:15:03   dopasowanie (rdzeń · pamięć · hot spot): T∞ 71.1±0.5 τ 115 s · T∞ 117.6±? τ 900 s · T∞ 77.4±0.2 τ 50 s
+2026-10-21 03:15:03 punkt f_g 50 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 65.62 · pamięć 74.89 · hot spot 74.91 · 500 W
+2026-10-21 03:15:33   dopasowanie (rdzeń · pamięć · hot spot): T∞ 68.1±? τ 5 s · T∞ 199.2±? τ 900 s · T∞ 78.3±0.3 τ 20 s
+2026-10-21 03:15:33 punkt f_g 45 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 67.54 · pamięć 76.71 · hot spot 76.95 · 500 W
+2026-10-21 03:16:03   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:16:03 punkt f_g 40 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 69.22 · pamięć 78.3 · hot spot 78.69 · 500 W
+2026-10-21 03:16:33   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:16:33 punkt f_g 35 % · f_c 15 % · 500 W (87 %): 60 s · rdzeń 71.39 · pamięć 80.36 · hot spot 81.14 · 500 W
+2026-10-21 03:16:33   pominięte 1 punktów (niżej w tym rzędzie): niebezpieczne przy tej mocy
+2026-10-21 03:17:43   dopasowanie (rdzeń · pamięć · hot spot): T∞ 49.7±0.2 τ 35 s · T∞ 52.2±0.9 τ 95 s · T∞ 56.8±0.1 τ 35 s
+2026-10-21 03:17:43 punkt f_g 100 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 58.61 · pamięć 73.57 · hot spot 65.59 · 425 W
+2026-10-21 03:18:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 20.5±? τ 900 s · T∞ -39.1±? τ 900 s · T∞ 2.8±? τ 900 s
+2026-10-21 03:18:13 punkt f_g 95 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 52.11 · pamięć 65.71 · hot spot 59.06 · 425 W
+2026-10-21 03:18:43   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:18:43 punkt f_g 90 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 51 · pamięć 63.85 · hot spot 58.05 · 425 W
+2026-10-21 03:19:13   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:19:13 punkt f_g 85 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 50.96 · pamięć 62 · hot spot 57.74 · 425 W
+2026-10-21 03:19:43   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:19:43 punkt f_g 80 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 51 · pamięć 62 · hot spot 57.87 · 425 W
+2026-10-21 03:20:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 51.0±? τ 5 s · T∞ 62.0±0.0 τ 370 s · T∞ 58.3±? τ 5 s
+2026-10-21 03:20:13 punkt f_g 75 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 51 · pamięć 62 · hot spot 58.26 · 425 W
+2026-10-21 03:21:23   dopasowanie (rdzeń · pamięć · hot spot): T∞ 52.0±0.0 τ 30 s · T∞ 98.2±? τ 900 s · T∞ 59.9±0.1 τ 45 s
+2026-10-21 03:21:23 punkt f_g 70 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 52 · pamięć 62.79 · hot spot 59.26 · 425 W
+2026-10-21 03:21:53   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:21:53 punkt f_g 65 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 52.74 · pamięć 64 · hot spot 59.85 · 425 W
+2026-10-21 03:22:23   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:22:23 punkt f_g 60 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 53.11 · pamięć 64 · hot spot 60.58 · 425 W
+2026-10-21 03:22:53   dopasowanie (rdzeń · pamięć · hot spot): T∞ 54.0±0.0 τ 10 s · T∞ 64.0±? τ 5 s · T∞ 83.9±? τ 900 s
+2026-10-21 03:22:53 punkt f_g 55 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 54 · pamięć 64 · hot spot 61.27 · 425 W
+2026-10-21 03:24:03   dopasowanie (rdzeń · pamięć · hot spot): T∞ 57.9±0.4 τ 100 s · T∞ 66.0±? τ 5 s · T∞ 64.9±0.1 τ 80 s
+2026-10-21 03:24:03 punkt f_g 50 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 55.55 · pamięć 65.89 · hot spot 62.92 · 425 W
+2026-10-21 03:24:33   dopasowanie (rdzeń · pamięć · hot spot): T∞ 57.0±? τ 5 s · T∞ 67.8±1.0 τ 15 s · T∞ 97.5±? τ 900 s
+2026-10-21 03:24:33 punkt f_g 45 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 56.57 · pamięć 66.43 · hot spot 63.99 · 425 W
+2026-10-21 03:25:03   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:25:03 punkt f_g 40 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 57.48 · pamięć 68 · hot spot 64.99 · 425 W
+2026-10-21 03:25:33   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:25:33 punkt f_g 35 % · f_c 100 % · 425 W (73.9 %): 60 s · rdzeń 58.64 · pamięć 68.71 · hot spot 66.21 · 425 W
+2026-10-21 03:31:34   dopasowanie (rdzeń · pamięć · hot spot): T∞ 62.9±0.2 τ 40 s · T∞ 114.5±? τ 900 s · T∞ 73.7±0.2 τ 105 s
+2026-10-21 03:31:34 punkt f_g 30 % · f_c 100 % · 425 W (73.9 %): nieustalony · rdzeń 65.58 · pamięć 76 · hot spot 73.38 · 425 W
+2026-10-21 03:32:04   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:32:04 punkt f_g 100 % · f_c 95 % · 425 W (73.9 %): 60 s · rdzeń 61.86 · pamięć 74.29 · hot spot 69.14 · 425 W
+2026-10-21 03:32:34   dopasowanie (rdzeń · pamięć · hot spot): T∞ 47.8±1.0 τ 50 s · T∞ 65.9±0.8 τ 15 s · T∞ 57.2±0.3 τ 30 s
+2026-10-21 03:32:34 punkt f_g 100 % · f_c 90 % · 425 W (73.9 %): 60 s · rdzeń 54.64 · pamięć 69 · hot spot 61.8 · 425 W
+2026-10-21 03:33:04   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.9±? τ 5 s · T∞ 63.9±? τ 5 s · T∞ 57.6±0.2 τ 10 s
+2026-10-21 03:33:04 punkt f_g 100 % · f_c 85 % · 425 W (73.9 %): 60 s · rdzeń 51.54 · pamięć 65 · hot spot 58.5 · 425 W
+2026-10-21 03:33:34   dopasowanie (rdzeń · pamięć · hot spot): T∞ 39.5±? τ 900 s · T∞ 61.8±? τ 5 s · T∞ 33.3±? τ 900 s
+2026-10-21 03:33:34 punkt f_g 100 % · f_c 80 % · 425 W (73.9 %): 60 s · rdzeń 50.04 · pamięć 62.79 · hot spot 56.99 · 425 W
+2026-10-21 03:34:04   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:34:04 punkt f_g 100 % · f_c 75 % · 425 W (73.9 %): 60 s · rdzeń 49.04 · pamięć 61.85 · hot spot 56.09 · 425 W
+2026-10-21 03:34:34   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:34:34 punkt f_g 100 % · f_c 70 % · 425 W (73.9 %): 60 s · rdzeń 48.93 · pamięć 60.5 · hot spot 55.64 · 425 W
+2026-10-21 03:35:04   dopasowanie (rdzeń · pamięć · hot spot): T∞ 48.3±? τ 5 s · T∞ 60.0±0.0 τ 75 s · T∞ 55.0±0.1 τ 20 s
+2026-10-21 03:35:04 punkt f_g 100 % · f_c 65 % · 425 W (73.9 %): 60 s · rdzeń 48.61 · pamięć 60.07 · hot spot 55.3 · 425 W
+2026-10-21 03:35:34   dopasowanie (rdzeń · pamięć · hot spot): T∞ 48.0±0.0 τ 20 s · T∞ 60.0±0.0 τ 65 s · T∞ 55.2±? τ 5 s
+2026-10-21 03:35:34 punkt f_g 100 % · f_c 60 % · 425 W (73.9 %): 60 s · rdzeń 48.14 · pamięć 60 · hot spot 55.24 · 425 W
+2026-10-21 03:36:04   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:36:04 punkt f_g 100 % · f_c 55 % · 425 W (73.9 %): 60 s · rdzeń 48 · pamięć 60 · hot spot 55.12 · 425 W
+2026-10-21 03:37:14   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.1±0.9 τ 125 s · T∞ 60.0±0.0 τ 20 s · T∞ 55.5±0.2 τ 65 s
+2026-10-21 03:37:14 punkt f_g 100 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 48.54 · pamięć 60 · hot spot 55.31 · 425 W
+2026-10-21 03:37:44   dopasowanie (rdzeń · pamięć · hot spot): T∞ 53.6±? τ 900 s · T∞ 60.0±0.0 τ 75 s · T∞ 65.0±? τ 900 s
+2026-10-21 03:37:44 punkt f_g 95 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 48.96 · pamięć 60 · hot spot 55.55 · 425 W
+2026-10-21 03:38:14   dopasowanie (rdzeń · pamięć · hot spot): T∞ 49.0±0.0 τ 120 s · T∞ 60.0±0.0 τ 65 s · T∞ 56.1±? τ 5 s
+2026-10-21 03:38:14 punkt f_g 90 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 49 · pamięć 60 · hot spot 55.92 · 425 W
+2026-10-21 03:38:44   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:38:44 punkt f_g 85 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 49.37 · pamięć 60.52 · hot spot 56.42 · 425 W
+2026-10-21 03:39:14   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:39:14 punkt f_g 80 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 50 · pamięć 61.64 · hot spot 57.03 · 425 W
+2026-10-21 03:39:44   dopasowanie (rdzeń · pamięć · hot spot): T∞ 56.7±? τ 900 s · T∞ 62.0±? τ 5 s · T∞ 58.0±? τ 5 s
+2026-10-21 03:39:44 punkt f_g 75 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 50.71 · pamięć 62 · hot spot 57.75 · 425 W
+2026-10-21 03:40:54   dopasowanie (rdzeń · pamięć · hot spot): T∞ 52.0±0.1 τ 10 s · T∞ 65.2±0.3 τ 40 s · T∞ 62.9±0.5 τ 205 s
+2026-10-21 03:40:54 punkt f_g 70 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 51.8 · pamięć 63.25 · hot spot 59.02 · 425 W
+2026-10-21 03:41:24   dopasowanie (rdzeń · pamięć · hot spot): T∞ 53.1±? τ 5 s · T∞ 64.0±? τ 5 s · T∞ 60.3±0.1 τ 10 s
+2026-10-21 03:41:24 punkt f_g 65 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 52.61 · pamięć 64 · hot spot 59.86 · 425 W
+2026-10-21 03:41:54   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:41:54 punkt f_g 60 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 53.37 · pamięć 64.07 · hot spot 60.71 · 425 W
+2026-10-21 03:42:24   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:42:24 punkt f_g 55 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 54.5 · pamięć 65.71 · hot spot 61.84 · 425 W
+2026-10-21 03:43:34   dopasowanie (rdzeń · pamięć · hot spot): T∞ 88.9±? τ 900 s · T∞ 68.6±0.2 τ 25 s · T∞ 65.8±0.1 τ 40 s
+2026-10-21 03:43:34 punkt f_g 50 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 56.76 · pamięć 67.38 · hot spot 64.25 · 425 W
+2026-10-21 03:44:04   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:44:04 punkt f_g 45 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 58.25 · pamięć 68.71 · hot spot 65.8 · 425 W
+2026-10-21 03:44:34   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.1±? τ 5 s · T∞ 70.0±0.0 τ 525 s · T∞ 69.1±0.4 τ 30 s
+2026-10-21 03:44:34 punkt f_g 40 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 59.5 · pamięć 70 · hot spot 67.06 · 425 W
+2026-10-21 03:45:04   dopasowanie (rdzeń · pamięć · hot spot): T∞ 128.0±? τ 900 s · T∞ 72.1±? τ 5 s · T∞ 72.5±0.4 τ 55 s
+2026-10-21 03:45:04 punkt f_g 35 % · f_c 50 % · 425 W (73.9 %): 60 s · rdzeń 60.86 · pamięć 71.36 · hot spot 68.67 · 425 W
+2026-10-21 03:51:02   dopasowanie (rdzeń · pamięć · hot spot): T∞ 69.0±0.5 τ 105 s (błąd +0.0) · T∞ 131.6±? τ 900 s (błąd +51.5) · T∞ 78.4±0.2 τ 125 s (błąd +1.3)
+2026-10-21 03:51:02 punkt f_g 30 % · f_c 50 % · 425 W (73.9 %): ustalony · rdzeń 69 · pamięć 80.07 · hot spot 77.12 · 425 W
+2026-10-21 03:51:32   dopasowanie (rdzeń · pamięć · hot spot): T∞ 44.0±1.2 τ 50 s · T∞ -153.6±? τ 900 s · T∞ 58.7±0.4 τ 30 s
+2026-10-21 03:51:32 punkt f_g 100 % · f_c 45 % · 425 W (73.9 %): 60 s · rdzeń 65 · pamięć 78.36 · hot spot 72.25 · 425 W
+2026-10-21 03:52:02   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:52:02 punkt f_g 100 % · f_c 40 % · 425 W (73.9 %): 60 s · rdzeń 56.85 · pamięć 71.78 · hot spot 63.94 · 425 W
+2026-10-21 03:52:32   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:52:32 punkt f_g 100 % · f_c 35 % · 425 W (73.9 %): 60 s · rdzeń 53.39 · pamięć 67.21 · hot spot 60.49 · 425 W
+2026-10-21 03:53:02   dopasowanie (rdzeń · pamięć · hot spot): T∞ -1.4±? τ 900 s · T∞ 63.8±? τ 5 s · T∞ 58.5±? τ 5 s
+2026-10-21 03:53:02 punkt f_g 100 % · f_c 30 % · 425 W (73.9 %): 60 s · rdzeń 51.79 · pamięć 64.71 · hot spot 58.88 · 425 W
+2026-10-21 03:53:32   dopasowanie (rdzeń · pamięć · hot spot): T∞ 51.0±0.0 τ 10 s · T∞ -46.6±? τ 900 s · T∞ 43.6±? τ 900 s
+2026-10-21 03:53:32 punkt f_g 100 % · f_c 25 % · 425 W (73.9 %): 60 s · rdzeń 51 · pamięć 63.43 · hot spot 58.04 · 425 W
+2026-10-21 03:54:03   dopasowanie (rdzeń · pamięć · hot spot): T∞ 49.1±0.7 τ 25 s · T∞ 62.0±0.0 τ 70 s · T∞ 43.1±? τ 900 s
+2026-10-21 03:54:03 punkt f_g 100 % · f_c 20 % · 425 W (73.9 %): 60 s · rdzeń 50.5 · pamięć 62 · hot spot 57.58 · 425 W
+2026-10-21 03:55:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.0±0.0 τ 10 s · T∞ 62.0±0.0 τ 15 s · T∞ 57.1±0.0 τ 10 s
+2026-10-21 03:55:13 punkt f_g 100 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 50 · pamięć 62 · hot spot 57.14 · 425 W
+2026-10-21 03:55:43   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:55:43 punkt f_g 95 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 50 · pamięć 62 · hot spot 57.27 · 425 W
+2026-10-21 03:56:13   dopasowanie (rdzeń · pamięć · hot spot): T∞ 51.1±? τ 5 s · T∞ 62.0±0.0 τ 370 s · T∞ 79.3±? τ 900 s
+2026-10-21 03:56:13 punkt f_g 90 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 50.75 · pamięć 62 · hot spot 57.61 · 425 W
+2026-10-21 03:56:44   dopasowanie (rdzeń · pamięć · hot spot): T∞ 51.0±0.0 τ 240 s · T∞ 62.0±0.0 τ 10 s · T∞ 58.5±? τ 5 s
+2026-10-21 03:56:44 punkt f_g 85 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 51 · pamięć 62 · hot spot 58.21 · 425 W
+2026-10-21 03:57:14   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:57:14 punkt f_g 80 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 51.89 · pamięć 62.93 · hot spot 58.9 · 425 W
+2026-10-21 03:57:44   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:57:44 punkt f_g 75 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 52.43 · pamięć 64 · hot spot 59.67 · 425 W
+2026-10-21 03:58:54   dopasowanie (rdzeń · pamięć · hot spot): T∞ 54.6±0.2 τ 30 s · T∞ 69.7±0.9 τ 100 s · T∞ 62.6±0.1 τ 55 s
+2026-10-21 03:58:54 punkt f_g 70 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 53.88 · pamięć 65.11 · hot spot 61.22 · 425 W
+2026-10-21 03:59:25   dopasowanie (rdzeń · pamięć · hot spot): T∞ 55.0±? τ 5 s · T∞ 66.0±0.0 τ 70 s · T∞ 88.8±? τ 900 s
+2026-10-21 03:59:25 punkt f_g 65 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 54.86 · pamięć 66 · hot spot 62.15 · 425 W
+2026-10-21 03:59:55   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 03:59:55 punkt f_g 60 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 55.79 · pamięć 67.07 · hot spot 63.16 · 425 W
+2026-10-21 04:00:25   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:00:25 punkt f_g 55 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 56.82 · pamięć 68 · hot spot 64.38 · 425 W
+2026-10-21 04:01:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ 61.9±0.3 τ 70 s · T∞ 89.3±? τ 900 s · T∞ 69.2±0.2 τ 70 s
+2026-10-21 04:01:35 punkt f_g 50 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 59.2 · pamięć 70.14 · hot spot 66.71 · 425 W
+2026-10-21 04:02:05   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:02:05 punkt f_g 45 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 60.7 · pamięć 72 · hot spot 68.34 · 425 W
+2026-10-21 04:02:35   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:02:35 punkt f_g 40 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 62.29 · pamięć 73.29 · hot spot 69.92 · 425 W
+2026-10-21 04:03:05   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:03:05 punkt f_g 35 % · f_c 15 % · 425 W (73.9 %): 60 s · rdzeń 64.07 · pamięć 75 · hot spot 71.95 · 425 W
+2026-10-21 04:09:05   dopasowanie (rdzeń · pamięć · hot spot): T∞ 78.7±0.9 τ 210 s · T∞ 93.7±2.2 τ 240 s · T∞ 80.6±0.2 τ 95 s
+2026-10-21 04:09:05 punkt f_g 30 % · f_c 15 % · 425 W (73.9 %): nieustalony · rdzeń 74 · pamięć 86 · hot spot 81.79 · 425 W
+2026-10-21 04:10:15   dopasowanie (rdzeń · pamięć · hot spot): T∞ 49.0±0.2 τ 35 s · T∞ 55.0±0.8 τ 75 s · T∞ 55.6±0.1 τ 35 s
+2026-10-21 04:10:15 punkt f_g 100 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 59.38 · pamięć 75.89 · hot spot 66.12 · 400 W
+2026-10-21 04:10:45   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.9±? τ 5 s · T∞ 65.8±? τ 5 s · T∞ 56.3±0.2 τ 25 s
+2026-10-21 04:10:45 punkt f_g 95 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 51.54 · pamięć 66.71 · hot spot 58.26 · 400 W
+2026-10-21 04:11:15   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.0±? τ 5 s · T∞ -24.3±? τ 900 s · T∞ 26.9±? τ 900 s
+2026-10-21 04:11:15 punkt f_g 90 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 50.07 · pamięć 63.57 · hot spot 56.77 · 400 W
+2026-10-21 04:11:45   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:11:45 punkt f_g 85 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 49.19 · pamięć 62 · hot spot 56.01 · 400 W
+2026-10-21 04:12:15   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:12:15 punkt f_g 80 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 49 · pamięć 62 · hot spot 55.99 · 400 W
+2026-10-21 04:12:45   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.0±? τ 5 s · T∞ 62.0±0.0 τ 370 s · T∞ 56.8±0.3 τ 25 s
+2026-10-21 04:12:45 punkt f_g 75 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 49.68 · pamięć 62 · hot spot 56.2 · 400 W
+2026-10-21 04:13:55   dopasowanie (rdzeń · pamięć · hot spot): T∞ 58.3±? τ 900 s · T∞ 62.0±0.0 τ 10 s · T∞ 57.4±0.1 τ 35 s
+2026-10-21 04:13:55 punkt f_g 70 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 50.11 · pamięć 62 · hot spot 56.99 · 400 W
+2026-10-21 04:14:25   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:14:25 punkt f_g 65 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 50.93 · pamięć 62 · hot spot 57.44 · 400 W
+2026-10-21 04:14:55   dopasowanie (rdzeń · pamięć · hot spot): T∞ 98.3±? τ 900 s · T∞ 62.0±0.0 τ 370 s · T∞ 78.2±? τ 900 s
+2026-10-21 04:14:55 punkt f_g 60 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 51.18 · pamięć 62 · hot spot 58.03 · 400 W
+2026-10-21 04:15:25   dopasowanie (rdzeń · pamięć · hot spot): T∞ 52.0±? τ 5 s · T∞ 64.2±? τ 5 s · T∞ 59.1±? τ 5 s
+2026-10-21 04:15:25 punkt f_g 55 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 52 · pamięć 63.14 · hot spot 58.7 · 400 W
+2026-10-21 04:16:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ 74.8±? τ 900 s · T∞ 75.9±? τ 900 s · T∞ 62.0±0.2 τ 80 s
+2026-10-21 04:16:35 punkt f_g 50 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 53.42 · pamięć 64.18 · hot spot 60.24 · 400 W
+2026-10-21 04:17:05   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:17:05 punkt f_g 45 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 54.21 · pamięć 65.71 · hot spot 61.19 · 400 W
+2026-10-21 04:17:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ 113.1±? τ 900 s · T∞ 66.0±0.0 τ 20 s · T∞ 62.4±? τ 5 s
+2026-10-21 04:17:35 punkt f_g 40 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 55.25 · pamięć 66 · hot spot 62.1 · 400 W
+2026-10-21 04:18:05   dopasowanie (rdzeń · pamięć · hot spot): T∞ 57.7±0.3 τ 15 s · T∞ 68.6±0.5 τ 10 s · T∞ 106.9±? τ 900 s
+2026-10-21 04:18:05 punkt f_g 35 % · f_c 100 % · 350 W (60.9 %): 60 s · rdzeń 56.43 · pamięć 66.93 · hot spot 63.32 · 400 W
+2026-10-21 04:24:05   dopasowanie (rdzeń · pamięć · hot spot): T∞ 98.2±? τ 900 s · T∞ 73.3±0.7 τ 85 s · T∞ 68.7±0.2 τ 70 s
+2026-10-21 04:24:05 punkt f_g 30 % · f_c 100 % · 350 W (60.9 %): nieustalony · rdzeń 62.93 · pamięć 74 · hot spot 69.47 · 400 W
+2026-10-21 04:24:35   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:24:35 punkt f_g 100 % · f_c 95 % · 350 W (60.9 %): 60 s · rdzeń 59.43 · pamięć 72.36 · hot spot 66.09 · 400 W
+2026-10-21 04:25:05   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:25:05 punkt f_g 100 % · f_c 90 % · 350 W (60.9 %): 60 s · rdzeń 52.75 · pamięć 67.5 · hot spot 59.44 · 400 W
+2026-10-21 04:25:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ -14.2±? τ 900 s · T∞ -30.6±? τ 900 s · T∞ 51.5±0.6 τ 65 s
+2026-10-21 04:25:35 punkt f_g 100 % · f_c 85 % · 350 W (60.9 %): 60 s · rdzeń 49.82 · pamięć 63.79 · hot spot 56.41 · 400 W
+2026-10-21 04:26:05   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:26:05 punkt f_g 100 % · f_c 80 % · 350 W (60.9 %): 60 s · rdzeń 48.37 · pamięć 62 · hot spot 54.93 · 400 W
+2026-10-21 04:26:35   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:26:35 punkt f_g 100 % · f_c 75 % · 350 W (60.9 %): 60 s · rdzeń 47.75 · pamięć 60.14 · hot spot 54.13 · 400 W
+2026-10-21 04:27:05   dopasowanie (rdzeń · pamięć · hot spot): T∞ 47.0±0.0 τ 10 s · T∞ 60.0±0.0 τ 525 s · T∞ 53.5±? τ 5 s
+2026-10-21 04:27:05 punkt f_g 100 % · f_c 70 % · 350 W (60.9 %): 60 s · rdzeń 47 · pamięć 60 · hot spot 53.66 · 400 W
+2026-10-21 04:27:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ 47.0±? τ 5 s · T∞ 60.0±0.0 τ 65 s · T∞ 47.0±? τ 900 s
+2026-10-21 04:27:35 punkt f_g 100 % · f_c 65 % · 350 W (60.9 %): 60 s · rdzeń 47 · pamięć 60 · hot spot 53.41 · 400 W
+2026-10-21 04:28:05   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:28:05 punkt f_g 100 % · f_c 60 % · 350 W (60.9 %): 60 s · rdzeń 47 · pamięć 59.85 · hot spot 53.3 · 400 W
+2026-10-21 04:28:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ 47.0±0.0 τ 295 s · T∞ 40.9±? τ 900 s · T∞ 53.2±0.1 τ 15 s
+2026-10-21 04:28:35 punkt f_g 100 % · f_c 55 % · 350 W (60.9 %): 60 s · rdzeń 47 · pamięć 59.93 · hot spot 53.27 · 400 W
+2026-10-21 04:29:45   dopasowanie (rdzeń · pamięć · hot spot): T∞ 47.0±0.0 τ 630 s · T∞ 60.6±0.7 τ 60 s · T∞ 53.8±0.2 τ 130 s
+2026-10-21 04:29:45 punkt f_g 100 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 47 · pamięć 59.57 · hot spot 53.42 · 400 W
+2026-10-21 04:30:15   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:30:15 punkt f_g 95 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 47 · pamięć 59.93 · hot spot 53.64 · 400 W
+2026-10-21 04:30:45   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:30:45 punkt f_g 90 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 47.43 · pamięć 60 · hot spot 53.99 · 400 W
+2026-10-21 04:31:15   dopasowanie (rdzeń · pamięć · hot spot): T∞ 48.0±0.0 τ 65 s · T∞ 60.0±0.0 τ 75 s · T∞ 54.9±0.1 τ 15 s
+2026-10-21 04:31:15 punkt f_g 85 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 47.96 · pamięć 60 · hot spot 54.5 · 400 W
+2026-10-21 04:31:45   dopasowanie (rdzeń · pamięć · hot spot): T∞ 93.4±? τ 900 s · T∞ 60.0±0.0 τ 65 s · T∞ 69.5±? τ 900 s
+2026-10-21 04:31:45 punkt f_g 80 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 48.25 · pamięć 60 · hot spot 54.97 · 400 W
+2026-10-21 04:32:15   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:32:15 punkt f_g 75 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 49 · pamięć 60.52 · hot spot 55.55 · 400 W
+2026-10-21 04:33:25   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.0±? τ 5 s · T∞ 62.0±0.0 τ 10 s · T∞ 57.5±0.1 τ 40 s
+2026-10-21 04:33:25 punkt f_g 70 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 49.95 · pamięć 62 · hot spot 56.7 · 400 W
+2026-10-21 04:33:55   dopasowanie (rdzeń · pamięć · hot spot): T∞ 51.0±0.0 τ 765 s · T∞ 125.0±? τ 900 s · T∞ 84.6±? τ 900 s
+2026-10-21 04:33:55 punkt f_g 65 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 50.79 · pamięć 62.21 · hot spot 57.4 · 400 W
+2026-10-21 04:34:25   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:34:25 punkt f_g 60 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 51.41 · pamięć 63.93 · hot spot 58.26 · 400 W
+2026-10-21 04:34:55   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:34:55 punkt f_g 55 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 52.5 · pamięć 64 · hot spot 59.38 · 400 W
+2026-10-21 04:36:05   dopasowanie (rdzeń · pamięć · hot spot): T∞ 57.7±0.5 τ 100 s · T∞ 66.1±? τ 5 s · T∞ 64.0±0.1 τ 70 s
+2026-10-21 04:36:05 punkt f_g 50 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 54.66 · pamięć 65.96 · hot spot 61.58 · 400 W
+2026-10-21 04:36:35   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:36:35 punkt f_g 45 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 55.96 · pamięć 67.78 · hot spot 62.87 · 400 W
+2026-10-21 04:37:05   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:37:05 punkt f_g 40 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 57.25 · pamięć 68.21 · hot spot 64.06 · 400 W
+2026-10-21 04:37:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ 59.1±? τ 5 s · T∞ 70.0±0.0 τ 525 s · T∞ 68.4±0.5 τ 40 s
+2026-10-21 04:37:35 punkt f_g 35 % · f_c 50 % · 350 W (60.9 %): 60 s · rdzeń 58.61 · pamięć 69.93 · hot spot 65.5 · 400 W
+2026-10-21 04:43:35   dopasowanie (rdzeń · pamięć · hot spot): T∞ 64.3±0.3 τ 65 s · T∞ 116.7±? τ 900 s · T∞ 72.8±0.2 τ 100 s
+2026-10-21 04:43:35 punkt f_g 30 % · f_c 50 % · 350 W (60.9 %): nieustalony · rdzeń 66 · pamięć 78 · hot spot 73.16 · 400 W
+2026-10-21 04:44:06   dopasowanie (rdzeń · pamięć · hot spot): T∞ 45.9±1.0 τ 45 s · T∞ 66.6±1.7 τ 40 s · T∞ 57.3±0.4 τ 30 s
+2026-10-21 04:44:06 punkt f_g 100 % · f_c 45 % · 350 W (60.9 %): 60 s · rdzeń 62.36 · pamięć 76.43 · hot spot 69.11 · 400 W
+2026-10-21 04:44:36   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:44:36 punkt f_g 100 % · f_c 40 % · 350 W (60.9 %): 60 s · rdzeń 54.86 · pamięć 70.14 · hot spot 61.59 · 400 W
+2026-10-21 04:45:06   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:45:06 punkt f_g 100 % · f_c 35 % · 350 W (60.9 %): 60 s · rdzeń 51.64 · pamięć 66 · hot spot 58.3 · 400 W
+2026-10-21 04:45:36   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.0±0.0 τ 370 s · T∞ -23.6±? τ 900 s · T∞ 27.9±? τ 900 s
+2026-10-21 04:45:36 punkt f_g 100 % · f_c 30 % · 350 W (60.9 %): 60 s · rdzeń 50.11 · pamięć 63.64 · hot spot 56.78 · 400 W
+2026-10-21 04:46:06   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:46:06 punkt f_g 100 % · f_c 25 % · 350 W (60.9 %): 60 s · rdzeń 49.33 · pamięć 62.07 · hot spot 56.08 · 400 W
+2026-10-21 04:46:36   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:46:36 punkt f_g 100 % · f_c 20 % · 350 W (60.9 %): 60 s · rdzeń 49 · pamięć 62 · hot spot 55.61 · 400 W
+2026-10-21 04:47:46   dopasowanie (rdzeń · pamięć · hot spot): T∞ 49.0±0.0 τ 745 s · T∞ 60.5±0.5 τ 30 s · T∞ 55.2±0.0 τ 25 s
+2026-10-21 04:47:46 punkt f_g 100 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 49 · pamięć 61.11 · hot spot 55.28 · 400 W
+2026-10-21 04:48:16   dopasowanie (rdzeń · pamięć · hot spot): T∞ 49.0±? τ 5 s · T∞ 131.6±? τ 900 s · T∞ 55.7±0.1 τ 10 s
+2026-10-21 04:48:16 punkt f_g 95 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 49 · pamięć 60.5 · hot spot 55.4 · 400 W
+2026-10-21 04:48:46   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:48:46 punkt f_g 90 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 49 · pamięć 61.48 · hot spot 55.79 · 400 W
+2026-10-21 04:49:16   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:49:16 punkt f_g 85 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 49.57 · pamięć 62 · hot spot 56.25 · 400 W
+2026-10-21 04:49:46   dopasowanie (rdzeń · pamięć · hot spot): T∞ 50.0±0.0 τ 370 s · T∞ 62.0±0.0 τ 370 s · T∞ 80.7±? τ 900 s
+2026-10-21 04:49:46 punkt f_g 80 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 50 · pamięć 62 · hot spot 56.83 · 400 W
+2026-10-21 04:50:16   dopasowanie (rdzeń · pamięć · hot spot): T∞ 51.0±0.0 τ 30 s · T∞ 143.5±? τ 900 s · T∞ 57.8±? τ 5 s
+2026-10-21 04:50:16 punkt f_g 75 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 50.86 · pamięć 62.36 · hot spot 57.55 · 400 W
+2026-10-21 04:51:26   dopasowanie (rdzeń · pamięć · hot spot): T∞ 68.9±? τ 900 s · T∞ 64.0±? τ 5 s · T∞ 60.7±0.1 τ 80 s
+2026-10-21 04:51:26 punkt f_g 70 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 52.11 · pamięć 64 · hot spot 58.95 · 400 W
+2026-10-21 04:51:56   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:51:56 punkt f_g 65 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 53 · pamięć 64.86 · hot spot 59.8 · 400 W
+2026-10-21 04:52:26   dopasowanie (rdzeń · pamięć · hot spot): T∞ 54.0±0.0 τ 10 s · T∞ 66.0±0.0 τ 25 s · T∞ 88.4±? τ 900 s
+2026-10-21 04:52:26 punkt f_g 60 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 53.82 · pamięć 66 · hot spot 60.69 · 400 W
+2026-10-21 04:52:56   dopasowanie (rdzeń · pamięć · hot spot): T∞ 55.0±0.0 τ 640 s · T∞ 171.1±? τ 900 s · T∞ 62.3±0.2 τ 10 s
+2026-10-21 04:52:56 punkt f_g 55 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 54.75 · pamięć 66.5 · hot spot 61.71 · 400 W
+2026-10-21 04:54:07   dopasowanie (rdzeń · pamięć · hot spot): T∞ 77.4±2.4 τ 520 s · T∞ 108.5±? τ 900 s · T∞ 68.0±0.2 τ 110 s
+2026-10-21 04:54:07 punkt f_g 50 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 57.04 · pamięć 68.76 · hot spot 63.93 · 400 W
+2026-10-21 04:54:37   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:54:37 punkt f_g 45 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 58.46 · pamięć 70.07 · hot spot 65.4 · 400 W
+2026-10-21 04:55:07   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-21 04:55:07 punkt f_g 40 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 59.82 · pamięć 71.93 · hot spot 66.78 · 400 W
+2026-10-21 04:55:37   dopasowanie (rdzeń · pamięć · hot spot): T∞ 62.2±? τ 5 s · T∞ 74.2±? τ 5 s · T∞ 125.3±? τ 900 s
+2026-10-21 04:55:37 punkt f_g 35 % · f_c 15 % · 350 W (60.9 %): 60 s · rdzeń 61.61 · pamięć 73.29 · hot spot 68.56 · 400 W
+2026-10-21 04:55:58 aquaero przywrócone: przywrócono aquaero-20261021-014058.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261021-045558.bin
+2026-10-21 04:55:58 ZAKOŃCZONO: budżet czasu wyczerpany: 240 punktów

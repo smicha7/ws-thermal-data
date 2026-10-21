@@ -1,0 +1,22 @@
+2026-10-20 23:10:32 start (próba 1), tryb fast, budżet 3.5 h, obudowa: open top (case top panel removed); 1 GPU (RTX 5090); front 3× SWP4 intake onto the GPU, 1× SWP4 rear exhaust
+2026-10-20 23:10:32 spis czujników: 341
+2026-10-20 23:10:34 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 88, hot spot 95
+2026-10-20 23:10:34 etap: MinSearch
+2026-10-20 23:10:52 min. obudowy: 40 % → 1386 rpm
+2026-10-20 23:11:12 min. obudowy: 35 % → 1236 rpm
+2026-10-20 23:11:32 min. obudowy: 30 % → 1094 rpm
+2026-10-20 23:11:52 min. obudowy: 25 % → 948 rpm
+2026-10-20 23:12:12 min. obudowy: 20 % → 789 rpm
+2026-10-20 23:12:32 min. obudowy: 15 % → 634 rpm
+2026-10-20 23:12:52 min. obudowy: 10 % → 611 rpm
+2026-10-20 23:12:52 obciążenie: proces w sesji użytkownika
+2026-10-20 23:12:52 etap: Calibrate
+2026-10-20 obciążenie 23:12:52 start: plik stanu jest, tryb alu
+2026-10-20 obciążenie 23:12:52 B????D: System.OverflowException: Arithmetic operation resulted in an overflow.
+2026-10-20 obciążenie    at System.UIntPtr.ToUInt32()
+2026-10-20 obciążenie    at SharpGen.Runtime.PointerUSize.op_Implicit(PointerUSize value)
+2026-10-20 obciążenie    at WS.SensorLab.GpuLoadD3D.Run(Func`1 keepGoing, Action`1 log, Func`1 mode)
+2026-10-20 obciążenie    at WS.SensorLab.GpuLoadD3D.Main2(Double maxS, String heartbeat, Action`1 L)
+2026-10-20 obciążenie    at WS.SensorLab.GpuLoadD3D.Main(Double maxS, String heartbeat)
+2026-10-20 23:12:53 aquaero przywrócone: przywrócono aquaero-20261020-231034.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261020-231253.bin
+2026-10-20 23:12:53 PRZERWANO: obciążenie karty zakończyło się (kalibracja)

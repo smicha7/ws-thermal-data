@@ -1,0 +1,28 @@
+{
+ "hot_range_c": [
+  67.0,
+  90.0
+ ],
+ "files": [
+  "heatmap-core-light.png",
+  "heatmap-mem-light.png",
+  "heatmap-hot-light.png",
+  "surface-hot-light.png",
+  "v3-hotspot-vs-pl-light.png",
+  "heatmap-core-phone-light.png",
+  "heatmap-mem-phone-light.png",
+  "heatmap-hot-phone-light.png",
+  "surface-hot-phone-light.png",
+  "v3-hotspot-vs-pl-phone-light.png",
+  "heatmap-core-dark.png",
+  "heatmap-mem-dark.png",
+  "heatmap-hot-dark.png",
+  "surface-hot-dark.png",
+  "v3-hotspot-vs-pl-dark.png",
+  "heatmap-core-phone-dark.png",
+  "heatmap-mem-phone-dark.png",
+  "heatmap-hot-phone-dark.png",
+  "surface-hot-phone-dark.png",
+  "v3-hotspot-vs-pl-phone-dark.png"
+ ]
+}

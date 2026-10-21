@@ -1,0 +1,1 @@
+{"id":"2026-10-20-gpu-map-v2c","state":"aborted","note":"obci\u0105\u017Cenie karty zako\u0144czy\u0142o si\u0119","elapsed_s":1840,"case_min_pct":15,"point":"100/38","done":23,"queued":16,"at":1792533337,"sensors":340,"load_mode":"mix64","calibration_w":{"alu":575,"mix64":575,"mix16":405,"mix4":357,"stream":340},"abort_core_c":88,"abort_mem_c":88}

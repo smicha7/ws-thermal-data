@@ -1,0 +1,15 @@
+2026-10-20 22:58:22 start (próba 1), tryb pl · limity mocy 575/500/425/350 W, budżet 3 h, obudowa: open top (case top panel removed); 1 GPU (RTX 5090); front 3× SWP4 intake onto the GPU, 1× SWP4 rear exhaust
+2026-10-20 22:58:22 spis czujników: 338
+2026-10-20 22:58:25 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 88, hot spot 95
+2026-10-20 22:58:25 etap: MinSearch
+2026-10-20 22:58:42 min. obudowy: 40 % → 1392 rpm
+2026-10-20 22:59:02 min. obudowy: 35 % → 1255 rpm
+2026-10-20 22:59:22 min. obudowy: 30 % → 1111 rpm
+2026-10-20 22:59:42 min. obudowy: 25 % → 954 rpm
+2026-10-20 23:00:02 min. obudowy: 20 % → 802 rpm
+2026-10-20 23:00:23 min. obudowy: 15 % → 650 rpm
+2026-10-20 23:00:43 min. obudowy: 10 % → 609 rpm
+2026-10-20 23:00:43 obciążenie: proces w sesji użytkownika
+2026-10-20 23:00:43 etap: Calibrate
+2026-10-20 23:00:47 aquaero przywrócone: przywrócono aquaero-20261020-225824.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261020-230046.bin
+2026-10-20 23:00:47 PRZERWANO: obciążenie karty zakończyło się (kalibracja)

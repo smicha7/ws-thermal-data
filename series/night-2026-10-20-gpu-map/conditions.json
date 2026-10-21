@@ -1,0 +1,20 @@
+{
+  "id": "2026-10-20-gpu-map",
+  "started_utc": "2026-10-20 20:10:51Z",
+  "case": "open top (case top panel removed); 1 GPU (RTX 5090); front 3\u00D7 SWP4 intake onto the GPU, 1\u00D7 SWP4 rear exhaust",
+  "intake_c_at_start": 18.5,
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "gpu_serial_hash": null,
+  "driver": null,
+  "power_limit_w": 575,
+  "power_default_w": 575,
+  "gpu_fan_min_pct": 30,
+  "case_fans": "Case fans \u00D74 (be quiet! Silent Wings Pro 4 120 mm)",
+  "radiator_fans": "Radiator fans \u00D73 (SilverStone 120 mm PWM, Hailstone 360)",
+  "radiator_note": "held on its own curve (Curve 1), logged",
+  "case_min_pct": 15,
+  "budget_h": 3.5,
+  "lab_version": "0.3.6",
+  "steady": "|dT/dt| \u003C 0.2 \u00B0C/min over 120 s (core, memory, hot spot), min 150 s, max 480 s per point; mean of last 60 s",
+  "abort": "memory \u2265 88 \u00B0C, hot spot \u2265 95 \u00B0C, core \u2265 85 \u00B0C \u2192 point marked too_hot"
+}

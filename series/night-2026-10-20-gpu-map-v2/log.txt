@@ -1,0 +1,3 @@
+2026-10-20 22:52:05 start (próba 1), tryb fast, budżet 3.5 h, obudowa: open top (case top panel removed); 1 GPU (RTX 5090); front 3× SWP4 intake onto the GPU, 1× SWP4 rear exhaust
+2026-10-20 22:53:07 start (próba 2), tryb fast, budżet 3.5 h, obudowa: open top (case top panel removed); 1 GPU (RTX 5090); front 3× SWP4 intake onto the GPU, 1× SWP4 rear exhaust
+2026-10-20 22:54:07 start (próba 3), tryb fast, budżet 3.5 h, obudowa: open top (case top panel removed); 1 GPU (RTX 5090); front 3× SWP4 intake onto the GPU, 1× SWP4 rear exhaust

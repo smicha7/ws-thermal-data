@@ -1,0 +1,33 @@
+2026-10-21 15:57:44 start (próba 1), tryb rpmgrid, budżet 1 h, obudowa: open top; 1 GPU; Seb 2026-10-21: repeat of the card 40 % points at case 1500/2000/3000, each case level settled first (adaptive)
+2026-10-21 15:57:44 spis czujników: 338
+2026-10-21 15:57:46 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-21 15:57:46 obciążenie: proces w sesji użytkownika
+2026-10-21 15:57:46 etap: Hold
+2026-10-21 15:57:46 siatka po obrotach: 12 punktów, start 40 % / 1500 rpm
+2026-10-21 obciążenie 15:57:46 start: plik stanu jest, tryb mix64
+2026-10-21 obciążenie 15:57:46 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-21 obciążenie 15:57:46 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-21 obciążenie 15:57:46 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-21 15:58:04 trzymanie: 43.6 % → 1493 rpm (cel 1500)
+2026-10-21 16:06:49 punkt 1/12: obie 40 % / 1500 rpm → rdzeń 80.0, pamięć 88.0 °C, 545 s
+2026-10-21 16:06:50 trzymanie: 43.6 % → 1504 rpm (cel 1500)
+2026-10-21 16:08:04 punkt 2/12: obie 40 % / 1500 rpm → rdzeń 76.6, pamięć 86.0 °C, 75 s (nieustalony, limit czasu)
+2026-10-21 16:08:05 trzymanie: 43.6 % → 1504 rpm (cel 1500)
+2026-10-21 16:09:19 punkt 3/12: obie 40 % / 1500 rpm → rdzeń 72.0, pamięć 83.2 °C, 75 s (nieustalony, limit czasu)
+2026-10-21 16:09:20 trzymanie: 43.6 % → 1504 rpm (cel 1500)
+2026-10-21 16:10:34 punkt 4/12: obie 40 % / 1500 rpm → rdzeń 66.8, pamięć 80.0 °C, 75 s (nieustalony, limit czasu)
+2026-10-21 16:10:40 trzymanie: 63.3 % → 2009 rpm (cel 2000)
+2026-10-21 16:11:15 trzymanie: 62.5 % → 1992 rpm (cel 2000)
+2026-10-21 16:16:18 punkt 5/12: obie 40 % / 2000 rpm → rdzeń 77.9, pamięć 86.0 °C, 344 s (nieustalony, limit czasu)
+2026-10-21 16:16:19 trzymanie: 62.5 % → 2004 rpm (cel 2000)
+2026-10-21 16:17:33 punkt 6/12: obie 40 % / 2000 rpm → rdzeń 74.3, pamięć 84.0 °C, 75 s (nieustalony, limit czasu)
+2026-10-21 16:17:35 trzymanie: 62.5 % → 2004 rpm (cel 2000)
+2026-10-21 16:18:48 punkt 7/12: obie 40 % / 2000 rpm → rdzeń 69.9, pamięć 80.4 °C, 75 s (nieustalony, limit czasu)
+2026-10-21 16:18:49 trzymanie: 62.5 % → 2004 rpm (cel 2000)
+2026-10-21 16:20:04 punkt 8/12: obie 40 % / 2000 rpm → rdzeń 64.5, pamięć 77.0 °C, 76 s (nieustalony, limit czasu)
+2026-10-21 16:26:48 punkt 9/12: obie 40 % / 3000 rpm → rdzeń 74.0, pamięć 82.0 °C, 404 s (nieustalony, limit czasu)
+2026-10-21 16:28:03 punkt 10/12: obie 40 % / 3000 rpm → rdzeń 71.0, pamięć 80.0 °C, 75 s (nieustalony, limit czasu)
+2026-10-21 16:29:18 punkt 11/12: obie 40 % / 3000 rpm → rdzeń 66.2, pamięć 76.1 °C, 75 s (nieustalony, limit czasu)
+2026-10-21 16:30:33 punkt 12/12: obie 40 % / 3000 rpm → rdzeń 61.3, pamięć 73.6 °C, 75 s (nieustalony, limit czasu)
+2026-10-21 16:30:33 aquaero przywrócone: przywrócono aquaero-20261021-155746.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261021-163033.bin
+2026-10-21 16:30:33 ZAKOŃCZONO: siatka zakończona: 12 punktów

@@ -1,0 +1,82 @@
+2026-10-20 23:24:57 start (próba 1), tryb fast, budżet 3.5 h, obudowa: open top (case top panel removed); 1 GPU (RTX 5090); front 3× SWP4 intake onto the GPU, 1× SWP4 rear exhaust
+2026-10-20 23:24:57 spis czujników: 340
+2026-10-20 23:24:59 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 88, hot spot 95
+2026-10-20 23:24:59 etap: MinSearch
+2026-10-20 23:25:17 min. obudowy: 40 % → 1379 rpm
+2026-10-20 23:25:37 min. obudowy: 35 % → 1243 rpm
+2026-10-20 23:25:57 min. obudowy: 30 % → 1091 rpm
+2026-10-20 23:26:17 min. obudowy: 25 % → 940 rpm
+2026-10-20 23:26:37 min. obudowy: 20 % → 789 rpm
+2026-10-20 23:26:57 min. obudowy: 15 % → 634 rpm
+2026-10-20 23:27:17 min. obudowy: 10 % → 605 rpm
+2026-10-20 23:27:17 obciążenie: proces w sesji użytkownika
+2026-10-20 23:27:17 etap: Calibrate
+2026-10-20 obciążenie 23:27:17 start: plik stanu jest, tryb alu
+2026-10-20 obciążenie 23:27:17 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-20 obciążenie 23:27:17 NVIDIA GeForce RTX 5090: tryb alu
+2026-10-20 23:28:02 kalibracja: alu → 575 W (±0.1 %)
+2026-10-20 obciążenie 23:28:03 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-20 obciążenie 23:28:03 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-20 23:28:47 kalibracja: mix64 → 575 W (±0.1 %)
+2026-10-20 obciążenie 23:28:48 NVIDIA GeForce RTX 5090: tryb mix16
+2026-10-20 23:29:32 kalibracja: mix16 → 405 W (±0.2 %)
+2026-10-20 obciążenie 23:29:33 NVIDIA GeForce RTX 5090: tryb mix4
+2026-10-20 23:30:17 kalibracja: mix4 → 357 W (±0.2 %)
+2026-10-20 obciążenie 23:30:18 NVIDIA GeForce RTX 5090: tryb stream
+2026-10-20 23:31:02 kalibracja: stream → 340 W (±0.2 %)
+2026-10-20 23:31:02 obciążenie skalibrowane: mix64 = 575 W (limit 575 W; sam ALU 575 W)
+2026-10-20 23:31:02 etap: Warmup
+2026-10-20 obciążenie 23:31:03 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-20 23:37:58 etap: Points
+2026-10-20 23:40:28   dopasowanie (rdzeń · pamięć · hot spot): T∞ 70.0±0.0 τ 35 s (błąd +0.1) · T∞ 78.0±0.0 τ 170 s (błąd +0.0) · T∞ 80.3±0.1 τ 10 s (błąd -0.1)
+2026-10-20 23:40:28 punkt f_g 55 % · f_c 72 % (odniesienie): ustalony · rdzeń 69.95 · pamięć 78 · hot spot 80.38 · 574.91 W
+2026-10-20 23:41:38   dopasowanie (rdzeń · pamięć · hot spot): T∞ 58.3±0.2 τ 40 s · T∞ 60.5±1.0 τ 100 s · T∞ 69.5±0.1 τ 30 s
+2026-10-20 23:41:38 punkt f_g 100 % · f_c 100 %: 60 s · rdzeń 63.8 · pamięć 73.54 · hot spot 73.7 · 574.86 W
+2026-10-20 23:42:08   dopasowanie (rdzeń · pamięć · hot spot): T∞ 51.5±? τ 900 s · T∞ -47.7±? τ 900 s · T∞ 70.4±? τ 5 s
+2026-10-20 23:42:08 punkt f_g 95 % · f_c 100 %: 60 s · rdzeń 60.75 · pamięć 69.36 · hot spot 70.47 · 574.93 W
+2026-10-20 23:43:18   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.9±0.1 τ 10 s · T∞ 68.0±0.0 τ 45 s · T∞ 70.4±0.1 τ 15 s
+2026-10-20 23:43:18 punkt f_g 90 % · f_c 100 %: 60 s · rdzeń 60.77 · pamięć 68 · hot spot 70.32 · 575 W
+2026-10-20 23:43:18   pominięte 6 punktów (niżej w tym rzędzie): niebezpieczne przy tej mocy
+2026-10-20 23:43:48   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.0±0.0 τ 215 s · T∞ 44.7±? τ 900 s · T∞ 69.7±? τ 5 s
+2026-10-20 23:43:48 punkt f_g 100 % · f_c 95 %: 60 s · rdzeń 60.14 · pamięć 67.93 · hot spot 69.93 · 575 W
+2026-10-20 23:44:18   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-20 23:44:18 punkt f_g 100 % · f_c 90 %: 60 s · rdzeń 59.59 · pamięć 67.19 · hot spot 69.19 · 575.04 W
+2026-10-20 23:44:48   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-20 23:44:48 punkt f_g 100 % · f_c 85 %: 60 s · rdzeń 59.04 · pamięć 66.14 · hot spot 68.89 · 575 W
+2026-10-20 23:45:18   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-20 23:45:18 punkt f_g 100 % · f_c 80 %: 60 s · rdzeń 59 · pamięć 66 · hot spot 68.67 · 575.29 W
+2026-10-20 23:46:28   dopasowanie (rdzeń · pamięć · hot spot): T∞ 59.0±0.0 τ 345 s · T∞ 66.0±0.0 τ 20 s · T∞ 68.6±0.1 τ 25 s
+2026-10-20 23:46:28 punkt f_g 100 % · f_c 79 %: 60 s · rdzeń 59 · pamięć 66 · hot spot 68.66 · 575.14 W
+2026-10-20 23:46:58   dopasowanie (rdzeń · pamięć · hot spot): T∞ 59.0±0.0 τ 10 s · T∞ 66.0±0.0 τ 190 s · T∞ 69.0±0.3 τ 10 s
+2026-10-20 23:46:58 punkt f_g 95 % · f_c 79 %: 60 s · rdzeń 59 · pamięć 66 · hot spot 68.69 · 575.11 W
+2026-10-20 23:48:08   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.0±? τ 5 s · T∞ 98.7±? τ 900 s · T∞ 70.8±0.5 τ 85 s
+2026-10-20 23:48:08 punkt f_g 90 % · f_c 79 %: 60 s · rdzeń 59.98 · pamięć 66.54 · hot spot 69.8 · 574.96 W
+2026-10-20 23:48:08   pominięte 6 punktów (niżej w tym rzędzie): niebezpieczne przy tej mocy
+2026-10-20 23:48:39   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.2±? τ 5 s · T∞ 68.0±0.0 τ 70 s · T∞ 56.5±? τ 900 s
+2026-10-20 23:48:39 punkt f_g 90 % · f_c 74 %: 60 s · rdzeń 60.11 · pamięć 68 · hot spot 70.28 · 575.04 W
+2026-10-20 23:49:09   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-20 23:49:09 punkt f_g 85 % · f_c 72 %: 60 s · rdzeń 60.64 · pamięć 68 · hot spot 70.62 · 574.93 W
+2026-10-20 23:49:39   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-20 23:49:39 punkt f_g 80 % · f_c 72 %: 60 s · rdzeń 61.21 · pamięć 68 · hot spot 71.09 · 574.93 W
+2026-10-20 23:50:09   dopasowanie (rdzeń · pamięć · hot spot): T∞ 73.7±? τ 900 s · T∞ 131.1±? τ 900 s · T∞ 72.1±? τ 5 s
+2026-10-20 23:50:09 punkt f_g 75 % · f_c 72 %: 60 s · rdzeń 62 · pamięć 68.43 · hot spot 71.98 · 575 W
+2026-10-20 23:50:09   pominięte 2 punktów (niżej w tym rzędzie): niebezpieczne przy tej mocy
+2026-10-20 23:50:40   dopasowanie (rdzeń · pamięć · hot spot): T∞ 59.0±0.7 τ 35 s · T∞ -10.6±? τ 900 s · T∞ 2.0±? τ 900 s
+2026-10-20 23:50:40 punkt f_g 100 % · f_c 67 %: 60 s · rdzeń 61.64 · pamięć 69.57 · hot spot 71.56 · 574.96 W
+2026-10-20 23:51:10   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-20 23:51:10 punkt f_g 100 % · f_c 62 %: 60 s · rdzeń 60.14 · pamięć 68 · hot spot 69.99 · 575 W
+2026-10-20 23:52:20   dopasowanie (rdzeń · pamięć · hot spot): T∞ 58.8±0.2 τ 30 s · T∞ 65.7±0.2 τ 20 s · T∞ 65.2±? τ 900 s
+2026-10-20 23:52:20 punkt f_g 100 % · f_c 58 %: 60 s · rdzeń 59.27 · pamięć 66.57 · hot spot 69.14 · 574.98 W
+2026-10-20 23:52:50   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.6±0.9 τ 30 s · T∞ 66.0±0.0 τ 190 s · T∞ 57.1±? τ 900 s
+2026-10-20 23:52:50 punkt f_g 95 % · f_c 58 %: 60 s · rdzeń 59.21 · pamięć 66 · hot spot 69.07 · 575.04 W
+2026-10-20 23:54:00   dopasowanie (rdzeń · pamięć · hot spot): T∞ 60.0±? τ 5 s · T∞ 68.5±0.4 τ 35 s · T∞ 70.3±0.2 τ 30 s
+2026-10-20 23:54:00 punkt f_g 90 % · f_c 58 %: 60 s · rdzeń 59.95 · pamięć 67.21 · hot spot 69.95 · 574.98 W
+2026-10-20 23:54:00   pominięte 6 punktów (niżej w tym rzędzie): niebezpieczne przy tej mocy
+2026-10-20 23:54:30   dopasowanie (rdzeń · pamięć · hot spot): T∞ 59.8±? τ 5 s · T∞ 23.9±? τ 900 s · T∞ 69.2±0.6 τ 30 s
+2026-10-20 23:54:30 punkt f_g 100 % · f_c 53 %: 60 s · rdzeń 59.89 · pamięć 67.79 · hot spot 69.84 · 574.82 W
+2026-10-20 23:55:00   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-20 23:55:00 punkt f_g 100 % · f_c 48 %: 60 s · rdzeń 59.63 · pamięć 66.15 · hot spot 69.32 · 574.93 W
+2026-10-20 23:55:30   dopasowanie (rdzeń · pamięć · hot spot): 
+2026-10-20 23:55:30 punkt f_g 100 % · f_c 43 %: 60 s · rdzeń 59.64 · pamięć 66 · hot spot 69.4 · 574.96 W
+2026-10-20 23:55:38 aquaero przywrócone: przywrócono aquaero-20261020-232459.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261020-235537.bin
+2026-10-20 23:55:38 PRZERWANO: obciążenie karty zakończyło się

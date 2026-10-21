@@ -1,0 +1,47 @@
+2026-10-20 22:10:51 start (próba 1), budżet 3.5 h, obudowa: open top (case top panel removed); 1 GPU (RTX 5090); front 3× SWP4 intake onto the GPU, 1× SWP4 rear exhaust
+2026-10-20 22:10:54 etap: MinSearch
+2026-10-20 22:11:11 min. obudowy: 40 % → 1382 rpm
+2026-10-20 22:11:31 min. obudowy: 35 % → 1240 rpm
+2026-10-20 22:11:51 min. obudowy: 30 % → 1094 rpm
+2026-10-20 22:12:11 min. obudowy: 25 % → 942 rpm
+2026-10-20 22:12:31 min. obudowy: 20 % → 787 rpm
+2026-10-20 22:12:51 min. obudowy: 15 % → 638 rpm
+2026-10-20 22:13:12 min. obudowy: 10 % → 611 rpm
+2026-10-20 22:13:12 obciążenie: proces w sesji użytkownika
+2026-10-20 22:13:12 etap: Warmup
+2026-10-20 22:20:32 etap: Points
+2026-10-20 22:23:02 punkt f_g 100 % · f_c 100 %: ustalony · rdzeń 64.98 · pamięć 55.39 · hot spot 79.81 · 575.04 W
+2026-10-20 22:26:52 punkt f_g 80 % · f_c 100 %: ustalony · rdzeń 68 · pamięć 58 · hot spot 83.72 · 574.98 W
+2026-10-20 22:30:56 punkt f_g 55 % · f_c 100 %: ustalony · rdzeń 73.02 · pamięć 64 · hot spot 88.7 · 575.05 W
+2026-10-20 22:31:53 punkt f_g 30 % · f_c 100 %: ZA GORĄCO · rdzeń 75.79 · pamięć 65.89 · hot spot 91.93 · 574.91 W
+2026-10-20 22:31:56 punkt f_g 30 % · f_c 72 %: ZA GORĄCO · rdzeń 78.67 · pamięć 68 · hot spot 94.87 · 574.67 W
+2026-10-20 22:31:57 punkt f_g 55 % · f_c 72 %: ZA GORĄCO · rdzeń 79 · pamięć 68 · hot spot 95.3 · 574 W
+2026-10-20 22:32:00 punkt f_g 80 % · f_c 72 %: ZA GORĄCO · rdzeń 79 · pamięć 68 · hot spot 95.05 · 574.5 W
+2026-10-20 22:32:02 punkt f_g 100 % · f_c 72 %: ZA GORĄCO · rdzeń 79 · pamięć 70 · hot spot 94.9 · 574.5 W
+2026-10-20 22:32:03 punkt f_g 100 % · f_c 43 %: ZA GORĄCO · rdzeń 79 · pamięć 68 · hot spot 95.2 · 575 W
+2026-10-20 22:32:04 punkt f_g 80 % · f_c 43 %: ZA GORĄCO · rdzeń 79 · pamięć 70 · hot spot 95.1 · 576 W
+2026-10-20 22:34:34 punkt f_g 55 % · f_c 43 %: ustalony · rdzeń 75.96 · pamięć 68 · hot spot 91.4 · 574.96 W
+2026-10-20 22:35:08 punkt f_g 30 % · f_c 43 %: ZA GORĄCO · rdzeń 77.13 · pamięć 68.77 · hot spot 92.87 · 575.16 W
+2026-10-20 22:35:09 punkt f_g 30 % · f_c 15 %: ZA GORĄCO · rdzeń 79 · pamięć 70 · hot spot 95.2 · 575 W
+2026-10-20 22:35:10 punkt f_g 55 % · f_c 15 %: ZA GORĄCO · rdzeń 79 · pamięć 70 · hot spot 95.2 · 575 W
+2026-10-20 22:35:11 punkt f_g 80 % · f_c 15 %: ZA GORĄCO · rdzeń 79 · pamięć 70 · hot spot 95.1 · 575 W
+2026-10-20 22:35:12 punkt f_g 100 % · f_c 15 %: ZA GORĄCO · rdzeń 79 · pamięć 70 · hot spot 95.5 · 575 W
+2026-10-20 22:35:12 dogęszczenie: 34 punktów (zostało 181 min, średnio 0.9 min na punkt)
+2026-10-20 22:35:13 punkt f_g 90 % · f_c 100 %: ZA GORĄCO · rdzeń 80 · pamięć 70 · hot spot 95.4 · 575 W
+2026-10-20 22:35:15 punkt f_g 70 % · f_c 100 %: ZA GORĄCO · rdzeń 80 · pamięć 70 · hot spot 94.95 · 575 W
+2026-10-20 22:35:16 punkt f_g 60 % · f_c 100 %: ZA GORĄCO · rdzeń 80 · pamięć 70 · hot spot 95.1 · 575 W
+2026-10-20 22:35:17 punkt f_g 50 % · f_c 100 %: ZA GORĄCO · rdzeń 79 · pamięć 70 · hot spot 95.1 · 575 W
+2026-10-20 22:36:35 punkt f_g 40 % · f_c 100 %: ZA GORĄCO · rdzeń 78.68 · pamięć 70 · hot spot 94.44 · 575.04 W
+2026-10-20 22:36:41 punkt f_g 30 % · f_c 79 %: ZA GORĄCO · rdzeń 79 · pamięć 70.33 · hot spot 94.68 · 575.17 W
+2026-10-20 22:36:44 punkt f_g 40 % · f_c 79 %: ZA GORĄCO · rdzeń 79 · pamięć 70 · hot spot 94.93 · 575 W
+2026-10-20 22:36:45 punkt f_g 50 % · f_c 79 %: ZA GORĄCO · rdzeń 79 · pamięć 70 · hot spot 95.1 · 576 W
+2026-10-20 22:36:46 punkt f_g 60 % · f_c 79 %: ZA GORĄCO · rdzeń 80 · pamięć 70 · hot spot 95.2 · 575 W
+2026-10-20 22:36:49 punkt f_g 70 % · f_c 79 %: ZA GORĄCO · rdzeń 79.5 · pamięć 72 · hot spot 95.15 · 575 W
+2026-10-20 22:36:50 punkt f_g 80 % · f_c 79 %: ZA GORĄCO · rdzeń 80 · pamięć 72 · hot spot 95 · 575 W
+2026-10-20 22:36:51 punkt f_g 90 % · f_c 79 %: ZA GORĄCO · rdzeń 80 · pamięć 70 · hot spot 95.2 · 575 W
+2026-10-20 22:36:52 punkt f_g 100 % · f_c 79 %: ZA GORĄCO · rdzeń 79 · pamięć 72 · hot spot 95.1 · 575 W
+2026-10-20 22:42:38 punkt f_g 100 % · f_c 58 %: ustalony · rdzeń 63 · pamięć 54.15 · hot spot 76.68 · 575.11 W
+2026-10-20 22:45:25 punkt f_g 90 % · f_c 58 %: ustalony · rdzeń 64 · pamięć 56 · hot spot 78.28 · 575.11 W
+2026-10-20 22:48:49 punkt f_g 80 % · f_c 58 %: ustalony · rdzeń 66 · pamięć 58 · hot spot 80.44 · 575.02 W
+2026-10-20 22:51:50 aquaero przywrócone: przywrócono aquaero-20261020-221053.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261020-225150.bin
+2026-10-20 22:51:50 PRZERWANO: obciążenie karty zakończyło się

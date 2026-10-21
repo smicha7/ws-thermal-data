@@ -1,0 +1,1 @@
+{"id":"2026-10-20-gpu-map-v2d","state":"done","note":"koniec: 76 punkt\u00F3w w 98 min","elapsed_s":5869,"case_min_pct":15,"point":"55/72","done":76,"queued":0,"at":1792539655,"sensors":341,"load_mode":"mix64","calibration_w":{"alu":575,"mix64":575,"mix16":406,"mix4":357,"stream":340},"abort_core_c":88,"abort_mem_c":88}

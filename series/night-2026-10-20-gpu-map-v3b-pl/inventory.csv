@@ -1,0 +1,340 @@
+source,sensor_id,name,unit,first_value
+gpu,nvml/0/temperature/gpu_hot_spot_(nvapi),NVIDIA GeForce RTX 5090 · GPU Hot Spot (NVAPI) · Temperature,°C,26
+gpu,nvml/0/temperature/gpu_memory_(nvapi),NVIDIA GeForce RTX 5090 · GPU Memory (NVAPI) · Temperature,°C,30
+gpu,nvml/0/temperature/gpu_core,NVIDIA GeForce RTX 5090 · GPU Core · Temperature,°C,24
+gpu,nvml/0/power/gpu_package,NVIDIA GeForce RTX 5090 · GPU Package · Power,W,13.303
+gpu,nvml/0/clock/gpu_core,NVIDIA GeForce RTX 5090 · GPU Core · Clock,MHz,180
+gpu,nvml/0/load/gpu_core,NVIDIA GeForce RTX 5090 · GPU Core · Load,%,0
+gpu,nvml/0/fan/gpu_fan_1,NVIDIA GeForce RTX 5090 · GPU Fan 1 · Fan,rpm,1168
+gpu,nvml/0/fan/gpu_fan_2,NVIDIA GeForce RTX 5090 · GPU Fan 2 · Fan,rpm,1167
+gpu,nvml/0/fan/gpu_fan_3,NVIDIA GeForce RTX 5090 · GPU Fan 3 · Fan,rpm,1155
+nvme,nvme/PhysicalDrive0/temperature,WD_BLACK SN8100 4000GB · Temperature · Temperature,°C,23
+nvme,nvme/PhysicalDrive1/temperature,WD_BLACK SN8100 2000GB · Temperature · Temperature,°C,22
+nvme,nvme/PhysicalDrive2/temperature,WD_BLACK SN850X 4000GB · Temperature · Temperature,°C,33
+ctrl,aquaero/temperature/sensor_1,aquaero · Sensor 1 · Temperature,°C,18.73
+ctrl,aquaero/flow/flow_1,aquaero · Flow 1 · Flow,L/h,0
+ctrl,aquaero/flow/flow_2,aquaero · Flow 2 · Flow,L/h,0
+ctrl,aquaero/fan/fan_1,aquaero · Fan 1 · Fan,rpm,611
+ctrl,aquaero/control/fan_1_output,aquaero · Fan 1 Output · Control,%,9.99
+ctrl,aquaero/voltage/fan_1_voltage,aquaero · Fan 1 Voltage · Voltage,V,11.78
+ctrl,aquaero/current/fan_1_current,aquaero · Fan 1 Current · Current,A,0.198
+ctrl,aquaero/power/fan_1_power,aquaero · Fan 1 Power · Power,W,2.33
+ctrl,aquaero/fan/fan_2,aquaero · Fan 2 · Fan,rpm,1152
+ctrl,aquaero/control/fan_2_output,aquaero · Fan 2 Output · Control,%,35
+ctrl,aquaero/voltage/fan_2_voltage,aquaero · Fan 2 Voltage · Voltage,V,11.85
+ctrl,aquaero/current/fan_2_current,aquaero · Fan 2 Current · Current,A,0.132
+ctrl,aquaero/power/fan_2_power,aquaero · Fan 2 Power · Power,W,1.56
+ctrl,aquaero/fan/fan_3,aquaero · Fan 3 · Fan,rpm,0
+ctrl,aquaero/control/fan_3_output,aquaero · Fan 3 Output · Control,%,100
+ctrl,aquaero/voltage/fan_3_voltage,aquaero · Fan 3 Voltage · Voltage,V,11.96
+ctrl,aquaero/current/fan_3_current,aquaero · Fan 3 Current · Current,A,0
+ctrl,aquaero/power/fan_3_power,aquaero · Fan 3 Power · Power,W,0
+ctrl,aquaero/fan/fan_4,aquaero · Fan 4 · Fan,rpm,0
+ctrl,aquaero/control/fan_4_output,aquaero · Fan 4 Output · Control,%,100
+ctrl,aquaero/voltage/fan_4_voltage,aquaero · Fan 4 Voltage · Voltage,V,11.94
+ctrl,aquaero/current/fan_4_current,aquaero · Fan 4 Current · Current,A,0
+ctrl,aquaero/power/fan_4_power,aquaero · Fan 4 Power · Power,W,0
+ctrl,aquaero/temperature/software_1,aquaero · Software 1 · Temperature,°C,30.7
+ctrl,aquaero/temperature/software_2,aquaero · Software 2 · Temperature,°C,37.6
+ctrl,aquaero/temperature/software_3,aquaero · Software 3 · Temperature,°C,50
+ctrl,aquaero/temperature/software_4,aquaero · Software 4 · Temperature,°C,50
+ctrl,aquaero/temperature/software_5,aquaero · Software 5 · Temperature,°C,50
+ctrl,aquaero/temperature/software_6,aquaero · Software 6 · Temperature,°C,50
+ctrl,aquaero/temperature/software_7,aquaero · Software 7 · Temperature,°C,50
+ctrl,aquaero/temperature/software_8,aquaero · Software 8 · Temperature,°C,14.25
+cpu,lhm/amdcpu/0/load/2,AMD Ryzen 9 9950X · CPU Core #1 · Load,%,0
+cpu,lhm/amdcpu/0/load/3,AMD Ryzen 9 9950X · CPU Core #2 · Load,%,2.48
+cpu,lhm/amdcpu/0/load/4,AMD Ryzen 9 9950X · CPU Core #3 · Load,%,2.5
+cpu,lhm/amdcpu/0/load/5,AMD Ryzen 9 9950X · CPU Core #4 · Load,%,0
+cpu,lhm/amdcpu/0/load/6,AMD Ryzen 9 9950X · CPU Core #5 · Load,%,0
+cpu,lhm/amdcpu/0/load/7,AMD Ryzen 9 9950X · CPU Core #6 · Load,%,2.48
+cpu,lhm/amdcpu/0/load/8,AMD Ryzen 9 9950X · CPU Core #7 · Load,%,0
+cpu,lhm/amdcpu/0/load/9,AMD Ryzen 9 9950X · CPU Core #8 · Load,%,0.83
+cpu,lhm/amdcpu/0/load/10,AMD Ryzen 9 9950X · CPU Core #9 · Load,%,1.67
+cpu,lhm/amdcpu/0/load/11,AMD Ryzen 9 9950X · CPU Core #10 · Load,%,3.31
+cpu,lhm/amdcpu/0/load/12,AMD Ryzen 9 9950X · CPU Core #11 · Load,%,0
+cpu,lhm/amdcpu/0/load/13,AMD Ryzen 9 9950X · CPU Core #12 · Load,%,0
+cpu,lhm/amdcpu/0/load/14,AMD Ryzen 9 9950X · CPU Core #13 · Load,%,0
+cpu,lhm/amdcpu/0/load/15,AMD Ryzen 9 9950X · CPU Core #14 · Load,%,0
+cpu,lhm/amdcpu/0/load/16,AMD Ryzen 9 9950X · CPU Core #15 · Load,%,0
+cpu,lhm/amdcpu/0/load/17,AMD Ryzen 9 9950X · CPU Core #16 · Load,%,0
+cpu,lhm/amdcpu/0/load/18,AMD Ryzen 9 9950X · CPU Core #17 · Load,%,0
+cpu,lhm/amdcpu/0/load/19,AMD Ryzen 9 9950X · CPU Core #18 · Load,%,0
+cpu,lhm/amdcpu/0/load/20,AMD Ryzen 9 9950X · CPU Core #19 · Load,%,0
+cpu,lhm/amdcpu/0/load/21,AMD Ryzen 9 9950X · CPU Core #20 · Load,%,0
+cpu,lhm/amdcpu/0/load/22,AMD Ryzen 9 9950X · CPU Core #21 · Load,%,0
+cpu,lhm/amdcpu/0/load/23,AMD Ryzen 9 9950X · CPU Core #22 · Load,%,0
+cpu,lhm/amdcpu/0/load/24,AMD Ryzen 9 9950X · CPU Core #23 · Load,%,0
+cpu,lhm/amdcpu/0/load/25,AMD Ryzen 9 9950X · CPU Core #24 · Load,%,0
+cpu,lhm/amdcpu/0/load/26,AMD Ryzen 9 9950X · CPU Core #25 · Load,%,0
+cpu,lhm/amdcpu/0/load/27,AMD Ryzen 9 9950X · CPU Core #26 · Load,%,0
+cpu,lhm/amdcpu/0/load/28,AMD Ryzen 9 9950X · CPU Core #27 · Load,%,0
+cpu,lhm/amdcpu/0/load/29,AMD Ryzen 9 9950X · CPU Core #28 · Load,%,0
+cpu,lhm/amdcpu/0/load/30,AMD Ryzen 9 9950X · CPU Core #29 · Load,%,6.72
+cpu,lhm/amdcpu/0/load/31,AMD Ryzen 9 9950X · CPU Core #30 · Load,%,0.83
+cpu,lhm/amdcpu/0/load/32,AMD Ryzen 9 9950X · CPU Core #31 · Load,%,0
+cpu,lhm/amdcpu/0/load/33,AMD Ryzen 9 9950X · CPU Core #32 · Load,%,0
+cpu,lhm/amdcpu/0/load/0,AMD Ryzen 9 9950X · CPU Total · Load,%,0.65
+cpu,lhm/amdcpu/0/load/1,AMD Ryzen 9 9950X · CPU Core Max · Load,%,6.72
+cpu,lhm/amdcpu/0/power/0,AMD Ryzen 9 9950X · Package · Power,W,26.364
+cpu,lhm/amdcpu/0/clock/1,AMD Ryzen 9 9950X · Cores (Average) · Clock,MHz,3677
+cpu,lhm/amdcpu/0/clock/2,AMD Ryzen 9 9950X · Cores (Average Effective) · Clock,MHz,56
+cpu,lhm/amdcpu/0/clock/3,AMD Ryzen 9 9950X · Core #1 · Clock,MHz,4884
+cpu,lhm/amdcpu/0/clock/4,AMD Ryzen 9 9950X · Core #1 (Effective) · Clock,MHz,138
+cpu,lhm/amdcpu/0/factor/0,AMD Ryzen 9 9950X · Core #1 · Factor,Factor,50.7
+cpu,lhm/amdcpu/0/voltage/2,AMD Ryzen 9 9950X · Core #1 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/5,AMD Ryzen 9 9950X · Core #2 · Clock,MHz,5070
+cpu,lhm/amdcpu/0/clock/6,AMD Ryzen 9 9950X · Core #2 (Effective) · Clock,MHz,118.5
+cpu,lhm/amdcpu/0/factor/1,AMD Ryzen 9 9950X · Core #2 · Factor,Factor,50.7
+cpu,lhm/amdcpu/0/voltage/3,AMD Ryzen 9 9950X · Core #2 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/7,AMD Ryzen 9 9950X · Core #3 · Clock,MHz,3813
+cpu,lhm/amdcpu/0/clock/8,AMD Ryzen 9 9950X · Core #3 (Effective) · Clock,MHz,40.5
+cpu,lhm/amdcpu/0/factor/2,AMD Ryzen 9 9950X · Core #3 · Factor,Factor,50.7
+cpu,lhm/amdcpu/0/voltage/4,AMD Ryzen 9 9950X · Core #3 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/9,AMD Ryzen 9 9950X · Core #4 · Clock,MHz,4342
+cpu,lhm/amdcpu/0/clock/10,AMD Ryzen 9 9950X · Core #4 (Effective) · Clock,MHz,25
+cpu,lhm/amdcpu/0/factor/3,AMD Ryzen 9 9950X · Core #4 · Factor,Factor,50.7
+cpu,lhm/amdcpu/0/voltage/5,AMD Ryzen 9 9950X · Core #4 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/11,AMD Ryzen 9 9950X · Core #5 · Clock,MHz,5070
+cpu,lhm/amdcpu/0/clock/12,AMD Ryzen 9 9950X · Core #5 (Effective) · Clock,MHz,167.5
+cpu,lhm/amdcpu/0/factor/4,AMD Ryzen 9 9950X · Core #5 · Factor,Factor,50.7
+cpu,lhm/amdcpu/0/voltage/6,AMD Ryzen 9 9950X · Core #5 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/13,AMD Ryzen 9 9950X · Core #6 · Clock,MHz,3674
+cpu,lhm/amdcpu/0/clock/14,AMD Ryzen 9 9950X · Core #6 (Effective) · Clock,MHz,4
+cpu,lhm/amdcpu/0/factor/5,AMD Ryzen 9 9950X · Core #6 · Factor,Factor,50.7
+cpu,lhm/amdcpu/0/voltage/7,AMD Ryzen 9 9950X · Core #6 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/15,AMD Ryzen 9 9950X · Core #7 · Clock,MHz,3949
+cpu,lhm/amdcpu/0/clock/16,AMD Ryzen 9 9950X · Core #7 (Effective) · Clock,MHz,9.5
+cpu,lhm/amdcpu/0/factor/6,AMD Ryzen 9 9950X · Core #7 · Factor,Factor,50.7
+cpu,lhm/amdcpu/0/voltage/8,AMD Ryzen 9 9950X · Core #7 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/17,AMD Ryzen 9 9950X · Core #8 · Clock,MHz,3836
+cpu,lhm/amdcpu/0/clock/18,AMD Ryzen 9 9950X · Core #8 (Effective) · Clock,MHz,3.5
+cpu,lhm/amdcpu/0/factor/7,AMD Ryzen 9 9950X · Core #8 · Factor,Factor,50.7
+cpu,lhm/amdcpu/0/voltage/9,AMD Ryzen 9 9950X · Core #8 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/19,AMD Ryzen 9 9950X · Core #9 · Clock,MHz,3391
+cpu,lhm/amdcpu/0/clock/20,AMD Ryzen 9 9950X · Core #9 (Effective) · Clock,MHz,7
+cpu,lhm/amdcpu/0/factor/8,AMD Ryzen 9 9950X · Core #9 · Factor,Factor,36
+cpu,lhm/amdcpu/0/voltage/10,AMD Ryzen 9 9950X · Core #9 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/21,AMD Ryzen 9 9950X · Core #10 · Clock,MHz,2731
+cpu,lhm/amdcpu/0/clock/22,AMD Ryzen 9 9950X · Core #10 (Effective) · Clock,MHz,2
+cpu,lhm/amdcpu/0/factor/9,AMD Ryzen 9 9950X · Core #10 · Factor,Factor,36
+cpu,lhm/amdcpu/0/voltage/11,AMD Ryzen 9 9950X · Core #10 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/23,AMD Ryzen 9 9950X · Core #11 · Clock,MHz,2713
+cpu,lhm/amdcpu/0/clock/24,AMD Ryzen 9 9950X · Core #11 (Effective) · Clock,MHz,2.5
+cpu,lhm/amdcpu/0/factor/10,AMD Ryzen 9 9950X · Core #11 · Factor,Factor,36
+cpu,lhm/amdcpu/0/voltage/12,AMD Ryzen 9 9950X · Core #11 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/25,AMD Ryzen 9 9950X · Core #12 · Clock,MHz,2907
+cpu,lhm/amdcpu/0/clock/26,AMD Ryzen 9 9950X · Core #12 (Effective) · Clock,MHz,2
+cpu,lhm/amdcpu/0/factor/11,AMD Ryzen 9 9950X · Core #12 · Factor,Factor,36
+cpu,lhm/amdcpu/0/voltage/13,AMD Ryzen 9 9950X · Core #12 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/27,AMD Ryzen 9 9950X · Core #13 · Clock,MHz,3081
+cpu,lhm/amdcpu/0/clock/28,AMD Ryzen 9 9950X · Core #13 (Effective) · Clock,MHz,3.5
+cpu,lhm/amdcpu/0/factor/12,AMD Ryzen 9 9950X · Core #13 · Factor,Factor,36
+cpu,lhm/amdcpu/0/voltage/14,AMD Ryzen 9 9950X · Core #13 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/29,AMD Ryzen 9 9950X · Core #14 · Clock,MHz,2973
+cpu,lhm/amdcpu/0/clock/30,AMD Ryzen 9 9950X · Core #14 (Effective) · Clock,MHz,2
+cpu,lhm/amdcpu/0/factor/13,AMD Ryzen 9 9950X · Core #14 · Factor,Factor,36
+cpu,lhm/amdcpu/0/voltage/15,AMD Ryzen 9 9950X · Core #14 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/31,AMD Ryzen 9 9950X · Core #15 · Clock,MHz,3600
+cpu,lhm/amdcpu/0/clock/32,AMD Ryzen 9 9950X · Core #15 (Effective) · Clock,MHz,361.5
+cpu,lhm/amdcpu/0/factor/14,AMD Ryzen 9 9950X · Core #15 · Factor,Factor,36
+cpu,lhm/amdcpu/0/power/15,AMD Ryzen 9 9950X · Core #15 (SMU) · Power,W,0.547
+cpu,lhm/amdcpu/0/voltage/16,AMD Ryzen 9 9950X · Core #15 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/clock/33,AMD Ryzen 9 9950X · Core #16 · Clock,MHz,2798
+cpu,lhm/amdcpu/0/clock/34,AMD Ryzen 9 9950X · Core #16 (Effective) · Clock,MHz,2
+cpu,lhm/amdcpu/0/factor/15,AMD Ryzen 9 9950X · Core #16 · Factor,Factor,36
+cpu,lhm/amdcpu/0/voltage/17,AMD Ryzen 9 9950X · Core #16 VID · Voltage,V,0.469
+cpu,lhm/amdcpu/0/temperature/2,AMD Ryzen 9 9950X · Core (Tctl/Tdie) · Temperature,°C,31.5
+cpu,lhm/amdcpu/0/temperature/3,AMD Ryzen 9 9950X · CCD1 (Tdie) · Temperature,°C,21
+cpu,lhm/amdcpu/0/temperature/4,AMD Ryzen 9 9950X · CCD2 (Tdie) · Temperature,°C,20.25
+cpu,lhm/amdcpu/0/temperature/5,AMD Ryzen 9 9950X · CCDs Max (Tdie) · Temperature,°C,21
+cpu,lhm/amdcpu/0/temperature/6,AMD Ryzen 9 9950X · CCDs Average (Tdie) · Temperature,°C,20.625
+cpu,lhm/amdcpu/0/clock/0,AMD Ryzen 9 9950X · Bus Speed · Clock,MHz,100
+board,lhm/lpc/nct6799d/0/control/1,Nuvoton NCT6799D · CPU Fan #1 · Control,%,26.275
+board,lhm/lpc/nct6799d/0/control/2,Nuvoton NCT6799D · CPU Fan #2 · Control,%,49.804
+board,lhm/lpc/nct6799d/0/control/3,Nuvoton NCT6799D · AIO Pump · Control,%,100
+board,lhm/lpc/nct6799d/0/control/0,Nuvoton NCT6799D · Chassis Fan #1 · Control,%,26.275
+board,lhm/lpc/nct6799d/0/control/4,Nuvoton NCT6799D · Chassis Fan #2 · Control,%,26.275
+board,lhm/lpc/nct6799d/0/voltage/0,Nuvoton NCT6799D · Vcore · Voltage,V,0.664
+board,lhm/lpc/nct6799d/0/voltage/1,Nuvoton NCT6799D · +12V · Voltage,V,12.038
+board,lhm/lpc/nct6799d/0/voltage/3,Nuvoton NCT6799D · +3.3V · Voltage,V,3.328
+board,lhm/lpc/nct6799d/0/voltage/4,Nuvoton NCT6799D · +5V · Voltage,V,5.088
+board,lhm/lpc/nct6799d/0/voltage/5,Nuvoton NCT6799D · +1.05V Always-on · Voltage,V,1.056
+board,lhm/lpc/nct6799d/0/voltage/7,Nuvoton NCT6799D · +3.3V Standby · Voltage,V,3.44
+board,lhm/lpc/nct6799d/0/voltage/10,Nuvoton NCT6799D · Vcore SoC · Voltage,V,1.104
+board,lhm/lpc/nct6799d/0/voltage/11,Nuvoton NCT6799D · Vcore Misc · Voltage,V,2.048
+board,lhm/lpc/nct6799d/0/voltage/13,Nuvoton NCT6799D · +1.8V · Voltage,V,1.808
+board,lhm/lpc/nct6799d/0/temperature/2,Nuvoton NCT6799D · Motherboard · Temperature,°C,35.5
+board,lhm/lpc/nct6799d/0/temperature/8,Nuvoton NCT6799D · Thermistor Sensor #3 · Temperature,°C,23
+board,lhm/lpc/nct6799d/0/fan/1,Nuvoton NCT6799D · CPU Fan #1 · Fan,rpm,0
+board,lhm/lpc/nct6799d/0/fan/2,Nuvoton NCT6799D · CPU Fan #2 · Fan,rpm,2445.652
+board,lhm/lpc/nct6799d/0/fan/3,Nuvoton NCT6799D · AIO Pump · Fan,rpm,3169.014
+board,lhm/lpc/nct6799d/0/fan/0,Nuvoton NCT6799D · Chassis Fan #1 · Fan,rpm,0
+board,lhm/lpc/nct6799d/0/fan/4,Nuvoton NCT6799D · Chassis Fan #2 · Fan,rpm,0
+board,lhm/lpc/nct6686d/0/control/0,Nuvoton NCT6686D · Water Pump · Control,%,100
+board,lhm/lpc/nct6686d/0/control/1,Nuvoton NCT6686D · Chassis Fan #3 · Control,%,30
+board,lhm/lpc/nct6686d/0/control/2,Nuvoton NCT6686D · Chassis Fan #4 · Control,%,30
+board,lhm/lpc/nct6686d/0/temperature/0,Nuvoton NCT6686D · CPU · Temperature,°C,31
+board,lhm/lpc/nct6686d/0/temperature/2,Nuvoton NCT6686D · VRM MOS · Temperature,°C,26
+board,lhm/lpc/nct6686d/0/fan/0,Nuvoton NCT6686D · Water Pump · Fan,rpm,0
+board,lhm/lpc/nct6686d/0/fan/1,Nuvoton NCT6686D · Chassis Fan #3 · Fan,rpm,0
+board,lhm/lpc/nct6686d/0/fan/2,Nuvoton NCT6686D · Chassis Fan #4 · Fan,rpm,0
+dimm,lhm/memory/dimm/0/temperature/0,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · DIMM #0 · Temperature,°C,24.25
+dimm,lhm/memory/dimm/0/temperature/1,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · Temperature Sensor Resolution · Temperature,°C,0.25
+dimm,lhm/memory/dimm/0/temperature/2,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · Thermal Sensor Low Limit · Temperature,°C,0
+dimm,lhm/memory/dimm/0/temperature/3,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · Thermal Sensor High Limit · Temperature,°C,55
+dimm,lhm/memory/dimm/0/temperature/4,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · Thermal Sensor Critical Low Limit · Temperature,°C,0
+dimm,lhm/memory/dimm/0/temperature/5,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · Thermal Sensor Critical High Limit · Temperature,°C,85
+dimm,lhm/memory/dimm/0/timing/20,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tCKAVGmin (Minimum Cycle Time) · Timing,Timing,0.357
+dimm,lhm/memory/dimm/0/timing/21,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tCKAVGmax (Maximum Cycle Time) · Timing,Timing,1.01
+dimm,lhm/memory/dimm/0/timing/22,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tAA (CAS Latency Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/0/timing/23,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRCD (RAS to CAS Delay Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/0/timing/24,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRP (Row Precharge Delay Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/0/timing/25,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRAS (Active to Precharge Delay Time) · Timing,Timing,32
+dimm,lhm/memory/dimm/0/timing/26,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRC (Active to Active/Refresh Delay Time) · Timing,Timing,48
+dimm,lhm/memory/dimm/0/timing/27,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tWR (Write Recovery Time) · Timing,Timing,30
+dimm,lhm/memory/dimm/0/timing/28,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRFC1 (Normal Refresh Recovery Time) · Timing,Timing,410
+dimm,lhm/memory/dimm/0/timing/29,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRFC2 (Fine Granularity Refresh Recovery Time) · Timing,Timing,220
+dimm,lhm/memory/dimm/0/timing/30,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRFCsb (Same Bank Refresh Recovery Time) · Timing,Timing,190
+dimm,lhm/memory/dimm/0/timing/31,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRFC1_dlr (Normal Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/0/timing/32,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRFC2_dlr (Fine Granularity Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/0/timing/33,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · tRFCsb_dlr (Same Bank Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/0/data/50,Micron Technology - CP6?     e?z?    ?>?>?> } (#0) · Capacity · Data,GB,64
+dimm,lhm/memory/dimm/1/temperature/0,Micron Technology - CP64G56C46U5.M16B1 (#1) · DIMM #1 · Temperature,°C,25.75
+dimm,lhm/memory/dimm/1/temperature/1,Micron Technology - CP64G56C46U5.M16B1 (#1) · Temperature Sensor Resolution · Temperature,°C,0.25
+dimm,lhm/memory/dimm/1/temperature/2,Micron Technology - CP64G56C46U5.M16B1 (#1) · Thermal Sensor Low Limit · Temperature,°C,0
+dimm,lhm/memory/dimm/1/temperature/3,Micron Technology - CP64G56C46U5.M16B1 (#1) · Thermal Sensor High Limit · Temperature,°C,55
+dimm,lhm/memory/dimm/1/temperature/4,Micron Technology - CP64G56C46U5.M16B1 (#1) · Thermal Sensor Critical Low Limit · Temperature,°C,0
+dimm,lhm/memory/dimm/1/temperature/5,Micron Technology - CP64G56C46U5.M16B1 (#1) · Thermal Sensor Critical High Limit · Temperature,°C,85
+dimm,lhm/memory/dimm/1/timing/20,Micron Technology - CP64G56C46U5.M16B1 (#1) · tCKAVGmin (Minimum Cycle Time) · Timing,Timing,0.357
+dimm,lhm/memory/dimm/1/timing/21,Micron Technology - CP64G56C46U5.M16B1 (#1) · tCKAVGmax (Maximum Cycle Time) · Timing,Timing,1.01
+dimm,lhm/memory/dimm/1/timing/22,Micron Technology - CP64G56C46U5.M16B1 (#1) · tAA (CAS Latency Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/1/timing/23,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRCD (RAS to CAS Delay Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/1/timing/24,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRP (Row Precharge Delay Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/1/timing/25,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRAS (Active to Precharge Delay Time) · Timing,Timing,32
+dimm,lhm/memory/dimm/1/timing/26,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRC (Active to Active/Refresh Delay Time) · Timing,Timing,48
+dimm,lhm/memory/dimm/1/timing/27,Micron Technology - CP64G56C46U5.M16B1 (#1) · tWR (Write Recovery Time) · Timing,Timing,30
+dimm,lhm/memory/dimm/1/timing/28,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRFC1 (Normal Refresh Recovery Time) · Timing,Timing,410
+dimm,lhm/memory/dimm/1/timing/29,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRFC2 (Fine Granularity Refresh Recovery Time) · Timing,Timing,220
+dimm,lhm/memory/dimm/1/timing/30,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRFCsb (Same Bank Refresh Recovery Time) · Timing,Timing,190
+dimm,lhm/memory/dimm/1/timing/31,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRFC1_dlr (Normal Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/1/timing/32,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRFC2_dlr (Fine Granularity Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/1/timing/33,Micron Technology - CP64G56C46U5.M16B1 (#1) · tRFCsb_dlr (Same Bank Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/1/data/50,Micron Technology - CP64G56C46U5.M16B1 (#1) · Capacity · Data,GB,64
+dimm,lhm/memory/dimm/2/temperature/0,Micron Technology - CP64G56C46U5.M16B1 (#2) · DIMM #2 · Temperature,°C,25.75
+dimm,lhm/memory/dimm/2/temperature/1,Micron Technology - CP64G56C46U5.M16B1 (#2) · Temperature Sensor Resolution · Temperature,°C,0.25
+dimm,lhm/memory/dimm/2/temperature/2,Micron Technology - CP64G56C46U5.M16B1 (#2) · Thermal Sensor Low Limit · Temperature,°C,0
+dimm,lhm/memory/dimm/2/temperature/3,Micron Technology - CP64G56C46U5.M16B1 (#2) · Thermal Sensor High Limit · Temperature,°C,55
+dimm,lhm/memory/dimm/2/temperature/4,Micron Technology - CP64G56C46U5.M16B1 (#2) · Thermal Sensor Critical Low Limit · Temperature,°C,0
+dimm,lhm/memory/dimm/2/temperature/5,Micron Technology - CP64G56C46U5.M16B1 (#2) · Thermal Sensor Critical High Limit · Temperature,°C,85
+dimm,lhm/memory/dimm/2/timing/20,Micron Technology - CP64G56C46U5.M16B1 (#2) · tCKAVGmin (Minimum Cycle Time) · Timing,Timing,0.357
+dimm,lhm/memory/dimm/2/timing/21,Micron Technology - CP64G56C46U5.M16B1 (#2) · tCKAVGmax (Maximum Cycle Time) · Timing,Timing,1.01
+dimm,lhm/memory/dimm/2/timing/22,Micron Technology - CP64G56C46U5.M16B1 (#2) · tAA (CAS Latency Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/2/timing/23,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRCD (RAS to CAS Delay Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/2/timing/24,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRP (Row Precharge Delay Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/2/timing/25,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRAS (Active to Precharge Delay Time) · Timing,Timing,32
+dimm,lhm/memory/dimm/2/timing/26,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRC (Active to Active/Refresh Delay Time) · Timing,Timing,48
+dimm,lhm/memory/dimm/2/timing/27,Micron Technology - CP64G56C46U5.M16B1 (#2) · tWR (Write Recovery Time) · Timing,Timing,30
+dimm,lhm/memory/dimm/2/timing/28,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRFC1 (Normal Refresh Recovery Time) · Timing,Timing,410
+dimm,lhm/memory/dimm/2/timing/29,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRFC2 (Fine Granularity Refresh Recovery Time) · Timing,Timing,220
+dimm,lhm/memory/dimm/2/timing/30,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRFCsb (Same Bank Refresh Recovery Time) · Timing,Timing,190
+dimm,lhm/memory/dimm/2/timing/31,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRFC1_dlr (Normal Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/2/timing/32,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRFC2_dlr (Fine Granularity Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/2/timing/33,Micron Technology - CP64G56C46U5.M16B1 (#2) · tRFCsb_dlr (Same Bank Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/2/data/50,Micron Technology - CP64G56C46U5.M16B1 (#2) · Capacity · Data,GB,64
+dimm,lhm/memory/dimm/3/temperature/0,Micron Technology - CP64G56C46U5.M16B1 (#3) · DIMM #3 · Temperature,°C,25.25
+dimm,lhm/memory/dimm/3/temperature/1,Micron Technology - CP64G56C46U5.M16B1 (#3) · Temperature Sensor Resolution · Temperature,°C,0.25
+dimm,lhm/memory/dimm/3/temperature/2,Micron Technology - CP64G56C46U5.M16B1 (#3) · Thermal Sensor Low Limit · Temperature,°C,0
+dimm,lhm/memory/dimm/3/temperature/3,Micron Technology - CP64G56C46U5.M16B1 (#3) · Thermal Sensor High Limit · Temperature,°C,55
+dimm,lhm/memory/dimm/3/temperature/4,Micron Technology - CP64G56C46U5.M16B1 (#3) · Thermal Sensor Critical Low Limit · Temperature,°C,0
+dimm,lhm/memory/dimm/3/temperature/5,Micron Technology - CP64G56C46U5.M16B1 (#3) · Thermal Sensor Critical High Limit · Temperature,°C,85
+dimm,lhm/memory/dimm/3/timing/20,Micron Technology - CP64G56C46U5.M16B1 (#3) · tCKAVGmin (Minimum Cycle Time) · Timing,Timing,0.357
+dimm,lhm/memory/dimm/3/timing/21,Micron Technology - CP64G56C46U5.M16B1 (#3) · tCKAVGmax (Maximum Cycle Time) · Timing,Timing,1.01
+dimm,lhm/memory/dimm/3/timing/22,Micron Technology - CP64G56C46U5.M16B1 (#3) · tAA (CAS Latency Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/3/timing/23,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRCD (RAS to CAS Delay Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/3/timing/24,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRP (Row Precharge Delay Time) · Timing,Timing,16
+dimm,lhm/memory/dimm/3/timing/25,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRAS (Active to Precharge Delay Time) · Timing,Timing,32
+dimm,lhm/memory/dimm/3/timing/26,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRC (Active to Active/Refresh Delay Time) · Timing,Timing,48
+dimm,lhm/memory/dimm/3/timing/27,Micron Technology - CP64G56C46U5.M16B1 (#3) · tWR (Write Recovery Time) · Timing,Timing,30
+dimm,lhm/memory/dimm/3/timing/28,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRFC1 (Normal Refresh Recovery Time) · Timing,Timing,410
+dimm,lhm/memory/dimm/3/timing/29,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRFC2 (Fine Granularity Refresh Recovery Time) · Timing,Timing,220
+dimm,lhm/memory/dimm/3/timing/30,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRFCsb (Same Bank Refresh Recovery Time) · Timing,Timing,190
+dimm,lhm/memory/dimm/3/timing/31,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRFC1_dlr (Normal Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/3/timing/32,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRFC2_dlr (Fine Granularity Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/3/timing/33,Micron Technology - CP64G56C46U5.M16B1 (#3) · tRFCsb_dlr (Same Bank Refresh Recovery Time 3DS) · Timing,Timing,0
+dimm,lhm/memory/dimm/3/data/50,Micron Technology - CP64G56C46U5.M16B1 (#3) · Capacity · Data,GB,64
+derived,value/cpu_tctl_c,cpu_tctl_c,°C,31.5
+derived,value/cpu_ccd1_c,cpu_ccd1_c,°C,21
+derived,value/cpu_ccd2_c,cpu_ccd2_c,°C,20.3
+derived,value/cpu_pkg_w,cpu_pkg_w,,26.4
+derived,value/cpu_clock_mhz,cpu_clock_mhz,,5070
+derived,value/cpu_clock_avg_mhz,cpu_clock_avg_mhz,,1866.3
+derived,value/cpu_throttle,cpu_throttle,,0
+derived,value/vrm_c,vrm_c,°C,26
+derived,value/ram_dimm1_c,ram_dimm1_c,°C,24.2
+derived,value/ram_dimm2_c,ram_dimm2_c,°C,25.8
+derived,value/ram_dimm3_c,ram_dimm3_c,°C,25.8
+derived,value/ram_dimm4_c,ram_dimm4_c,°C,25.2
+derived,value/gpu0_c,gpu0_c,°C,24
+derived,value/gpu0_hotspot_c,gpu0_hotspot_c,°C,26
+derived,value/gpu0_w,gpu0_w,,13.3
+derived,value/gpu0_clock_mhz,gpu0_clock_mhz,,180
+derived,value/gpu0_fan_rpm,gpu0_fan_rpm,rpm,1168
+derived,value/nvme0_c,nvme0_c,°C,23
+derived,value/nvme1_c,nvme1_c,°C,22
+derived,value/nvme2_c,nvme2_c,°C,33
+derived,value/fan_cpu_rpm,fan_cpu_rpm,rpm,2445.7
+derived,value/pump_rpm,pump_rpm,rpm,3169
+derived,value/cpu_vcore_v,cpu_vcore_v,,0.664
+derived,value/cpu_soc_v,cpu_soc_v,,1.104
+derived,value/fan1_rpm,fan1_rpm,rpm,0
+derived,value/fan2_rpm,fan2_rpm,rpm,2445.7
+derived,value/fan3_rpm,fan3_rpm,rpm,3169
+derived,value/fan4_rpm,fan4_rpm,rpm,0
+derived,value/fan5_rpm,fan5_rpm,rpm,0
+derived,value/fan6_rpm,fan6_rpm,rpm,0
+derived,value/fan7_rpm,fan7_rpm,rpm,0
+derived,value/fan8_rpm,fan8_rpm,rpm,0
+derived,value/gpu0_load_pct,gpu0_load_pct,,0
+derived,value/board_12v_v,board_12v_v,,12.038
+derived,value/board_5v_v,board_5v_v,,5.088
+derived,value/board_3v3_v,board_3v3_v,,3.328
+derived,value/aq_fan1_w,aq_fan1_w,,2.3
+derived,value/aq_fan2_w,aq_fan2_w,,1.6
+derived,value/aq_fan3_w,aq_fan3_w,,0
+derived,value/aq_fan4_w,aq_fan4_w,,0
+derived,value/gpu0_mem_c,gpu0_mem_c,°C,30
+derived,value/cpu_smooth_c,cpu_smooth_c,°C,30.8
+derived,value/case_demand_c,case_demand_c,°C,37.6
+nvml,nvml/0/clock/graphics,Clock graphics,MHz,180
+nvml,nvml/0/clock/sm,Clock sm,MHz,180
+nvml,nvml/0/clock/mem,Clock mem,MHz,405
+nvml,nvml/0/clock/video,Clock video,MHz,600
+nvml,nvml/0/util/gpu,Utilization GPU,%,0
+nvml,nvml/0/util/mem,Utilization memory controller,%,1
+nvml,nvml/0/util/enc,Utilization encoder,%,0
+nvml,nvml/0/util/dec,Utilization decoder,%,0
+nvml,nvml/0/pstate,P-state,P,8
+nvml,nvml/0/throttle,"Throttle reasons bitmask (0x4 power cap, 0x8 HW slowdown, 0x20 SW thermal, 0x40 HW thermal, 0x80 power brake)",mask,1024
+nvml,nvml/0/pcie/gen,PCIe link generation,gen,1
+nvml,nvml/0/pcie/width,PCIe link width,x,16
+nvml,nvml/0/vram/used,VRAM used,MiB,945.723
+nvml,nvml/0/power,Board power,W,13.303
+nvml,nvml/0/power/limit,Enforced power limit,W,575
+nvml,nvml/0/energy,Total energy since driver load,J,3650108.369
+nvml,nvml/0/temp/core,Core temperature (NVML),°C,24
+nvml,nvml/0/fan1/pct,Fan 1 actual,%,35
+nvml,nvml/0/fan1/target,Fan 1 target,%,35
+nvml,nvml/0/fan2/pct,Fan 2 actual,%,35
+nvml,nvml/0/fan2/target,Fan 2 target,%,35
+nvml,nvml/0/fan3/pct,Fan 3 actual,%,34
+nvml,nvml/0/fan3/target,Fan 3 target,%,35
+nvml,nvapi/0/1,NVAPI thermal sensor 1 (Core (NVAPI)),°C,23.6
+nvml,nvapi/0/2,NVAPI thermal sensor 2 (Memory),°C,32
+nvml,nvapi/0/54,"Hot spot (thermal registers, max)",°C,26.1
+nvml,pawnio/0/ch1,GPU thermal register channel 1,°C,25.1
+nvml,pawnio/0/ch2,GPU thermal register channel 2,°C,22.2
+nvml,pawnio/0/ch3,GPU thermal register channel 3,°C,22.9
+nvml,pawnio/0/ch4,GPU thermal register channel 4,°C,26.1
+nvml,pawnio/0/ch5,GPU thermal register channel 5,°C,26.1
+nvml,pawnio/0/ch6,GPU thermal register channel 6,°C,23.5

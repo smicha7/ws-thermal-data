@@ -1,0 +1,10 @@
+fg_pct,fc_pct,pl_w,pl_pct,reason,after_fg,after_fc
+30,100,,,predicted unsafe at this power,40,100
+30,79,,,predicted unsafe at this power,40,79
+30,58,,,predicted unsafe at this power,40,58
+50,36,,,predicted unsafe at this power,60,36
+40,36,,,predicted unsafe at this power,60,36
+30,36,,,predicted unsafe at this power,60,36
+50,15,,,predicted unsafe at this power,55,15
+40,15,,,predicted unsafe at this power,55,15
+30,15,,,predicted unsafe at this power,55,15

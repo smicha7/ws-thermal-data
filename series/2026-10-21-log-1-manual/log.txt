@@ -1,0 +1,4 @@
+2026-10-21 12:16:16 start (próba 1), tryb log, budżet 6 h, obudowa: open top; read-only logging, Seb controls case (aquasuite) and card (Afterburner)
+2026-10-21 12:16:16 spis czujników: 341
+2026-10-21 12:16:16 etap: Hold
+2026-10-21 12:16:16 tylko zapis (log) — bez sterowania

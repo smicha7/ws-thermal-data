@@ -1,0 +1,6 @@
+2026-10-21 10:29:46 start (próba 1), tryb hold, budżet 6 h, obudowa: open top; case fans held at 1000 rpm for Seb's case-fan experiment
+2026-10-21 10:29:46 spis czujników: 338
+2026-10-21 10:29:48 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-21 10:29:48 etap: Hold
+2026-10-21 10:29:48 trzymanie obudowy na 1000 rpm, start 27 %
+2026-10-21 10:30:35 trzymanie: 27.1 % → 1003 rpm (cel 1000)
