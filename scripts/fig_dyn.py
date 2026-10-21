@@ -21,8 +21,11 @@ tests = [dm.load("log-1"), dm.load("grid1d"), dm.load("hold"), dm.load("night-v2
 LABEL = {"log-1": "Manual series", "grid1d": "Repeat of the 40 % points", "hold": "Morning series", "night-v2d": "First-run night grid"}
 gpct = lambda r: (np.asarray(r) - 1313) / (3012 - 1313) * 60 + 40
 grpm = lambda q: (np.asarray(q) - 40) / 60 * (3012 - 1313) + 1313
-cpct = lambda r: (np.asarray(r) - 330.4) / 26.13          # case controller duty ↔ rpm, linear fit on the second run
-crpm = lambda q: np.asarray(q) * 26.13 + 330.4
+_CR, _CP = [1007.0, 1500.0, 1999.0, 2923.0], [26.8, 43.9, 62.4, 100.0]   # second-run case levels: measured rpm ↔ controller %
+def _lin(xs, ys):
+    k_ = (ys[-1] - ys[0]) / (xs[-1] - xs[0])
+    return lambda v: np.interp(v, xs, ys) + (np.asarray(v) - np.clip(v, xs[0], xs[-1])) * k_
+cpct, crpm = _lin(_CR, _CP), _lin(_CP, _CR)
 THEMES = {"light": dict(bg="#ffffff", fg="#1d1d1f", grid="#d9d9de", dim="#86868b", meas="#1d1d1f"),
           "dark": dict(bg="#141414", fg="#f5f5f7", grid="#3a3a3c", dim="#98989d", meas="#f5f5f7")}
 RED, BLUE, PURPLE, GREEN, ORANGE, TEAL = "#ff453a", "#0a84ff", "#bf5af2", "#30d158", "#ff9f0a", "#64d2ff"
@@ -36,16 +39,16 @@ def style(ax, th, fs):
 def save(fig, th, name):
     fig.savefig(out / f"{name}.png", dpi=200, facecolor=th["bg"]); plt.close(fig)
     im = Image.open(out / f"{name}.png").convert("RGB"); im.save(out / f"{name}.webp", "WEBP", quality=86, method=6); print(name, im.size)
-def fanstrip(ax, th, fs, tm, v, col, name, to_pct, to_rpm, ticks_pct, lim):
+def fanstrip(ax, th, fs, tm, v, col, name, to_pct, to_rpm, ticks_pct, lim, ticks_rpm=None):
     ax.plot(tm, to_pct(v), color=col, lw=1.0); ax.set_ylim(*lim); ax.set_yticks(ticks_pct); ax.set_ylabel(f"{name}\n(%)", fontsize=fs - 2)
-    r = ax.secondary_yaxis("right", functions=(to_rpm, to_pct)); r.set_yticks([round(float(to_rpm(t)), -1) for t in ticks_pct])
-    r.set_ylabel("rpm", color=th["fg"], fontsize=fs - 2); r.tick_params(colors=th["fg"], labelsize=fs - 3, length=0)
+    r = ax.secondary_yaxis("right", functions=(to_rpm, to_pct)); r.set_yticks(ticks_rpm or [round(float(to_rpm(t)), -1) for t in ticks_pct])
+    r.set_ylabel("rpm", color=th["fg"], fontsize=fs - 2); r.tick_params(colors=th["fg"], labelsize=fs - 2, length=0)
     for sp in r.spines.values(): sp.set_visible(False)
 def inputs(axs, th, fs, D, tm):
     a, b, c = axs
     a.plot(tm, D["P"], color=ORANGE, lw=0.9); a.set_ylabel("Power\n(W)", fontsize=fs - 2); a.set_ylim(0, 640); a.set_yticks([0, 300, 575])
     fanstrip(b, th, fs, tm, D["N"], GREEN, "GPU fans", gpct, grpm, [40, 100], (10, 110))
-    fanstrip(c, th, fs, tm, D["C"], TEAL, "Case fans", cpct, crpm, [25, 100], (0, 110))
+    fanstrip(c, th, fs, tm, D["C"], TEAL, "Case fans", cpct, crpm, [27, 100], (0, 115), [1000, 2920])
     for x in (a, b): x.tick_params(labelbottom=False)
 def rc(phone): plt.rcParams.update({"font.family": "sans-serif", "font.sans-serif": ["Helvetica Neue", "Arial", "DejaVu Sans"], "font.size": 13 if phone else 11})
 
@@ -65,11 +68,11 @@ def figA(theme, phone):
 
 TP = [(D, *dm.core_pred(p2, D, 2)) for D in tests]
 def figB(theme, phone):
-    th = THEMES[theme]; fs = 13 if phone else 11; rc(phone)
-    fig = plt.figure(figsize=(5, 25) if phone else (11, 11.5)); fig.patch.set_facecolor(th["bg"])
+    th = THEMES[theme]; fs = 17 if phone else 11; rc(phone); plt.rcParams["font.size"] = fs
+    fig = plt.figure(figsize=(5, 30) if phone else (11, 11.5)); fig.patch.set_facecolor(th["bg"])
     gs = GridSpec(4, 1, figure=fig, hspace=0.32) if phone else GridSpec(2, 2, figure=fig, hspace=0.3, wspace=0.32)
     for i, (D, yc, X) in enumerate(TP):
-        sub = GridSpecFromSubplotSpec(4, 1, subplot_spec=gs[i], height_ratios=[3, 0.8, 0.8, 0.8], hspace=0.12)
+        sub = GridSpecFromSubplotSpec(4, 1, subplot_spec=gs[i], height_ratios=[3, 1.0, 1.0, 1.0] if phone else [3, 0.8, 0.8, 0.8], hspace=0.14)
         ax = fig.add_subplot(sub[0]); ins = [fig.add_subplot(sub[j], sharex=ax) for j in (1, 2, 3)]
         for a in [ax, *ins]: style(a, th, fs)
         tm = D["t"] / 60; ym = dm.mem_sim(pm, D, X)
@@ -82,7 +85,7 @@ def figB(theme, phone):
     h = [plt.Line2D([], [], c=th["meas"], lw=1.4), plt.Line2D([], [], c=RED, lw=1.4), plt.Line2D([], [], c=th["dim"], lw=1.4), plt.Line2D([], [], c=PURPLE, lw=1.4)]
     l = ["core, measured", "core, model", "memory, measured", "memory, model"]
     fig.legend(h, l, loc="lower center", ncol=2 if phone else 4, fontsize=fs - 2, frameon=False, labelcolor=th["fg"])
-    fig.subplots_adjust(left=0.16 if phone else 0.08, right=0.84 if phone else 0.93, top=0.98 if phone else 0.96, bottom=0.05 if phone else 0.08)
+    fig.subplots_adjust(left=0.2 if phone else 0.08, right=0.8 if phone else 0.93, top=0.975 if phone else 0.96, bottom=0.06 if phone else 0.08)
     save(fig, th, f"gpu-map-2026-10-21-dyn-test{'-phone' if phone else ''}-{theme}")
 for t in THEMES:
     for ph in (False, True): figA(t, ph); figB(t, ph)
