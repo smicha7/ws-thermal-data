@@ -1,0 +1,76 @@
+2026-10-21 17:54:03 start (próba 1), tryb rpmgrid, budżet 6 h, obudowa: open top; 1 GPU; Seb 2026-10-21 evening: model validation — every point to steady state (|dT/dt| < 0.1 °C/min over 120 s, 8–15 min), snapshots at 1/2/3/5/8/12 min; priority 12 pts @1500, then 4 re-tests, then 4 pts card 40/70
+2026-10-21 17:54:03 spis czujników: 339
+2026-10-21 17:54:05 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-21 17:54:05 obciążenie: proces w sesji użytkownika
+2026-10-21 17:54:05 etap: Hold
+2026-10-21 17:54:05 siatka po obrotach: 20 punktów, start 50 % / 1500 rpm
+2026-10-21 obciążenie 17:54:05 start: plik stanu jest, tryb mix64
+2026-10-21 obciążenie 17:54:05 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-21 obciążenie 17:54:05 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-21 obciążenie 17:54:05 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-21 17:54:21 trzymanie: 44.6 % → 1492 rpm (cel 1500)
+2026-10-21 17:57:08 start (próba 2), tryb rpmgrid, budżet 6 h, obudowa: open top; 1 GPU; Seb 2026-10-21 evening: model validation — every point to steady state (|dT/dt| < 0.1 °C/min over 120 s, 8–15 min), snapshots at 1/2/3/5/8/12 min; priority 12 pts @1500, then 4 re-tests, then 4 pts card 40/70
+2026-10-21 17:57:08 spis czujników: 340
+2026-10-21 17:57:10 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-21 17:57:10 obciążenie: proces w sesji użytkownika
+2026-10-21 17:57:10 etap: Hold
+2026-10-21 17:57:10 siatka po obrotach: 20 punktów, start 50 % / 1500 rpm
+2026-10-21 obciążenie 17:57:10 start: plik stanu jest, tryb mix64
+2026-10-21 obciążenie 17:57:10 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-21 obciążenie 17:57:10 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-21 obciążenie 17:57:10 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-21 17:57:21 trzymanie: 43.6 % → 1492 rpm (cel 1500)
+2026-10-21 17:59:08 start (próba 3), tryb rpmgrid, budżet 6 h, obudowa: open top; 1 GPU; Seb 2026-10-21 evening: model validation — every point to steady state (|dT/dt| < 0.1 °C/min over 120 s, 8–15 min), snapshots at 1/2/3/5/8/12 min; priority 12 pts @1500, then 4 re-tests, then 4 pts card 40/70
+2026-10-21 17:59:08 spis czujników: 344
+2026-10-21 17:59:11 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-21 17:59:11 obciążenie: proces w sesji użytkownika
+2026-10-21 17:59:11 etap: Hold
+2026-10-21 17:59:11 siatka po obrotach: 20 punktów, start 50 % / 1500 rpm
+2026-10-21 obciążenie 17:59:11 start: plik stanu jest, tryb mix64
+2026-10-21 obciążenie 17:59:11 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-21 obciążenie 17:59:11 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-21 obciążenie 17:59:11 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-21 17:59:37 trzymanie: 43.8 % → 1512 rpm (cel 1500)
+2026-10-21 18:07:08 punkt 1/20: obie 50 % / 1500 rpm → rdzeń 72.0, pamięć 80.0 °C, 480 s
+2026-10-21 18:07:09 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 18:15:39 punkt 2/20: obie 50 % / 1500 rpm → rdzeń 67.9, pamięć 76.2 °C, 511 s
+2026-10-21 18:15:40 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 18:24:12 punkt 3/20: obie 50 % / 1500 rpm → rdzeń 62.7, pamięć 72.3 °C, 513 s
+2026-10-21 18:24:14 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 18:32:12 punkt 4/20: obie 50 % / 1500 rpm → rdzeń 57.3, pamięć 69.9 °C, 480 s
+2026-10-21 18:32:13 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 18:40:33 punkt 5/20: obie 55 % / 1500 rpm → rdzeń 69.1, pamięć 77.8 °C, 501 s
+2026-10-21 18:40:34 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 18:48:34 punkt 6/20: obie 55 % / 1500 rpm → rdzeń 65.0, pamięć 74.0 °C, 481 s
+2026-10-21 18:48:35 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 18:56:34 punkt 7/20: obie 55 % / 1500 rpm → rdzeń 60.0, pamięć 70.0 °C, 480 s
+2026-10-21 18:56:36 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 19:04:38 punkt 8/20: obie 55 % / 1500 rpm → rdzeń 55.0, pamięć 67.6 °C, 484 s
+2026-10-21 19:04:39 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 19:12:47 punkt 9/20: obie 60 % / 1500 rpm → rdzeń 67.0, pamięć 74.2 °C, 489 s
+2026-10-21 19:12:48 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 19:20:47 punkt 10/20: obie 60 % / 1500 rpm → rdzeń 62.8, pamięć 72.0 °C, 480 s
+2026-10-21 19:20:48 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 19:28:47 punkt 11/20: obie 60 % / 1500 rpm → rdzeń 58.0, pamięć 68.0 °C, 480 s
+2026-10-21 19:28:48 trzymanie: 43.8 % → 1500 rpm (cel 1500)
+2026-10-21 19:36:47 punkt 12/20: obie 60 % / 1500 rpm → rdzeń 53.0, pamięć 66.0 °C, 480 s
+2026-10-21 19:37:24 trzymanie: 26.1 % → 997 rpm (cel 1000)
+2026-10-21 19:44:47 punkt 13/20: obie 40 % / 1000 rpm → rdzeń 64.0, pamięć 76.0 °C, 480 s
+2026-10-21 19:52:47 punkt 14/20: obie 70 % / 3000 rpm → rdzeń 59.0, pamięć 68.0 °C, 480 s
+2026-10-21 19:52:58 trzymanie: 60.7 % → 1988 rpm (cel 2000)
+2026-10-21 19:53:23 trzymanie: 63.3 % → 2013 rpm (cel 2000)
+2026-10-21 19:53:44 trzymanie: 62.5 % → 2014 rpm (cel 2000)
+2026-10-21 20:00:48 punkt 15/20: obie 100 % / 2000 rpm → rdzeń 47.0, pamięć 60.0 °C, 481 s
+2026-10-21 20:09:40 punkt 16/20: obie 40 % / 3000 rpm → rdzeń 74.0, pamięć 81.9 °C, 532 s
+2026-10-21 20:10:11 trzymanie: 43.9 % → 1505 rpm (cel 1500)
+2026-10-21 20:10:36 trzymanie: 42.9 % → 1493 rpm (cel 1500)
+2026-10-21 20:14:13 trzymanie: 43.5 % → 1494 rpm (cel 1500)
+2026-10-21 20:17:40 punkt 17/20: obie 40 % / 1500 rpm → rdzeń 80.0, pamięć 88.0 °C, 480 s
+2026-10-21 20:17:41 trzymanie: 43.5 % → 1505 rpm (cel 1500)
+2026-10-21 20:26:23 punkt 18/20: obie 40 % / 1500 rpm → rdzeń 63.0, pamięć 74.0 °C, 523 s
+2026-10-21 20:26:24 trzymanie: 43.5 % → 1494 rpm (cel 1500)
+2026-10-21 20:34:23 punkt 19/20: obie 70 % / 1500 rpm → rdzeń 63.4, pamięć 71.6 °C, 480 s
+2026-10-21 20:34:24 trzymanie: 43.5 % → 1494 rpm (cel 1500)
+2026-10-21 20:42:24 punkt 20/20: obie 70 % / 1500 rpm → rdzeń 50.9, pamięć 64.0 °C, 481 s
+2026-10-21 20:42:24 aquaero przywrócone: przywrócono aquaero-20261021-175910.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261021-204224.bin
+2026-10-21 20:42:24 ZAKOŃCZONO: siatka zakończona: 20 punktów
