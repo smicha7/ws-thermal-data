@@ -1,0 +1,8 @@
+2026-10-22 20:43:01 start (próba 1), tryb cpu2, budżet 0.5 h, obudowa: open top; 1 GPU idle (driver auto); Seb 2026-10-22: CPU 100 % all threads (FMA), case fans 100 %, AIO pump max; radiator fans ×3 at 100 % until Tctl settles (≥ 5 min, ≤ 0.5 °C/min), then down 100 rpm every 10 s to 1500 rpm, then hold 1500 rpm ≥ 5 min to plateau; abort only at Tctl ≥ 95 °C
+2026-10-22 20:43:01 spis czujników: 339
+2026-10-22 20:43:03 etap: Hold
+2026-10-22 20:43:03 CPU: obciążenie 32 wątków (FMA), chłodnica + obudowa 100 %, karta bez obciążenia
+2026-10-22 20:48:23 cpu2: rozgrzewka ustalona (Tctl 70.9 °C, chłodnica 2744 rpm) → zejście co 10 s o 100 rpm do 1500
+2026-10-22 20:50:34 cpu2: trzymanie 1500 rpm
+2026-10-22 20:55:41 aquaero przywrócone: przywrócono aquaero-20261022-204303.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261022-205540.bin
+2026-10-22 20:55:41 ZAKOŃCZONO: cpu2: ustalone przy 1500 rpm (Tctl 71.2 °C, trend +0.36 °C/min)

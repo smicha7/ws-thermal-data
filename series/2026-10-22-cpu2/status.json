@@ -1,0 +1,1 @@
+{"id":"2026-10-22-cpu2","state":"done","note":"cpu2: ustalone przy 1500 rpm (Tctl 71.2 \u00B0C, trend \u002B0.36 \u00B0C/min)","elapsed_s":759,"case_min_pct":null,"point":null,"done":0,"queued":0,"at":1792695340,"sensors":339,"load_mode":"alu","calibration_w":null,"abort_core_c":85,"abort_mem_c":100,"noise_prompt":null,"hold_pct":null,"hold_settled":false,"only":null}
