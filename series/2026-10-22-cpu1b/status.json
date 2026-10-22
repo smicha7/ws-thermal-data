@@ -1,0 +1,1 @@
+{"id":"2026-10-22-cpu1b","state":"done","note":"CPU: ustalone po 180 s (Tctl 68.2 \u00B0C, trend -0.29 \u00B0C/min)","elapsed_s":180,"case_min_pct":null,"point":null,"done":0,"queued":0,"at":1792688917,"sensors":339,"load_mode":"alu","calibration_w":null,"abort_core_c":85,"abort_mem_c":100,"noise_prompt":null,"hold_pct":null,"hold_settled":false,"only":null}

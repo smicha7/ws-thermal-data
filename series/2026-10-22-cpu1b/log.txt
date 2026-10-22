@@ -1,0 +1,6 @@
+2026-10-22 19:05:37 start (próba 1), tryb cpu, budżet 0.5 h, obudowa: open top; 1 GPU idle (driver auto); Seb 2026-10-22: CPU 100 % all threads (WS.Sensor.Lab FMA load), radiator fans ×3 + case fans 100 %, AIO pump at max; ends when Tctl trend ≤ 0.5 °C/min over 60 s after ≥ 3 min (max 30 min); stop only at Tctl ≥ 100 °C or lost Tctl
+2026-10-22 19:05:37 spis czujników: 339
+2026-10-22 19:05:39 etap: Hold
+2026-10-22 19:05:39 CPU: obciążenie 32 wątków (FMA), chłodnica + obudowa 100 %, karta bez obciążenia
+2026-10-22 19:08:37 aquaero przywrócone: przywrócono aquaero-20261022-190539.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261022-190837.bin
+2026-10-22 19:08:37 ZAKOŃCZONO: CPU: ustalone po 180 s (Tctl 68.2 °C, trend -0.29 °C/min)
