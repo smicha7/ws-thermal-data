@@ -1,0 +1,29 @@
+2026-10-22 15:37:55 start (próba 1), tryb ctrl, budżet 0.5 h, obudowa: open top; 1 GPU; Seb 2026-10-22: WS.Sensor model-based controller test — mode performance, scenario step (step: 2 min idle then 575 W; bursts: 60 s on / 60 s off after 2 min), 30 min
+2026-10-22 15:37:55 spis czujników: 340
+2026-10-22 15:37:56 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-22 15:37:56 etap: Hold
+2026-10-22 15:37:56 regulator performance, scenariusz step
+2026-10-22 15:38:08 trzymanie: 26.8 % → 1012 rpm (cel 1000)
+2026-10-22 15:39:38 trzymanie: 20.3 % → 824 rpm (cel 820)
+2026-10-22 15:39:55 obciążenie: proces w sesji użytkownika
+2026-10-22 15:39:55 regulator: obciążenie start
+2026-10-22 obciążenie 15:39:56 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 15:39:56 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 15:39:56 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 15:39:56 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 15:40:51 trzymanie: 44.2 % → 1415 rpm (cel 1424)
+2026-10-22 15:41:17 trzymanie: 40.4 % → 1409 rpm (cel 1424)
+2026-10-22 15:43:16 trzymanie: 39.4 % → 1409 rpm (cel 1394)
+2026-10-22 15:43:37 trzymanie: 37.7 % → 1310 rpm (cel 1304)
+2026-10-22 15:44:09 trzymanie: 39.5 % → 1385 rpm (cel 1394)
+2026-10-22 15:44:29 trzymanie: 42.1 % → 1432 rpm (cel 1424)
+2026-10-22 15:44:54 trzymanie: 40.7 % → 1432 rpm (cel 1424)
+2026-10-22 15:45:50 trzymanie: 43.0 % → 1409 rpm (cel 1394)
+2026-10-22 15:46:21 trzymanie: 36.6 % → 1310 rpm (cel 1304)
+2026-10-22 15:48:44 trzymanie: 37.2 % → 1445 rpm (cel 1458)
+2026-10-22 15:48:52 trzymanie: 39.7 % → 1330 rpm (cel 1338)
+2026-10-22 15:49:14 trzymanie: 37.4 % → 1300 rpm (cel 1308)
+2026-10-22 15:54:29 trzymanie: 51.4 % → 1556 rpm (cel 1548)
+2026-10-22 15:55:09 trzymanie: 45.8 % → 1554 rpm (cel 1548)
+2026-10-22 16:07:56 aquaero przywrócone: przywrócono aquaero-20261022-153756.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261022-160756.bin
+2026-10-22 16:07:56 ZAKOŃCZONO: regulator: koniec (czas)
