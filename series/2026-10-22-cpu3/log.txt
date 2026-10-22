@@ -1,0 +1,16 @@
+2026-10-22 21:20:08 start (próba 1), tryb cpu3, budżet 3 h, obudowa: open top; 1 GPU idle (driver auto); AIO pump at max, never touched; Seb 2026-10-22: CPU 100 % all threads (FMA), stock 200 W; points case 1000 rpm × radiator 1000 / 800 / 600 / lowest stable rpm (never 0), each ≥ 5 min then Tctl ≤ 0.5 °C/min; damped rpm loops (5 s, ±30 rpm); limit Tctl ≥ 90 °C → point ends, radiator 100 %, load off, last rpm recorded as the limit; room air = intake probe (aquaero Sensor 1) at 1 Hz
+2026-10-22 21:20:08 spis czujników: 338
+2026-10-22 21:20:11 cpu3: punkt 1/4: obudowa 1000 rpm, chłodnica 1000 rpm
+2026-10-22 21:20:11 etap: Hold
+2026-10-22 21:20:11 CPU: obciążenie 32 wątków (FMA), chłodnica + obudowa 100 %, karta bez obciążenia
+2026-10-22 21:25:15 cpu3: punkt 1 ustalony po 307 s: Tctl 75.8 °C, chłodnica 1014 rpm (30 %), obudowa 1007 rpm, 200 W, 5031 MHz
+2026-10-22 21:25:15 cpu3: punkt 2/4: obudowa 1000 rpm, chłodnica 800 rpm
+2026-10-22 21:25:56 cpu3: chłodnica staje — minimum 6 %
+2026-10-22 21:30:23 cpu3: punkt 2 ustalony po 308 s: Tctl 80.8 °C, chłodnica 882 rpm (6 %), obudowa 996 rpm, 200 W, 5050 MHz
+2026-10-22 21:30:23 cpu3: punkt 3/4: obudowa 1000 rpm, chłodnica 600 rpm
+2026-10-22 21:35:52 cpu3: punkt 3 ustalony po 329 s: Tctl 78.7 °C, chłodnica 882 rpm (6 %), obudowa 996 rpm, 200 W, 5037 MHz
+2026-10-22 21:35:52 cpu3: minimum chłodnicy znane: 6 %
+2026-10-22 21:35:52 cpu3: punkt 4/4: obudowa 1000 rpm, chłodnica minimum
+2026-10-22 21:41:22 cpu3: punkt 4 ustalony po 330 s: Tctl 75.7 °C, chłodnica 882 rpm (6 %), obudowa 996 rpm, 200 W, 5005 MHz
+2026-10-22 21:41:23 aquaero przywrócone: przywrócono aquaero-20261022-212010.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261022-214122.bin
+2026-10-22 21:41:23 ZAKOŃCZONO: cpu3: 4 punktów

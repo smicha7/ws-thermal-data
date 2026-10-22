@@ -32,6 +32,7 @@ aquaero, own GPU thermal-register reader). Free to use; please cite "GRUENCY / W
 | 2026-10-22-ctrl2-{performance,balanced}-bursts | controller after the anti-pumping fix (intake low-pass, feedforward hysteresis, down-ramp deadband, hold after a rise); 60/60 s bursts, 12 min; results in notes/CONTROLLER.md |
 | 2026-10-22-cpu1b | CPU (Ryzen 9 9950X) all 32 threads loaded, radiator + case fans 100 %, GPU idle, until Tctl plateau; `cpu.csv` 1 Hz Tctl, CCD1/2, package W, VCore, clocks, fans; summary.md |
 | 2026-10-22-cpu2 | CPU full load, radiator fans 100 % until settled, then −100 rpm every 10 s to 1500 rpm, then held 1500 rpm to plateau; `sweep.csv` 1 Hz (target/measured rpm, %, Tctl, CCD1/2, package W, clock); summary.md |
+| 2026-10-22-cpu3 | CPU full load, case fans 1000 rpm, radiator 1000 / 800 / 600 / minimum (fans bottom out at ~880 rpm), each to plateau; `points.csv` per point, `sweep.csv` 1 Hz incl. room (intake) °C; summary.md |
 
 **Data quality:** grid1c points are 60 s each and mostly not settled after big jumps — see `notes/NOTATKI-RECZNE-2026-10-21.md`
 (final table = `series/2026-10-21-grid1c-1card/final.csv`, column `source`). RTX 5090 power limit cannot go below 400 W (NVML minimum).
