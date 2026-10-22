@@ -1,0 +1,39 @@
+{
+  "id": "2026-10-22-cpu3e",
+  "started_utc": "2026-10-22 21:15:47Z",
+  "case": "open top; 1 GPU idle (driver auto); AIO pump at max, never touched; Seb 2026-10-22 (case-fan effect): CPU 100 % all threads (FMA), stock 200 W; points case 2930 rpm (max) \u00D7 radiator 1000 / minimum (~880), each \u2265 5 min then Tctl \u2264 0.5 \u00B0C/min; limit Tctl \u2265 90 \u00B0C; room air = intake probe at 1 Hz",
+  "intake_c_at_start": 19.19,
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "gpu_serial_hash": null,
+  "driver": null,
+  "power_limit_w": 575,
+  "power_default_w": 575,
+  "gpu_fan_min_pct": 30,
+  "case_fans": "Case fans \u00D74 (be quiet! Silent Wings Pro 4 120 mm)",
+  "radiator_fans": "Radiator fans \u00D73 (SilverStone 120 mm PWM, Hailstone 360)",
+  "radiator_note": "held on its own curve (Curve 1), logged",
+  "case_min_pct": null,
+  "budget_h": 1,
+  "lab_version": "0.3.58",
+  "steady": "|dT/dt| \u003C 0.2 \u00B0C/min over 120 s (core, memory, hot spot), min 150 s, max 480 s per point; mean of last 60 s",
+  "abort": "memory \u2265 100 \u00B0C, hot spot \u2265 95 \u00B0C, core \u2265 85 \u00B0C (NVML slowdown \u2212 5) \u2192 point marked too_hot, all fans 100 % until cool, next point",
+  "gpu_thresholds_c": {},
+  "load_calibration_w": {},
+  "load_mode": "alu",
+  "mem_working_limit_c": 100,
+  "core_limits_c": [
+    90,
+    93,
+    96
+  ],
+  "sensor_count": 338,
+  "slots": "",
+  "gpus": [
+    {
+      "name": "NVIDIA GeForce RTX 5090",
+      "pci_bus": 1
+    }
+  ],
+  "power_limits_w": null,
+  "mode": "steady-state: coarse 4\u00D74 then 8\u00D75 refinement"
+}

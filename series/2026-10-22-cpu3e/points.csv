@@ -1,0 +1,3 @@
+point,case_target_rpm,rad_target_rpm,seconds,settled,case_rpm,case_pct,rad_rpm,rad_pct,tctl_c,ccd1_c,ccd2_c,pkg_w,clock_avg_mhz,clock_max_mhz,vcore_v,tctl_slope_c_min,intake_c
+1,2930,1000,312,1,2927.714,99.944,1022,30.317,74.477,72.055,70.798,199.98,5058.698,5198.964,1.259,-0.488,19.483
+2,2930,min,312,1,2919.768,98.553,872,8,78.596,75.33,73.457,199.988,5039.766,5170.268,1.258,0.412,19.555
