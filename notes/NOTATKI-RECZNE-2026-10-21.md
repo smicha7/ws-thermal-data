@@ -275,3 +275,4 @@ Pliki: `results-2026-10-22/steady-compare.csv`, `steady-stats.json/.txt`, `stead
 - cpu1b: 9950X, 32 wątki, chłodnica + obudowa 100 %, wlot 19,3 °C: Tctl maks. 74,3 (szpilka 15 s) / ustalony 68,2 °C; CCD1 70,6 / 66,1; CCD2 69,1 / 65,7; pakiet 200 W (limit PPT), 5,09 GHz; bez dławienia termicznego; zapas ~27 °C do 95 °C. data/cpu1-2026-10-22/summary.md.
 - steady2: dziennik 1 Hz (73,7 MB) pobrany i opublikowany (ws-thermal-data, asset).
 - cpu2 (20:43–20:55): chłodnica 2744 → 1500 rpm przy 200 W: Tctl ustalony 70,9 → 71,2 °C, CCD ~+2 °C; skoki co 10 s bez mierzalnego trendu (ciecz reaguje w minutach); maks. 75,6 °C, bez dławienia. data/cpu2-2026-10-22/summary.md.
+- cpu3 (21:20–21:41): obudowa 1000 rpm; chłodnica 1013 rpm → Tctl 75,1 °C; minimum chłodnicy 882 rpm (5,5 %; 800/600 nieosiągalne) → Tctl 77,4–77,7 °C, 200 W, ~5,04 GHz, bez spowolnienia; wpływ obudowy nierozdzielony (potrzebny punkt obudowa 2930 / chłodnica 1000).
