@@ -6,529 +6,563 @@
  "groups": [
   "steady2"
  ],
- "choice": "flow +S",
+ "choice": "cond +S",
  "compare": [
   {
    "model": "pow",
    "k": 6,
-   "rmse": 0.576,
+   "rmse": 0.502,
    "mean_e": 0.0,
-   "AIC": 76.223,
-   "BIC": 85.889,
-   "LOO": 0.664,
-   "CV5": 0.664,
+   "AIC": 65.985,
+   "BIC": 75.65,
+   "LOO": 0.599,
+   "CV5": 0.602,
    "LOSO": NaN,
-   "DWser": 0.137,
-   "DWtime": 1.08
+   "DWser": 1.716,
+   "DWtime": 0.812
   },
   {
    "model": "exp",
    "k": 6,
-   "rmse": 0.553,
-   "mean_e": -0.0,
-   "AIC": 73.162,
-   "BIC": 82.828,
-   "LOO": 0.633,
-   "CV5": 0.628,
+   "rmse": 0.448,
+   "mean_e": 0.0,
+   "AIC": 57.662,
+   "BIC": 67.328,
+   "LOO": 0.525,
+   "CV5": 0.52,
    "LOSO": NaN,
-   "DWser": 0.655,
-   "DWtime": 1.1
+   "DWser": 2.485,
+   "DWtime": 0.642
   },
   {
    "model": "rat",
    "k": 6,
-   "rmse": 0.567,
+   "rmse": 0.482,
    "mean_e": -0.0,
-   "AIC": 74.964,
-   "BIC": 84.63,
-   "LOO": 0.652,
-   "CV5": 0.648,
+   "AIC": 62.955,
+   "BIC": 72.62,
+   "LOO": 0.565,
+   "CV5": 0.565,
    "LOSO": NaN,
-   "DWser": 0.281,
-   "DWtime": 1.08
+   "DWser": 2.31,
+   "DWtime": 0.739
   },
   {
    "model": "cond",
    "k": 7,
-   "rmse": 0.465,
-   "mean_e": -0.0,
-   "AIC": 62.297,
-   "BIC": 73.573,
-   "LOO": 0.562,
-   "CV5": 0.564,
+   "rmse": 0.202,
+   "mean_e": 0.0,
+   "AIC": 0.461,
+   "BIC": 11.737,
+   "LOO": 0.237,
+   "CV5": 0.236,
    "LOSO": NaN,
-   "DWser": 0.388,
-   "DWtime": 1.818
+   "DWser": 1.297,
+   "DWtime": 1.23
   },
   {
    "model": "flow",
    "k": 6,
-   "rmse": 0.458,
+   "rmse": 0.244,
    "mean_e": 0.0,
-   "AIC": 59.193,
-   "BIC": 68.859,
-   "LOO": 0.53,
-   "CV5": 0.532,
+   "AIC": 12.55,
+   "BIC": 22.216,
+   "LOO": 0.283,
+   "CV5": 0.281,
    "LOSO": NaN,
-   "DWser": 0.23,
-   "DWtime": 1.583
+   "DWser": 1.342,
+   "DWtime": 0.856
   },
   {
    "model": "R-resp cond",
    "k": 7,
-   "rmse": 0.471,
-   "mean_e": -0.003,
-   "AIC": 63.794,
-   "BIC": 75.07,
-   "LOO": 0.568,
-   "CV5": 0.567,
+   "rmse": 0.203,
+   "mean_e": -0.0,
+   "AIC": -0.919,
+   "BIC": 10.357,
+   "LOO": 0.237,
+   "CV5": 0.235,
    "LOSO": NaN,
-   "DWser": 0.479,
-   "DWtime": 1.829
+   "DWser": 1.319,
+   "DWtime": 1.267
   },
   {
    "model": "log-log",
    "k": 8,
-   "rmse": 0.466,
-   "mean_e": -0.001,
-   "AIC": 66.124,
-   "BIC": 79.011,
-   "LOO": 0.552,
-   "CV5": 0.589,
+   "rmse": 0.327,
+   "mean_e": 0.0,
+   "AIC": 34.22,
+   "BIC": 47.107,
+   "LOO": 0.383,
+   "CV5": 0.399,
    "LOSO": NaN,
-   "DWser": 0.555,
-   "DWtime": 1.264
+   "DWser": 2.918,
+   "DWtime": 0.758
   },
   {
    "model": "spline",
    "k": 9,
-   "rmse": 0.447,
-   "mean_e": -0.0,
-   "AIC": 63.496,
-   "BIC": 77.995,
-   "LOO": 3.301,
-   "CV5": 3.043,
+   "rmse": 0.29,
+   "mean_e": 0.0,
+   "AIC": 31.441,
+   "BIC": 45.939,
+   "LOO": 2.752,
+   "CV5": 2.895,
    "LOSO": NaN,
-   "DWser": 0.456,
-   "DWtime": 1.859
+   "DWser": 2.938,
+   "DWtime": 0.852
   },
   {
    "model": "tensor",
    "k": 14,
-   "rmse": 0.379,
+   "rmse": 0.144,
    "mean_e": -0.0,
-   "AIC": 61.21,
-   "BIC": 83.763,
-   "LOO": 5.816,
-   "CV5": 13.149,
+   "AIC": -10.391,
+   "BIC": 12.162,
+   "LOO": 1.233,
+   "CV5": 3.308,
    "LOSO": NaN,
-   "DWser": 0.596,
-   "DWtime": 2.428
+   "DWser": 1.203,
+   "DWtime": 2.013
   },
   {
    "model": "pow +S",
    "k": 6,
-   "rmse": 0.576,
+   "rmse": 0.502,
    "mean_e": 0.0,
-   "AIC": 76.223,
-   "BIC": 85.889,
-   "LOO": 0.664,
-   "CV5": 0.664,
+   "AIC": 65.985,
+   "BIC": 75.65,
+   "LOO": 0.599,
+   "CV5": 0.602,
    "LOSO": NaN,
-   "DWser": 0.137,
-   "DWtime": 1.08
+   "DWser": 1.716,
+   "DWtime": 0.812
   },
   {
    "model": "exp +S",
    "k": 6,
-   "rmse": 0.553,
-   "mean_e": -0.0,
-   "AIC": 73.162,
-   "BIC": 82.828,
-   "LOO": 0.633,
-   "CV5": 0.628,
+   "rmse": 0.448,
+   "mean_e": 0.0,
+   "AIC": 57.662,
+   "BIC": 67.328,
+   "LOO": 0.525,
+   "CV5": 0.52,
    "LOSO": NaN,
-   "DWser": 0.655,
-   "DWtime": 1.1
+   "DWser": 2.485,
+   "DWtime": 0.642
   },
   {
    "model": "rat +S",
    "k": 6,
-   "rmse": 0.567,
+   "rmse": 0.482,
    "mean_e": -0.0,
-   "AIC": 74.964,
-   "BIC": 84.63,
-   "LOO": 0.652,
-   "CV5": 0.648,
+   "AIC": 62.955,
+   "BIC": 72.62,
+   "LOO": 0.565,
+   "CV5": 0.565,
    "LOSO": NaN,
-   "DWser": 0.281,
-   "DWtime": 1.08
+   "DWser": 2.31,
+   "DWtime": 0.739
   },
   {
    "model": "cond +S",
    "k": 7,
-   "rmse": 0.465,
-   "mean_e": -0.0,
-   "AIC": 62.297,
-   "BIC": 73.573,
-   "LOO": 0.562,
-   "CV5": 0.564,
+   "rmse": 0.202,
+   "mean_e": 0.0,
+   "AIC": 0.461,
+   "BIC": 11.737,
+   "LOO": 0.237,
+   "CV5": 0.236,
    "LOSO": NaN,
-   "DWser": 0.388,
-   "DWtime": 1.818
+   "DWser": 1.297,
+   "DWtime": 1.23
   },
   {
    "model": "flow +S",
    "k": 6,
-   "rmse": 0.458,
+   "rmse": 0.244,
    "mean_e": 0.0,
-   "AIC": 59.193,
-   "BIC": 68.859,
-   "LOO": 0.53,
-   "CV5": 0.532,
+   "AIC": 12.55,
+   "BIC": 22.216,
+   "LOO": 0.283,
+   "CV5": 0.281,
    "LOSO": NaN,
-   "DWser": 0.23,
-   "DWtime": 1.583
+   "DWser": 1.342,
+   "DWtime": 0.856
   },
   {
    "model": "R-resp cond +S",
    "k": 7,
-   "rmse": 0.471,
-   "mean_e": -0.003,
-   "AIC": 63.794,
-   "BIC": 75.07,
-   "LOO": 0.568,
-   "CV5": 0.567,
+   "rmse": 0.203,
+   "mean_e": -0.0,
+   "AIC": -0.919,
+   "BIC": 10.357,
+   "LOO": 0.237,
+   "CV5": 0.235,
    "LOSO": NaN,
-   "DWser": 0.479,
-   "DWtime": 1.829
+   "DWser": 1.319,
+   "DWtime": 1.267
   },
   {
    "model": "log-log +S",
    "k": 8,
-   "rmse": 0.466,
-   "mean_e": -0.001,
-   "AIC": 66.124,
-   "BIC": 79.011,
-   "LOO": 0.552,
-   "CV5": 0.589,
+   "rmse": 0.327,
+   "mean_e": 0.0,
+   "AIC": 34.22,
+   "BIC": 47.107,
+   "LOO": 0.383,
+   "CV5": 0.399,
    "LOSO": NaN,
-   "DWser": 0.555,
-   "DWtime": 1.264
+   "DWser": 2.918,
+   "DWtime": 0.758
   },
   {
    "model": "spline +S",
    "k": 9,
-   "rmse": 0.447,
-   "mean_e": -0.0,
-   "AIC": 63.496,
-   "BIC": 77.995,
-   "LOO": 3.301,
-   "CV5": 3.043,
+   "rmse": 0.29,
+   "mean_e": 0.0,
+   "AIC": 31.441,
+   "BIC": 45.939,
+   "LOO": 2.752,
+   "CV5": 2.895,
    "LOSO": NaN,
-   "DWser": 0.456,
-   "DWtime": 1.859
+   "DWser": 2.938,
+   "DWtime": 0.852
   },
   {
    "model": "tensor +S",
    "k": 14,
-   "rmse": 0.379,
+   "rmse": 0.144,
    "mean_e": -0.0,
-   "AIC": 61.21,
-   "BIC": 83.763,
-   "LOO": 5.816,
-   "CV5": 13.149,
+   "AIC": -10.391,
+   "BIC": 12.162,
+   "LOO": 1.233,
+   "CV5": 3.308,
    "LOSO": NaN,
-   "DWser": 0.596,
-   "DWtime": 2.428
+   "DWser": 1.203,
+   "DWtime": 2.013
   }
  ],
  "params": [
   {
    "param": "θ0",
    "unit": "°C",
-   "est": 2.845617309595359,
-   "se_classic": 0.5677688476317484,
-   "se_HC3": 0.641209411871064,
+   "est": 2.031377098781266,
+   "se_classic": 0.25348344370192405,
+   "se_HC3": 0.25750868545198724,
    "se_cluster": NaN,
-   "se_cluster_series": 0.7747495134816291,
+   "se_cluster_series": 0.28902249640904076,
    "ci95_HC3": [
-    1.5888468623280736,
-    4.102387756862644
+    1.526660075295371,
+    2.5360941222671607
    ]
   },
   {
    "param": "r∞",
    "unit": "m°C/W",
-   "est": 50.471251342704804,
-   "se_classic": 2.9494518905312996,
-   "se_HC3": 3.0562021418353984,
+   "est": 52.94339626014107,
+   "se_classic": 1.3476838315826205,
+   "se_HC3": 1.3749001774018312,
    "se_cluster": NaN,
-   "se_cluster_series": 3.099972100300599,
+   "se_cluster_series": 1.310836005182923,
    "ci95_HC3": [
-    44.481095144707425,
-    56.46140754070218
+    50.24859191243348,
+    55.63820060784866
    ]
   },
   {
-   "param": "k",
-   "unit": "m°C/W",
-   "est": 113.60022305995946,
-   "se_classic": 2.1746536991929757,
-   "se_HC3": 2.4230984825176693,
+   "param": "gN",
+   "unit": "W/°C",
+   "est": 9.273132648404307,
+   "se_classic": 0.335041920812162,
+   "se_HC3": 0.315307523778539,
    "se_cluster": NaN,
-   "se_cluster_series": 2.1088870508250075,
+   "se_cluster_series": 0.3111908902116884,
    "ci95_HC3": [
-    108.85095003422482,
-    118.3494960856941
-   ]
-  },
-  {
-   "param": "b",
-   "unit": "",
-   "est": 0.22444732362461606,
-   "se_classic": 0.010906577523818453,
-   "se_HC3": 0.010730756578871754,
-   "se_cluster": NaN,
-   "se_cluster_series": 0.01238833054459974,
-   "ci95_HC3": [
-    0.20341504073002742,
-    0.2454796065192047
+    8.65512990179837,
+    9.891135395010243
    ]
   },
   {
    "param": "m",
    "unit": "",
-   "est": 1.860572358241607,
-   "se_classic": 0.14841473833887495,
-   "se_HC3": 0.1675413187983247,
+   "est": 1.974765036244903,
+   "se_classic": 0.09418468149381479,
+   "se_HC3": 0.111495141310133,
    "se_cluster": NaN,
-   "se_cluster_series": 0.20924770505073587,
+   "se_cluster_series": 0.12018494456253784,
    "ci95_HC3": [
-    1.5321913733968906,
-    2.1889533430863235
+    1.7562345592770423,
+    2.193295513212764
+   ]
+  },
+  {
+   "param": "gC",
+   "unit": "W/°C",
+   "est": 4.114255022693493,
+   "se_classic": 0.5143633053528605,
+   "se_HC3": 0.50156138564779,
+   "se_cluster": NaN,
+   "se_cluster_series": 0.5078711178754944,
+   "ci95_HC3": [
+    3.131194706823825,
+    5.0973153385631615
+   ]
+  },
+  {
+   "param": "s",
+   "unit": "",
+   "est": 1.3240100829805805,
+   "se_classic": 0.10843629427105117,
+   "se_HC3": 0.10460900899859571,
+   "se_cluster": NaN,
+   "se_cluster_series": 0.09944227343942429,
+   "ci95_HC3": [
+    1.118976425343333,
+    1.529043740617828
    ]
   }
  ],
  "params_pooled_cluster": [
   {
    "param": "θ0",
-   "est": 2.845617309595359,
+   "est": 2.031377098781266,
    "se_cluster": NaN
   },
   {
    "param": "r∞",
-   "est": 50.471251342704804,
+   "est": 52.94339626014107,
    "se_cluster": NaN
   },
   {
-   "param": "k",
-   "est": 113.60022305995946,
-   "se_cluster": NaN
-  },
-  {
-   "param": "b",
-   "est": 0.22444732362461606,
+   "param": "gN",
+   "est": 9.273132648404307,
    "se_cluster": NaN
   },
   {
    "param": "m",
-   "est": 1.860572358241607,
+   "est": 1.974765036244903,
+   "se_cluster": NaN
+  },
+  {
+   "param": "gC",
+   "est": 4.114255022693493,
+   "se_cluster": NaN
+  },
+  {
+   "param": "s",
+   "est": 1.3240100829805805,
    "se_cluster": NaN
   }
  ],
  "tests": [
   {
    "test": "Mean of residuals (t-test)",
-   "stat": 1.7704510281660122e-08,
-   "p": 0.9999999859715906,
+   "stat": 3.7297375135207095e-08,
+   "p": 0.9999999704469177,
    "H0": "E[e] = 0",
    "verdict": "do not reject H0",
    "note": "mean +0.0000 °C, sum +0.000 °C"
   },
   {
    "test": "Durbin–Watson, along N within (case, PL) series",
-   "stat": 0.2299565519345811,
-   "p": 0.0003,
+   "stat": 1.2973743635268116,
+   "p": 0.20955,
    "H0": "no 1st-order autocorrelation along N",
-   "verdict": "reject H0",
+   "verdict": "do not reject H0",
    "note": "exact p by Monte Carlo under H0 given the regressors"
   },
   {
    "test": "Durbin–Watson, time order",
-   "stat": 1.5825940734788,
-   "p": 0.0511,
+   "stat": 1.2301325465103385,
+   "p": 0.0016,
    "H0": "no 1st-order autocorrelation in time",
-   "verdict": "do not reject H0",
-   "note": ""
-  },
-  {
-   "test": "Breusch–Godfrey LM, order 1, along N",
-   "stat": 7.155955837401786,
-   "p": 0.007471546744153465,
-   "H0": "no autocorrelation up to order p",
    "verdict": "reject H0",
    "note": ""
   },
   {
+   "test": "Breusch–Godfrey LM, order 1, along N",
+   "stat": 1.757641194629878,
+   "p": 0.18491900419149393,
+   "H0": "no autocorrelation up to order p",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
    "test": "Breusch–Godfrey LM, order 1, time (within session)",
-   "stat": 1.5877425979715285,
-   "p": 0.20764895028418892,
+   "stat": 2.644511729882061,
+   "p": 0.10390807802580707,
    "H0": "no autocorrelation up to order p",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "Breusch–Godfrey LM, order 2, along N",
-   "stat": 9.667871238001219,
-   "p": 0.007955151132051204,
+   "stat": 4.301492346081924,
+   "p": 0.11639727285489046,
    "H0": "no autocorrelation up to order p",
-   "verdict": "reject H0",
+   "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "Breusch–Godfrey LM, order 2, time (within session)",
-   "stat": 2.7024716662767467,
-   "p": 0.25892008082615087,
+   "stat": 2.720832065882251,
+   "p": 0.2565540198244294,
    "H0": "no autocorrelation up to order p",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "corr(e, N)",
-   "stat": -0.07428820147054566,
-   "p": 0.6621312185257829,
+   "stat": -0.012316614293277545,
+   "p": 0.9423231549308948,
    "H0": "ρ = 0",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "corr(e, C)",
-   "stat": 0.03035371366588443,
-   "p": 0.8584573453567272,
+   "stat": -0.0013683551877214165,
+   "p": 0.9935869183032192,
    "H0": "ρ = 0",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "corr(e, P)",
-   "stat": -2.053256126233194e-08,
-   "p": 0.9999999037688839,
+   "stat": -4.2963752985847314e-08,
+   "p": 0.9999997986393432,
    "H0": "ρ = 0",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "corr(e, fitted)",
-   "stat": -1.461696116922262e-08,
-   "p": 0.9999999314938607,
+   "stat": -5.1714806749425524e-08,
+   "p": 0.9999997576252875,
    "H0": "ρ = 0",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "corr(e, Tin)",
-   "stat": -0.03956410564013292,
-   "p": 0.8161574992162347,
+   "stat": -0.014155275832872807,
+   "p": 0.9337307113949215,
    "H0": "ρ = 0",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "corr(e, time)",
-   "stat": -0.07011133502203086,
-   "p": 0.6800893970051846,
+   "stat": 0.11789798859173403,
+   "p": 0.4870797905817788,
    "H0": "ρ = 0",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "Breusch–Pagan (Koenker) on N, ln C, P",
-   "stat": 0.3209050644610264,
-   "p": 0.9560500295200947,
+   "stat": 0.8089734450868912,
+   "p": 0.8473195216883463,
    "H0": "homoscedastic",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "White (levels, squares, cross-products)",
-   "stat": 4.977607795974283,
-   "p": 0.8362558577222219,
+   "stat": 5.520296269368461,
+   "p": 0.7868018371016878,
    "H0": "homoscedastic",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "White special (ŷ, ŷ²)",
-   "stat": 1.9370075480356654,
-   "p": 0.3796506565312343,
+   "stat": 0.767715298833285,
+   "p": 0.6812283935369943,
    "H0": "homoscedastic",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "Shapiro–Wilk",
-   "stat": 0.9564047804493389,
-   "p": 0.15513853144898437,
+   "stat": 0.9692177985919279,
+   "p": 0.38754484732291483,
    "H0": "normal residuals",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "Jarque–Bera",
-   "stat": 1.3585328609797613,
-   "p": 0.5069887674892732,
+   "stat": 2.803282367243777,
+   "p": 0.24619258496402127,
    "H0": "normal residuals",
    "verdict": "do not reject H0",
-   "note": "skewness -0.14, kurtosis 2.10"
+   "note": "skewness -0.56, kurtosis 3.75"
   },
   {
    "test": "Ramsey RESET (ŷ^2)",
-   "stat": 5.561779497123785,
-   "p": 0.024842899548892794,
+   "stat": 0.16295605549520417,
+   "p": 0.6893124804802424,
    "H0": "functional form adequate",
-   "verdict": "reject H0",
+   "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "Ramsey RESET (ŷ^2,3)",
-   "stat": 2.6929243407659134,
-   "p": 0.08401843357182134,
+   "stat": 0.7792316058034717,
+   "p": 0.4681274180633556,
    "H0": "functional form adequate",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "Lack-of-fit F (pure error from replicates)",
-   "stat": 11.356705055060257,
-   "p": 0.08405253383230525,
+   "stat": 0.7814061459322996,
+   "p": 0.7066496422688798,
    "H0": "functional form adequate",
    "verdict": "do not reject H0",
-   "note": "2 replicate d.o.f., pure-error SD 0.15 °C"
+   "note": "2 replicate d.o.f., pure-error SD 0.25 °C"
   },
   {
    "test": "Parametric vs natural-spline benchmark (F, approx.)",
-   "stat": 0.4535897027684702,
-   "p": 0.7167471569014512,
+   "stat": -7.506688877994933,
+   "p": 1.0,
    "H0": "parametric form not worse than spline",
    "verdict": "do not reject H0",
    "note": ""
   },
   {
    "test": "Box–Cox λ (transform-both-sides), LR test λ = 1",
-   "stat": 0.3527626905988299,
-   "p": 0.5525533888645509,
+   "stat": 1.2326080797769663,
+   "p": 0.2669004276117735,
    "H0": "λ = 1 (no transform)",
    "verdict": "do not reject H0",
-   "note": "λ̂ = 1.40, 95 % CI [0.05, 2.85]; LR for λ = 0 (log): p = 0.049"
+   "note": "λ̂ = 0.05, 95 % CI [-1.40, 1.80]; LR for λ = 0 (log): p = 0.980"
   },
   {
    "test": "Within-session drift from repeated anchors (slope)",
-   "stat": -0.05081511174882834,
-   "p": 0.28724884683652985,
+   "stat": 0.14600182739231662,
+   "p": 0.04323359941477296,
    "H0": "no drift",
+   "verdict": "reject H0",
+   "note": "+0.146 °C/h ± 0.010; 3 points in 1 anchor groups (steady2/50/1500/100)"
+  },
+  {
+   "test": "Shapiro–Wilk without outliers |t*| > 3",
+   "stat": 0.9719482141818443,
+   "p": 0.48111716941897253,
+   "H0": "normal residuals",
    "verdict": "do not reject H0",
-   "note": "-0.051 °C/h ± 0.025; 3 points in 1 anchor groups (steady2/50/1500/100)"
+   "note": "removed: steady2 card 50 % / case 1489 rpm / PL 100 (t = -3.6)"
+  },
+  {
+   "test": "Jarque–Bera without outliers |t*| > 3",
+   "stat": 1.0112399762353736,
+   "p": 0.6031315251066768,
+   "H0": "normal residuals",
+   "verdict": "do not reject H0",
+   "note": ""
   }
  ],
  "mixed": {
@@ -539,126 +573,131 @@
  "dw_causes": [
   {
    "variant": "NVML table, whole °C (quantised)",
-   "rmse": 0.45785839304581644,
-   "DW_series": 0.22995645593218952,
-   "DW_distinctN": 0.26056986025097556
+   "rmse": 0.46577861937924614,
+   "DW_series": 0.38890223442920163,
+   "DW_distinctN": 0.45869485923700704
   },
   {
    "variant": "NVAPI 0.01 °C, mean of last 60 s",
-   "rmse": 0.45785839304581644,
-   "DW_series": 0.22995645593218952,
-   "DW_distinctN": 0.26056986025097556
+   "rmse": 0.32675516899266804,
+   "DW_series": 0.3177325013487365,
+   "DW_distinctN": 0.33816729276759566
   },
   {
    "variant": "NVAPI 0.01 °C, extrapolated to T∞ (settling-corrected)",
-   "rmse": 0.45785839304581644,
-   "DW_series": 0.22995645593218952,
-   "DW_distinctN": 0.26056986025097556
+   "rmse": 0.20151275854143222,
+   "DW_series": 1.2973747107104068,
+   "DW_distinctN": 1.0370344114161671
   },
   {
-   "variant": "+ power curvature P^β (β = 0.819)",
-   "rmse": 0.41997939779979954,
-   "DW_series": 0.3698942282381002,
-   "DW_distinctN": 0.44473432445712857
+   "variant": "+ power curvature P^β (β = 1.008)",
+   "rmse": 0.2013679745906662,
+   "DW_series": 1.2611896699017702,
+   "DW_distinctN": 0.9989408812845723
   },
   {
    "variant": "without session effect",
-   "rmse": 0.45785839304581644,
-   "DW_series": 0.22995645593218952,
-   "DW_distinctN": 0.26056986025097556
+   "rmse": 0.20151275854143222,
+   "DW_series": 1.2973747107104068,
+   "DW_distinctN": 1.0370344114161671
   },
   {
    "variant": "non-parametric benchmark: spline +S",
-   "rmse": 0.44748016970869847,
-   "DW_series": 0.4556124601588085,
-   "DW_distinctN": 0.4544023269543159
+   "rmse": 0.29016506560897715,
+   "DW_series": 2.9382447794759106,
+   "DW_distinctN": 2.952074090716783
   },
   {
    "variant": "non-parametric benchmark: tensor +S",
-   "rmse": 0.37902510552705804,
-   "DW_series": 0.5959017489024895,
-   "DW_distinctN": 0.5895281240912196
+   "rmse": 0.14403011294168042,
+   "DW_series": 1.2027250748088765,
+   "DW_distinctN": 1.1336899999287766
   },
   {
    "variant": "tensor spline R(N, C) + P² + session",
-   "rmse": 0.30136841190553726,
-   "DW_series": 0.7739523160338548,
-   "DW_distinctN": 0.7712329542559269,
-   "p_MC": 0.0534
+   "rmse": 0.14348290624848817,
+   "DW_series": 1.2745568822859805,
+   "DW_distinctN": 1.2061829346096582,
+   "p_MC": 0.3038
   },
   {
    "variant": "chosen model, replicate points at equal N averaged",
-   "rmse": 0.4578583930458248,
-   "DW_series": 0.2299565519345811,
-   "DW_distinctN": 0.2605699839813716
+   "rmse": 0.20151275854144568,
+   "DW_series": 1.2973743635268116,
+   "DW_distinctN": 1.0370340168405676
   }
  ],
  "fgls": {
-  "rho": 0.4678146802587924,
+  "rho": 0.2953362194064525,
   "params": {
    "θ0": [
-    3.086698166664639,
-    0.6402449713099059
+    1.9572713569663664,
+    0.2831160434926443
    ],
    "r∞": [
-    50.06755187700706,
-    2.9306942571195482
+    53.06038472131464,
+    1.3570855379881592
    ],
-   "k": [
-    112.62098813561471,
-    1.9083826978923522
-   ],
-   "b": [
-    0.23377176790882312,
-    0.010891845389963998
+   "gN": [
+    9.385863629186527,
+    0.3253269282378003
    ],
    "m": [
-    1.8156563611714722,
-    0.13822502961612607
+    1.9544720514300722,
+    0.09052582818644425
+   ],
+   "gC": [
+    3.982607781232298,
+    0.4946204554949704
+   ],
+   "s": [
+    1.3560941188748339,
+    0.11158460779884026
    ]
   },
-  "DW_transformed": 0.2812876966457734,
-  "rmse_levels": 0.48492380289261877
+  "DW_transformed": 1.8217095460841053,
+  "rmse_levels": 0.20370686633872692
  },
  "first_diff": {
   "n_pairs": 11,
   "free": [
-   "k",
+   "gN",
    "m"
   ],
   "params": {
-   "k": [
-    110.20476638247183,
-    2.135956049900615
+   "gN": [
+    9.400856173693297,
+    0.15269762424922878
    ],
    "m": [
-    2.016011745462199,
-    0.12445725669602896
+    1.970510621880451,
+    0.05616272574012619
    ]
   },
   "levels": {
-   "r∞": 50.471251342704804,
-   "k": 113.60022305995946,
-   "b": 0.22444732362461606,
-   "m": 1.860572358241607
+   "r∞": 52.94339626014107,
+   "gN": 9.273132648404307,
+   "m": 1.974765036244903,
+   "gC": 4.114255022693493,
+   "s": 1.3240100829805805
   },
-  "rmse_diff": 0.33231432458299104,
-  "rmse_diff_levels_model": 0.5667884891312559
+  "rmse_diff": 0.22656506115100492,
+  "rmse_diff_levels_model": 0.2462187832747098
  },
  "elasticities": {
-  "P": 0.9403363534744406,
-  "N": -0.6291351998367722,
-  "C": -0.11361905855552284
+  "P": 0.9577273233330288,
+  "N": -0.622906813416661,
+  "C": -0.10912475723353146
  },
  "boxcox": {
-  "lam": 1.4000000000000004,
+  "lam": 0.050000000000000044,
   "ci": [
-   0.050000000000000044,
-   2.8500000000000005
+   -1.4,
+   1.8000000000000003
   ]
  },
- "rmse": 0.4578583930458248,
- "loo": 0.53,
+ "rmse": 0.20151275854144568,
+ "loo": 0.237,
  "sessions": {
   "steady2": 37.0
  }
