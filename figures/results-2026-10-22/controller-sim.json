@@ -44,11 +44,11 @@
   },
   "WS.Sensor quiet": {
    "peak": 80.3,
-   "mem_peak": 88.7,
+   "mem_peak": 88.1,
    "s_over": 0,
-   "noise_mean": 47.5,
-   "work_W": 545.4,
-   "card_reversals_per_min": 0.07
+   "noise_mean": 47.8,
+   "work_W": 564.3,
+   "card_reversals_per_min": 0.03
   },
   "WS.Sensor balanced": {
    "peak": 77.9,

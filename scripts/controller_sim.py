@@ -91,7 +91,7 @@ class Controller:
     def __init__(self, mode="balanced", P_stock=575.0):
         self.m = MODES[mode]; self.mode = mode; self.Pst = P_stock
         self.N = DUTY_RPM(40); self.C = 1000.0; self.pl = 1.0
-        self.i = 0.0; self.p_s = None; self.ff = (self.N, self.C, 1.0); self.cool_since = None; self.t = 0; self.p_last = 0.0; self.p_at = 0
+        self.i = 0.0; self.p_s = None; self.ff = (self.N, self.C, 1.0); self.cool_since = None; self.t = 0; self.p_last = 0.0; self.p_at = 0; self.pl_at = -999
 
     def feedforward(self, P, Tin):
         tgt = self.m["target"] - SS_MARGIN; best = None
@@ -111,9 +111,10 @@ class Controller:
 
     def step(self, core, mem, P_meas, Tin, dt=1.0):
         self.t += dt
-        if self.p_s is None or P_meas >= self.p_s: self.p_s, self.p_at = P_meas, self.t     # load estimate: up at once,
-        elif self.t - self.p_at > 300: self.p_s += (P_meas - self.p_s) * dt / 60               # held 5 min, then down slowly (no pumping on bursty loads)
-        if self.t % 5 < dt or P_meas > self.p_last + 100: self.ff = self.feedforward(self.p_s / max(self.pl, 0.7), Tin)   # load step: recompute now
+        dem = P_meas / self.pl if P_meas >= 0.97 * self.pl * self.Pst else P_meas   # demand: a capped card would draw more without the cap
+        if self.p_s is None or dem >= self.p_s: self.p_s, self.p_at = dem, self.t           # load estimate: up at once,
+        elif self.t - self.p_at > 300: self.p_s += (dem - self.p_s) * dt / 60                  # held 5 min, then down slowly (no pumping on bursty loads)
+        if self.t % 5 < dt or P_meas > self.p_last + 100: self.ff = self.feedforward(self.p_s, Tin)   # load step: recompute now
         self.p_last = P_meas
         Nff, Cff, pl_t = self.ff
         e = core - self.m["target"]
@@ -131,7 +132,9 @@ class Controller:
             if want > cur: cur = min(want, cur + 150 * dt)
             elif may_drop: cur = max(want, cur - 15 * dt)
             setattr(self, attr, cur)
-        self.pl = pl_t if pl_t < self.pl else min(pl_t, self.pl + 0.01 * dt)   # PL down at once, back up slowly
+        # power limit: down in 5 % steps at most every 30 s and never below what the model needs; back up at once when the core is below target − 1.5 °C
+        if pl_t < self.pl - 1e-6 and self.t - self.pl_at >= 30: self.pl = max(pl_t, self.pl - 0.05); self.pl_at = self.t
+        elif pl_t > self.pl + 1e-6 and (e < -1.5 or pl_t >= 1.0): self.pl = min(pl_t, 1.0)
         return self.N, self.C, self.pl
 
 
