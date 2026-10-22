@@ -1,10 +1,10 @@
 {
  "n": 20,
- "traj_rmse": 0.9307279265081716,
+ "traj_rmse": 0.6581563864025952,
  "dyn_steady_rmse": 0.6745870025932605,
  "dyn_steady_bias": 0.36079386669039337,
- "dyn_sim_end_rmse": 0.6213882761464855,
- "dyn_sim_end_bias": 0.33628101595618887,
+ "dyn_sim_end_rmse": 0.6288643782278835,
+ "dyn_sim_end_bias": 0.3232508362935899,
  "static9_rmse": 2.1775016685650166,
  "static9_bias": 1.8505840994596259,
  "static9_by_pl": {

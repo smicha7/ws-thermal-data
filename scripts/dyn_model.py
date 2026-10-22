@@ -33,10 +33,9 @@ N0 = 300.0
 # ---------------------------------------------------------------- data
 def _nvapi_core(d):
     """0.01 degC core (nvapi/0/1) from the long log; tolerates truncated gzip."""
-    f = glob.glob(os.path.join(d, "long-*.csv.gz"))
     out = {}
-    if f:
-        txt = zlib.decompressobj(31).decompress(open(f[0], "rb").read()).decode(errors="ignore")
+    for fn in sorted(glob.glob(os.path.join(d, "long-*.csv.gz"))):
+        txt = zlib.decompressobj(31).decompress(open(fn, "rb").read()).decode(errors="ignore")
         for line in txt.splitlines():
             if ",nvapi/0/1," in line:
                 p = line.split(",")
@@ -50,6 +49,10 @@ def _nvapi_core(d):
 def load(name, d=None):
     d = d or os.path.join(HERE, "data", f"{name}-2026-10-21")
     rows = list(csv.DictReader(open(os.path.join(d, "raw.csv"))))
+    tt = np.array([int(r["t"]) for r in rows])
+    gaps = np.where(np.diff(tt) > 20)[0]                               # logger restarts: keep the part after the last one
+    if len(gaps):
+        rows = rows[gaps[-1] + 1:]
     nv = _nvapi_core(d)
     t = np.array([int(r["t"]) for r in rows], float)
     f = lambda k: np.array([float(r[k]) for r in rows])
@@ -69,11 +72,34 @@ def load(name, d=None):
 BASE = {1: dict(r0=0.03, Cj=3000), 2: dict(Rjs=0.02, ra=0.01, Cj=200, Cs=3000),
         3: dict(Rjs=0.015, Rps=0.01, ra=0.01, Cj=50, Cp=500, Cs=3000)}
 FORM = {"pow": dict(k=0.09, m=1.6), "sat": dict(k=0.2, m=2.0, s=0.8), "conv": dict(k=0.05, m=0.8, kc=0.03)}
-LIN = dict(m=(0.2, 4.0), q=(0.0, 1.5), th0=(-15.0, 15.0))       # linear params; all others log in [1e-5, 1e6]
+LIN = dict(m=(0.2, 4.0), q=(0.0, 1.5), th0=(-15.0, 15.0), qa=(0.0, 3.0))       # linear params; all others log in [1e-5, 1e6]
 
 
-def spec(kind, form):
-    return {**BASE[kind], **FORM[form], "q": 0.3, "th0": 0.0}
+def spec(kind, form, theta="free"):
+    """theta: free = constant offset th0; zero = none; drift = slow intake offset
+    tau_a dtheta/dt = th0 + phi*P*(C/1500)^-qa - theta  (case air warmed by the card's own heat)."""
+    s = {**BASE[kind], **FORM[form], "q": 0.3, "th0": 0.0}
+    if theta == "drift":
+        s.update(phi=0.003, qa=0.5, taua=300.0)
+    return s
+
+
+def drift(p):
+    return "taua" in p
+
+
+def tin_eff(p, D):
+    if not drift(p):
+        return np.asarray(D["Tin"], float)
+    tgt = p["th0"] + p["phi"] * np.asarray(D["P"], float) * (np.asarray(D["C"], float) / 1500.0) ** -p["qa"]
+    a = np.exp(-1.0 / p["taua"]); th = np.empty_like(tgt); x = tgt[0]
+    for i, g in enumerate(tgt.tolist()):
+        th[i] = x; x = a * x + (1 - a) * g
+    return np.asarray(D["Tin"], float) + th
+
+
+def offset(p):
+    return 0.0 if drift(p) else p["th0"]
 
 
 def rfan(p, N, C):
@@ -113,6 +139,13 @@ def simulate(A, b, x0):
     c = np.einsum("nij,nj->ni", Phi - np.eye(K), np.linalg.solve(Am, bm[..., None])[..., 0])
     X = np.empty((n, K)); X[0] = x0; x = np.asarray(x0, float)
     Phi, c = Phi.tolist(), c.tolist()
+    if K == 2:                                                   # fast path
+        a, b2 = x
+        for i in range(n - 1):
+            F, cc = Phi[i], c[i]
+            a, b2 = F[0][0] * a + F[0][1] * b2 + cc[0], F[1][0] * a + F[1][1] * b2 + cc[1]
+            X[i + 1, 0] = a; X[i + 1, 1] = b2
+        return X
     for i in range(n - 1):
         F, cc = Phi[i], c[i]
         x = [sum(F[r][j] * x[j] for j in range(K)) + cc[r] for r in range(K)]
@@ -125,15 +158,22 @@ def steady(A, b):
 
 
 def run(p, D, kind):
-    A, b = system(p, D, kind)
+    A, b = system(p, dict(D, Tin=tin_eff(p, D)), kind)
     x0 = steady(A[0], b[0])
-    x0 = x0 + (D["core"][0] - p["th0"] - x0[0])          # start in equilibrium, shifted to the first reading
+    x0 = x0 + (D["core"][0] - offset(p) - x0[0])         # start in equilibrium, shifted to the first reading
     return simulate(A, b, x0)
 
 
 def core_pred(p, D, kind):
     X = run(p, D, kind)
-    return X[:, 0] + p["th0"], X
+    return X[:, 0] + offset(p), X
+
+
+def steady_core(p, N, C, P, Tin, kind):
+    """Steady core temperature for constant inputs."""
+    N, C, P, Tin = (np.asarray(v, float) for v in (N, C, P, Tin))
+    extra = p["th0"] + (p["phi"] * P * (C / 1500.0) ** -p["qa"] if drift(p) else 0.0)
+    return Tin + extra + P * R_total(p, N, C, kind)
 
 
 def R_total(p, N, C, kind):
@@ -142,16 +182,19 @@ def R_total(p, N, C, kind):
     return s + rfan(p, N, C)
 
 
-def fit_core(Ds, kind, form="pow", fixed=None, p0=None):
+def fit_core(Ds, kind, form="pow", fixed=None, p0=None, theta="free", full=False):
     fixed = {**(fixed or {}), "form": form}
-    p0 = dict(p0 or spec(kind, form))
-    names = [k for k in spec(kind, form) if k not in fixed]
+    if theta == "zero":
+        fixed["th0"] = 0.0
+    p0 = {**spec(kind, form, theta), **(p0 or {})}
+    names = [k for k in spec(kind, form, theta) if k not in fixed]
     lo = np.array([LIN[k][0] if k in LIN else np.log(1e-5) for k in names])
     hi = np.array([LIN[k][1] if k in LIN else np.log(1e6) for k in names])
     unp = lambda v: {**fixed, **{k: (float(x) if k in LIN else float(np.exp(x))) for k, x in zip(names, v)}}
     v0 = np.clip([p0[k] if k in LIN else np.log(p0[k]) for k in names], lo + 1e-6, hi - 1e-6)
     res = lambda v: np.concatenate([core_pred(unp(v), D, kind)[0] - D["core"] for D in Ds])
-    return unp(least_squares(res, v0, bounds=(lo, hi), x_scale="jac", max_nfev=300).x)
+    r = least_squares(res, v0, bounds=(lo, hi), x_scale="jac", max_nfev=300)
+    return (unp(r.x), r, names) if full else unp(r.x)
 
 
 # ---------------------------------------------------------------- memory node (after the core)
@@ -303,14 +346,14 @@ def main():
     fig, ax = plt.subplots(4, 1, figsize=(15, 11), sharex=True, gridspec_kw=dict(height_ratios=[3, 3, 1.3, 1.3]))
     tm = D["t"] / 60
     ax[0].plot(tm, D["core"], color="0.2", lw=0.8, label="core measured (NVAPI 0.01 °C)")
-    ax[0].plot(tm, yc, color="tab:red", lw=0.9, label=f"{best} simulated, free run (RMSE {rmse(yc, D['core']):.2f} K)")
-    ax[0].plot(tm, y1, color="tab:blue", lw=0.6, alpha=0.6, label=f"M1 1-node (RMSE {rmse(y1, D['core']):.2f} K)")
+    ax[0].plot(tm, yc, color="tab:red", lw=0.9, label=f"{best} simulated, free run (RMSE {rmse(yc, D['core']):.2f} °C)")
+    ax[0].plot(tm, y1, color="tab:blue", lw=0.6, alpha=0.6, label=f"M1 1-node (RMSE {rmse(y1, D['core']):.2f} °C)")
     ax[0].set_ylabel("core °C"); ax[0].legend(loc="lower right", fontsize=8)
     ax[1].plot(tm, D["mem"], color="0.2", lw=0.8, label="memory measured (1 °C steps)")
-    ax[1].plot(tm, ym, color="tab:purple", lw=0.9, label=f"memory node (RMSE {rmse(ym, D['mem']):.2f} K)")
+    ax[1].plot(tm, ym, color="tab:purple", lw=0.9, label=f"memory node (RMSE {rmse(ym, D['mem']):.2f} °C)")
     ax[1].set_ylabel("memory °C"); ax[1].legend(loc="lower right", fontsize=8)
     ax[2].plot(tm, yc - D["core"], color="tab:red", lw=0.6); ax[2].axhline(0, color="0.5", lw=0.5)
-    ax[2].set_ylabel("core sim−meas K")
+    ax[2].set_ylabel("core sim−meas °C")
     ax[3].plot(tm, D["P"], color="tab:orange", lw=0.6); ax[3].set_ylabel("board W", color="tab:orange")
     a3 = ax[3].twinx(); a3.plot(tm, rpm2pct(D["N"]), color="tab:green", lw=0.6); a3.set_ylabel("GPU fan % (green)", fontsize=8)
     a3b = a3.secondary_yaxis(1.07, functions=(pct2rpm, rpm2pct)); a3b.set_ylabel("GPU fan rpm", fontsize=8)
@@ -322,9 +365,9 @@ def main():
     for a, D in zip(ax, test):
         yc, X = core_pred(p, D, kind); ym = mem_sim(pm, D, X); tm = D["t"] / 60
         a.plot(tm, D["core"], color="0.2", lw=0.8, label="core measured")
-        a.plot(tm, yc, color="tab:red", lw=0.9, label=f"core sim (RMSE {rmse(yc, D['core']):.2f} K)")
+        a.plot(tm, yc, color="tab:red", lw=0.9, label=f"core sim (RMSE {rmse(yc, D['core']):.2f} °C)")
         a.plot(tm, D["mem"], color="0.6", lw=0.8, label="memory measured")
-        a.plot(tm, ym, color="tab:purple", lw=0.9, label=f"memory sim (RMSE {rmse(ym, D['mem']):.2f} K)")
+        a.plot(tm, ym, color="tab:purple", lw=0.9, label=f"memory sim (RMSE {rmse(ym, D['mem']):.2f} °C)")
         note = " (memory node trained on it)" if D["name"] == "log-1" else ""
         a.set_title(f"TEST {D['name']} — core not fitted on it{note}; free-run simulation from the first sample", fontsize=10)
         a.set_ylabel("°C"); a.legend(fontsize=8, loc="lower right", ncol=2)
@@ -343,12 +386,12 @@ def main():
             ax.scatter(n["N"], 1000 * (n["steady"] - n["Tin"] - p["th0"]) / n["P"], facecolor="none", edgecolor="k", s=90, lw=1.2, zorder=4)
     ax.scatter([], [], color="0.5", s=34, label="night v2d point (meas. + model transient correction)")
     ax.scatter([], [], facecolor="none", edgecolor="k", s=90, label="night v2d settled point (raw)")
-    ax.set_xlabel("GPU fan rpm"); ax.set_ylabel("R_total = (T∞ − Tin − θ0) / P   [mK/W]")
+    ax.set_xlabel("GPU fan rpm"); ax.set_ylabel("R_total = (T∞ − Tin − θ0) / P   [m°C/W]")
     sec = ax.secondary_xaxis("top", functions=(rpm2pct, pct2rpm)); sec.set_xlabel("GPU fan %")
-    lo, hi = ax.get_ylim(); a2 = ax.twinx(); a2.set_ylim(lo * 0.575, hi * 0.575); a2.set_ylabel("T∞ − Tin − θ0 at 575 W  [K]")
+    lo, hi = ax.get_ylim(); a2 = ax.twinx(); a2.set_ylim(lo * 0.575, hi * 0.575); a2.set_ylabel("T∞ − Tin − θ0 at 575 W  [°C]")
     fig.colorbar(plt.cm.ScalarMappable(cmap=cm, norm=plt.Normalize(600, 3000)), ax=a2, pad=0.12, label="case rpm")
     ax.legend(loc="upper right", fontsize=8)
-    ax.set_title(f"Steady-state law from dynamic model {best} (θ0 = {p['th0']:.2f} K) vs night v2d")
+    ax.set_title(f"Steady-state law from dynamic model {best} (θ0 = {p["th0"]:.2f} °C) vs night v2d")
     fig.tight_layout(); fig.savefig(os.path.join(OUT, "dyn-c-steady.png"), dpi=130); plt.close(fig)
 
 

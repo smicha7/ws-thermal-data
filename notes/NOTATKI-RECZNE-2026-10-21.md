@@ -173,23 +173,42 @@ PL 70 % (402 W):
 **Conclusions:**
 1. **Card fans dominate:** at PL 100 going from card 40 → 100 % lowers the core by ~20 °C (83 → 61 at case 1000) and memory by ~24 °C (92 → 68).
 2. **Case fans matter only at low card speed:** at card 40 % case 1000 → 2920 rpm = core −9 °C, memory −10 °C; from card 60 % upwards the difference is ≤ 2 °C. 1500 rpm (Seb's acoustic ceiling) gives about 1/3 of that gain at card 40 %.
-3. **Power limit 575 → 402 W** = core −13 °C and memory −8 °C at card 40 %; at card 100 % core −12, memory −6. Memory gains less from PL, so the memory−core gap grows from ~8 K (575 W) to ~13 K (402 W).
+3. **Power limit 575 → 402 W** = core −13 °C and memory −8 °C at card 40 %; at card 100 % core −12, memory −6. Memory gains less from PL, so the memory−core gap grows from ~8 °C (575 W) to ~13 °C (402 W).
 4. **No thermal throttling** anywhere (power cap only); the hottest point 1000 rpm / card 40 % / 575 W = core 83, memory 92, hot spot 94 °C, i.e. below the memory working limit of 100 °C, but memory above 90 °C.
 5. **Method:** 60 s per point isn't enough after big jumps (PL 70 → 100 points +3 °C/min, card jump 100 → 40 % 10–15 °C too low). For tomorrow (2 cards) the adaptive time is in the code (≥ 5 min after a change of case, card down > 10 pts, PL up ≥ 20 pts), not yet released.
 
 ## Model rdzenia — rozszerzenia fizyczne (17:50, model_physics_core.py)
-- Bazowy A: T = Tin + θ0 + P·[r∞ + k·N^−m·C^−q], RMSE 0,82 / LOO 0,85 K, θ0 = 10,8 K.
-- Po korekcie punktów 60 s do stanu ustalonego (pierwszy rząd, T∞ ≈ T + slope·τ, τ ≈ 70 s): **θ0 spada do ~0,7 K**, RMSE 0,72 / LOO 0,74 K, ustalone 0,58 K. Wniosek: θ0 był artefaktem nieustalonych punktów; fizycznie czysty model T = Tin + P·R(N, C).
-- Człon kaloryczny/recyrkulacji P/C lub P/N: poprawa ≤ 0,05 K i niefizyczne znaki → odrzucone.
+- Bazowy A: T = Tin + θ0 + P·[r∞ + k·N^−m·C^−q], RMSE 0,82 / LOO 0,85 °C, θ0 = 10,8 °C.
+- Po korekcie punktów 60 s do stanu ustalonego (pierwszy rząd, T∞ ≈ T + slope·τ, τ ≈ 70 s): **θ0 spada do ~0,7 °C**, RMSE 0,72 / LOO 0,74 °C, ustalone 0,58 °C. Wniosek: θ0 był artefaktem nieustalonych punktów; fizycznie czysty model T = Tin + P·R(N, C).
+- Człon kaloryczny/recyrkulacji P/C lub P/N: poprawa ≤ 0,05 °C i niefizyczne znaki → odrzucone.
 - Następny krok: model dynamiczny (sieć RC Fostera/Cauera, τ zależne od N i C) dopasowany do logów 1 Hz zamiast średnich 60 s; dwa węzły rdzeń↔pamięć na wspólnym radiatorze; GP na resztach dla niepewności; jutro zmienne 2. karty (moc sąsiadki, odstęp w slotach, pozycja).
 
 ## Model dynamiczny (18:05, `dyn_model.py`)
 Sieć RC (Cauer) dopasowana do **całych przebiegów 1 Hz** (symulacja swobodna od pierwszej próbki, bez resetów; dyskretyzacja dokładna przez exp. macierzy, 1 s). Uczenie: grid1c. Test: log-1, grid1d, hold + cała noc v2d. Wejścia: P(t), obroty karty N(t), obudowy C(t), Tin(t). Rdzeń z NVAPI (0,01 °C).
 - **Najlepszy: M2 (2 węzły), wzór potęgowy.** Rdzeń = radiator + **natychmiastowy skok P·Rjs** (pojemność krzemu → 0, τ < 1 s, przy 1 Hz niewidoczne) + jedna wolna stała czasu radiatora.
-  T∞ = Tin + θ0 + P·[Rjs + ra + k·(N/1000)^−m·(C/1500)^−q]; Rjs = 38,6 mK/W, ra = 11,4 mK/W, k = 82,0 mK/W, m = 1,67, q = 0,24, θ0 = 3,2 K, C radiatora = 1935 J/K.
-- **RMSE symulacji rdzenia:** uczenie 0,53 K; test log-1 0,92, grid1d 1,01, hold 1,00 (razem dzień 0,97 K); noc v2d 1,89 K (model stale ~2 K za chłodny). 1 węzeł: 2,3 / 4,2 K — odrzucony. 3 węzły nic nie dają (drugi węzeł też zapada się do zera).
-- **Stała czasu (radiator):** 129 s (40 %, obudowa 1000) → 104 s (40 %, 2920) → 82/68 s (60 %) → 50/43 s (100 %). τ ≈ C·R_radiatora, więc rośnie przy wolnych wentylatorach. Do tego natychmiastowy skok rdzenia ≈ 22 K przy 575 W (dlatego zmiana PL „działa od razu”).
-- **θ0 NIE znika** w modelu dynamicznym: 3,2 K; wymuszenie θ0 = 0 psuje test (0,97 → 1,68 K). Na nocnych punktach ustalonych model jest 2,1 K za nisko (7 pkt). Interpretacja: realny podgrzew powietrza wlotowego karty w obudowie (CPU/zasilacz) zależny od sesji — a nie artefakt 60 s. Warto dołożyć czujnik powietrza tuż przy wlocie karty.
-- **Kształt przy niskich obrotach** (uwaga koordynatora: model statyczny za gorący o 1,5–2,2 K przy 40 %/PL100): w dynamice bias przy N ≤ 1350 rpm i pełnej mocy = **+0,10 K** — czyli to był efekt nieustalonych punktów, nie kształt. Formy z nasyceniem k/(n^m+s^m) i konwekcja+człon kaloryczny (k·n^−m + kc/n) nie poprawiają testu (sat 1,13 K, conv = pow, kc → 0).
-- **Pamięć:** węzeł 1. rzędu przy radiatorze: τm dTm/dt = Tin + 1,035·(Ts − Tin) + 0,0078·P + 15,3·[obciążenie] + 12,2 − Tm, τm = 10 s. Uczona na grid1c + log-1 (grid1c nie ma biegu jałowego). RMSE: grid1c 0,85, grid1d 1,46, hold 1,32, noc 2,31 K (odczyt pamięci tylko co 1 °C).
+  T∞ = Tin + θ0 + P·[Rjs + ra + k·(N/1000)^−m·(C/1500)^−q]; Rjs = 38,6 m°C/W, ra = 11,4 m°C/W, k = 82,0 m°C/W, m = 1,67, q = 0,24, θ0 = 3,2 °C, C radiatora = 1935 J/°C.
+- **RMSE symulacji rdzenia:** uczenie 0,53 °C; test log-1 0,92, grid1d 1,01, hold 1,00 (razem dzień 0,97 °C); noc v2d 1,89 °C (model stale ~2 °C za chłodny). 1 węzeł: 2,3 / 4,2 °C — odrzucony. 3 węzły nic nie dają (drugi węzeł też zapada się do zera).
+- **Stała czasu (radiator):** 129 s (40 %, obudowa 1000) → 104 s (40 %, 2920) → 82/68 s (60 %) → 50/43 s (100 %). τ ≈ C·R_radiatora, więc rośnie przy wolnych wentylatorach. Do tego natychmiastowy skok rdzenia ≈ 22 °C przy 575 W (dlatego zmiana PL „działa od razu”).
+- **θ0 NIE znika** w modelu dynamicznym: 3,2 °C; wymuszenie θ0 = 0 psuje test (0,97 → 1,68 °C). Na nocnych punktach ustalonych model jest 2,1 °C za nisko (7 pkt). Interpretacja: realny podgrzew powietrza wlotowego karty w obudowie (CPU/zasilacz) zależny od sesji — a nie artefakt 60 s. Warto dołożyć czujnik powietrza tuż przy wlocie karty.
+- **Kształt przy niskich obrotach** (uwaga koordynatora: model statyczny za gorący o 1,5–2,2 °C przy 40 %/PL100): w dynamice bias przy N ≤ 1350 rpm i pełnej mocy = **+0,10 °C** — czyli to był efekt nieustalonych punktów, nie kształt. Formy z nasyceniem k/(n^m+s^m) i konwekcja+człon kaloryczny (k·n^−m + kc/n) nie poprawiają testu (sat 1,13 °C, conv = pow, kc → 0).
+- **Pamięć:** węzeł 1. rzędu przy radiatorze: τm dTm/dt = Tin + 1,035·(Ts − Tin) + 0,0078·P + 15,3·[obciążenie] + 12,2 − Tm, τm = 10 s. Uczona na grid1c + log-1 (grid1c nie ma biegu jałowego). RMSE: grid1c 0,85, grid1d 1,46, hold 1,32, noc 2,31 °C (odczyt pamięci tylko co 1 °C).
 - Pliki: `results-2026-10-21/dyn-a-grid1c.png`, `dyn-b-test.png`, `dyn-c-steady.png`, `dyn-model.json`. Seria val1 jeszcze nie dotarła — skrypt sam ją doda do testu, gdy pojawi się `data/val1-2026-10-21/raw.csv`.
+
+**Seb pyta, czy wszystkie pomiary zrobione (21:2x):** val1 ✓ (20/20, 20:42), dyn1 ✓ (56/56, 23:21), val2 w toku (od 23:21, koniec ~01:30). Model dynamiczny na pełnych danych: przeliczany po dyn1 (cross-walidacja), publikacja po val2.
+
+## Model dynamiczny – pełne dane (wieczór, `dyn_cv.py`)
+Dane: grid1c, dyn1 (56 losowych kroków, hiperkostka łacińska), val1 (20 pkt ustalonych), log-1, hold, grid1d; noc v2d tylko jako test. RMSE = symulacja swobodna 1 Hz od pierwszej próbki.
+- **Walidacja krzyżowa (rdzeń, K):**
+  (a) uczenie grid1c → dyn1 **0,56**, val1 0,66, log-1 0,92, hold 1,00, grid1d 1,01, noc 1,89 — model z popołudnia przeszedł losowe skoki bez poprawek.
+  (b) uczenie dyn1 → grid1c 1,05, val1 0,86, log-1 1,88, hold 1,54, grid1d 1,35 — sam dyn1 słabiej przenosi się na długie biegi z biegiem jałowym (słabo określa θ0/ra).
+  (c) pomijanie po jednym przebiegu (LORO): grid1c 0,61, dyn1 0,59, val1 0,65, log-1 0,97, hold 0,99, grid1d 0,86 → **razem 0,72 °C**; noc 2,0 °C.
+  val1, punkty ustalone (stan ustalony z modelu vs pomiar): **0,65 °C** (val1 pominięty w uczeniu), 0,60 °C w uczeniu.
+- **Forma:** potęgowa = konwekcja+kaloryczny (kc → 0) 0,72; z nasyceniem 0,74; **θ0 = 0: 1,03** (hold 2,15) → stały przesuw jest potrzebny; dryf wlotu (θ0 + φ·P·C^−qa, τ ≈ 200 s) 0,716 — zysk 0,008 °C przy 3 słabo określonych parametrach → odrzucony (zasada: dodatkowe parametry muszą dać > 0,05 °C).
+- **Model zalecany (wszystkie dane dzienne), 95 % CI** (poprawione na autokorelację reszt ρ = 0,81):
+  T∞ = Tin + θ0 + P·[Rjs + ra + k·(N/1000)^−m·(C/1500)^−q]
+  Rjs = 39,2 [38,9–39,5] m°C/W (skok natychmiastowy), ra = 11,5 [10,9–12,1] m°C/W, k = 81,8 [81,5–82,1] m°C/W, m = 1,71 [1,67–1,74], q = 0,281 [0,275–0,287], θ0 = 3,20 [3,10–3,30] K, C radiatora = 1929 [1900–1959] J/°C. Rozrzut LORO podobnej wielkości (m 1,64–1,74, θ0 3,10–3,44).
+- **τ(N, C):** 40 %: 129 s (obudowa 1000) / 117 (1500) / 110 (2000) / 101 (2920); 60 %: 81/75/71/66; 80 %: 60/56/54/50; 100 %: 49/46/44/42 s. Plus natychmiastowy skok rdzenia ≈ 39 m°C/W·ΔP (np. PL 100→70 % = −6,8 °C od razu).
+- **Pamięć:** τm = 10 s, Tm∞ = Tin + 1,024·(Ts − Tin) + 0,0103·P + 14,7·[obciążenie] + 11,9; LORO RMSE 0,68–1,42 °C (dyn1 0,68, val1 0,85), noc 2,4 °C.
+- **Tabela do krzywych:** `results-2026-10-21/dyn-steady-lookup.md` / `.csv` (Tin 19/25/30 × karta 40–100 % × obudowa 1000/1500/2000/2920 × PL 70–100 %). Np. Tin 30, PL 100, karta 40 %, obudowa 1500 → 90,7 °C (powyżej progu 88 °C). Tin 25/30 to ekstrapolacja 1:1 z temperaturą powietrza (dane tylko 19–20 °C).
+- **Ograniczenia:** noc v2d stale ~2 °C cieplejsza od modelu → θ0 zależy od sesji/stanu obudowy (czujnik powietrza przy wlocie karty by to rozstrzygnął). 1 karta, otwarta góra obudowy.
+- Wykresy: `dyn-d-dyn1.png`, `dyn-e-cv.png`, `dyn-f-steady-maps.png`; liczby `dyn-cv.json`. val2 (~01:30) — dołożyć do DAY w `dyn_cv.py` i puścić ponownie.

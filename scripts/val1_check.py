@@ -58,7 +58,7 @@ for kind in ("small falling step", "large step"):
 res["convergence"] = summ; res["convergence_points"] = conv
 json.dump(res, open(os.path.join(out, "val1-check.json"), "w"), indent=1)
 with open(os.path.join(out, "val1-convergence.csv"), "w", newline="") as fh:
-    w = csv.writer(fh); w.writerow(["order", "case_rpm", "gpu_pct", "pl_pct", "step_type", "step", "settled_core_c", *[f"core_{m}min_minus_settled_k" for m in (1, 2, 3, 5, 8, 12)]])
+    w = csv.writer(fh); w.writerow(["order", "case_rpm", "gpu_pct", "pl_pct", "step_type", "step", "settled_core_c", *[f"core_{m}min_minus_settled_c" for m in (1, 2, 3, 5, 8, 12)]])
     for c, r in zip(conv, rows): w.writerow([c["i"] + 1, r["case_rpm_target"], r["gpu_pct"], r["pl_pct"], c["kind"], c["step"], r["core_c_max"], *[("" if c["d"][m] is None else round(c["d"][m], 2)) for m in (1, 2, 3, 5, 8, 12)]])
 print(json.dumps({k: v for k, v in res.items() if k != "convergence_points"}, indent=1))
 for c in conv: print(c["i"] + 1, c["kind"][:5], c["step"], {m: (None if v is None else round(v, 1)) for m, v in c["d"].items()})

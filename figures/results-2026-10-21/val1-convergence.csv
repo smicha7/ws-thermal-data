@@ -1,4 +1,4 @@
-order,case_rpm,gpu_pct,pl_pct,step_type,step,settled_core_c,core_1min_minus_settled_k,core_2min_minus_settled_k,core_3min_minus_settled_k,core_5min_minus_settled_k,core_8min_minus_settled_k,core_12min_minus_settled_k
+order,case_rpm,gpu_pct,pl_pct,step_type,step,settled_core_c,core_1min_minus_settled_c,core_2min_minus_settled_c,core_3min_minus_settled_c,core_5min_minus_settled_c,core_8min_minus_settled_c,core_12min_minus_settled_c
 1,1500,50,100,first point (after warm-up),,72,-10.46,-5.0,-3.07,-1.04,0.0,
 2,1500,50,90,small falling step,"case 1500→1500, GPU 50→50 %, PL 100→90 %",67.87,1.2,0.56,0.13,0.02,-0.02,
 3,1500,50,80,small falling step,"case 1500→1500, GPU 50→50 %, PL 90→80 %",62.66,1.84,0.84,0.3,0.3,-0.02,
