@@ -29,6 +29,7 @@ aquaero, own GPU thermal-register reader). Free to use; please cite "GRUENCY / W
 | 2026-10-21-val2 | validation part 2: re-test of the 60 s points with the largest model residuals + denser slow-card points (case 1500, card 45/65 % × PL 100/70), each to steady state with snapshots |
 | 2026-10-22-steady2 | 37 points each held to steady state (|dT/dt| < 0.1 °C/min) with snapshots; 1 Hz long log in release assets |
 | 2026-10-22-ctrl1-{balanced,quiet,performance}-{step,bursts} | WS.Sensor model-based controller on the real card, 30 min each: step = 2 min idle then 575 W; bursts = 60 s on / 60 s off; `ctrl.csv` = 1 Hz commands and measurements; measured vs simulation in figures/ctrl1-*.png |
+| 2026-10-22-ctrl2-{performance,balanced}-bursts | controller after the anti-pumping fix (intake low-pass, feedforward hysteresis, down-ramp deadband, hold after a rise); 60/60 s bursts, 12 min; results in notes/CONTROLLER.md |
 | 2026-10-22-cpu1b | CPU (Ryzen 9 9950X) all 32 threads loaded, radiator + case fans 100 %, GPU idle, until Tctl plateau; `cpu.csv` 1 Hz Tctl, CCD1/2, package W, VCore, clocks, fans; summary.md |
 | 2026-10-22-cpu2 | CPU full load, radiator fans 100 % until settled, then −100 rpm every 10 s to 1500 rpm, then held 1500 rpm to plateau; `sweep.csv` 1 Hz (target/measured rpm, %, Tctl, CCD1/2, package W, clock); summary.md |
 
