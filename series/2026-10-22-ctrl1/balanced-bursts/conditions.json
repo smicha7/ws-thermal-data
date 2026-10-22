@@ -1,0 +1,43 @@
+{
+  "id": "2026-10-22-ctrl1-balanced-bursts",
+  "started_utc": "2026-10-22 12:07:46Z",
+  "case": "open top; 1 GPU; Seb 2026-10-22: WS.Sensor model-based controller test \u2014 mode balanced, scenario bursts (step: 2 min idle then 575 W; bursts: 60 s on / 60 s off after 2 min), 30 min",
+  "intake_c_at_start": 19.22,
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "gpu_serial_hash": null,
+  "driver": null,
+  "power_limit_w": 575,
+  "power_default_w": 575,
+  "gpu_fan_min_pct": 30,
+  "case_fans": "Case fans \u00D74 (be quiet! Silent Wings Pro 4 120 mm)",
+  "radiator_fans": "Radiator fans \u00D73 (SilverStone 120 mm PWM, Hailstone 360)",
+  "radiator_note": "held on its own curve (Curve 1), logged",
+  "case_min_pct": null,
+  "budget_h": 0.5,
+  "lab_version": "0.3.48",
+  "steady": "|dT/dt| \u003C 0.2 \u00B0C/min over 120 s (core, memory, hot spot), min 150 s, max 480 s per point; mean of last 60 s",
+  "abort": "memory \u2265 95 \u00B0C, hot spot \u2265 95 \u00B0C, core \u2265 88 \u00B0C (NVML slowdown \u2212 5) \u2192 point marked too_hot, all fans 100 % until cool, next point",
+  "gpu_thresholds_c": {
+    "shutdown": 96,
+    "slowdown": 93,
+    "gpu_max": 90
+  },
+  "load_calibration_w": {},
+  "load_mode": "alu",
+  "mem_working_limit_c": 95,
+  "core_limits_c": [
+    90,
+    93,
+    96
+  ],
+  "sensor_count": 340,
+  "slots": "",
+  "gpus": [
+    {
+      "name": "NVIDIA GeForce RTX 5090",
+      "pci_bus": 1
+    }
+  ],
+  "power_limits_w": null,
+  "mode": "steady-state: coarse 4\u00D74 then 8\u00D75 refinement"
+}

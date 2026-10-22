@@ -1,0 +1,26 @@
+2026-10-22 13:37:44 start (próba 1), tryb ctrl, budżet 0.5 h, obudowa: open top; 1 GPU; Seb 2026-10-22: WS.Sensor model-based controller test — mode balanced, scenario step (step: 2 min idle then 575 W; bursts: 60 s on / 60 s off after 2 min), 30 min
+2026-10-22 13:37:44 spis czujników: 338
+2026-10-22 13:37:46 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-22 13:37:46 etap: Hold
+2026-10-22 13:37:46 regulator balanced, scenariusz step
+2026-10-22 13:38:03 trzymanie: 27.0 % → 997 rpm (cel 1000)
+2026-10-22 13:39:14 trzymanie: 21.6 % → 816 rpm (cel 820)
+2026-10-22 13:39:39 trzymanie: 20.2 % → 818 rpm (cel 820)
+2026-10-22 13:39:44 obciążenie: proces w sesji użytkownika
+2026-10-22 13:39:44 regulator: obciążenie start
+2026-10-22 obciążenie 13:39:44 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 13:39:45 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 13:39:45 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 13:39:45 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 13:40:16 trzymanie: 36.3 % → 1299 rpm (cel 1294)
+2026-10-22 13:43:15 trzymanie: 36.9 % → 1284 rpm (cel 1294)
+2026-10-22 13:44:38 trzymanie: 35.8 % → 1238 rpm (cel 1234)
+2026-10-22 13:44:47 trzymanie: 28.3 % → 1166 rpm (cel 1174)
+2026-10-22 13:45:01 trzymanie: 37.0 % → 1299 rpm (cel 1294)
+2026-10-22 13:45:51 trzymanie: 36.5 % → 1299 rpm (cel 1294)
+2026-10-22 13:52:21 trzymanie: 39.1 % → 1329 rpm (cel 1335)
+2026-10-22 13:52:57 trzymanie: 38.1 % → 1338 rpm (cel 1335)
+2026-10-22 13:55:48 trzymanie: 35.6 % → 1289 rpm (cel 1279)
+2026-10-22 13:56:24 trzymanie: 35.9 % → 1292 rpm (cel 1294)
+2026-10-22 14:07:45 aquaero przywrócone: przywrócono aquaero-20261022-133746.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261022-140745.bin
+2026-10-22 14:07:45 ZAKOŃCZONO: regulator: koniec (czas)

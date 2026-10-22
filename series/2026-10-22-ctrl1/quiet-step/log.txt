@@ -1,0 +1,31 @@
+2026-10-22 14:37:49 start (próba 1), tryb ctrl, budżet 0.5 h, obudowa: open top; 1 GPU; Seb 2026-10-22: WS.Sensor model-based controller test — mode quiet, scenario step (step: 2 min idle then 575 W; bursts: 60 s on / 60 s off after 2 min), 30 min
+2026-10-22 14:37:49 spis czujników: 340
+2026-10-22 14:37:49 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-22 14:37:49 etap: Hold
+2026-10-22 14:37:49 regulator quiet, scenariusz step
+2026-10-22 14:38:06 trzymanie: 27.3 % → 1002 rpm (cel 1000)
+2026-10-22 14:39:04 trzymanie: 15.0 % → 842 rpm (cel 850)
+2026-10-22 14:39:31 trzymanie: 20.4 % → 824 rpm (cel 820)
+2026-10-22 14:39:50 obciążenie: proces w sesji użytkownika
+2026-10-22 14:39:50 regulator: obciążenie start
+2026-10-22 obciążenie 14:39:50 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 14:39:50 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 14:39:50 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 14:39:50 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 14:40:19 trzymanie: 33.0 % → 1203 rpm (cel 1200)
+2026-10-22 14:41:38 trzymanie: 32.9 % → 1170 rpm (cel 1170)
+2026-10-22 14:42:19 trzymanie: 32.8 % → 1196 rpm (cel 1200)
+2026-10-22 14:42:21 trzymanie: 31.8 % → 1185 rpm (cel 1170)
+2026-10-22 14:44:16 trzymanie: 34.2 % → 1201 rpm (cel 1200)
+2026-10-22 14:44:36 trzymanie: 33.4 % → 1212 rpm (cel 1200)
+2026-10-22 14:45:05 trzymanie: 32.6 % → 1165 rpm (cel 1170)
+2026-10-22 14:45:30 trzymanie: 32.8 % → 1195 rpm (cel 1200)
+2026-10-22 14:45:48 trzymanie: 32.3 % → 1184 rpm (cel 1170)
+2026-10-22 14:46:13 trzymanie: 34.3 % → 1212 rpm (cel 1200)
+2026-10-22 14:46:29 trzymanie: 32.5 % → 1192 rpm (cel 1200)
+2026-10-22 14:46:41 trzymanie: 31.5 % → 1168 rpm (cel 1170)
+2026-10-22 14:47:01 trzymanie: 32.3 % → 1159 rpm (cel 1170)
+2026-10-22 14:47:21 trzymanie: 32.7 % → 1191 rpm (cel 1200)
+2026-10-22 14:47:41 trzymanie: 33.4 % → 1191 rpm (cel 1200)
+2026-10-22 15:07:51 aquaero przywrócone: przywrócono aquaero-20261022-143749.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261022-150750.bin
+2026-10-22 15:07:51 ZAKOŃCZONO: regulator: koniec (czas)
