@@ -276,3 +276,4 @@ Pliki: `results-2026-10-22/steady-compare.csv`, `steady-stats.json/.txt`, `stead
 - steady2: dziennik 1 Hz (73,7 MB) pobrany i opublikowany (ws-thermal-data, asset).
 - cpu2 (20:43–20:55): chłodnica 2744 → 1500 rpm przy 200 W: Tctl ustalony 70,9 → 71,2 °C, CCD ~+2 °C; skoki co 10 s bez mierzalnego trendu (ciecz reaguje w minutach); maks. 75,6 °C, bez dławienia. data/cpu2-2026-10-22/summary.md.
 - cpu3 (21:20–21:41): obudowa 1000 rpm; chłodnica 1013 rpm → Tctl 75,1 °C; minimum chłodnicy 882 rpm (5,5 %; 800/600 nieosiągalne) → Tctl 77,4–77,7 °C, 200 W, ~5,04 GHz, bez spowolnienia; wpływ obudowy nierozdzielony (potrzebny punkt obudowa 2930 / chłodnica 1000).
+- cpu3e (23:15–23:29): obudowa 2925 rpm, chłodnica 1021 / 859 rpm → Tctl 75,8 / 78,4 °C (przy obudowie 1000: 75,1 / 77,5) — wentylatory obudowy NIE chłodzą CPU; liczy się chłodnica (2744→1500 +0,3 °C, 1500→1015 +3,9 °C, 1015→870 +2,5 °C).

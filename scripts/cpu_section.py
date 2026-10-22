@@ -14,12 +14,19 @@ pic = lambda th: (f'<a class="ar-wide th-{th[0]}" href="/research/img/gpu-map-cp
                   f'<img src="/research/img/gpu-map-cpu2-{th}.webp?v={V}" width="1800" height="1320" loading="lazy" decoding="async" alt="{alt}"></picture></a>')
 row = lambda n, a, b, f="{:.1f}": f"<tr><td>{n}</td><td>{f.format(a)}</td><td>{f.format(b)}</td></tr>"
 
+import os
+def pts(path):
+    c = pd.read_csv(path); c["t"] = c.ts - c.ts.iloc[0]; out = []
+    for p_, g in c.groupby("point"):
+        h = g[g.t > g.t.min() + 60]; out.append(dict(rad=h.rad_rpm.mean(), radp=h.rad_pct.mean(), case=h.case_rpm.mean(), tctl=h.tctl_c.mean(), c1=h.ccd1_c.mean(), c2=h.ccd2_c.mean(), mx=h.tctl_c.max(), w=h.pkg_w.mean(), clk=h.clock_avg_mhz.mean(), mins=(g.t.max() - g.t.min()) / 60))
+    return out
+E3p = G + "data/cpu3-2026-10-22/cpu3e/sweep.csv"; P3E = pts(E3p) if os.path.exists(E3p) else []
 c3 = pd.read_csv(G + "data/cpu3-2026-10-22/cpu3/sweep.csv"); c3["t"] = c3.ts - c3.ts.iloc[0]
 P3 = []
 for p_, g in c3.groupby("point"):
     h = g[g.t > g.t.min() + 60]; P3.append(dict(rad=h.rad_rpm.mean(), radp=h.rad_pct.mean(), case=h.case_rpm.mean(), tctl=h.tctl_c.mean(), c1=h.ccd1_c.mean(), c2=h.ccd2_c.mean(), mx=h.tctl_c.max(), w=h.pkg_w.mean(), clk=h.clock_avg_mhz.mean(), mins=(g.t.max() - g.t.min()) / 60))
 lo = [q for q in P3 if q["radp"] < 10]
-r3 = "".join(f"<tr><td>{q['rad']:.0f} ({q['radp']:.0f}&nbsp;%)</td><td>{q['case']:.0f}</td><td>{q['tctl']:.1f}</td><td>{q['c1']:.1f}</td><td>{q['c2']:.1f}</td><td>{q['mx']:.1f}</td><td>{q['w']:.0f}</td><td>{q['clk']:.0f}</td></tr>" for q in P3)
+r3 = "".join(f"<tr><td>{q['rad']:.0f} ({q['radp']:.0f}&nbsp;%)</td><td>{q['case']:.0f}</td><td>{q['tctl']:.1f}</td><td>{q['c1']:.1f}</td><td>{q['c2']:.1f}</td><td>{q['mx']:.1f}</td><td>{q['w']:.0f}</td><td>{q['clk']:.0f}</td></tr>" for q in P3 + P3E)
 cpu3 = f"""  <h3 id="cpu-low">Both sets of fans slow</h3>
   <p>The third run, cpu3, slowed the case fans to 1000&nbsp;rpm as well and then asked the radiator fans for 1000, 800, 600&nbsp;rpm and their minimum, about five minutes each. The radiator fans will not turn slower than about {lo[0]['rad']:.0f}&nbsp;rpm, even at {lo[0]['radp']:.1f}&nbsp;% of their control signal, so the last three points are one setting measured three times.</p>
   <div class="ar-tw">
@@ -28,8 +35,8 @@ cpu3 = f"""  <h3 id="cpu-low">Both sets of fans slow</h3>
     <tbody>{r3}</tbody>
   </table>
   </div>
-  <p class="ar-note">Means from one minute after each change to its end; Tctl jitters by about 2&nbsp;&deg;C from one second to the next, so short averages scatter. Intake air 19.3&nbsp;&deg;C. <a href="/research/data/gpu-map-cpu3-sweep.csv">Data (CSV)</a>.</p>
-  <p>With both sets of fans near their slowest, Tctl settled at {min(q['tctl'] for q in lo):.1f} to {max(q['tctl'] for q in lo):.1f}&nbsp;&deg;C, the three repeats agreeing within {max(q['tctl'] for q in lo)-min(q['tctl'] for q in lo):.1f}&nbsp;&deg;C, and never rose above {max(q['mx'] for q in P3):.1f}&nbsp;&deg;C in any second. Package power stayed at 200&nbsp;W and the clocks within the run-to-run spread, so there was still no slowdown. Against cpu2&rsquo;s 71.2&nbsp;&deg;C, slowing both the case fans (from about 2930 to 1000&nbsp;rpm) and the radiator fans (from 1500 to about 1010&nbsp;rpm) cost {P3[0]['tctl']-71.2:.1f}&nbsp;&deg;C. Because both changed together, we cannot yet say how much of it is the case fans; one more point, case fans at full speed with the radiator at 1000&nbsp;rpm, will separate them.</p>
+  <p class="ar-note">Means from one minute after each change to its end; Tctl jitters by about 2&nbsp;&deg;C from one second to the next, so short averages scatter. Intake air 19.3 to 19.5&nbsp;&deg;C. Data: <a href="/research/data/gpu-map-cpu3-sweep.csv">cpu3 (CSV)</a>, <a href="/research/data/gpu-map-cpu3e-sweep.csv">cpu3e (CSV)</a>.</p>
+  <p>With both sets of fans near their slowest, Tctl settled at {min(q['tctl'] for q in lo):.1f} to {max(q['tctl'] for q in lo):.1f}&nbsp;&deg;C, the three repeats agreeing within {max(q['tctl'] for q in lo)-min(q['tctl'] for q in lo):.1f}&nbsp;&deg;C, and never rose above {max(q['mx'] for q in P3):.1f}&nbsp;&deg;C in any second. Package power stayed at 200&nbsp;W and the clocks within the run-to-run spread, so there was still no slowdown. Against cpu2&rsquo;s 71.2&nbsp;&deg;C, slowing both the case fans (from about 2930 to 1000&nbsp;rpm) and the radiator fans (from 1500 to about 1010&nbsp;rpm) cost {P3[0]['tctl']-71.2:.1f}&nbsp;&deg;C. {('Because both changed together, we cannot yet say how much of it is the case fans; one more point, case fans at full speed with the radiator at 1000&nbsp;rpm, will separate them.' if not P3E else f"A last run, cpu3e, separated the two by repeating the radiator settings with the case fans back at full speed (the last two rows). At the same radiator speed the case fans made no measurable difference: Tctl {P3E[0]['tctl']:.1f} against {P3[0]['tctl']:.1f}&nbsp;&deg;C at about 1020&nbsp;rpm, and {P3E[1]['tctl']:.1f} against {sum(q['tctl'] for q in lo)/len(lo):.1f}&nbsp;&deg;C at the radiator&rsquo;s minimum, differences within the second-to-second jitter of the sensor. On this open-top build the processor is cooled by its radiator, and the radiator&rsquo;s effect is strongly non-linear: from full speed to 1500&nbsp;rpm it costs 0.3&nbsp;&deg;C, from 1500 to about 1020&nbsp;rpm about {P3E[0]['tctl']-71.2:.1f}&nbsp;&deg;C, and from there to its minimum another {P3E[1]['tctl']-P3E[0]['tctl']:.1f}&nbsp;&deg;C.")}</p>
 """
 
 sec = f"""<!--cpu:start-->
