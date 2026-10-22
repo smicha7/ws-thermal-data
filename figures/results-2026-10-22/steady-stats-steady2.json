@@ -1,0 +1,665 @@
+{
+ "n": 37,
+ "core": "core_settled",
+ "primary": "steady2",
+ "ref": "steady2",
+ "groups": [
+  "steady2"
+ ],
+ "choice": "flow +S",
+ "compare": [
+  {
+   "model": "pow",
+   "k": 6,
+   "rmse": 0.576,
+   "mean_e": 0.0,
+   "AIC": 76.223,
+   "BIC": 85.889,
+   "LOO": 0.664,
+   "CV5": 0.664,
+   "LOSO": NaN,
+   "DWser": 0.137,
+   "DWtime": 1.08
+  },
+  {
+   "model": "exp",
+   "k": 6,
+   "rmse": 0.553,
+   "mean_e": -0.0,
+   "AIC": 73.162,
+   "BIC": 82.828,
+   "LOO": 0.633,
+   "CV5": 0.628,
+   "LOSO": NaN,
+   "DWser": 0.655,
+   "DWtime": 1.1
+  },
+  {
+   "model": "rat",
+   "k": 6,
+   "rmse": 0.567,
+   "mean_e": -0.0,
+   "AIC": 74.964,
+   "BIC": 84.63,
+   "LOO": 0.652,
+   "CV5": 0.648,
+   "LOSO": NaN,
+   "DWser": 0.281,
+   "DWtime": 1.08
+  },
+  {
+   "model": "cond",
+   "k": 7,
+   "rmse": 0.465,
+   "mean_e": -0.0,
+   "AIC": 62.297,
+   "BIC": 73.573,
+   "LOO": 0.562,
+   "CV5": 0.564,
+   "LOSO": NaN,
+   "DWser": 0.388,
+   "DWtime": 1.818
+  },
+  {
+   "model": "flow",
+   "k": 6,
+   "rmse": 0.458,
+   "mean_e": 0.0,
+   "AIC": 59.193,
+   "BIC": 68.859,
+   "LOO": 0.53,
+   "CV5": 0.532,
+   "LOSO": NaN,
+   "DWser": 0.23,
+   "DWtime": 1.583
+  },
+  {
+   "model": "R-resp cond",
+   "k": 7,
+   "rmse": 0.471,
+   "mean_e": -0.003,
+   "AIC": 63.794,
+   "BIC": 75.07,
+   "LOO": 0.568,
+   "CV5": 0.567,
+   "LOSO": NaN,
+   "DWser": 0.479,
+   "DWtime": 1.829
+  },
+  {
+   "model": "log-log",
+   "k": 8,
+   "rmse": 0.466,
+   "mean_e": -0.001,
+   "AIC": 66.124,
+   "BIC": 79.011,
+   "LOO": 0.552,
+   "CV5": 0.589,
+   "LOSO": NaN,
+   "DWser": 0.555,
+   "DWtime": 1.264
+  },
+  {
+   "model": "spline",
+   "k": 9,
+   "rmse": 0.447,
+   "mean_e": -0.0,
+   "AIC": 63.496,
+   "BIC": 77.995,
+   "LOO": 3.301,
+   "CV5": 3.043,
+   "LOSO": NaN,
+   "DWser": 0.456,
+   "DWtime": 1.859
+  },
+  {
+   "model": "tensor",
+   "k": 14,
+   "rmse": 0.379,
+   "mean_e": -0.0,
+   "AIC": 61.21,
+   "BIC": 83.763,
+   "LOO": 5.816,
+   "CV5": 13.149,
+   "LOSO": NaN,
+   "DWser": 0.596,
+   "DWtime": 2.428
+  },
+  {
+   "model": "pow +S",
+   "k": 6,
+   "rmse": 0.576,
+   "mean_e": 0.0,
+   "AIC": 76.223,
+   "BIC": 85.889,
+   "LOO": 0.664,
+   "CV5": 0.664,
+   "LOSO": NaN,
+   "DWser": 0.137,
+   "DWtime": 1.08
+  },
+  {
+   "model": "exp +S",
+   "k": 6,
+   "rmse": 0.553,
+   "mean_e": -0.0,
+   "AIC": 73.162,
+   "BIC": 82.828,
+   "LOO": 0.633,
+   "CV5": 0.628,
+   "LOSO": NaN,
+   "DWser": 0.655,
+   "DWtime": 1.1
+  },
+  {
+   "model": "rat +S",
+   "k": 6,
+   "rmse": 0.567,
+   "mean_e": -0.0,
+   "AIC": 74.964,
+   "BIC": 84.63,
+   "LOO": 0.652,
+   "CV5": 0.648,
+   "LOSO": NaN,
+   "DWser": 0.281,
+   "DWtime": 1.08
+  },
+  {
+   "model": "cond +S",
+   "k": 7,
+   "rmse": 0.465,
+   "mean_e": -0.0,
+   "AIC": 62.297,
+   "BIC": 73.573,
+   "LOO": 0.562,
+   "CV5": 0.564,
+   "LOSO": NaN,
+   "DWser": 0.388,
+   "DWtime": 1.818
+  },
+  {
+   "model": "flow +S",
+   "k": 6,
+   "rmse": 0.458,
+   "mean_e": 0.0,
+   "AIC": 59.193,
+   "BIC": 68.859,
+   "LOO": 0.53,
+   "CV5": 0.532,
+   "LOSO": NaN,
+   "DWser": 0.23,
+   "DWtime": 1.583
+  },
+  {
+   "model": "R-resp cond +S",
+   "k": 7,
+   "rmse": 0.471,
+   "mean_e": -0.003,
+   "AIC": 63.794,
+   "BIC": 75.07,
+   "LOO": 0.568,
+   "CV5": 0.567,
+   "LOSO": NaN,
+   "DWser": 0.479,
+   "DWtime": 1.829
+  },
+  {
+   "model": "log-log +S",
+   "k": 8,
+   "rmse": 0.466,
+   "mean_e": -0.001,
+   "AIC": 66.124,
+   "BIC": 79.011,
+   "LOO": 0.552,
+   "CV5": 0.589,
+   "LOSO": NaN,
+   "DWser": 0.555,
+   "DWtime": 1.264
+  },
+  {
+   "model": "spline +S",
+   "k": 9,
+   "rmse": 0.447,
+   "mean_e": -0.0,
+   "AIC": 63.496,
+   "BIC": 77.995,
+   "LOO": 3.301,
+   "CV5": 3.043,
+   "LOSO": NaN,
+   "DWser": 0.456,
+   "DWtime": 1.859
+  },
+  {
+   "model": "tensor +S",
+   "k": 14,
+   "rmse": 0.379,
+   "mean_e": -0.0,
+   "AIC": 61.21,
+   "BIC": 83.763,
+   "LOO": 5.816,
+   "CV5": 13.149,
+   "LOSO": NaN,
+   "DWser": 0.596,
+   "DWtime": 2.428
+  }
+ ],
+ "params": [
+  {
+   "param": "θ0",
+   "unit": "°C",
+   "est": 2.845617309595359,
+   "se_classic": 0.5677688476317484,
+   "se_HC3": 0.641209411871064,
+   "se_cluster": NaN,
+   "se_cluster_series": 0.7747495134816291,
+   "ci95_HC3": [
+    1.5888468623280736,
+    4.102387756862644
+   ]
+  },
+  {
+   "param": "r∞",
+   "unit": "m°C/W",
+   "est": 50.471251342704804,
+   "se_classic": 2.9494518905312996,
+   "se_HC3": 3.0562021418353984,
+   "se_cluster": NaN,
+   "se_cluster_series": 3.099972100300599,
+   "ci95_HC3": [
+    44.481095144707425,
+    56.46140754070218
+   ]
+  },
+  {
+   "param": "k",
+   "unit": "m°C/W",
+   "est": 113.60022305995946,
+   "se_classic": 2.1746536991929757,
+   "se_HC3": 2.4230984825176693,
+   "se_cluster": NaN,
+   "se_cluster_series": 2.1088870508250075,
+   "ci95_HC3": [
+    108.85095003422482,
+    118.3494960856941
+   ]
+  },
+  {
+   "param": "b",
+   "unit": "",
+   "est": 0.22444732362461606,
+   "se_classic": 0.010906577523818453,
+   "se_HC3": 0.010730756578871754,
+   "se_cluster": NaN,
+   "se_cluster_series": 0.01238833054459974,
+   "ci95_HC3": [
+    0.20341504073002742,
+    0.2454796065192047
+   ]
+  },
+  {
+   "param": "m",
+   "unit": "",
+   "est": 1.860572358241607,
+   "se_classic": 0.14841473833887495,
+   "se_HC3": 0.1675413187983247,
+   "se_cluster": NaN,
+   "se_cluster_series": 0.20924770505073587,
+   "ci95_HC3": [
+    1.5321913733968906,
+    2.1889533430863235
+   ]
+  }
+ ],
+ "params_pooled_cluster": [
+  {
+   "param": "θ0",
+   "est": 2.845617309595359,
+   "se_cluster": NaN
+  },
+  {
+   "param": "r∞",
+   "est": 50.471251342704804,
+   "se_cluster": NaN
+  },
+  {
+   "param": "k",
+   "est": 113.60022305995946,
+   "se_cluster": NaN
+  },
+  {
+   "param": "b",
+   "est": 0.22444732362461606,
+   "se_cluster": NaN
+  },
+  {
+   "param": "m",
+   "est": 1.860572358241607,
+   "se_cluster": NaN
+  }
+ ],
+ "tests": [
+  {
+   "test": "Mean of residuals (t-test)",
+   "stat": 1.7704510281660122e-08,
+   "p": 0.9999999859715906,
+   "H0": "E[e] = 0",
+   "verdict": "do not reject H0",
+   "note": "mean +0.0000 °C, sum +0.000 °C"
+  },
+  {
+   "test": "Durbin–Watson, along N within (case, PL) series",
+   "stat": 0.2299565519345811,
+   "p": 0.0003,
+   "H0": "no 1st-order autocorrelation along N",
+   "verdict": "reject H0",
+   "note": "exact p by Monte Carlo under H0 given the regressors"
+  },
+  {
+   "test": "Durbin–Watson, time order",
+   "stat": 1.5825940734788,
+   "p": 0.0511,
+   "H0": "no 1st-order autocorrelation in time",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "Breusch–Godfrey LM, order 1, along N",
+   "stat": 7.155955837401786,
+   "p": 0.007471546744153465,
+   "H0": "no autocorrelation up to order p",
+   "verdict": "reject H0",
+   "note": ""
+  },
+  {
+   "test": "Breusch–Godfrey LM, order 1, time (within session)",
+   "stat": 1.5877425979715285,
+   "p": 0.20764895028418892,
+   "H0": "no autocorrelation up to order p",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "Breusch–Godfrey LM, order 2, along N",
+   "stat": 9.667871238001219,
+   "p": 0.007955151132051204,
+   "H0": "no autocorrelation up to order p",
+   "verdict": "reject H0",
+   "note": ""
+  },
+  {
+   "test": "Breusch–Godfrey LM, order 2, time (within session)",
+   "stat": 2.7024716662767467,
+   "p": 0.25892008082615087,
+   "H0": "no autocorrelation up to order p",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "corr(e, N)",
+   "stat": -0.07428820147054566,
+   "p": 0.6621312185257829,
+   "H0": "ρ = 0",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "corr(e, C)",
+   "stat": 0.03035371366588443,
+   "p": 0.8584573453567272,
+   "H0": "ρ = 0",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "corr(e, P)",
+   "stat": -2.053256126233194e-08,
+   "p": 0.9999999037688839,
+   "H0": "ρ = 0",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "corr(e, fitted)",
+   "stat": -1.461696116922262e-08,
+   "p": 0.9999999314938607,
+   "H0": "ρ = 0",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "corr(e, Tin)",
+   "stat": -0.03956410564013292,
+   "p": 0.8161574992162347,
+   "H0": "ρ = 0",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "corr(e, time)",
+   "stat": -0.07011133502203086,
+   "p": 0.6800893970051846,
+   "H0": "ρ = 0",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "Breusch–Pagan (Koenker) on N, ln C, P",
+   "stat": 0.3209050644610264,
+   "p": 0.9560500295200947,
+   "H0": "homoscedastic",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "White (levels, squares, cross-products)",
+   "stat": 4.977607795974283,
+   "p": 0.8362558577222219,
+   "H0": "homoscedastic",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "White special (ŷ, ŷ²)",
+   "stat": 1.9370075480356654,
+   "p": 0.3796506565312343,
+   "H0": "homoscedastic",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "Shapiro–Wilk",
+   "stat": 0.9564047804493389,
+   "p": 0.15513853144898437,
+   "H0": "normal residuals",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "Jarque–Bera",
+   "stat": 1.3585328609797613,
+   "p": 0.5069887674892732,
+   "H0": "normal residuals",
+   "verdict": "do not reject H0",
+   "note": "skewness -0.14, kurtosis 2.10"
+  },
+  {
+   "test": "Ramsey RESET (ŷ^2)",
+   "stat": 5.561779497123785,
+   "p": 0.024842899548892794,
+   "H0": "functional form adequate",
+   "verdict": "reject H0",
+   "note": ""
+  },
+  {
+   "test": "Ramsey RESET (ŷ^2,3)",
+   "stat": 2.6929243407659134,
+   "p": 0.08401843357182134,
+   "H0": "functional form adequate",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "Lack-of-fit F (pure error from replicates)",
+   "stat": 11.356705055060257,
+   "p": 0.08405253383230525,
+   "H0": "functional form adequate",
+   "verdict": "do not reject H0",
+   "note": "2 replicate d.o.f., pure-error SD 0.15 °C"
+  },
+  {
+   "test": "Parametric vs natural-spline benchmark (F, approx.)",
+   "stat": 0.4535897027684702,
+   "p": 0.7167471569014512,
+   "H0": "parametric form not worse than spline",
+   "verdict": "do not reject H0",
+   "note": ""
+  },
+  {
+   "test": "Box–Cox λ (transform-both-sides), LR test λ = 1",
+   "stat": 0.3527626905988299,
+   "p": 0.5525533888645509,
+   "H0": "λ = 1 (no transform)",
+   "verdict": "do not reject H0",
+   "note": "λ̂ = 1.40, 95 % CI [0.05, 2.85]; LR for λ = 0 (log): p = 0.049"
+  },
+  {
+   "test": "Within-session drift from repeated anchors (slope)",
+   "stat": -0.05081511174882834,
+   "p": 0.28724884683652985,
+   "H0": "no drift",
+   "verdict": "do not reject H0",
+   "note": "-0.051 °C/h ± 0.025; 3 points in 1 anchor groups (steady2/50/1500/100)"
+  }
+ ],
+ "mixed": {
+  "note": "one or two sessions: random effect not estimable",
+  "ICC": NaN,
+  "re": {}
+ },
+ "dw_causes": [
+  {
+   "variant": "NVML table, whole °C (quantised)",
+   "rmse": 0.45785839304581644,
+   "DW_series": 0.22995645593218952,
+   "DW_distinctN": 0.26056986025097556
+  },
+  {
+   "variant": "NVAPI 0.01 °C, mean of last 60 s",
+   "rmse": 0.45785839304581644,
+   "DW_series": 0.22995645593218952,
+   "DW_distinctN": 0.26056986025097556
+  },
+  {
+   "variant": "NVAPI 0.01 °C, extrapolated to T∞ (settling-corrected)",
+   "rmse": 0.45785839304581644,
+   "DW_series": 0.22995645593218952,
+   "DW_distinctN": 0.26056986025097556
+  },
+  {
+   "variant": "+ power curvature P^β (β = 0.819)",
+   "rmse": 0.41997939779979954,
+   "DW_series": 0.3698942282381002,
+   "DW_distinctN": 0.44473432445712857
+  },
+  {
+   "variant": "without session effect",
+   "rmse": 0.45785839304581644,
+   "DW_series": 0.22995645593218952,
+   "DW_distinctN": 0.26056986025097556
+  },
+  {
+   "variant": "non-parametric benchmark: spline +S",
+   "rmse": 0.44748016970869847,
+   "DW_series": 0.4556124601588085,
+   "DW_distinctN": 0.4544023269543159
+  },
+  {
+   "variant": "non-parametric benchmark: tensor +S",
+   "rmse": 0.37902510552705804,
+   "DW_series": 0.5959017489024895,
+   "DW_distinctN": 0.5895281240912196
+  },
+  {
+   "variant": "tensor spline R(N, C) + P² + session",
+   "rmse": 0.30136841190553726,
+   "DW_series": 0.7739523160338548,
+   "DW_distinctN": 0.7712329542559269,
+   "p_MC": 0.0534
+  },
+  {
+   "variant": "chosen model, replicate points at equal N averaged",
+   "rmse": 0.4578583930458248,
+   "DW_series": 0.2299565519345811,
+   "DW_distinctN": 0.2605699839813716
+  }
+ ],
+ "fgls": {
+  "rho": 0.4678146802587924,
+  "params": {
+   "θ0": [
+    3.086698166664639,
+    0.6402449713099059
+   ],
+   "r∞": [
+    50.06755187700706,
+    2.9306942571195482
+   ],
+   "k": [
+    112.62098813561471,
+    1.9083826978923522
+   ],
+   "b": [
+    0.23377176790882312,
+    0.010891845389963998
+   ],
+   "m": [
+    1.8156563611714722,
+    0.13822502961612607
+   ]
+  },
+  "DW_transformed": 0.2812876966457734,
+  "rmse_levels": 0.48492380289261877
+ },
+ "first_diff": {
+  "n_pairs": 11,
+  "free": [
+   "k",
+   "m"
+  ],
+  "params": {
+   "k": [
+    110.20476638247183,
+    2.135956049900615
+   ],
+   "m": [
+    2.016011745462199,
+    0.12445725669602896
+   ]
+  },
+  "levels": {
+   "r∞": 50.471251342704804,
+   "k": 113.60022305995946,
+   "b": 0.22444732362461606,
+   "m": 1.860572358241607
+  },
+  "rmse_diff": 0.33231432458299104,
+  "rmse_diff_levels_model": 0.5667884891312559
+ },
+ "elasticities": {
+  "P": 0.9403363534744406,
+  "N": -0.6291351998367722,
+  "C": -0.11361905855552284
+ },
+ "boxcox": {
+  "lam": 1.4000000000000004,
+  "ci": [
+   0.050000000000000044,
+   2.8500000000000005
+  ]
+ },
+ "rmse": 0.4578583930458248,
+ "loo": 0.53,
+ "sessions": {
+  "steady2": 37.0
+ }
+}
