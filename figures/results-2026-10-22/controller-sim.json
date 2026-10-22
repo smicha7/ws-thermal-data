@@ -1,0 +1,104 @@
+{
+ "step 30->575 W": {
+  "factory (driver curve, case 1000)": {
+   "peak": 72.5,
+   "mem_peak": 80.1,
+   "s_over": 0,
+   "noise_mean": 48.3,
+   "work_W": 547.8,
+   "card_reversals_per_min": 0.03
+  },
+  "WS.Sensor quiet": {
+   "peak": 80.3,
+   "mem_peak": 88.1,
+   "s_over": 0,
+   "noise_mean": 45.1,
+   "work_W": 547.8,
+   "card_reversals_per_min": 0.07
+  },
+  "WS.Sensor balanced": {
+   "peak": 77.9,
+   "mem_peak": 85.6,
+   "s_over": 0,
+   "noise_mean": 46.4,
+   "work_W": 547.8,
+   "card_reversals_per_min": 0.07
+  },
+  "WS.Sensor performance": {
+   "peak": 72.8,
+   "mem_peak": 80.3,
+   "s_over": 0,
+   "noise_mean": 48.9,
+   "work_W": 547.8,
+   "card_reversals_per_min": 0.07
+  }
+ },
+ "intake 19->30 °C": {
+  "factory (driver curve, case 1000)": {
+   "peak": 78.5,
+   "mem_peak": 85.8,
+   "s_over": 842,
+   "noise_mean": 50.8,
+   "work_W": 575.0,
+   "card_reversals_per_min": 0.0
+  },
+  "WS.Sensor quiet": {
+   "peak": 80.3,
+   "mem_peak": 88.7,
+   "s_over": 0,
+   "noise_mean": 47.5,
+   "work_W": 545.4,
+   "card_reversals_per_min": 0.07
+  },
+  "WS.Sensor balanced": {
+   "peak": 77.9,
+   "mem_peak": 85.6,
+   "s_over": 0,
+   "noise_mean": 49.6,
+   "work_W": 575.0,
+   "card_reversals_per_min": 0.05
+  },
+  "WS.Sensor performance": {
+   "peak": 72.8,
+   "mem_peak": 80.3,
+   "s_over": 0,
+   "noise_mean": 53.2,
+   "work_W": 575.0,
+   "card_reversals_per_min": 0.05
+  }
+ },
+ "bursts 60 s on/off": {
+  "factory (driver curve, case 1000)": {
+   "peak": 70.3,
+   "mem_peak": 77.1,
+   "s_over": 0,
+   "noise_mean": 42.2,
+   "work_W": 317.5,
+   "card_reversals_per_min": 0.97
+  },
+  "WS.Sensor quiet": {
+   "peak": 67.1,
+   "mem_peak": 73.4,
+   "s_over": 0,
+   "noise_mean": 45.8,
+   "work_W": 317.5,
+   "card_reversals_per_min": 0.0
+  },
+  "WS.Sensor balanced": {
+   "peak": 66.2,
+   "mem_peak": 72.5,
+   "s_over": 0,
+   "noise_mean": 47.1,
+   "work_W": 317.5,
+   "card_reversals_per_min": 0.0
+  },
+  "WS.Sensor performance": {
+   "peak": 64.9,
+   "mem_peak": 71.4,
+   "s_over": 0,
+   "noise_mean": 49.7,
+   "work_W": 317.5,
+   "card_reversals_per_min": 0.0
+  }
+ }
+}
