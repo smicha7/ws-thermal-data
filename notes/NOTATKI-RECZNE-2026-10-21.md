@@ -198,7 +198,7 @@ Sieć RC (Cauer) dopasowana do **całych przebiegów 1 Hz** (symulacja swobodna 
 
 ## Model dynamiczny – pełne dane (wieczór, `dyn_cv.py`)
 Dane: grid1c, dyn1 (56 losowych kroków, hiperkostka łacińska), val1 (20 pkt ustalonych), log-1, hold, grid1d; noc v2d tylko jako test. RMSE = symulacja swobodna 1 Hz od pierwszej próbki.
-- **Walidacja krzyżowa (rdzeń, K):**
+- **Walidacja krzyżowa (rdzeń, °C):**
   (a) uczenie grid1c → dyn1 **0,56**, val1 0,66, log-1 0,92, hold 1,00, grid1d 1,01, noc 1,89 — model z popołudnia przeszedł losowe skoki bez poprawek.
   (b) uczenie dyn1 → grid1c 1,05, val1 0,86, log-1 1,88, hold 1,54, grid1d 1,35 — sam dyn1 słabiej przenosi się na długie biegi z biegiem jałowym (słabo określa θ0/ra).
   (c) pomijanie po jednym przebiegu (LORO): grid1c 0,61, dyn1 0,59, val1 0,65, log-1 0,97, hold 0,99, grid1d 0,86 → **razem 0,72 °C**; noc 2,0 °C.
@@ -206,9 +206,72 @@ Dane: grid1c, dyn1 (56 losowych kroków, hiperkostka łacińska), val1 (20 pkt u
 - **Forma:** potęgowa = konwekcja+kaloryczny (kc → 0) 0,72; z nasyceniem 0,74; **θ0 = 0: 1,03** (hold 2,15) → stały przesuw jest potrzebny; dryf wlotu (θ0 + φ·P·C^−qa, τ ≈ 200 s) 0,716 — zysk 0,008 °C przy 3 słabo określonych parametrach → odrzucony (zasada: dodatkowe parametry muszą dać > 0,05 °C).
 - **Model zalecany (wszystkie dane dzienne), 95 % CI** (poprawione na autokorelację reszt ρ = 0,81):
   T∞ = Tin + θ0 + P·[Rjs + ra + k·(N/1000)^−m·(C/1500)^−q]
-  Rjs = 39,2 [38,9–39,5] m°C/W (skok natychmiastowy), ra = 11,5 [10,9–12,1] m°C/W, k = 81,8 [81,5–82,1] m°C/W, m = 1,71 [1,67–1,74], q = 0,281 [0,275–0,287], θ0 = 3,20 [3,10–3,30] K, C radiatora = 1929 [1900–1959] J/°C. Rozrzut LORO podobnej wielkości (m 1,64–1,74, θ0 3,10–3,44).
+  Rjs = 39,2 [38,9–39,5] m°C/W (skok natychmiastowy), ra = 11,5 [10,9–12,1] m°C/W, k = 81,8 [81,5–82,1] m°C/W, m = 1,71 [1,67–1,74], q = 0,281 [0,275–0,287], θ0 = 3,20 [3,10–3,30] °C, C radiatora = 1929 [1900–1959] J/°C. Rozrzut LORO podobnej wielkości (m 1,64–1,74, θ0 3,10–3,44).
 - **τ(N, C):** 40 %: 129 s (obudowa 1000) / 117 (1500) / 110 (2000) / 101 (2920); 60 %: 81/75/71/66; 80 %: 60/56/54/50; 100 %: 49/46/44/42 s. Plus natychmiastowy skok rdzenia ≈ 39 m°C/W·ΔP (np. PL 100→70 % = −6,8 °C od razu).
 - **Pamięć:** τm = 10 s, Tm∞ = Tin + 1,024·(Ts − Tin) + 0,0103·P + 14,7·[obciążenie] + 11,9; LORO RMSE 0,68–1,42 °C (dyn1 0,68, val1 0,85), noc 2,4 °C.
 - **Tabela do krzywych:** `results-2026-10-21/dyn-steady-lookup.md` / `.csv` (Tin 19/25/30 × karta 40–100 % × obudowa 1000/1500/2000/2920 × PL 70–100 %). Np. Tin 30, PL 100, karta 40 %, obudowa 1500 → 90,7 °C (powyżej progu 88 °C). Tin 25/30 to ekstrapolacja 1:1 z temperaturą powietrza (dane tylko 19–20 °C).
 - **Ograniczenia:** noc v2d stale ~2 °C cieplejsza od modelu → θ0 zależy od sesji/stanu obudowy (czujnik powietrza przy wlocie karty by to rozstrzygnął). 1 karta, otwarta góra obudowy.
 - Wykresy: `dyn-d-dyn1.png`, `dyn-e-cv.png`, `dyn-f-steady-maps.png`; liczby `dyn-cv.json`. val2 (~01:30) — dołożyć do DAY w `dyn_cv.py` i puścić ponownie.
+
+## Model dynamiczny – z val2 (22.10, `dyn_cv.py`, 7 przebiegów dziennych)
+Zasada Seba: wszystko w °C (różnice, RMSE, θ0), opory w m°C/W, pojemność w J/°C.
+- **val2** (9 pkt ustalonych, powtórki + karta 45/65 % przy obudowie 1500): przebieg pominięty w uczeniu (LORO) **0,79 °C**, punkty ustalone **0,71 °C**; model z samego grid1c: 0,76 / 0,67 °C; z samego dyn1: 1,18 / 1,27 °C.
+- **LORO (rdzeń, °C):** grid1c 0,59, dyn1 0,58, val1 0,64, val2 0,79, log-1 0,97, hold 0,99, grid1d 0,90 → razem **0,72 °C**; val1 ustalone 0,63 °C; noc 2,0 °C.
+- **Forma bez zmian:** potęgowa = konwekcja+kaloryczny 0,724; nasycenie 0,732; θ0 = 0: 0,996; dryf wlotu 0,717 (zysk 0,007 °C → odrzucony).
+- **Model zalecany (95 % CI, wszystkie 7 przebiegów):** Rjs = 39,0 [38,7–39,3] m°C/W, ra = 12,0 [11,4–12,6] m°C/W, k = 81,9 [81,6–82,2] m°C/W, m = 1,72 [1,69–1,75], q = 0,277 [0,271–0,283], θ0 = 3,14 [3,04–3,25] °C, C radiatora = 1914 [1887–1940] J/°C. RMSE w uczeniu: val1 ustalone 0,60, val2 ustalone 0,70 °C.
+- **τ** praktycznie bez zmian: 40 %: 128/117/110/101 s (obudowa 1000/1500/2000/2920), 60 %: 81/75/71/66, 80 %: 60/56/54/51, 100 %: 49/46/45/42 s.
+- **Pamięć (LORO):** 0,68–1,41 °C, val2 0,91 °C.
+- Odświeżone: `dyn-steady-lookup.md/.csv` (nagłówek z parametrami w m°C/W), `dyn-d-dyn1.png`, `dyn-e-cv.png`, `dyn-f-steady-maps.png` (val1 ●, val2 ■), `dyn-a/b/c` (etykiety w °C), `dyn-cv.json`.
+
+## Model stanu ustalonego – diagnostyka (22.10, `steady_data.py` + `steady_stats.py`, uruchamianie `./run_steady.sh`)
+Dane: tylko punkty ustalone — val1 (20), val2 (9), grid1d (1, ustalony), start grid1c po 660 s (1), noc v2d (7 z `settled=1`; sesja osobna). Razem n = 38. Sesje: val1 (odniesienie), val2, „popołudnie” (grid1c+grid1d), noc. steady2 wejdzie sam (patrz niżej).
+**Rdzeń:** NVAPI 0,01 °C z logu 1 Hz, nie tabela NVML (całe °C). Dodatkowo każdy punkt ekstrapolowany do stanu ustalonego (dopasowanie T∞ − A·e^(−t/τ) do ostatnich minut punktu): punkty przy karcie 40–45 % były jeszcze **0,2–0,4 °C za nisko** po 8 min (τ ≈ 115–155 s). Flaga `settled` tego nie widziała, bo nachylenie liczono z całych °C NVML (kwantyzacja chowała wzrost 0,1–0,2 °C/min).
+
+**Porównanie postaci** (wszystkie z efektem sesji; RMSE / LOO / 5-krotna CV / pomijanie sesji, °C; BIC):
+| postać R(N, C) | RMSE | LOO | CV5 | LOSO | BIC | DW po N |
+|---|---|---|---|---|---|---|
+| potęgowa k·N^−m·C^−q | 0,56 | 0,84 | 0,88 | 1,44 | 97,1 | 0,45 |
+| wykładnicza k·e^(−aN)·C^−q (dotychczasowa) | 0,43 | 0,63 | 0,65 | 1,33 | 77,2 | 0,39 |
+| wymierna | 0,53 | 0,79 | 0,82 | 1,42 | 91,9 | 0,47 |
+| **przewodności równoległe 1/(gN·N^m + gC·C^s)** | **0,37** | **0,52** | **0,55** | 1,35 | 68,2 | 0,42 |
+| efektywny przepływ k·(N + b·C)^−m | 0,43 | 0,56 | 0,61 | 1,35 | 76,1 | 0,39 |
+| odpowiedź R = (T−Tin)/P (to samo co wyżej, WLS) | 0,37 | 0,51 | 0,54 | 1,31 | 64,1 | 0,41 |
+| log-log ln(T−Tin) ~ ln P, ln N, ln C, interakcje | 0,34 | 0,71 | 0,73 | 1,46 | 64,4 | 0,57 |
+| splajn naturalny w N (benchmark) | 0,39 | 0,80 | 0,92 | 1,34 | 79,3 | 0,56 |
+| splajn tensorowy R(N, C) (benchmark 2D) | 0,13 | 8,0 | 26 | 82 | 11,9 | 1,38 |
+Bez efektu sesji wszystkie postaci mają RMSE 0,82–0,96 °C i DW ≈ 0,1 — **efekt sesji jest konieczny** (noc +2,43 °C wobec val1).
+
+**Wybrany model** (najmniejszy LOO wśród postaci parametrycznych): T = Tin + θ0 + θ_sesja + P·[r∞ + 1/(gN·(N/1000)^m + gC·(C/1500)^s)]
+θ0 = 1,93 °C (HC3 SE 0,54), r∞ = 53,9 m°C/W (6,0), gN = 6,4 W/°C (2,9), m = 2,46 (0,89), gC = 8,1 W/°C (5,1), s = 0,81 (0,30); θ noc = +2,43 °C (0,43), val2 +0,11, popołudnie +0,08. Fizycznie: przewodność radiatora = część od wentylatorów karty + część od przepływu z obudowy, połączone równolegle; stąd obudowa daje dużo przy wolnej karcie i prawie nic przy szybkiej (to samo, co widać w danych). RMSE 0,37 °C, LOO 0,52 °C, średnia reszt 0,000 °C.
+
+**Testy (wybrany model):**
+| test | statystyka | p | werdykt |
+|---|---|---|---|
+| średnia reszt = 0 | 0,000 °C | 1,00 | OK |
+| Durbin–Watson po N w seriach (obudowa, PL) | 0,42 | < 0,001 (MC) | autokorelacja |
+| Durbin–Watson w czasie | 2,49 | 0,82 | OK |
+| Breusch–Godfrey rz. 1 / 2 po N | 8,5 / 8,5 | 0,004 / 0,014 | autokorelacja |
+| Breusch–Godfrey rz. 1 / 2 w czasie | 3,1 / 3,4 | 0,08 / 0,18 | OK |
+| korelacja reszt z N, C, P, Tin, czasem | −0,02 … 0,08 | ≥ 0,64 | OK |
+| Breusch–Pagan / White | 13,7 / 31,9 | 0,003 / 0,0002 | heteroskedastyczność → SE HC3 |
+| White uproszczony (ŷ, ŷ²) | 1,4 | 0,50 | OK |
+| Shapiro–Wilk / Jarque–Bera | 0,908 / 19,9 | 0,004 / < 0,001 | jeden punkt odstający |
+| ten sam bez nocnego punktu obudowa 654 rpm (t* = +5,5) | 0,956 / 1,4 | 0,15 / 0,51 | OK |
+| RESET (ŷ²) / (ŷ², ŷ³) | 0,80 / 1,60 | 0,38 / 0,22 | OK |
+| brak dopasowania (czysty błąd z powtórzeń, SD 0,14 °C) | F = 11,1 | 0,003 | kształt niedoskonały |
+| model vs splajn naturalny | — | 1,00 | parametryczny nie gorszy |
+| efekt sesji = 0 (Wald, HC3) | 33,2 | < 0,001 | sesja istotna |
+| Box–Cox (obie strony) λ = 1 | λ̂ = 1,65, CI [−0,95; 3,0] | 0,59 | bez transformacji; log też nieodrzucony (p 0,19) |
+| dryf w sesji z kotwic (noc 55/72 ×3) | +0,015 °C/h | 0,51 | brak dryfu |
+
+**Skąd niski DW po N (i co go nie naprawia):** NVML całe °C → DW 0,51; NVAPI 0,01 °C → 0,40; + korekta dojścia → 0,42 (**to nie kwantyzacja**). Dryf sesji — nie (DW w czasie 2,49, kotwice +0,015 °C/h). **Postać funkcyjna — tak:** splajn tensorowy R(N, C) + krzywizna P² + sesja daje DW 2,00 (p MC = 0,50) przy RMSE 0,11 °C, tj. na poziomie czystego błędu 0,14 °C. Reszty są więc gładką resztą kształtu powierzchni R(N, C) (karta × obudowa) i lekkiej wklęsłości w P (P^0,90), ±0,3 °C. Elastyczny model trafia, ale przy obecnym planie pomiarów nie przewiduje (LOO 8 °C — puste komórki siatki), więc nie nadaje się do krzywych. Korekta Praisa–Winstena (ρ = 0,66) zmienia parametry w granicach błędu (r∞ 50,2, m 2,14) — autokorelacja to objaw kształtu, nie cecha błędów, dlatego jej nie „leczymy” FGLS, tylko raportujemy SE HC3 i klastrowe (sesja, seria). Różnice pierwsze wzdłuż N (odpowiednik stóp wzrostu, 15 par, sesja i θ0 znikają): gN 5,7 ± 0,3 W/°C, m 2,44 ± 0,09 — zgodne z poziomami (6,4; 2,46). Elastyczności log-log w średniej: P 0,95, N −0,59, C −0,08.
+
+**Co dalej:** steady2 (karta 40 % × obudowa 1000–2920 × PL 100–70 + karta 60/80/100 + 3 kotwice) wypełnia dokładnie brakujące komórki powierzchni R(N, C) przy jednej sesji. Pipeline sam go weźmie jako sesję odniesienia i przeliczy także samo steady2 (`SUBSET=steady2`). Watcher `./run_steady.sh --watch` działa w tle (co 10 min, kończy po `"state":"done"` albo po 10 h; log `results-2026-10-22/watch.log`).
+Pliki: `results-2026-10-22/steady-compare.csv`, `steady-stats.json/.txt`, `steady-residuals.csv`, `steady-points.csv`, `steady-diagnostics.png`, `steady-two-ways.png`, szkic artykułu `article-stats-draft.md`.
+
+## 22.10 wieczór — ctrl1, cpu1b, steady2 long
+- ctrl1 (6 × 30 min): regulator na prawdziwej karcie = symulacja (rdzeń ustalony ±0,5 °C, szczyt kroku 0,6–1,0 °C nad celem, 0 s > cel + 1 °C, PL nigdy nie cięty). Kolumna NVAPI 0,01 °C pusta → regulator jechał na 1 °C z NVML; na przebiegach więcej zawróceń wentylatorów niż w symulacji (do wygładzenia przed wydaniem dla klientów). Szczegóły: CONTROLLER.md.
+- cpu1 (16:40) przerwany na starcie: aquaero odrzuciło min 100 % przy maks. < 100 %. Poprawka Lab 0.3.50 (controller=none) → cpu1b 19:05.
+- cpu1b: 9950X, 32 wątki, chłodnica + obudowa 100 %, wlot 19,3 °C: Tctl maks. 74,3 (szpilka 15 s) / ustalony 68,2 °C; CCD1 70,6 / 66,1; CCD2 69,1 / 65,7; pakiet 200 W (limit PPT), 5,09 GHz; bez dławienia termicznego; zapas ~27 °C do 95 °C. data/cpu1-2026-10-22/summary.md.
+- steady2: dziennik 1 Hz (73,7 MB) pobrany i opublikowany (ws-thermal-data, asset).
+- cpu2 (20:43–20:55): chłodnica 2744 → 1500 rpm przy 200 W: Tctl ustalony 70,9 → 71,2 °C, CCD ~+2 °C; skoki co 10 s bez mierzalnego trendu (ciecz reaguje w minutach); maks. 75,6 °C, bez dławienia. data/cpu2-2026-10-22/summary.md.
