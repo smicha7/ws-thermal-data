@@ -9,26 +9,26 @@
    "card_reversals_per_min": 0.03
   },
   "WS.Sensor quiet": {
-   "peak": 79.7,
-   "mem_peak": 87.5,
+   "peak": 79.9,
+   "mem_peak": 87.7,
    "s_over": 0,
    "noise_mean": 45.2,
    "work_W": 547.8,
    "card_reversals_per_min": 0.05
   },
   "WS.Sensor balanced": {
-   "peak": 77.9,
-   "mem_peak": 85.6,
+   "peak": 77.8,
+   "mem_peak": 85.5,
    "s_over": 0,
    "noise_mean": 46.4,
    "work_W": 547.8,
    "card_reversals_per_min": 0.07
   },
   "WS.Sensor performance": {
-   "peak": 72.7,
+   "peak": 72.8,
    "mem_peak": 80.3,
    "s_over": 0,
-   "noise_mean": 48.7,
+   "noise_mean": 48.9,
    "work_W": 547.8,
    "card_reversals_per_min": 0.07
   }
@@ -43,26 +43,26 @@
    "card_reversals_per_min": 0.0
   },
   "WS.Sensor quiet": {
-   "peak": 81.0,
-   "mem_peak": 88.7,
-   "s_over": 20,
+   "peak": 80.9,
+   "mem_peak": 88.6,
+   "s_over": 0,
    "noise_mean": 47.5,
-   "work_W": 565.1,
+   "work_W": 564.9,
    "card_reversals_per_min": 0.07
   },
   "WS.Sensor balanced": {
-   "peak": 77.9,
-   "mem_peak": 85.6,
+   "peak": 77.8,
+   "mem_peak": 85.5,
    "s_over": 0,
-   "noise_mean": 49.7,
+   "noise_mean": 49.8,
    "work_W": 575.0,
    "card_reversals_per_min": 0.05
   },
   "WS.Sensor performance": {
-   "peak": 72.7,
+   "peak": 72.8,
    "mem_peak": 80.3,
    "s_over": 0,
-   "noise_mean": 53.4,
+   "noise_mean": 53.5,
    "work_W": 575.0,
    "card_reversals_per_min": 0.05
   }
@@ -77,26 +77,26 @@
    "card_reversals_per_min": 0.97
   },
   "WS.Sensor quiet": {
-   "peak": 67.3,
-   "mem_peak": 73.6,
+   "peak": 67.1,
+   "mem_peak": 73.4,
    "s_over": 0,
-   "noise_mean": 45.7,
+   "noise_mean": 45.8,
    "work_W": 317.5,
    "card_reversals_per_min": 0.0
   },
   "WS.Sensor balanced": {
-   "peak": 66.3,
-   "mem_peak": 72.6,
+   "peak": 66.2,
+   "mem_peak": 72.5,
    "s_over": 0,
-   "noise_mean": 47.0,
+   "noise_mean": 47.1,
    "work_W": 317.5,
    "card_reversals_per_min": 0.0
   },
   "WS.Sensor performance": {
-   "peak": 64.8,
-   "mem_peak": 71.3,
+   "peak": 64.9,
+   "mem_peak": 71.4,
    "s_over": 0,
-   "noise_mean": 49.5,
+   "noise_mean": 49.7,
    "work_W": 317.5,
    "card_reversals_per_min": 0.0
   }

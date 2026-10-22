@@ -28,7 +28,7 @@ CORE = M["M2-pow"]["params"]; MEM = M["mem"]["params"]
 # n = N/1000, c = C/1500; margin = 2 × leave-one-out RMSE of that model (≈ 95 %). The dynamic model is only the simulated plant.
 SS = json.load(open(os.path.join(HERE, "results-2026-10-22", "steady-stats.json")))
 SP = {d["param"]: d["est"] for d in SS["params"]}
-SS_MARGIN = 2 * float(SS["loo"])
+SS_MARGIN = max(2 * float(SS["loo"]), 1.0)   # rule (2026-10-22): never below 1.0 °C — safety over extra quietness
 
 DUTY_RPM = lambda d: 180 + 28.33 * d            # RTX 5090 FE: fan duty % -> rpm (ws298 measurement)
 RPM_DUTY = lambda r: (r - 180) / 28.33
@@ -41,6 +41,7 @@ MODES = {   # target core °C, card / case noise ceilings (rpm), may lower the p
     "performance": dict(target=72.0, card_max=CARD_MAX, case_max=CASE_MAX, pl_cut=False),
 }
 MEM_MAX, MEM_MARGIN = 100.0, 4.0
+TIN_TAU, FF_HYST_DB, UP_DEADBAND, DOWN_DEADBAND, HOLD_AFTER_UP = 60.0, 0.5, 0.0, 50.0, 60.0   # ctrl2 anti-pumping (2026-10-22)
 
 
 # ---------------------------------------------------------------- plant
@@ -92,6 +93,7 @@ class Controller:
         self.m = MODES[mode]; self.mode = mode; self.Pst = P_stock
         self.N = DUTY_RPM(40); self.C = 1000.0; self.pl = 1.0
         self.i = 0.0; self.p_s = None; self.ff = (self.N, self.C, 1.0); self.cool_since = None; self.t = 0; self.p_last = 0.0; self.p_at = 0; self.pl_at = -999
+        self.tin_f = None; self.up_at = {"N": -999, "C": -999}   # ctrl2: filtered intake for the feedforward, time of last up-ramp per fan group
 
     def feedforward(self, P, Tin):
         tgt = self.m["target"] - SS_MARGIN; best = None
@@ -109,12 +111,22 @@ class Controller:
             if core <= tgt and mem <= MEM_MAX - MEM_MARGIN: return self.m["card_max"], self.m["case_max"], pl
         return self.m["card_max"], self.m["case_max"], 0.70
 
+    def keep_ff(self, new):
+        """ctrl2 hysteresis: keep the current (N, C) while it still meets the targets and the new optimum is not clearly quieter (ties flipped case 1174 ↔ 1548 rpm on ws298)."""
+        N, C, pl = self.ff
+        if new[2] != 1.0 or pl != 1.0 or N < card_min(self.p_s, self.Pst) or N > self.m["card_max"] or C > self.m["case_max"]: return new
+        core, mem = steady_ff(self.p_s, N, C, self.tin_f)
+        if core <= self.m["target"] - SS_MARGIN and mem <= MEM_MAX - MEM_MARGIN and noise(new[0], new[1]) > noise(N, C) - FF_HYST_DB: return self.ff
+        return new
+
     def step(self, core, mem, P_meas, Tin, dt=1.0):
         self.t += dt
         dem = P_meas / self.pl if P_meas >= 0.97 * self.pl * self.Pst else P_meas   # demand: a capped card would draw more without the cap
         if self.p_s is None or dem >= self.p_s: self.p_s, self.p_at = dem, self.t           # load estimate: up at once,
+        elif dem >= 0.97 * self.p_s: self.p_at = self.t                                       # ctrl2: a near-peak burst renews the hold
         elif self.t - self.p_at > 300: self.p_s += (dem - self.p_s) * dt / 60                  # held 5 min, then down slowly (no pumping on bursty loads)
-        if self.t % 5 < dt or P_meas > self.p_last + 100: self.ff = self.feedforward(self.p_s, Tin)   # load step: recompute now
+        self.tin_f = Tin if self.tin_f is None else self.tin_f + (Tin - self.tin_f) * dt / TIN_TAU   # ctrl2: intake low-pass (sensor noise flipped the optimum)
+        if self.t % 5 < dt or P_meas > self.p_last + 100: self.ff = self.keep_ff(self.feedforward(self.p_s, self.tin_f))   # load step: recompute now
         self.p_last = P_meas
         Nff, Cff, pl_t = self.ff
         e = core - self.m["target"]
@@ -129,8 +141,8 @@ class Controller:
         may_drop = self.cool_since is not None and self.t - self.cool_since >= 60
         for attr, want in (("N", Nw), ("C", Cw)):
             cur = getattr(self, attr)
-            if want > cur: cur = min(want, cur + 150 * dt)
-            elif may_drop: cur = max(want, cur - 15 * dt)
+            if want > cur + UP_DEADBAND: cur = min(want, cur + 150 * dt); self.up_at[attr] = self.t
+            elif want < cur - DOWN_DEADBAND and may_drop and self.t - self.up_at[attr] >= HOLD_AFTER_UP: cur = max(want, cur - 15 * dt)   # ctrl2: down only past a deadband and ≥ 60 s after the last rise
             setattr(self, attr, cur)
         # power limit: down in 5 % steps at most every 30 s and never below what the model needs; back up at once when the core is below target − 1.5 °C
         if pl_t < self.pl - 1e-6 and self.t - self.pl_at >= 30: self.pl = max(pl_t, self.pl - 0.05); self.pl_at = self.t
