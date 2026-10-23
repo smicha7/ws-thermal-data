@@ -102,7 +102,7 @@ for ph, refs in FIRST:
     i = s.find(ph)
     if i < 0 or i > body_end: miss.append(ph); continue
     j = i + len(ph); tag = c(*refs)
-    if s[j:j + len(tag)] != tag: s = s[:j] + tag + s[j:]; body_end += len(tag)
+    if not s[j:j + 60].startswith(f' <a class="cite" href="#s{refs[0]}">'): s = s[:j] + tag + s[j:]; body_end += len(tag)
 F.write_text(s)
 used = set(map(int, re.findall(r'href="#s(\d+)"', s)))
 print("missing anchors:", miss); print("refs never cited:", sorted(set(REFS) - used))
@@ -399,6 +399,17 @@ def figfix(m):
 s = re.sub(r'(<figcaption><b>Figure [A-Z]?\d+\.</b>)(.*?)(?=</figcaption>)', figfix, s, flags=re.S)
 F.write_text(s); print("figure titles; untitled:", miss)
 
+# --- remove repeated citation runs left by earlier runs: "[a] [b] [a] [b]" -> "[a] [b]"
+s = F.read_text()
+CIT = r'(?: ?<a class="cite" href="#[tns]\d+">\[[^\]]*\]</a>)'
+def dedup(m):
+    links = re.findall(r'<a class="cite" href="#([tns]\d+)">\[[^\]]*\]</a>', m.group(0)); seen = []
+    for k in links:
+        if k not in seen: seen.append(k)
+    lead = " " if m.group(0).startswith(" ") else ""
+    return lead + " ".join(f'<a class="cite" href="#{k}">[{k}]</a>' for k in seen)
+s = re.sub(CIT + "{2,}", dedup, s)
+F.write_text(s)
 # --- one numbered reference list, in order of first citation (Elsevier numeric); in-section source lists are folded into it
 s = F.read_text()
 items = {}
@@ -444,7 +455,7 @@ HEADMAP = {
  "noise": ("h3", "How loud is loud"), "noise-scale": ("h4", None), "noise-fans": ("h4", None), "noise-gpu": ("h4", None), "noise-rtx50": ("h4", None),
  "noise-seb": ("h4", None), "noise-ctl": ("h4", None), "sources": ("h2", "References"),
 }
-UNNUM = {"data-availability", "contributions", "sources"}
+UNNUM = {"data-availability", "contributions", "competing", "sources", "tools"}
 s = F.read_text()
 s = re.sub(r'<span class="secno">[^<]*</span> ', "", s)
 def remap(m):
@@ -479,6 +490,16 @@ part = re.sub(r"<(h[2-5])((?:\s[^>]*)?)>(.*?)</\1>", num, part, flags=re.S)
 s = s[:body_a] + part + s[body_b:]
 lis = "".join(f'<li><a href="#{h}">' + (f'<span class="secno">{no}</span> ' if no else "") + f"{t}</a></li>" for tag, no, h, t in toc if tag == "h2")
 s = re.sub(r'(<nav class="ar-toc"[^>]*>\s*<h2 class="ar-toc-h">Contents</h2>\s*<ul>).*?(</ul>)', lambda m: m.group(1) + lis + m.group(2), s, count=1, flags=re.S)
+SECNO = {h: no for tag, no, h, t in toc if no}
+APPNO = {h: t.split(".")[0] for tag, no, h, t in toc if h.startswith("appendix-")}
+def secref(m):
+    h, txt = m.group(1), m.group(2)
+    if "<span" in txt or re.match(r"\s*(Table|Figure|Section|Appendix|\d)", txt): return m.group(0)
+    if h in SECNO: return f'<a href="#{h}">{"Appendix " + SECNO[h] if SECNO[h][0].isalpha() else "Section " + SECNO[h]}</a>'
+    if h in APPNO: return f'<a href="#{h}">{APPNO[h]}</a>'
+    return m.group(0)
+ba = s.index('<h2 id="intro">')
+s = s[:ba] + re.sub(r'<a href="#([a-z0-9-]+)">(.*?)</a>', secref, s[ba:], flags=re.S)
 F.write_text(s); print("sections numbered:", cnt[0], "headings:", len(toc))
 
 # --- figures: ids from their titles, numbered in order of appearance; "Figure N" in the text becomes a link that follows the number
@@ -505,7 +526,7 @@ def figtag(m):
     body = re.sub(r'<figcaption><b>Figure [A-Z]?\d+\.</b>', f'<figcaption><b>Figure {new[k]}.</b>', m.group(2), count=1)
     return f'<figure{attrs} id="{k}">{body}</figure>'
 s = re.sub(r'<figure([^>]*)>(.*?)</figure>', figtag, s, flags=re.S)
-s = re.sub(r'<a class="fref" href="#(fig-[^"]+)">(Figure )?[A-Z]?\d+</a>', lambda m: f'<a class="fref" href="#{m.group(1)}">{m.group(2) or ""}{new.get(m.group(1), "?")}</a>', s)
+s = re.sub(r'<a class="fref" href="#(fig-[^"]+)">(Figure )?[^<]*</a>', lambda m: f'<a class="fref" href="#{m.group(1)}">{m.group(2) or ""}{new.get(m.group(1), "?")}</a>', s)
 s = re.sub(r"\{fref:(fig-[a-z0-9-]+)\}", lambda m: f'<a class="fref" href="#{m.group(1)}">Figure {new.get(m.group(1), "?")}</a>', s)
 def plain(m):   # plain references outside captions and links, written with the numbering of their own generator
     k = old2key.get(m.group(1))
