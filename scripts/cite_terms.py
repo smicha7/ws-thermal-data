@@ -201,7 +201,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Time after the change, min¦Small", "early", "Early reading minus settled value, core temperature, val1 validation series (21 October, evening): how long a point must run.", "{T} shows how far a reading after 1 to 5 minutes still lies from the settled value, for small and large steps."),
  (r"^GPU fans(?:, %¦GPU fans, rpm)?¦Core rise per 100", "per100", "Core temperature rise per 100&nbsp;W of board power, by GPU fan speed, from models (9), (10) and (11): the effect of power at fixed fans.", "{T} compares the three models&rsquo; slope against power; they agree within about 1&nbsp;&deg;C per 100&nbsp;W."),
  (r"^GPU fans, %¦Run time", "s3plan", "Plan of the final grid (steady3) by GPU fan speed: points, run time, predicted core range and the largest step between consecutive points.", "{T} summarises the plan of the final grid; the largest steps show where settling takes longest."),
- (r"^GPU fans(?:, %¦GPU fans, rpm)?¦Estimated level at 1&nbsp;m, dBA¦Sebastian", "gpuclass", "GPU fan speeds of the final grid with their estimated noise at 1&nbsp;m and how they sound on this machine.", "{T} links each GPU fan speed of the grid to a level and a listening class."),
+ (r"^GPU fans(?:, %¦GPU fans, rpm)?¦Estimated level at 1&nbsp;m, dBA¦(?:Sebastian|Class on our)", "gpuclass", "GPU fan speeds of the final grid with their estimated noise at 1&nbsp;m and how they sound on this machine.", "{T} links each GPU fan speed of the grid to a level and a listening class."),
  (r"^Case and radiator fans, rpm¦Estimated level", "caseclass", "Case and radiator fan levels of the final grid, chosen as listening classes for this machine at the desk, with the literature-based level of one fan and of all seven.", "{T} explains why the case and radiator fans are measured at these seven speeds: each is one listening class."),
  (r"^Method¦", "methods", "Statistical methods and terms used in this article, with what each does and why we use it.", "{T} is a glossary of the statistical methods; each is cited where first used."),
  (r"^Constant¦Unit¦Estimate¦Standard error, in", "consts11", "Constants of the settled-point model (11), fitted to the settled points of the earlier sessions, with four kinds of standard error.", "{T} gives each constant with its uncertainty; compare the columns to see how much the choice of standard error matters."),
@@ -235,11 +235,12 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
 ]
 TNO = lambda n: f'<span class="tno">Table {n}.</span> '
 s = F.read_text()
+s = s.replace('<div class="ar-tblock ar-tblock-wide">', "").replace('<div class="ar-tblock">', "").replace("</div><!--/tblock-->", "")
 assert "<details" not in s.split("</style>", 1)[1], "tables must never be hidden in <details> (Seb 2026-10-23)"
 s = re.sub(r'(?::root\[data-theme="dark"\] (?:#ar )?)?\.ar-det[^{]*\{[^}]*\}', "", s)
-s = re.sub(r'<p class="ar-(?:tcap|lead)" data-auto="1"[^>]*>.*?</p>\n  ', "", s, flags=re.S)
+s = re.sub(r'<p class="ar-(?:tcap|lead)" data-auto="1"[^>]*>.*?</p>\s*', "", s, flags=re.S)
 s = re.sub(r'<span class="tno">[^<]*</span> ', "", s); s = re.sub(r' <span class="tdesc">.*?</span><!--tdesc-->', "", s, flags=re.S)
-s = re.sub(r'<p class="ar-tcap"( data-sub="1")? id="table-[\dA-Z]+"', r'<p class="ar-tcap"\1', s)
+s = re.sub(r'(<p class="ar-tcap"[^>]*?) id="table-[\dA-Z]+"', r"\1", s); s = re.sub(r'(<p class="ar-tcap"[^>]*?) id="table-[\dA-Z]+"', r"\1", s)
 s = re.sub(r'<span class="tgl">[^<]*</span> ', "", s)
 s = re.sub(r'\n?  <p class="ar-note" data-copy="1">.*?</p>', "", s, flags=re.S)
 # sub-tables become separate tables: an <h4> or <caption> directly above/inside a table turns into its own caption
@@ -265,6 +266,7 @@ lab = lambda n, l: f"{n}" if gsize[n] == 1 else f"{n}{chr(64 + l)}"
 ins = []
 for st, en, reg, n, l in out_n:
     pre = s[max(0, st - 1500):st]; base = st - len(pre)
+    k0 = pre.rfind('<p class="ar-tcap"'); pre = pre[k0:] if k0 >= 0 else ""; base = st - len(pre)
     cap = re.search(r'(<p class="ar-tcap"( data-sub="1")?>)(.*?)</p>\s*$', pre, re.S)
     tl = lab(n, l)
     rng = f"Table {n}" if gsize[n] == 1 else f"Tables {n}A&ndash;{n}{chr(64 + gsize[n])}"
