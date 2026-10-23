@@ -159,8 +159,11 @@ const mH=sec.indexOf('<h2 id="stats">'), mE=sec.indexOf('<h3 id="stats-model">')
 const hEnd=sec.indexOf('</h2>',mH)+5;
 const meth=sec.slice(hEnd,mE); const secR=sec.slice(0,hEnd)+'\n'+sec.slice(mE);
 s=s.slice(0,a)+secR+s.slice(b+'<!--stats:end-->'.length);
-{const a2=s.indexOf('<!--statmeth:start-->'), b2=s.indexOf('<!--statmeth:end-->');
- if(a2>=0&&b2>a2) s=s.slice(0,a2)+'<!--statmeth:start-->'+meth.replace('<h3 id="stats-methods">','<h4 id="stats-methods">').replace(/<\/h3>/,'</h4>')+'<!--statmeth:end-->'+s.slice(b2+'<!--statmeth:end-->'.length);}
+{const gi=meth.indexOf('<h3 id="stats-methods">'); const dataPart=meth.slice(0,gi), gloss=meth.slice(gi);
+ const a2=s.indexOf('<!--statmeth:start-->'), b2=s.indexOf('<!--statmeth:end-->');
+ if(a2>=0&&b2>a2) s=s.slice(0,a2)+'<!--statmeth:start-->'+gloss.replace('<h3 id="stats-methods">','<h4 id="stats-methods">').replace(/<\/h3>/,'</h4>')+'<!--statmeth:end-->'+s.slice(b2+'<!--statmeth:end-->'.length);
+ const a3=s.indexOf('<!--estdata:start-->'), b3=s.indexOf('<!--estdata:end-->');
+ if(a3>=0&&b3>a3) s=s.slice(0,a3)+'<!--estdata:start-->\n  <h3 id="est-data">Estimation data</h3>'+dataPart+'  <p>The points are tabulated in <a href="#appendix-b">Appendix B</a>.</p>\n<!--estdata:end-->'+s.slice(b3+'<!--estdata:end-->'.length);}
 const kf=`<!--kf-stats--> On ${J.n} settled points from ${nS} earlier sessions, the two-path model (11) fits within ${chosen.rmse.toFixed(2)}&nbsp;&deg;C (leave-one-out ${chosen.LOO.toFixed(2)}&nbsp;&deg;C)${tableN?'; provisional while part of the latest series is re-read at 0.01&nbsp;&deg;C':''}.<!--/kf-stats-->`;
 a=s.indexOf('<!--kf-stats-->'); b=s.indexOf('<!--/kf-stats-->'); if(a>=0&&b>a) s=s.slice(0,a)+kf+s.slice(b+16);
 // per-100 W lookup table at case 1500 rpm: (11) from steady fit, (10) dynamic, (9) static

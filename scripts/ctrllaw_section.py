@@ -56,7 +56,7 @@ for _m in ("quiet", "balanced", "performance"):
         PR += (f'<tr><td>{_m.capitalize()} ({_c.budget:.0f})</td><td>{_T:.1f}</td><td class="g">{_pl*100:.0f}</td><td>{575*_pl:.0f}</td><td class="g">{cs.RPM_DUTY(_N):.1f}</td><td>{_C:.0f}</td>'
                f'<td class="g">{cs.noise(_N, _C):.1f}{"<sup>a</sup>" if _ov else ""}</td><td>{_core:.1f}</td><td>{_mem:.1f}</td></tr>')
 POWER = f"""  <h3 id="power-room">Power limit and room temperature</h3>
-  <p>The same law answers how much power each mode can keep in a warmer room. Under full load Quiet gives up power first, Balanced only at 35&nbsp;&deg;C intake air, and Performance keeps full power up to 35&nbsp;&deg;C by spending its larger budget.</p>
+  <p>The same law answers how much power each mode can keep in a warmer room. Under full load Quiet gives up power first, Balanced only at 35&nbsp;&deg;C intake air, and Performance keeps full power up to 35&nbsp;&deg;C by spending its larger budget. Power costs speed: at 402&nbsp;W, a 70&nbsp;% limit, the core clock was about 24&nbsp;% lower in the preliminary runs (<a href="#power-results">Appendix A.2.6</a>).</p>
   <p class="ar-tcap"><b>Power limit each mode settles at under full load (575&nbsp;W requested) against intake air temperature, with its fans, noise and predicted temperatures.</b> Planning of the released controller, model (11) and the memory model, literature-based noise at 1&nbsp;m.</p>
   <div class="ar-tw ar-tw-wide">
   <table class="ar-tab ar-num ar-st ar-ms ar-proom">

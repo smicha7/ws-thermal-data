@@ -577,3 +577,42 @@ def plain2(m):
     return f'Figures <a class="fref" href="#{k1}">{new[k1]}</a> and <a class="fref" href="#{k2}">{new[k2]}</a>'
 s = "".join(p if i % 2 else re.sub(r"(?<![\w>])Figure (\d+)(?!\d)", plain, re.sub(r"Figures (\d+) and (\d+)", plain2, p)) for i, p in enumerate(parts))
 F.write_text(s); print("figures numbered:", len(order))
+
+# --- equations numbered in order of appearance (appendix: A1, B1 ...); text references follow by the original label
+import html as _html, json as _json, subprocess as _sp
+s = F.read_text()
+def span_end(t, i):
+    d = 0
+    for m in re.finditer(r"<span\b|</span>", t[i:]):
+        d += 1 if m.group(0) == "<span" else -1
+        if d == 0: return i + m.end()
+    raise ValueError("unbalanced span")
+eqs = []
+for m in re.finditer(r'(<span class="eqw" data-eq="(\w+)">)?<span class="katex-display">', s):
+    st = m.start(); ks = m.start() + (len(m.group(1)) if m.group(1) else 0); ke = span_end(s, ks)
+    en = ke + (len("</span>") if m.group(1) and s.startswith("</span>", ke) else 0)
+    ann = re.search(r'<annotation encoding="application/x-tex">(.*?)</annotation>', s[ks:ke], re.S)
+    if not ann: continue
+    tex = _html.unescape(ann.group(1)); tg = re.search(r"\\tag\{([^}]*)\}", tex)
+    orig = m.group(2) or (tg.group(1) if tg else None)
+    if not orig or not re.fullmatch(r"\d+", orig): continue
+    eqs.append((st, en, orig, tex))
+APOS = sorted((m.start(), m.group(1).upper()) for m in re.finditer(r'<h2 id="appendix-([a-z])"', s))
+newno, cnt_e = {}, {}
+for st, en, orig, tex in eqs:
+    px = "".join(L for p_, L in APOS if p_ <= st)[-1:]; cnt_e[px] = cnt_e.get(px, 0) + 1; newno.setdefault(orig, f"{px}{cnt_e[px]}")
+texs = ["$$" + re.sub(r"\\tag\{[^}]*\}", lambda m_: "\\tag{" + newno[orig] + "}", tex) for st, en, orig, tex in eqs]
+rend = _json.loads(_sp.run(["node", str(Path(__file__).parent / "tex.js")], input=_json.dumps(texs), capture_output=True, text=True, check=True).stdout)
+for (st, en, orig, tex), h in sorted(zip(eqs, rend), key=lambda x: -x[0][0]):
+    s = s[:st] + f'<span class="eqw" data-eq="{orig}">{h}</span>' + s[en:]
+# references in the text (outside math): plain ones carry the original label; eqref spans are renumbered
+s = re.sub(r'<span class="eqref" data-eq="(\w+)">\([^)]*\)</span>', lambda m: f'<span class="eqref" data-eq="{m.group(1)}">({newno.get(m.group(1), m.group(1))})</span>', s)
+WORD = r"(equations?|Equations?|model|fit|form|eq\.|Eq\.|law)"
+def textfix(t):
+    t = re.sub(WORD + r"(\s+)\((\d+)\)", lambda m: f'{m.group(1)}{m.group(2)}<span class="eqref" data-eq="{m.group(3)}">({newno.get(m.group(3), m.group(3))})</span>' if m.group(3) in newno else m.group(0), t)
+    for _ in range(3):
+        t = re.sub(r'(<span class="eqref" data-eq="\w+">\([^)]*\)</span>)(,? and |, |&ndash;| to | or )\((\d+)\)', lambda m: f'{m.group(1)}{m.group(2)}<span class="eqref" data-eq="{m.group(3)}">({newno.get(m.group(3), m.group(3))})</span>' if m.group(3) in newno else m.group(0), t)
+    return t
+parts = re.split(r'(<span class="katex(?:-display)?">.*?</math></span>|<annotation.*?</annotation>|<script.*?</script>|<style.*?</style>)', s, flags=re.S)
+s = "".join(p_ if i % 2 else textfix(p_) for i, p_ in enumerate(parts))
+F.write_text(s); print("equations numbered:", len(eqs), {k: v for k, v in list(newno.items())})
