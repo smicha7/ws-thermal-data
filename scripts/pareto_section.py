@@ -12,15 +12,15 @@ anc = "; ".join(f"{n}: {('+' if d > 0 else '&minus;' if d < 0 else '')}{abs(d):.
 rows = ""
 for t in ["70", "72.5", "75", "77.5", "80", "82.5", "85"]:
     a, b = T["575"][t], T["402"][t]
-    rows += (f"<tr><td>{float(t):.1f}</td><td class=g>{a['gpu_pct']}</td><td>{a['gpu_rpm']}</td><td>{a['case_rpm']}</td><td>{a['dBA']:.1f}</td><td class=tl>{a['cls']}</td><td>{a['mem']:.0f}</td>"
-             f"<td class=g>{b['gpu_pct']}</td><td>{b['case_rpm']}</td><td>{b['dBA']:.1f}</td><td>{b['core']:.1f}</td></tr>")
+    rows += (f"<tr><td>{float(t):.1f}</td><td class=g>{a['gpu_pct']}</td><td>{a['gpu_rpm']}</td><td>{a['case_rpm']}</td><td>{a['dBA']:.1f}</td><td class=tl>{a['cls']}</td><td>{a['core']:.1f}</td><td>{a['mem']:.1f}</td>"
+             f"<td class=g>{b['gpu_pct']}</td><td>{b['case_rpm']}</td><td>{b['dBA']:.1f}</td><td>{b['core']:.1f}</td><td>{b['mem']:.1f}</td></tr>")
 mrow = "".join(f"<tr><td>{m} ({t}&nbsp;&deg;C)</td><td>{M[m]['575']['gpu_pct']}</td><td>{M[m]['575']['gpu_rpm']}</td><td>{M[m]['575']['case_rpm']}</td><td>{M[m]['575']['dBA']:.1f}</td><td class=tl>{M[m]['575']['cls']}</td></tr>" for m, t in (("Quiet", 80), ("Balanced", 77), ("Performance", 72)))
 crow = ""
 for Tk in ("19", "30"):
     for tg in ("77", "80"):
         d = C[Tk][tg]; v = [d[p]["dBA"] if d[p] else None for p in ("100", "90", "80", "70")]
         dl = lambda i: "" if i == 0 else f' <span class="dlt">({v[i]-v[i-1]:+.1f})</span>'.replace("+-", "&minus;").replace("(-", "(&minus;").replace("(+0.0)", "(0.0)").replace("(&minus;0.0)", "(0.0)")
-        crow += f"<tr><td>{'19.3' if Tk=='19' else '30.0'}&nbsp;&deg;C</td><td>{tg}&nbsp;&deg;C ({'Balanced' if tg=='77' else 'Quiet'}, first version)</td>" + "".join(f"<td>{x:.1f}{dl(i)}</td>" for i, x in enumerate(v)) + "</tr>"
+        crow += f"<tr><td>{'19.3' if Tk=='19' else '30.0'}</td><td>{tg}</td><td class=tl>{'Balanced' if tg=='77' else 'Quiet'}</td>" + "".join(f"<td>{x:.1f}{dl(i)}</td>" for i, x in enumerate(v)) + "</tr>"
 clk = R["clock_by_power"]
 par = f"""<!--pareto:start-->
   <h3 id="pareto-lit">A first frontier, from the literature</h3>
@@ -34,11 +34,11 @@ par = f"""<!--pareto:start-->
   <p>The frontier answers the question of the paragraph above, for this card and case: it does not spread the airflow. Along almost all of it the case and radiator fans stay between 800 and about 1250&nbsp;rpm and the GPU fans do the work. Seven fans add {cf['seven_fans_db']:.1f}&nbsp;dB to one, and once the GPU fans are past about 45&nbsp;% the case fans cool the core by little, so raising them costs more noise than it saves heat. At 402&nbsp;W the slowest setting allowed under load, GPU fans 40&nbsp;% and case fans 800&nbsp;rpm, already holds the core at {T['402']['80']['core']:.1f}&nbsp;&deg;C, below every target.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st ar-ms">
-    <thead><tr><th scope="col" rowspan="2">Core target, &deg;C</th><th scope="colgroup" colspan="6">Power limit 100&nbsp;% (575&nbsp;W)</th><th scope="colgroup" colspan="4">Power limit 70&nbsp;% (402&nbsp;W)</th></tr><tr><th scope="col" class="g">GPU fans, %</th><th scope="col">GPU fans, rpm</th><th scope="col">case fans, rpm</th><th scope="col">noise at 1&nbsp;m, dBA</th><th scope="col" class="tl">class</th><th scope="col">memory, &deg;C</th><th scope="col" class="g">GPU fans, %</th><th scope="col">case fans, rpm</th><th scope="col">noise at 1&nbsp;m, dBA</th><th scope="col">core, &deg;C</th></tr></thead>
+    <thead><tr><th scope="col" rowspan="2">Core target, &deg;C</th><th scope="colgroup" colspan="7">Power limit 100&nbsp;% (575&nbsp;W)</th><th scope="colgroup" colspan="5">Power limit 70&nbsp;% (402&nbsp;W)</th></tr><tr><th scope="col" class="g">GPU fans, %</th><th scope="col">GPU fans, rpm</th><th scope="col">case fans, rpm</th><th scope="col">noise at 1&nbsp;m, dBA</th><th scope="col" class="tl">class</th><th scope="col">core, &deg;C</th><th scope="col">memory, &deg;C</th><th scope="col" class="g">GPU fans, %</th><th scope="col">case fans, rpm</th><th scope="col">noise at 1&nbsp;m, dBA</th><th scope="col">core, &deg;C</th><th scope="col">memory, &deg;C</th></tr></thead>
     <tbody>{rows}</tbody>
   </table>
   </div>
-  <p class="ar-note">The quietest pair whose settled core is at or below the target and whose memory stays at or below the default memory limit of 90&nbsp;&deg;C. Fan speeds on a grid of 1&nbsp;% and 50&nbsp;rpm; the GPU fans never go below 40&nbsp;% under load. Levels &plusmn;3&nbsp;dB or more, see above.</p>
+  <p class="ar-note">The quietest pair whose settled core is at or below the target and whose memory stays at or below the default memory limit of 90&nbsp;&deg;C. Fan speeds on a grid of 1&nbsp;% and 50&nbsp;rpm; the GPU fans never go below 40&nbsp;% under load. Levels &plusmn;3&nbsp;dB or more (<a href="#noise-gpu">the GPU-fan noise estimate</a>).</p>
   <p>For the three modes of the controller at full power this gives:</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
@@ -57,7 +57,7 @@ pm = f"""<!--pmax:start-->
   </figure>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
-    <thead><tr><th scope="col">Intake air</th><th scope="col">Core target</th><th scope="col">Power limit 100&nbsp;% (575&nbsp;W), dBA</th><th scope="col">90&nbsp;% (518&nbsp;W), dBA</th><th scope="col">80&nbsp;% (460&nbsp;W), dBA</th><th scope="col">70&nbsp;% (402&nbsp;W), dBA</th></tr></thead>
+    <thead><tr><th scope="col">Intake air, &deg;C</th><th scope="col">Core target, &deg;C</th><th scope="col" class="tl">Mode with this target, first version</th><th scope="col">Power limit 100&nbsp;% (575&nbsp;W), dBA</th><th scope="col">90&nbsp;% (518&nbsp;W), dBA</th><th scope="col">80&nbsp;% (460&nbsp;W), dBA</th><th scope="col">70&nbsp;% (402&nbsp;W), dBA</th></tr></thead>
     <tbody>{crow}</tbody>
   </table>
   </div>

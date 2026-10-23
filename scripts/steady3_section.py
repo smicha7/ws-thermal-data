@@ -10,7 +10,7 @@ for c,g in d.groupby('card'):
     rows+=f"<tr><td>{c}</td><td>{g.h.sum():.2f}</td><td class='g'>{g.core.min():.0f}</td><td>{g.core.max():.0f}</td><td class='g'>{abs(r.dT):.1f}</td><td>{where}</td></tr>"
 tot=d.h.sum()
 L1=lambda n: 32.5+50*math.log10(n/1570)
-gpu=[(30,1020,'inaudible to super quiet'),(40,1312,'inaudible to super quiet'),(50,1595,'very quiet'),(60,1879,'moderate'),(70,2162,'loud'),(80,2446,'very loud'),(90,2729,'very loud'),(100,3013,'very loud')]
+gpu=[(30,1020,'ultra-quiet'),(40,1310,'very quiet'),(50,1600,'balanced'),(60,1880,'balanced'),(70,2160,'loud'),(80,2450,'loud'),(90,2730,'very loud'),(100,3010,'very loud')]
 grow=''.join(f"<tr><td>{g}</td><td>{n}</td><td>{L1(n):.0f}</td><td>{c}</td></tr>" for g,n,c in gpu)
 case=[(800,'ultra-quiet<sup>b</sup>'),(1000,'very quiet'),(1300,'quiet'),(1600,'balanced'),(1900,'loud'),(2400,'between loud and very loud<sup>c</sup>'),(3000,'very loud')]
 import math
@@ -39,7 +39,7 @@ block=f'''<!--steady3:start-->
   <p>The fan speeds of the plan sound, by Sebastian Michalski&rsquo;s scale for this machine, as follows; the levels for the card are the estimate of <a href="#noise-gpu">How loud is loud</a>, &plusmn;3&nbsp;dB.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
-    <thead><tr><th scope="col">GPU fans, %</th><th scope="col">GPU fans, rpm</th><th scope="col">Estimated level at 1&nbsp;m, dBA</th><th scope="col">Sebastian&rsquo;s listening class (this machine, at the desk)</th></tr></thead>
+    <thead><tr><th scope="col">GPU fans, %</th><th scope="col">GPU fans, rpm</th><th scope="col">Estimated level at 1&nbsp;m, dBA</th><th scope="col">Class on our RTX 5090 scale</th></tr></thead>
     <tbody>{grow}</tbody>
   </table>
   </div>
@@ -49,8 +49,8 @@ block=f'''<!--steady3:start-->
     <tbody>{crow}</tbody>
   </table>
   </div>
-  <p class="ar-note">Estimated levels for the case and radiator fans come from the literature fit for the SW Pro 4 120 at 1&nbsp;m, <i>L</i>&nbsp;=&nbsp;&minus;167.1&nbsp;+&nbsp;60.2&nbsp;log<sub>10</sub>&nbsp;rpm; seven fans (4 case + 3 radiator) add 10&nbsp;log<sub>10</sub>&nbsp;7&nbsp;&asymp;&nbsp;8.5&nbsp;dB. The 3000&nbsp;rpm row uses full speed, about 2920&nbsp;rpm. <sup>a</sup> Below about 1280&nbsp;rpm, the slowest point measured by Hardware Busters (20&nbsp;dBA), the values are extrapolations, and they lie under the room&rsquo;s own floor of 25 to 30&nbsp;dBA. <sup>b</sup> At 800&nbsp;rpm the radiator fans run at their floor of about 880&nbsp;rpm, so the true level is slightly higher. <sup>c</sup> 2400&nbsp;rpm was added to constrain the model between 1900 and full speed, about 2920&nbsp;rpm. Literature-based, provisional until our own sound map.</p>
-  <p class="ar-note">These classes are listening judgments of this machine in its room, at the desk. For the card they are more lenient than the SilentPCReview scale for a single source at 1&nbsp;m: a card at 40&nbsp;% and about 29&nbsp;dBA is &ldquo;quiet&rdquo; there and &ldquo;super quiet&rdquo; here, because the room&rsquo;s own floor and the other fans mask it.</p>
+  <p class="ar-note">Estimated levels for the case and radiator fans come from the literature fit for the SW Pro 4 120 at 1&nbsp;m, <i>L</i>&nbsp;=&nbsp;&minus;167.1&nbsp;+&nbsp;60.2&nbsp;log<sub>10</sub>&nbsp;rpm; seven fans (4 case + 3 radiator) add 10&nbsp;log<sub>10</sub>&nbsp;7&nbsp;&asymp;&nbsp;8.5&nbsp;dB. <sup>a</sup> Below about 1280&nbsp;rpm, the slowest point measured by Hardware Busters (20&nbsp;dBA), the values are extrapolations, and they lie under the room&rsquo;s own floor of 25 to 30&nbsp;dBA. <sup>b</sup> At 800&nbsp;rpm the radiator fans run at their floor of about 880&nbsp;rpm, so the true level is slightly higher. <sup>c</sup> 2400&nbsp;rpm was added to constrain the model between 1900 and full speed, about 2920&nbsp;rpm. Literature-based, provisional until our own sound map.</p>
+  <p class="ar-note">Case-fan classes: listening judgments of this machine in its room, at the desk. GPU-fan classes: our RTX 5090 scale ({{tref:gpuclassrange}}), nominal fan speeds.</p>
 <!--steady3:end-->'''
 if '<!--steady3:start-->' in s:
     a2=s.index('<!--steady3:start-->'); b2=s.index('<!--steady3:end-->')+len('<!--steady3:end-->'); s=s[:a2]+block+s[b2:]

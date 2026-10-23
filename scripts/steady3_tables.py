@@ -39,8 +39,9 @@ else:   # live fallback: Lab log lines, then the watch notes (core/memory as log
     for (pl, g, c), v in cells.items(): v.update(N=pct2rpm(g), C=c, W=PLW[pl], T=19.3)
 for (pl, g, c), v in cells.items(): v["core_mod"] = core(v["N"], v["C"], v["W"], v["T"]); v["mem_mod"] = mem(v["N"], v["C"], v["W"], v["T"])
 fmt = lambda x: "&middot;" if x is None else f"{x:.1f}"
+RPM = {40: 1310, 50: 1600, 60: 1880, 70: 2160, 80: 2450, 90: 2730, 100: 3010}   # nominal, as in the article's Table 7
 LEV = {800: "800&nbsp;rpm<br>ultra-quiet", 1000: "1000&nbsp;rpm<br>very quiet", 1300: "1300&nbsp;rpm<br>quiet", 1600: "1600&nbsp;rpm<br>balanced",
-       1900: "1900&nbsp;rpm<br>loud", 2400: "2400&nbsp;rpm", 3000: "&asymp;2920&nbsp;rpm (full)<br>very loud"}
+       1900: "1900&nbsp;rpm<br>loud", 2400: "2400&nbsp;rpm<br>between loud and very loud", 3000: "&asymp;2920&nbsp;rpm (full)<br>very loud"}
 def tab(pl, q):
     n = sum(1 for (p, g, c) in cells if p == pl)
     qn, k, d = {"core": ("GPU core temperature", "core", 1), "mem": ("GPU memory temperature", "mem", 0)}[q]
@@ -54,12 +55,12 @@ def tab(pl, q):
             v = cells.get((pl, g, c))
             tds += ('<td class="g s3-e">&middot;</td><td class="s3-e">&middot;</td>' if v is None else
                     f'<td class="g">{v[k]:.{d}f}</td><td>{v[k + "_mod"]:.1f}</td>')
-        body += f'<tr><td>{g}&nbsp;% ({round(pct2rpm(g), -1):.0f}&nbsp;rpm)</td>{tds}</tr>'
+        body += f'<tr><td>{g}&nbsp;%</td><td>{RPM[g]}&nbsp;rpm</td>{tds}</tr>'
     return (f'<h4 class="ar-h4">{qn} in &deg;C at power limit {pl}&nbsp;% ({PLW[pl]}&nbsp;W): measured (left sub-column) and predicted by model ({"11" if q == "core" else "the memory model"}) (right sub-column), for each GPU fan speed (rows) and case-and-radiator fan speed (columns). Room air about 19.3&nbsp;&deg;C. {n} of 49 settings measured so far.</h4>\n'
-            f'<div class="ar-tw ar-tw-wide"><table class="ar-tab ar-num ar-cmp ar-s3 ar-ms"><thead><tr><th scope="col" rowspan="3">GPU fans</th>{top}</tr><tr>{lev}</tr><tr>{sub}</tr></thead><tbody>{body}</tbody></table></div>\n')
+            f'<div class="ar-tw ar-tw-wide"><table class="ar-tab ar-num ar-cmp ar-s3 ar-ms"><thead><tr><th scope="colgroup" colspan="2" rowspan="3">GPU fans</th>{top}</tr><tr>{lev}</tr><tr>{sub}</tr></thead><tbody>{body}</tbody></table></div>\n')
 ntot = len(cells)
 legend = ('<p class="ar-note ar-legend">steady3 only, single settled measurement per cell, not averaged with earlier sessions. '
-          'Rows: GPU fan duty in % with the nominal rpm; columns: target speed of the four case fans and three radiator fans, in rpm, with their listening class ({tref:caseclass}; loud+: between loud and very loud, a model point) (below about 880&nbsp;rpm the radiator fans stay at their floor; 3000 means full speed, about 2920&nbsp;rpm). '
+          'Rows: GPU fan duty in % with the nominal rpm; columns: target speed of the four case fans and three radiator fans, in rpm, with their listening class ({tref:caseclass}); below about 880&nbsp;rpm the radiator fans stay at their floor, and 2400&nbsp;rpm is a model point between loud and very loud. '
           'Measured: the settled value of this one point. Model: the prediction for the same fan speeds, power and room air. Core and memory are in separate tables. '
           'Measured core from the 0.01&nbsp;&deg;C sensor; measured memory in whole degrees, as the card reports it. '
           'Model: equation (11) and the memory model fitted to the earlier sessions (21&ndash;22 October), evaluated at this point&rsquo;s fan speeds, power and intake air with the reference-session offset; steady3 is not in that fit, so the model column is a prediction. '

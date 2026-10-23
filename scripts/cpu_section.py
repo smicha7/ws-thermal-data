@@ -31,7 +31,8 @@ r3 = "".join(f"<tr><td>{q['rad']:.0f}{'<sup>a</sup>' if q['radp'] < 10 else ''}<
 def _r(name, a, b, unit, d=1, extra=""):
     ch = round(b, d) - round(a, d); ch = 0 if abs(ch) < 10 ** -d / 2 else ch; f = lambda v: f"{v:.{d}f}&nbsp;{unit}"
     sg = "+" if ch > 0 else ("&minus;" if ch < 0 else "")
-    return f'<tr><td>{name}</td><td>{f(a)}{extra[0] if extra else ""}</td><td>{f(b)}{extra[1] if extra else ""}</td><td class="chg">{sg}{abs(ch):.{d}f}&nbsp;{unit}{extra[2] if extra else ""}</td></tr>'
+    cu = "points" if unit == "%" else unit
+    return f'<tr><td>{name}</td><td>{f(a)}{extra[0] if extra else ""}</td><td>{f(b)}{extra[1] if extra else ""}</td><td class="chg">{sg}{abs(ch):.{d}f}&nbsp;{cu}{extra[2] if extra else ""}</td></tr>'
 _clk = m(g2,'clock_avg_mhz') - m(g0,'clock_avg_mhz')
 CMP2 = (_r("Radiator fan speed", m(g0,'rad_rpm'), m(g2,'rad_rpm'), "rpm", 0)
         + _r("Radiator fan control signal (PWM duty)", m(g0,'rad_pct'), m(g2,'rad_pct'), "%", 0)

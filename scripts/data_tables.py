@@ -12,7 +12,7 @@ def pltab(pl):
     for (g, c), q in d.groupby(["gpu_pct", "case"]):
         body += f'<tr><td>{g}</td><td>{lab(c).replace(" (full speed)", "")}{"<sup>a</sup>" if c in (2920, 3000) else ""}</td><td>{q.core_settled.mean():.1f}</td><td>{q.fitted.mean():.1f}</td><td>{len(q)}</td></tr>'
     w = round(575 * pl / 100)
-    return (f'<h4 class="ar-h4">Power limit {pl}&nbsp;% ({w}&nbsp;W): {len(d)} settled points</h4>\n'
+    return (f'<h4 class="ar-h4">Earlier sessions (21&ndash;22 October), power limit {pl}&nbsp;% ({w}&nbsp;W): settled core temperature in &deg;C, measured and predicted by model (11), one row per measured setting; {len(d)} settled points.</h4>\n'
             f'  <div class="ar-tw"><table class="ar-tab ar-num ar-old"><thead><tr><th scope="col">GPU fans, %</th><th scope="col">Case fans, rpm</th><th scope="col">Core, measured, &deg;C</th><th scope="col">Core, predicted by model, &deg;C</th><th scope="col">Settled measurements averaged, n</th></tr></thead><tbody>{body}</tbody></table></div>\n')
 tabs = "".join(pltab(p) for p in (100, 90, 80, 70))
 P = MM["params"]; nm = {"θ0m": "&theta;<sub>0,mem</sub>", "r∞": "r<sub>&infin;</sub>", "gN": "g<sub>N</sub>", "m": "m", "gC": "g<sub>C</sub>", "s": "s"}
@@ -24,8 +24,8 @@ CMP = json.load(open(G + "results-2026-10-23/compare-112.json"))
 f1 = lambda v, d=1: "&mdash;" if v is None else f"{v:.{d}f}&nbsp;&deg;C"
 cmp = ""
 for blk in CMP:
-    trs = "".join(f"<tr><td>{r['gpu']}</td><td>{r['rpm']}</td><td class='g'>{f1(r['c60'])}</td><td>{f1(r['cs'])}</td><td>{r['cm']:.1f}&nbsp;&deg;C</td><td class='g'>{f1(r['m60'],0)}</td><td>{f1(r['ms'],0)}</td><td>{r['mmod']:.1f}&nbsp;&deg;C</td></tr>" for r in blk["rows"])
-    cmp += (f'<h4 class="ar-h4">Case fans {lab(blk["case"]).replace(" (full", "&nbsp;rpm (full") if blk["case"] in (2920, 3000) else lab(blk["case"]) + "&nbsp;rpm"}, power limit {blk["pl"]}&nbsp;% ({blk["w"]}&nbsp;W)</h4>\n'
+    trs = "".join(f"<tr><td>{r['gpu']}{'<sup>a</sup>' if r['c60'] is None else ''}</td><td>{r['rpm']}</td><td class='g'>{f1(r['c60'])}</td><td>{f1(r['cs'])}</td><td>{r['cm']:.1f}&nbsp;&deg;C</td><td class='g'>{f1(r['m60'],0)}</td><td>{f1(r['ms'],0)}</td><td>{r['mmod']:.1f}&nbsp;&deg;C</td></tr>" for r in blk["rows"])
+    cmp += (f'<h4 class="ar-h4">Second run, case fans {lab(blk["case"]).replace(" (full", "&nbsp;rpm (full") if blk["case"] in (2920, 3000) else lab(blk["case"]) + "&nbsp;rpm"}, power limit {blk["pl"]}&nbsp;% ({blk["w"]}&nbsp;W): core and memory temperature after 60&nbsp;s, settled, and from the model.</h4>\n'
             f'<div class="ar-tw"><table class="ar-tab ar-num ar-cmp ar-ms"><thead><tr><th scope="col" rowspan="2">GPU fans, %</th><th scope="col" rowspan="2">GPU fans, rpm</th><th scope="colgroup" colspan="3">Core temperature</th><th scope="colgroup" colspan="3">Memory temperature</th></tr><tr><th scope="col" class="g">after 60&nbsp;s</th><th scope="col">settled (&ge;&nbsp;5&nbsp;min)</th><th scope="col">model (eq. 11)</th><th scope="col" class="g">after 60&nbsp;s, whole &deg;C</th><th scope="col">settled, whole &deg;C</th><th scope="col">model</th></tr></thead><tbody>{trs}</tbody></table></div>\n')
 blocks = CMP
 nblk = len(blocks)
@@ -46,7 +46,7 @@ sec = f"""<!--datatables:start-->
   <p>The striking constant is the offset, {P['θ0m'][0]:.0f}&nbsp;&deg;C against about 2&nbsp;&deg;C for the core. The memory carries heat of its own that hardly changes with the board power: the load keeps the memory equally busy at every power limit, so cutting the limit removes little of the memory&rsquo;s heat. That is the same fact, seen from the model&rsquo;s side, as the widening gap between memory and core at low power limits in <a href="#memlimit">Memory temperature</a>.</p>
   <h3 id="stats-112">All 112 points of the second run</h3>
   <p>For every setting of the second run, the readings after 60 seconds, the settled values and the model, side by side.</p>
-{cmp}  <p class="ar-note">For every setting of the second run, case fans by power limit, the core and memory as read after 60 seconds, the settled value where one was measured later, and the model value from equation (11) and the memory model, at 19.3&nbsp;&deg;C intake air and the reference session. A dash (&mdash;) means the setting was not measured that way. Memory readings are whole degrees, as the card reports them. The 60-second values at 575&nbsp;W read low and those at lower power limits read high, as described under <a href="#run2-settle">How long a point needs</a>. <a href="/research/data/gpu-map-compare-112.csv">All rows (CSV)</a>.</p>
+{cmp}  <p class="ar-note">For every setting of the second run, case fans by power limit, the core and memory as read after 60 seconds, the settled value where one was measured later, and the model value from equation (11) and the memory model, at 19.3&nbsp;&deg;C intake air and the reference session. A dash (&mdash;) means the setting was not measured that way. <sup>a</sup> No 60-second value: a settled point from another session at this setting. Memory readings are whole degrees, as the card reports them. The 60-second values at 575&nbsp;W read low and those at lower power limits read high, as described under <a href="#run2-settle">How long a point needs</a>. <a href="/research/data/gpu-map-compare-112.csv">All rows (CSV)</a>.</p>
 <!--datatables:end-->"""
 a, b = s.find("<!--datatables:start-->"), s.find("<!--datatables:end-->")
 if a < 0:

@@ -32,7 +32,7 @@ q = modes[0]; qm = q["temps"][100][1]
 sec = f'''<!--modes:start-->
   <h3 id="controller-modes">How it decides: a noise budget per mode</h3>
   <p>A mode is defined by how loud the machine may be, not by a temperature. Each mode has a noise budget, the total level of all fans at 1&nbsp;m. Within the budget the controller picks the pair of GPU fan and case and radiator fan speeds that keeps the core coolest; the core and memory temperatures then follow from the power the card draws. Noise is what the user hears, so it is what the mode fixes; temperature is what the hardware must be protected from, so it is a constraint.</p>
-  <p class="ar-tcap"><b>Controller modes defined by noise: the fan speeds each budget allows and the temperatures that result</b><br>Fan pair that keeps the core coolest within the budget at 575&nbsp;W; settled core / memory at each power limit from model (11) and the memory model, intake air {TIN}&nbsp;&deg;C, literature-based noise at 1&nbsp;m.</p>
+  <p class="ar-tcap"><b>Controller modes defined by noise: the fan speeds each budget allows and the temperatures that result.</b> Fan pair that keeps the core coolest within the budget at 575&nbsp;W; settled core / memory at each power limit from model (11) and the memory model, intake air {TIN}&nbsp;&deg;C, literature-based noise at 1&nbsp;m.</p>
   <div class="ar-tw ar-tw-wide">
   <table class="ar-tab ar-num ar-st ar-modes ar-ms">
     <thead><tr><th scope="col" rowspan="2">Mode (noise budget at 1&nbsp;m)</th><th scope="colgroup" colspan="2">GPU fans</th><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="col" rowspan="2">Total noise at 1&nbsp;m, dBA</th>{HEADPL}</tr><tr><th scope="col">%</th><th scope="col">rpm</th>{SUBPL}</tr></thead>

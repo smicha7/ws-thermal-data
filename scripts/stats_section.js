@@ -20,7 +20,7 @@ const R=String.raw;
 const f=(x,n=2)=>{const t=Math.abs(x).toFixed(n); return (x<0&&+t!==0?'&minus;':'')+t;};
 const fp=p=>p<0.001?'&lt; 0.001':p.toFixed(3);
 const P={}; J.params.forEach(p=>P[p.param]=p);
-const sessName={val1:'val1 (21 October, evening)',val2:'val2 (21 to 22 October, night)',afternoon:'second run, afternoon (21 October)',night:'first-run night grid (20 to 21 October)',steady2:'steady2 (22 October)'};
+const sessName={val1:'val1 (21 October, evening)',val2:'val2 (21 to 22 October, night)',afternoon:'second run, afternoon (21 October)',night:'first-run night grid (20 to 21 October)',steady2:'steady2 (22 October)',pl90:'pl90 (23 October)'};
 const ns=Object.entries(J.sessions).map(([k,v])=>`${sessName[k]||k}: ${v}`).join('; ');
 const T={}; J.tests.forEach(t=>T[t.test]=t);
 const rej=k=>T[k]&&T[k].verdict.startsWith('reject');
@@ -99,7 +99,7 @@ const sec=`<!--stats:start-->
 ['Wald test','Tests several constants at once, here the session offsets, from their estimates and covariance.',[39]],
 ['Box&ndash;Cox transformation','Searches a family of power transforms of the response for the one that makes the errors most nearly normal and of constant variance; &lambda; = 1 means no transform. Applied to both sides, so the physical model is kept.',[34,35]],
 ['First-difference and Prais&ndash;Winsten estimators','Remove a constant offset or a first-order correlation of the residuals before fitting; used here only to check that the constants do not move.',[47,41]],
-['Software','Tests from statsmodels and SciPy; the rest of our own code, on the same definitions.',[52,53]]
+['Statistical software','Tests from statsmodels and SciPy; the rest of our own code, on the same definitions.',[52,53]]
 ].map(([a,b,r])=>`<tr><td>${a}</td><td>${b}</td><td>${CT(...r)}</td></tr>`).join('')}</tbody></table></div>
   <h3 id="stats-model">The model</h3>
   ${eq}
@@ -111,7 +111,7 @@ const sec=`<!--stats:start-->
     <tbody>${J.params.map(prow).join('')}</tbody>
   </table>
   </div>
-  <p class="ar-note">Constants of equation (11): &theta;<sub>0</sub>, the temperature offset that does not depend on power; r<sub>&infin;</sub>, the thermal resistance no airflow removes; g<sub>N</sub> and g<sub>C</sub>, the conductance of the GPU-fan and case-fan paths at 1000 and 1500&nbsp;rpm; m and s, the exponents that say how fast each conductance grows with fan speed (dimensionless); &theta;<sub>j</sub>, the offset of session j against the reference session ${J.ref}. Sessions: steady2, dense grid of 22 October (reference); pl90, power limit 90&nbsp;% gap fill, 23 October; val1 and val2, validation series of 21 October (evening and night); night, the first-run night grid, 20&ndash;21 October; run2, the second run, 21 October. N and C are the GPU and case fan speeds in rpm (f<sub>g</sub>, f<sub>c</sub> in Table 1).</p>
+  <p class="ar-note">Constants of equation (11): &theta;<sub>0</sub>, the temperature offset that does not depend on power; r<sub>&infin;</sub>, the thermal resistance no airflow removes; g<sub>N</sub>, the conductance of the GPU-fan path at N = 1000&nbsp;rpm, and g<sub>C</sub>, that of the case-fan path at C = 1500&nbsp;rpm; m and s, the exponents that say how fast each conductance grows with fan speed (dimensionless); &theta;<sub>j</sub>, the offset of session j against the reference session ${J.ref}. Sessions: steady2 (22 October), the dense grid and the reference; pl90 (23 October), the power limit 90&nbsp;% gap fill; val1 (21 October, evening) and val2 (21 to 22 October, night), validation series; first-run night grid (20 to 21 October); second run, afternoon (21 October). N and C are the GPU and case fan speeds in rpm (f<sub>g</sub>, f<sub>c</sub> in Table 1).</p>
   <p>The fit has an RMSE of ${chosen.rmse.toFixed(2)}&nbsp;&deg;C. Refitted with each point left out in turn, it predicts that point with an RMSE of ${chosen.LOO.toFixed(2)}&nbsp;&deg;C (leave-one-out); five-fold cross-validation gives ${chosen.CV5.toFixed(2)}&nbsp;&deg;C. ${heteroTxt} Cluster-robust errors by session rest on only ${nS} clusters and are indicative only.</p>
   <p>Figures 9 and 10, in the section on the second run, show the settled points with equation (11) along each fan axis, with their residuals.</p>
   <h3 id="stats-forms">Forms and transforms we tried</h3>
@@ -143,7 +143,7 @@ const sec=`<!--stats:start-->
   </ul>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
-    <thead><tr><th scope="col">Variant</th><th scope="col">RMSE, &deg;C</th><th scope="col">DW along N</th></tr></thead>
+    <thead><tr><th scope="col">Variant</th><th scope="col">RMSE, &deg;C</th><th scope="col">Durbin&ndash;Watson along the GPU fan speed N</th></tr></thead>
     <tbody>${causes}</tbody>
   </table>
   </div>
@@ -161,15 +161,15 @@ a=s.indexOf('<!--kf-stats-->'); b=s.indexOf('<!--/kf-stats-->'); if(a<0||b<a) th
 const Rs=n=>P['r∞'].est/1000+1/(P['gN'].est*Math.pow(n/1000,P['m'].est)+P['gC'].est);
 const Rd=n=>DYN.Rjs+DYN.ra+DYN.k*Math.pow(Math.sqrt(n*n+300*300)/1000,-DYN.m);
 const S9=JP(fs.readFileSync(G+'article_tools/static/core-model.json','utf8')).full; const R9=n=>S9.rinf+S9.k*Math.pow(n/1000,-S9.m);
-const rows=[[40,1312],[50,1595],[60,1879],[70,2162],[80,2446],[90,2729],[100,3012]].map(([g,n])=>`<tr><td>${g}&nbsp;%</td><td>${Math.round(n/10)*10}</td><td>${(100*Rs(n)).toFixed(1)}</td><td>${(100*Rd(n)).toFixed(1)}</td><td>${(100*R9(n)).toFixed(1)}</td></tr>`).join('');
+const rows=[[40,1312],[50,1595],[60,1879],[70,2162],[80,2446],[90,2729],[100,3012]].map(([g,n])=>`<tr><td>${g}</td><td>${Math.round(n/10)*10}</td><td class="g">${(100*Rs(n)).toFixed(1)}</td><td>${(100*Rd(n)).toFixed(1)}</td><td>${(100*R9(n)).toFixed(1)}</td></tr>`).join('');
 const per=`<!--per100:start-->
   <div class="ar-tw">
-  <table class="ar-tab ar-num ar-set">
-    <thead><tr><th scope="col">GPU fans</th><th scope="col">rpm</th><th scope="col">&deg;C per 100&nbsp;W, (11)</th><th scope="col">&deg;C per 100&nbsp;W, (10)</th><th scope="col">&deg;C per 100&nbsp;W, (9)</th></tr></thead>
+  <table class="ar-tab ar-num ar-set ar-ms">
+    <thead><tr><th scope="col" rowspan="2">GPU fans, %</th><th scope="col" rowspan="2">GPU fans, rpm</th><th scope="colgroup" colspan="3">Core rise per 100&nbsp;W of board power, &deg;C</th></tr><tr><th scope="col" class="g">settled-point model (11)</th><th scope="col">dynamic model (10)</th><th scope="col">static fit (9)</th></tr></thead>
     <tbody>${rows}</tbody>
   </table>
   </div>
-  <p class="ar-note">Case fans 1500&nbsp;rpm. Column (11) is the settled-point model of the <a href="#stats">statistical tests</a>, fitted to ${J.n} settled points${tableN?' (provisional)':''}; (10) is the dynamic model; (9) the static fit on mostly 60-second points, which keeps too much of the rise in its offset ${i('\\theta_0')}. The settled points of val1 and later support (10) and (11). Lowering the power limit by 100&nbsp;W cools the core about ${(Rs(1312)/Rs(3012)).toFixed(1)} times as much with the GPU fans at 40&nbsp;% as at 100&nbsp;% by (11).</p>
+  <p class="ar-note">Case fans at 1500&nbsp;rpm for every row. Model (11) is the settled-point model of the <a href="#stats">statistical tests</a>, fitted to ${J.n} settled points${tableN?' (provisional)':''}; (10) is the dynamic model; (9) the static fit on mostly 60-second points, which keeps too much of the rise in its offset ${i('\\theta_0')}. The settled points of val1 and later support (10) and (11). Lowering the power limit by 100&nbsp;W cools the core about ${(Rs(1312)/Rs(3012)).toFixed(1)} times as much with the GPU fans at 40&nbsp;% as at 100&nbsp;% by (11).</p>
 <!--per100:end-->`;
 a=s.indexOf('<!--per100:start-->'); b=s.indexOf('<!--per100:end-->'); if(a<0||b<a) throw 'per100 markers'; s=s.slice(0,a)+per+s.slice(b+'<!--per100:end-->'.length);
 
