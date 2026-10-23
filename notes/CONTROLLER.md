@@ -68,3 +68,14 @@ Bursts 60 s on / 60 s off, 10 min after the 2-min warm-up; direction changes per
 | Balanced (77) | 0.53 → 0.21 | 3.60 → 0.42 | 0 | 65 |
 
 The remaining changes are one slow dip every 5–7 min: bursts at 574 W never matched the 575 W peak, so the 5-min load hold expired. Fixed after the run (a burst within 3 % of the peak renews the hold); simulation with ±2 W burst jitter: 0.08 (Performance) and 0.07 (Balanced) changes per minute. The NVAPI 0.01 °C core was not reaching the controller (empty column); exposed as `core_nvapi_c` for the next run.
+
+## ctrl3 — real card with all fixes (ws298, 22 Oct 2026 23:29–23:53, Lab 0.3.58)
+Fixes since ctrl1: intake low-pass, feedforward hysteresis, down-ramp deadband + hold after a rise, near-peak bursts renew the load hold, NVAPI 0.01 °C core as controller input, margin floor 1.0 °C.
+Bursts 60 s on / 60 s off, 10 min after the 2-min warm-up; direction changes per minute, ctrl1 → ctrl2 → ctrl3:
+
+| mode | card fans | case fans | s > target + 1 °C | peak core °C (ctrl3) |
+|---|---|---|---|---|
+| Performance (72) | 2.33 → 0.21 → 0.00 | 3.49 → 0.21 → 0.00 | 0 | 61.45 |
+| Balanced (77) | 0.53 → 0.21 → 0.00 | 3.60 → 0.42 → 0.00 | 0 | 64.29 |
+
+The fans rise once at the first burst and then hold steady, with no slow dips. The NVAPI core column is filled in every row, so the controller now works on 0.01 °C resolution instead of whole degrees.
