@@ -1,0 +1,50 @@
+2026-10-22 20:55:42 start (próba 1), tryb ctrl, budżet 0.2 h, obudowa: open top; 1 GPU; ctrl2 (Lab 0.3.51): anti-pumping controller (intake low-pass 60 s, feedforward hysteresis 0.5 dB, down-ramp deadband 50 rpm, 60 s hold after a rise) — mode performance, bursts 60 s on / 60 s off after 2 min, 12 min
+2026-10-22 20:55:42 spis czujników: 338
+2026-10-22 20:55:43 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-22 20:55:43 etap: Hold
+2026-10-22 20:55:43 regulator performance, scenariusz bursts
+2026-10-22 20:55:59 trzymanie: 26.9 % → 999 rpm (cel 1000)
+2026-10-22 20:57:27 trzymanie: 21.1 % → 854 rpm (cel 850)
+2026-10-22 20:57:42 obciążenie: proces w sesji użytkownika
+2026-10-22 20:57:42 regulator: obciążenie start
+2026-10-22 obciążenie 20:57:42 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 20:57:42 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 20:57:42 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 20:57:42 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 20:58:22 trzymanie: 36.9 % → 1300 rpm (cel 1299)
+2026-10-22 20:58:42 regulator: obciążenie stop
+2026-10-22 20:59:42 obciążenie: proces w sesji użytkownika
+2026-10-22 20:59:42 regulator: obciążenie start
+2026-10-22 obciążenie 20:59:42 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 20:59:42 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 20:59:42 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 20:59:42 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:00:42 regulator: obciążenie stop
+2026-10-22 21:01:42 obciążenie: proces w sesji użytkownika
+2026-10-22 21:01:42 regulator: obciążenie start
+2026-10-22 obciążenie 21:01:42 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 21:01:42 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 21:01:42 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 21:01:42 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:02:42 regulator: obciążenie stop
+2026-10-22 21:03:22 trzymanie: 27.3 % → 1185 rpm (cel 1179)
+2026-10-22 21:03:41 trzymanie: 17.1 % → 921 rpm (cel 909)
+2026-10-22 21:03:42 obciążenie: proces w sesji użytkownika
+2026-10-22 21:03:42 regulator: obciążenie start
+2026-10-22 obciążenie 21:03:42 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 21:03:42 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 21:03:42 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 21:03:42 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:04:07 trzymanie: 40.6 % → 1431 rpm (cel 1424)
+2026-10-22 21:04:42 regulator: obciążenie stop
+2026-10-22 21:05:42 obciążenie: proces w sesji użytkownika
+2026-10-22 21:05:42 regulator: obciążenie start
+2026-10-22 obciążenie 21:05:42 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 21:05:42 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 21:05:42 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 21:05:42 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:06:42 regulator: obciążenie stop
+2026-10-22 21:07:43 obciążenie: proces w sesji użytkownika
+2026-10-22 21:07:43 regulator: obciążenie start
+2026-10-22 21:07:43 aquaero przywrócone: przywrócono aquaero-20261022-205543.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261022-210743.bin
+2026-10-22 21:07:43 ZAKOŃCZONO: regulator: koniec (czas)

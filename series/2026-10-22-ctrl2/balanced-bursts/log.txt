@@ -1,0 +1,60 @@
+2026-10-22 21:07:44 start (próba 1), tryb ctrl, budżet 0.2 h, obudowa: open top; 1 GPU; ctrl2 (Lab 0.3.51): anti-pumping controller (intake low-pass 60 s, feedforward hysteresis 0.5 dB, down-ramp deadband 50 rpm, 60 s hold after a rise) — mode balanced, bursts 60 s on / 60 s off after 2 min, 12 min
+2026-10-22 21:07:44 spis czujników: 338
+2026-10-22 21:07:45 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-22 21:07:45 etap: Hold
+2026-10-22 21:07:45 regulator balanced, scenariusz bursts
+2026-10-22 21:08:01 trzymanie: 27.5 % → 1010 rpm (cel 1000)
+2026-10-22 21:08:21 trzymanie: 26.8 % → 1009 rpm (cel 1000)
+2026-10-22 21:09:20 trzymanie: 22.8 % → 862 rpm (cel 850)
+2026-10-22 21:09:41 trzymanie: 22.0 % → 864 rpm (cel 850)
+2026-10-22 21:09:44 obciążenie: proces w sesji użytkownika
+2026-10-22 21:09:44 regulator: obciążenie start
+2026-10-22 obciążenie 21:09:44 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 21:09:44 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 21:09:44 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 21:09:44 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:10:13 trzymanie: 35.9 % → 1285 rpm (cel 1294)
+2026-10-22 21:10:33 trzymanie: 36.6 % → 1285 rpm (cel 1294)
+2026-10-22 21:10:44 regulator: obciążenie stop
+2026-10-22 21:11:10 trzymanie: 35.2 % → 1226 rpm (cel 1234)
+2026-10-22 21:11:30 trzymanie: 34.7 % → 1239 rpm (cel 1234)
+2026-10-22 21:11:44 obciążenie: proces w sesji użytkownika
+2026-10-22 21:11:44 regulator: obciążenie start
+2026-10-22 obciążenie 21:11:44 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 21:11:44 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 21:11:44 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 21:11:44 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:12:01 trzymanie: 37.6 % → 1344 rpm (cel 1335)
+2026-10-22 21:12:44 regulator: obciążenie stop
+2026-10-22 21:13:44 obciążenie: proces w sesji użytkownika
+2026-10-22 21:13:44 regulator: obciążenie start
+2026-10-22 obciążenie 21:13:44 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 21:13:44 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 21:13:44 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 21:13:44 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:14:44 regulator: obciążenie stop
+2026-10-22 21:15:44 obciążenie: proces w sesji użytkownika
+2026-10-22 21:15:44 regulator: obciążenie start
+2026-10-22 obciążenie 21:15:44 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 21:15:44 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 21:15:44 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 21:15:44 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:16:44 regulator: obciążenie stop
+2026-10-22 21:17:28 trzymanie: 34.0 % → 1083 rpm (cel 1095)
+2026-10-22 21:17:44 obciążenie: proces w sesji użytkownika
+2026-10-22 21:17:44 regulator: obciążenie start
+2026-10-22 obciążenie 21:17:44 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 21:17:44 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 21:17:44 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 21:17:44 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:18:22 trzymanie: 32.5 % → 1160 rpm (cel 1155)
+2026-10-22 21:18:44 regulator: obciążenie stop
+2026-10-22 21:18:47 trzymanie: 31.5 % → 1148 rpm (cel 1155)
+2026-10-22 21:19:44 obciążenie: proces w sesji użytkownika
+2026-10-22 21:19:44 regulator: obciążenie start
+2026-10-22 obciążenie 21:19:44 start: plik stanu jest, tryb mix64
+2026-10-22 obciążenie 21:19:44 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-22 obciążenie 21:19:44 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-22 obciążenie 21:19:44 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-22 21:19:45 aquaero przywrócone: przywrócono aquaero-20261022-210745.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261022-211945.bin
+2026-10-22 21:19:45 ZAKOŃCZONO: regulator: koniec (czas)

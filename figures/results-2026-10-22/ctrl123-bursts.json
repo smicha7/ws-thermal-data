@@ -1,0 +1,44 @@
+{
+ "ctrl1-performance": {
+  "card": 2.33,
+  "case": 3.5,
+  "over": 0,
+  "peak": 63.0,
+  "nvapi": 0.0
+ },
+ "ctrl1-balanced": {
+  "card": 0.53,
+  "case": 3.4,
+  "over": 0,
+  "peak": 66.0,
+  "nvapi": 0.0
+ },
+ "ctrl2-performance": {
+  "card": 0.21,
+  "case": 0.21,
+  "over": 0,
+  "peak": 62.0,
+  "nvapi": 0.0
+ },
+ "ctrl2-balanced": {
+  "card": 0.21,
+  "case": 0.42,
+  "over": 0,
+  "peak": 65.0,
+  "nvapi": 0.0
+ },
+ "ctrl3-performance": {
+  "card": 0.0,
+  "case": 0.0,
+  "over": 0,
+  "peak": 61.43,
+  "nvapi": 1.0
+ },
+ "ctrl3-balanced": {
+  "card": 0.0,
+  "case": 0.0,
+  "over": 0,
+  "peak": 64.29,
+  "nvapi": 1.0
+ }
+}
