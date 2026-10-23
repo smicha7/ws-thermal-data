@@ -96,7 +96,7 @@ def fig_pareto(theme, phone):
                 ax.annotate(f"{int(GG.ravel()[i])} % / {int(CCm.ravel()[i])}", (L.ravel()[i], Tc.ravel()[i]), xytext=(5, 3), textcoords="offset points", fontsize=fs - 4, color=th["fg"])
                 last = Tc.ravel()[i]
         for m, mk in (("quiet", "o"), ("balanced", "s"), ("performance", "D")):   # released modes (WS.Sensor 0.30.69), controller_sim planning
-            c = cs.Controller(m); t = cs.CORE_LIMIT_DEFAULT - cs.MODES[m]["comfort"][0]; B = cs.MODES[m]["budget"]
+            c = cs.Controller(m, P_stock=W); t = cs.CORE_LIMIT_DEFAULT - cs.MODES[m]["comfort"][0]; B = cs.MODES[m]["budget"]
             N, C, plc, over = c.make_plan(W, TIN); qc = core(N, C, W * plc)   # model (11), as the frontier
             ax.axhline(t, color=th["dim"], lw=0.8, ls=":"); ax.axvline(B, color=th["dim"], lw=0.8, ls="--")
             ax.scatter([cs.noise(N, C)], [qc], s=90, marker=mk, facecolors="none", edgecolors=th["fg"], linewidths=1.6, zorder=6)

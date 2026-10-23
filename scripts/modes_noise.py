@@ -12,6 +12,7 @@ for m in ("quiet", "balanced", "performance"):
     c = cs.Controller(m); d = dict(mode=NM[m], budget=c.budget, core_comfort=cs.CORE_LIMIT_DEFAULT - cs.MODES[m]["comfort"][0],
                                    mem_comfort=c.mem_l - cs.MODES[m]["comfort"][1], points={})
     for pl, W in PLW.items():
+        c = cs.Controller(m, P_stock=W)   # the set power limit: full load at W means the 40 % load floor
         N, C, plc, over = c.make_plan(W, TIN); core, mem = cs.steady_ff(W * plc, N, C, TIN)
         d["points"][pl] = dict(W=W, gpu_pct=round(float(cs.RPM_DUTY(N)), 1), gpu_rpm=int(round(N, -1)), case_rpm=int(round(C, -1)), dBA=round(float(cs.noise(N, C)), 1),
                                core=round(float(core), 1), mem=round(float(mem), 1), pl_cut=round(float(plc) * 100), over=bool(over), comfy=bool(core <= d["core_comfort"] + 1e-9 and mem <= d["mem_comfort"] + 1e-9))

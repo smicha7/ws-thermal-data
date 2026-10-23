@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 # Regenerate every generated part of the GPU cooling article, then the post-processor. Stops on the first error.
-set -e
+# All-or-nothing: the page is backed up first and restored if any step fails, so it is never left half-processed.
+set -euo pipefail
+F=/Users/smicha/Claude/gruency-site/research/gpu-cooling-method.html; BK=$(mktemp); cp "$F" "$BK"
+trap 'rc=$?; if [ $rc -ne 0 ]; then cp "$BK" "$F"; echo "run_all: step failed (exit $rc), page restored" >&2; fi; rm -f "$BK"' EXIT
 G=/Users/smicha/Applications/Pasek/research/gpu-map; cd $G
 PY=$G/.venv/bin/python
 (cd article_tools && node stats_section.js 5 14 '{"dw":2400,"dh":1520,"dpw":1000,"dph":4200}')
