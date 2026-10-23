@@ -1,0 +1,8 @@
+"Speed, 120 mm fan",Sebastian’s description,"Evidence: one fan, 1 m, free field",Verdict
+800 rpm,inaudible,NF-A12x25 G2 about 9 dBA (extrapolated); about 27 to 28 dBA at 15 cm on a radiator at 750 rpm,agrees
+1000 rpm,almost silent,"G2 about 14, G1 about 12 dBA",agrees: below the floor of a room
+1200 rpm,gentle hum,"G2 about 18, Silent Wings Pro 4 about 19 dBA",agrees: audible only close by in a quiet room
+1500 rpm,"noticeable, acceptable","G2 25, Silent Wings Pro 4 about 24, G1 about 20 dBA",agrees: &ldquo;quiet&rdquo; to &ldquo;very quiet&rdquo; on the SilentPCReview scale
+above 1500 rpm,significant,1800 to 2000 rpm: 28 to 32 dBA,agrees for a whole computer; slightly strict for one fan
+2000 rpm,fairly loud,"G1 about 29, G2 and Silent Wings Pro 4 about 32 dBA; six fans in a case about 40",agrees in a real computer
+3000 rpm,very loud,Silent Wings Pro 4: 42.6 dBA at 1 m,agrees
