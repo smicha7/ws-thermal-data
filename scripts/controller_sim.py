@@ -37,11 +37,12 @@ A_CARD, A_CASE = 38.0, 33.0                      # noise proxy offsets at 1000 r
 
 MODES = {   # target core °C, card / case noise ceilings (rpm), may lower the power limit
     "quiet":       dict(target=80.0, card_max=1800.0, case_max=1200.0, pl_cut=True),
-    "balanced":    dict(target=77.0, card_max=2300.0, case_max=1500.0, pl_cut=True),
+    "balanced":    dict(target=77.0, card_max=2300.0, case_max=1500.0, pl_cut=True, margin_extra=0.3),   # +0.3 °C: warm-intake scenario 0 s above target + 1 (2026-10-23)
     "performance": dict(target=72.0, card_max=CARD_MAX, case_max=CASE_MAX, pl_cut=False),
 }
 MEM_MAX, MEM_MARGIN = 100.0, 4.0
 TIN_TAU, FF_HYST_DB, UP_DEADBAND, DOWN_DEADBAND, HOLD_AFTER_UP = 60.0, 0.5, 0.0, 50.0, 60.0   # ctrl2 anti-pumping (2026-10-22)
+BOOST_MARGIN, BOOST_MIN_S = 1.0, 120   # transient boost after a load step: extra °C below target for the feedforward, minimum seconds
 
 
 # ---------------------------------------------------------------- plant
@@ -96,9 +97,10 @@ class Controller:
         self.N = DUTY_RPM(40); self.C = 1000.0; self.pl = 1.0
         self.i = 0.0; self.p_s = None; self.ff = (self.N, self.C, 1.0); self.cool_since = None; self.t = 0; self.p_last = 0.0; self.p_at = 0; self.pl_at = -999
         self.tin_f = None; self.up_at = {"N": -999, "C": -999}   # ctrl2: filtered intake for the feedforward, time of last up-ramp per fan group
+        self.boost_at = None   # transient boost (2026-10-23): load step > 20 % → fans to the optimum for the new power with an extra margin
 
-    def feedforward(self, P, Tin):
-        tgt = self.m["target"] - SS_MARGIN; best = None
+    def feedforward(self, P, Tin, extra=0.0):
+        tgt = self.m["target"] - SS_MARGIN - self.m.get("margin_extra", 0.0) - extra; best = None
         for C in np.linspace(800, self.m["case_max"], 18):
             for N in np.linspace(card_min(P, self.Pst), self.m["card_max"], 40):
                 core, mem = steady_ff(P, N, C, Tin)
@@ -124,11 +126,14 @@ class Controller:
     def step(self, core, mem, P_meas, Tin, dt=1.0):
         self.t += dt
         dem = P_meas / self.pl if P_meas >= 0.97 * self.pl * self.Pst else P_meas   # demand: a capped card would draw more without the cap
+        if self.p_s is not None and dem > 1.2 * self.p_s and self.t > 1: self.boost_at = self.t   # load step: transient boost (bursts keep p_s held → no re-trigger)
         if self.p_s is None or dem >= self.p_s: self.p_s, self.p_at = dem, self.t           # load estimate: up at once,
         elif dem >= 0.97 * self.p_s: self.p_at = self.t                                       # ctrl2: a near-peak burst renews the hold
         elif self.t - self.p_at > 300: self.p_s += (dem - self.p_s) * dt / 60                  # held 5 min, then down slowly (no pumping on bursty loads)
         self.tin_f = Tin if self.tin_f is None else self.tin_f + (Tin - self.tin_f) * dt / TIN_TAU   # ctrl2: intake low-pass (sensor noise flipped the optimum)
-        if self.t % 5 < dt or P_meas > self.p_last + 100: self.ff = self.keep_ff(self.feedforward(self.p_s, self.tin_f))   # load step: recompute now
+        if self.boost_at is not None and self.t - self.boost_at >= BOOST_MIN_S and core < self.m["target"] - 1: self.boost_at = None   # boost over: back to the quiet frontier (slow down-ramp)
+        if self.boost_at is not None: self.ff = self.feedforward(self.p_s, self.tin_f, BOOST_MARGIN)
+        elif self.t % 5 < dt or P_meas > self.p_last + 100: self.ff = self.keep_ff(self.feedforward(self.p_s, self.tin_f))   # load step: recompute now
         self.p_last = P_meas
         Nff, Cff, pl_t = self.ff
         e = core - self.m["target"]

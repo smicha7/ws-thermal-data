@@ -9,18 +9,18 @@
    "card_reversals_per_min": 0.03
   },
   "WS.Sensor quiet": {
-   "peak": 80.9,
-   "mem_peak": 88.6,
+   "peak": 80.7,
+   "mem_peak": 88.5,
    "s_over": 0,
    "noise_mean": 30.5,
    "work_W": 547.8,
    "card_reversals_per_min": 0.07
   },
   "WS.Sensor balanced": {
-   "peak": 78.0,
-   "mem_peak": 85.7,
-   "s_over": 33,
-   "noise_mean": 31.9,
+   "peak": 77.6,
+   "mem_peak": 85.3,
+   "s_over": 0,
+   "noise_mean": 31.7,
    "work_W": 547.8,
    "card_reversals_per_min": 0.07
   },
@@ -52,9 +52,9 @@
   },
   "WS.Sensor balanced": {
    "peak": 78.0,
-   "mem_peak": 85.7,
-   "s_over": 19,
-   "noise_mean": 35.1,
+   "mem_peak": 85.6,
+   "s_over": 0,
+   "noise_mean": 35.2,
    "work_W": 575.0,
    "card_reversals_per_min": 0.05
   },
@@ -77,26 +77,26 @@
    "card_reversals_per_min": 0.97
   },
   "WS.Sensor quiet": {
-   "peak": 67.3,
-   "mem_peak": 73.5,
+   "peak": 66.7,
+   "mem_peak": 73.0,
    "s_over": 0,
-   "noise_mean": 31.0,
+   "noise_mean": 31.4,
    "work_W": 317.5,
    "card_reversals_per_min": 0.0
   },
   "WS.Sensor balanced": {
-   "peak": 66.4,
-   "mem_peak": 72.7,
+   "peak": 66.0,
+   "mem_peak": 72.4,
    "s_over": 0,
-   "noise_mean": 32.2,
+   "noise_mean": 32.7,
    "work_W": 317.5,
    "card_reversals_per_min": 0.0
   },
   "WS.Sensor performance": {
-   "peak": 65.1,
-   "mem_peak": 71.6,
+   "peak": 64.9,
+   "mem_peak": 71.3,
    "s_over": 0,
-   "noise_mean": 34.8,
+   "noise_mean": 35.3,
    "work_W": 317.5,
    "card_reversals_per_min": 0.0
   }
