@@ -5,8 +5,8 @@ G = "/Users/smicha/Applications/Pasek/research/gpu-map/"; F = "/Users/smicha/Cla
 s = open(F).read()
 D = pd.read_csv(G + "results-2026-10-22/steady-residuals.csv"); J = json.load(open(G + "results-2026-10-22/steady-stats.json"))
 MM = json.load(open(G + "results-2026-10-23/mem-model.json"))
-D["case"] = D.case_target.replace({2250: 2240})
-lab = lambda c: {3000: "2920"}.get(c, str(c))
+D["case"] = D.case_target.replace({2250: 2240, 3000: 2920})
+lab = lambda c: {2920: "2920 (full speed)", 3000: "2920 (full speed)"}.get(c, str(c))
 def pltab(pl):
     d = D[D.pl_pct == pl]; cases = sorted(d.case.unique()); cards = sorted(d.gpu_pct.unique())
     head = "".join(f'<th scope="col">{lab(c)}</th>' for c in cases)
@@ -19,7 +19,7 @@ def pltab(pl):
             else: tds += "<td></td>"
         body += f"<tr><td>{g}&nbsp;%</td>{tds}</tr>"
     w = round(575 * pl / 100)
-    return (f'<details class="ar-det" open><summary>Power limit {pl}&nbsp;% ({w}&nbsp;W): {len(d)} settled points</summary>\n'
+    return (f'<details class="ar-det"><summary>Power limit {pl}&nbsp;% ({w}&nbsp;W): core, &deg;C, measured / model, {len(d)} settled points</summary>\n'
             f'  <div class="ar-tw ar-tw-wide"><table class="ar-tab ar-num ar-cmp ar-cmp-pl"><thead><tr><th scope="col">GPU fans \\ case fans, rpm</th>{head}</tr></thead><tbody>{body}</tbody></table></div>\n</details>\n')
 tabs = "".join(pltab(p) for p in (100, 90, 80, 70))
 P = MM["params"]; nm = {"θ0m": "&theta;<sub>0,mem</sub>", "r∞": "r<sub>&infin;</sub>", "gN": "g<sub>N</sub>", "m": "m", "gC": "g<sub>C</sub>", "s": "s"}
@@ -32,13 +32,13 @@ f1 = lambda v, d=1: "&mdash;" if v is None else f"{v:.{d}f}"
 cmp = ""
 for blk in CMP:
     trs = "".join(f"<tr><td>{r['gpu']}&nbsp;%</td><td>{r['rpm']}</td><td>{f1(r['c60'])}<sup>*</sup> / {f1(r['cs'])} / {r['cm']:.1f}</td><td>{f1(r['m60'],0)}<sup>*</sup> / {f1(r['ms'],0)} / {r['mmod']:.1f}</td></tr>".replace("&mdash;<sup>*</sup>", "&mdash;") for r in blk["rows"])
-    cmp += (f'<h4 class="ar-h4">Case fans {lab(blk["case"])}&nbsp;rpm, power limit {blk["pl"]}&nbsp;% ({blk["w"]}&nbsp;W)</h4>\n'
+    cmp += (f'<h4 class="ar-h4">Case fans {lab(blk["case"]).replace(" (full", "&nbsp;rpm (full") if blk["case"] in (2920, 3000) else lab(blk["case"]) + "&nbsp;rpm"}, power limit {blk["pl"]}&nbsp;% ({blk["w"]}&nbsp;W): core and memory, &deg;C, 60&nbsp;s* / settled / model</h4>\n'
             f'<div class="ar-tw"><table class="ar-tab ar-num ar-cmp"><thead><tr><th scope="col">GPU fans</th><th scope="col">rpm</th><th scope="col">Core, &deg;C</th><th scope="col">Memory, &deg;C</th></tr></thead><tbody>{trs}</tbody></table></div>\n')
 blocks = CMP
 nblk = len(blocks)
 sec = f"""<!--datatables:start-->
-  <h3 id="stats-data">The settled points, measured and modelled</h3>
-  <p>Every settled core point, against the value equation (11) gives for it. Each cell reads &ldquo;measured / model&rdquo; in &deg;C; where a setting was measured more than once the cell gives the mean, with the number of points as a superscript. The model value includes the offset of the session in which the point was measured, so measured and model differ only by the residual. Case fans set to 2250&nbsp;rpm are counted with 2240&nbsp;rpm, and the column 2920 holds the case fans at full speed.</p>
+  <h3 id="stats-data">Earlier sessions (21&ndash;22 October)</h3>
+  <p>The settled core points of the sessions before steady3, against the value equation (11) gives for them; these are the points the model was fitted to. Rows: GPU fan duty; columns: case fan speed in rpm. Each cell reads &ldquo;measured / model&rdquo; in &deg;C; where a setting was measured more than once the cell gives the mean, with the number of points as a superscript. The model value includes the offset of the session in which the point was measured, so measured and model differ only by the residual. Case fans set to 2250&nbsp;rpm are counted with 2240&nbsp;rpm, and the column &ldquo;2920 (full speed)&rdquo; holds every point with the case fans at full speed, whether set as full speed or as 3000&nbsp;rpm. An empty cell was not measured. Click a power limit to open its table.</p>
 {tabs}  <p class="ar-note">Points: {J['n']} settled values from the sessions listed under <a href="#stats">Statistical tests</a>. <a href="/research/data/gpu-map-steady-residuals.csv">Data (CSV)</a>.</p>
   <h3 id="stats-mem">The memory: a first model</h3>
   <p class="ar-status"><b>Provisional.</b> The memory is read in whole degrees and was fitted once, on fewer points than the core.</p>

@@ -50,12 +50,11 @@ sec = f"""<!--cpu:start-->
   </table>
   </div>
   <p>Almost halving the radiator fan speed raised Tctl by {m(g2,'tctl_c')-m(g0,'tctl_c'):.1f}&nbsp;&deg;C and the two CCDs by about {((m(g2,'ccd1_c')-m(g0,'ccd1_c'))+(m(g2,'ccd2_c')-m(g0,'ccd2_c')))/2:.0f}&nbsp;&deg;C. The package stayed at its 200&nbsp;W stock limit throughout, the clocks did not fall, and the highest one-second Tctl was {w.tctl_c.max():.1f}&nbsp;&deg;C, about 20&nbsp;&deg;C below the 95&nbsp;&deg;C maximum. The processor is limited by power, not by temperature, so the controller can run the radiator fans far slower than full speed without costing any performance. The 10-second steps were too short to see the loop respond; each step&rsquo;s change is lost in the second-to-second jitter of the sensors.</p>
-${''}
   <figure class="ar-fig">
     {pic('light')}{pic('dark')}
     <figcaption><b>Figure {FIG}.</b> Full processor load with the radiator fans stepped down from full speed to 1500&nbsp;rpm (dotted lines: start of the steps and of the hold). Temperatures are 10-second moving averages of 1&nbsp;Hz readings; radiator fans in rpm and %. <a href="/research/data/gpu-map-cpu2-sweep.csv">Data (CSV)</a>.</figcaption>
   </figure>
-{cpu3}  <p class="ar-note">Provisional. At the end of the cpu2 hold Tctl was still rising by about {max(slope,0.36):.2f}&nbsp;&deg;C per minute, so the 1500&nbsp;rpm values may end a few tenths higher. The radiator fans, trimmed from their tachometer every second, swung between {hold.rad_rpm.min():.0f} and {hold.rad_rpm.max():.0f}&nbsp;rpm around the target; that loop needs damping. Throttling is judged from Tctl and the clocks at constant power, because the monitoring library exposes no power-limit or throttle flags on this processor. <a href="/research/data/gpu-map-cpu1b.csv">cpu1b data (CSV)</a>.</p>
+{cpu3}  <p class="ar-note">Provisional. At the end of the cpu2 hold Tctl was still rising by about {max(slope,0.36):.2f}&nbsp;&deg;C per minute, so the 1500&nbsp;rpm values may end a few tenths higher. The radiator fans, trimmed from their tachometer every second, swung between {hold.rad_rpm.min():.0f} and {hold.rad_rpm.max():.0f}&nbsp;rpm around the target during cpu2; the loop was damped in Lab 0.3.55, and cpu3 ran with the damped loop. Throttling is judged from Tctl and the clocks at constant power, because the monitoring library exposes no power-limit or throttle flags on this processor. <a href="/research/data/gpu-map-cpu1b.csv">cpu1b data (CSV)</a>.</p>
 <!--cpu:end-->"""
 sec = sec.replace("${''}\n", "")
 a, b = s.find("<!--cpu:start-->"), s.find("<!--cpu:end-->")

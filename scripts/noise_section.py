@@ -80,7 +80,7 @@ R2 = [["Noctua NF-A12x25 G2", "1306", "1500", "1820", "&mdash;", "&mdash;"], ["N
       ["be quiet! Silent Wings Pro 4 120", "1281", "1573", "1871", "2274", "2771"], ["be quiet! Silent Wings 4 120 high-speed", "1467", "1751", "2094", "&mdash;", "&mdash;"],
       ["Arctic P12 PWM PST", "1559", "1804", "&mdash;", "&mdash;", "&mdash;"], ["Arctic P14 PWM PST (140&nbsp;mm)", "1206", "1429", "1709", "&mdash;", "&mdash;"],
       ["be quiet! Silent Wings Pro 4 140 (140&nbsp;mm)", "1278", "1456", "1731", "&mdash;", "&mdash;"]]
-H3 = ["Fan on a radiator", "750&nbsp;rpm", "1000&nbsp;rpm", "1250&nbsp;rpm", "1500&nbsp;rpm"]
+H3 = ["Fan on a radiator", "750&nbsp;rpm, dBA", "1000&nbsp;rpm, dBA", "1250&nbsp;rpm, dBA", "1500&nbsp;rpm, dBA"]
 R3 = [["Noctua NF-A12x25 G2", "27.4", "30.2", "33.8", "37.4"], ["Noctua NF-A12x25 G1", "27.2", "29.1", "32.8", "36.4"], ["be quiet! Silent Wings Pro 4 120", "27.2", "30.0", "32.8", "36.3"], ["Arctic P12 PWM PST", "27.3", "30.4", "33.4", "37.1"]]
 # 3) RTX 5090 reviews
 H4 = ["Source", "Distance, room floor", "Result"]

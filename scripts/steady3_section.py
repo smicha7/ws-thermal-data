@@ -46,11 +46,11 @@ block=f'''<!--steady3:start-->
   </div>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
-    <thead><tr><th scope="col">Case and radiator fans</th><th scope="col">One fan, estimated dBA at 1&nbsp;m</th><th scope="col">7 fans (4 case + 3 radiator), estimated dBA at 1&nbsp;m</th><th scope="col">Class</th></tr></thead>
+    <thead><tr><th scope="col">Case and radiator fans</th><th scope="col">One fan, dBA at 1&nbsp;m</th><th scope="col">7 fans, dBA at 1&nbsp;m</th><th scope="col">Class</th></tr></thead>
     <tbody>{crow}</tbody>
   </table>
   </div>
-  <p class="ar-note">Estimated levels for the case and radiator fans come from the literature fit for the SW Pro 4 120 at 1&nbsp;m, <i>L</i>&nbsp;=&nbsp;&minus;167.1&nbsp;+&nbsp;60.2&nbsp;log<sub>10</sub>&nbsp;rpm (<a href="#pareto-lit">A first frontier, from the literature</a>); seven fans add 10&nbsp;log<sub>10</sub>&nbsp;7&nbsp;&asymp;&nbsp;8.5&nbsp;dB. The 3000&nbsp;rpm row uses full speed, about 2920&nbsp;rpm. *Below about 1280&nbsp;rpm, the slowest point measured by Hardware Busters (20&nbsp;dBA), the values are extrapolations, and they lie under the room&rsquo;s own floor of 25 to 30&nbsp;dBA. At 800&nbsp;rpm the radiator fans run at their floor of about 880&nbsp;rpm, so the true level is slightly higher. Literature-based, provisional until our own sound map.</p>
+  <p class="ar-note">Estimated levels for the case and radiator fans come from the literature fit for the SW Pro 4 120 at 1&nbsp;m, <i>L</i>&nbsp;=&nbsp;&minus;167.1&nbsp;+&nbsp;60.2&nbsp;log<sub>10</sub>&nbsp;rpm (<a href="#pareto-lit">A first frontier, from the literature</a>); seven fans (4 case + 3 radiator) add 10&nbsp;log<sub>10</sub>&nbsp;7&nbsp;&asymp;&nbsp;8.5&nbsp;dB. The 3000&nbsp;rpm row uses full speed, about 2920&nbsp;rpm. *Below about 1280&nbsp;rpm, the slowest point measured by Hardware Busters (20&nbsp;dBA), the values are extrapolations, and they lie under the room&rsquo;s own floor of 25 to 30&nbsp;dBA. At 800&nbsp;rpm the radiator fans run at their floor of about 880&nbsp;rpm, so the true level is slightly higher. Literature-based, provisional until our own sound map.</p>
   <p class="ar-note">These classes are listening judgments of this machine in its room, at the desk. For the card they are more lenient than the SilentPCReview scale for a single source at 1&nbsp;m: a card at 40&nbsp;% and about 29&nbsp;dBA is &ldquo;quiet&rdquo; there and &ldquo;super quiet&rdquo; here, because the room&rsquo;s own floor and the other fans mask it.</p>
 <!--steady3:end-->'''
 if '<!--steady3:start-->' in s:

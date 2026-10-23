@@ -117,7 +117,7 @@ const sec=`<!--stats:start-->
   <p>We fitted nine forms of the resistance, each with and without session offsets, and compared them by leave-one-out and five-fold cross-validation, by leaving out whole sessions, and by the Bayesian information criterion (BIC). Without session offsets the simple forms leave an RMSE of ${rmseNoS[0].toFixed(2)} to ${rmseNoS[1].toFixed(2)}&nbsp;&deg;C; the sessions differ by more than the forms do. With offsets:</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
-    <thead><tr><th scope="col">Form of R(N,&nbsp;C), with session offsets</th><th scope="col">Constants</th><th scope="col">RMSE</th><th scope="col">Leave-one-out</th><th scope="col">5-fold</th><th scope="col">Leave session out</th><th scope="col">BIC</th><th scope="col">DW along N</th></tr></thead>
+    <thead><tr><th scope="col">Form of R(N,&nbsp;C), with session offsets</th><th scope="col">Constants</th><th scope="col">RMSE, &deg;C</th><th scope="col">Leave-one-out, &deg;C</th><th scope="col">5-fold, &deg;C</th><th scope="col">Leave session out, &deg;C</th><th scope="col">BIC</th><th scope="col">DW along N</th></tr></thead>
     <tbody>${withS.map(crow).join('')}</tbody>
   </table>
   </div>

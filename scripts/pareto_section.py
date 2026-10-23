@@ -34,29 +34,30 @@ par = f"""<!--pareto:start-->
   <p>The frontier answers the question of the paragraph above, for this card and case: it does not spread the airflow. Along almost all of it the case and radiator fans stay between 800 and about 1250&nbsp;rpm and the GPU fans do the work. Seven fans add {cf['seven_fans_db']:.1f}&nbsp;dB to one, and once the GPU fans are past about 45&nbsp;% the case fans cool the core by little, so raising them costs more noise than it saves heat. At 402&nbsp;W the slowest setting allowed under load, GPU fans 40&nbsp;% and case fans 800&nbsp;rpm, already holds the core at {T['402']['80']['core']:.1f}&nbsp;&deg;C, below every target.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
-    <thead><tr><th scope="col">Core target, &deg;C</th><th scope="col">575&nbsp;W: GPU fans</th><th scope="col">575&nbsp;W: case, rpm</th><th scope="col">575&nbsp;W: dBA at 1&nbsp;m</th><th scope="col">575&nbsp;W: class</th><th scope="col">575&nbsp;W: memory, &deg;C</th><th scope="col">402&nbsp;W: GPU fans / case rpm</th><th scope="col">402&nbsp;W: dBA</th><th scope="col">402&nbsp;W: core, &deg;C</th></tr></thead>
+    <thead><tr><th scope="col">Core target, &deg;C</th><th scope="col">575&nbsp;W: GPU fans, % (rpm)</th><th scope="col">575&nbsp;W: case, rpm</th><th scope="col">575&nbsp;W: dBA at 1&nbsp;m</th><th scope="col">575&nbsp;W: class</th><th scope="col">575&nbsp;W: memory, &deg;C</th><th scope="col">402&nbsp;W: GPU fans, % / case, rpm</th><th scope="col">402&nbsp;W: dBA at 1&nbsp;m</th><th scope="col">402&nbsp;W: core, &deg;C</th></tr></thead>
     <tbody>{rows}</tbody>
   </table>
   </div>
-  <p class="ar-note">The quietest pair whose settled core is at or below the target and whose memory stays below 96&nbsp;&deg;C. Fan speeds on a grid of 1&nbsp;% and 50&nbsp;rpm; the GPU fans never go below 40&nbsp;% under load. Levels &plusmn;3&nbsp;dB or more, see above.</p>
+  <p class="ar-note">The quietest pair whose settled core is at or below the target and whose memory stays at or below the default memory limit of 90&nbsp;&deg;C. Fan speeds on a grid of 1&nbsp;% and 50&nbsp;rpm; the GPU fans never go below 40&nbsp;% under load. Levels &plusmn;3&nbsp;dB or more, see above.</p>
   <p>For the three modes of the controller at full power this gives:</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
-    <thead><tr><th scope="col">Mode at 575&nbsp;W</th><th scope="col">GPU fans</th><th scope="col">Case and radiator fans</th><th scope="col">Total at 1&nbsp;m</th></tr></thead>
+    <thead><tr><th scope="col">Mode at 575&nbsp;W</th><th scope="col">GPU fans</th><th scope="col">Case and radiator fans</th><th scope="col">Total, dBA at 1&nbsp;m</th></tr></thead>
     <tbody>{mrow}</tbody>
   </table>
   </div>
-  <p>All three lie well inside the speed ceilings of the modes, and all three keep the case fans near their minimum, where the controller&rsquo;s present noise proxy, which weighs both groups by speed alone, tends to spend more on the case fans. These decibel models are candidates to replace that proxy; we will decide after our own measurements.</p>
+  <p class="ar-note">For each mode at full power, 575&nbsp;W: the quietest GPU fan speed (% and rpm) and case and radiator fan speed (rpm) whose predicted settled core meets the mode&rsquo;s target, from equation (11), with the memory at or below 90&nbsp;&deg;C, and the estimated total level of all fans with its noise class. Literature-based noise, provisional.</p>
+  <p>All three lie well inside the speed ceilings of the modes, and all three keep the case fans near their minimum, where the controller&rsquo;s earlier noise proxy, which weighed both groups by speed alone, spent more on the case fans. The controller&rsquo;s simulation now uses these decibel models in place of that proxy; the real controller follows once our own measurements confirm them.</p>
 <!--pareto:end-->"""
 pm = f"""<!--pmax:start-->
   <p>The same models give equation (14). For a core target of 77&nbsp;&deg;C, Figure 19 shows the highest power the card can hold within each noise budget, for intake air at 19.3 and at 30&nbsp;&deg;C, and the table gives the quietest total level at each power limit and what each 10&nbsp;% of power limit buys.</p>
   <figure class="ar-fig">
     {pic('gpu-map-noise-pmax', 'Highest sustainable power for a core target of 77 °C against the noise budget in dBA at 1 m, for intake air at 19.3 and 30 °C, with a second axis giving the average graphics clock at that power; at 19.3 °C full power is reached at about 32 dBA, at 30 °C only at about 38 dBA', 1600, 1040, 1000, 1200)}
-    <figcaption><b>Figure 19.</b> Highest power with the core at or below 77&nbsp;&deg;C and the memory below 96&nbsp;&deg;C, against the noise budget of all fans at 1&nbsp;m, for intake air at 19.3&nbsp;&deg;C (blue) and 30&nbsp;&deg;C (red). Right axis: the average graphics clock measured at that power in the second run, a proxy for performance. Literature-based noise, provisional.</figcaption>
+    <figcaption><b>Figure 19.</b> Highest power with the core at or below 77&nbsp;&deg;C and the memory at or below 90&nbsp;&deg;C, against the noise budget of all fans at 1&nbsp;m, for intake air at 19.3&nbsp;&deg;C (blue) and 30&nbsp;&deg;C (red). Right axis: the average graphics clock measured at that power in the second run, a proxy for performance. Literature-based noise, provisional.</figcaption>
   </figure>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
-    <thead><tr><th scope="col">Intake air</th><th scope="col">Core target</th><th scope="col">575&nbsp;W, dBA</th><th scope="col">518&nbsp;W, dBA</th><th scope="col">460&nbsp;W, dBA</th><th scope="col">402&nbsp;W, dBA</th><th scope="col">dB saved per 10&nbsp;% step</th></tr></thead>
+    <thead><tr><th scope="col">Intake air</th><th scope="col">Core target, &deg;C</th><th scope="col">575&nbsp;W, dBA</th><th scope="col">518&nbsp;W, dBA</th><th scope="col">460&nbsp;W, dBA</th><th scope="col">402&nbsp;W, dBA</th><th scope="col">dB saved per 10&nbsp;% step</th></tr></thead>
     <tbody>{crow}</tbody>
   </table>
   </div>
