@@ -77,8 +77,10 @@ class Plant:
 
 
 def noise(N, C):
-    lg = 50 * math.log10(max(N, 300) / 1000) + A_CARD
-    lc = 50 * math.log10(max(C, 300) / 1000) + A_CASE
+    """Literature noise at 1 m, dBA (article commit 77e621576): card RTX 5090 FE 32.5 + 50·log10(N/1570) (GamersNexus/PCGH/LanOC, may read
+    4–6 dB low near full speed); case + radiator SW Pro 4 120 (Hardware Busters) −167.1 + 60.2·log10(C) per fan, 7 fans +8.45 dB; energy sum (eq. 13)."""
+    lg = 32.5 + 50 * math.log10(max(N, 300) / 1570)
+    lc = -167.1 + 60.2 * math.log10(max(C, 300)) + 10 * math.log10(7)
     return 10 * math.log10(10 ** (lg / 10) + 10 ** (lc / 10))
 
 
