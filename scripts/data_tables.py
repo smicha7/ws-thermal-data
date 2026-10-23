@@ -26,18 +26,15 @@ P = MM["params"]; nm = {"θ0m": "&theta;<sub>0,mem</sub>", "r∞": "r<sub>&infin
 un = {"θ0m": "&deg;C", "r∞": "m&deg;C/W", "gN": "W/&deg;C", "gC": "W/&deg;C", "m": "", "s": ""}
 mrows = "".join(f"<tr><td>{nm.get(k, k)}</td><td>{v[0]:.2f} {un.get(k,'&deg;C')}</td><td>{v[1]:.2f}</td></tr>" for k, v in P.items() if not k.startswith("θ["))
 off = "; ".join(f"{k[2:-1]} {v[0]:+.2f}&nbsp;&deg;C".replace("+-", "&minus;").replace("-", "&minus;") for k, v in P.items() if k.startswith("θ["))
-# 112-point comparison from TABELE (Polish source, decimal commas)
-T = open(G + "TABELE-2026-10-23.md").read()
-blocks = re.findall(r"\*\*Obudowa (\d+) obr\./min · limit mocy (\d+) % \((\d+) W\)\*\*.*?\n\n\|.*?\n\|.*?\n((?:\|.*\n?)+)", T)
+# 112-point comparison, computed from the data by compare_tables.py
+CMP = json.load(open(G + "results-2026-10-23/compare-112.json"))
+f1 = lambda v, d=1: "&mdash;" if v is None else f"{v:.{d}f}"
 cmp = ""
-for case, pl, w, rows in blocks:
-    trs = ""
-    for line in rows.strip().split("\n"):
-        c = [x.strip() for x in line.strip("|").split("|")]
-        fx = lambda t: t.replace(",", ".").replace("*", "<sup>*</sup>").replace("—<sup>*</sup>", "&mdash;").replace("—", "&mdash;")
-        trs += f"<tr><td>{c[0].replace(' %','&nbsp;%')}</td><td>{c[1]}</td><td>{fx(c[2])}</td><td>{fx(c[3])}</td></tr>"
-    cmp += (f'<h4 class="ar-h4">Case fans {lab(int(case))}&nbsp;rpm, power limit {pl}&nbsp;% ({w}&nbsp;W)</h4>\n'
+for blk in CMP:
+    trs = "".join(f"<tr><td>{r['gpu']}&nbsp;%</td><td>{r['rpm']}</td><td>{f1(r['c60'])}<sup>*</sup> / {f1(r['cs'])} / {r['cm']:.1f}</td><td>{f1(r['m60'],0)}<sup>*</sup> / {f1(r['ms'],0)} / {r['mmod']:.1f}</td></tr>".replace("&mdash;<sup>*</sup>", "&mdash;") for r in blk["rows"])
+    cmp += (f'<h4 class="ar-h4">Case fans {lab(blk["case"])}&nbsp;rpm, power limit {blk["pl"]}&nbsp;% ({blk["w"]}&nbsp;W)</h4>\n'
             f'<div class="ar-tw"><table class="ar-tab ar-num ar-cmp"><thead><tr><th scope="col">GPU fans</th><th scope="col">rpm</th><th scope="col">Core, &deg;C</th><th scope="col">Memory, &deg;C</th></tr></thead><tbody>{trs}</tbody></table></div>\n')
+blocks = CMP
 nblk = len(blocks)
 sec = f"""<!--datatables:start-->
   <h3 id="stats-data">The settled points, measured and modelled</h3>
@@ -45,7 +42,7 @@ sec = f"""<!--datatables:start-->
 {tabs}  <p class="ar-note">Points: {J['n']} settled values from the sessions listed under <a href="#stats">Statistical tests</a>. <a href="/research/data/gpu-map-steady-residuals.csv">Data (CSV)</a>.</p>
   <h3 id="stats-mem">The memory: a first model</h3>
   <p class="ar-status"><b>Provisional.</b> The memory is read in whole degrees and was fitted once, on fewer points than the core.</p>
-  <p>The same two-path form fits the settled memory temperatures of val1, val2 and steady2, {MM['n']} points, with an offset per session: RMSE {MM['rmse']:.2f}&nbsp;&deg;C, leave-one-out {MM['loo']:.2f}&nbsp;&deg;C. Most of that is the rounding of the reading itself, whose standard deviation alone is about 0.29&nbsp;&deg;C.</p>
+  <p>The same two-path form fits the settled memory temperatures of {', '.join(list(MM['sessions'])[:-1])} and {list(MM['sessions'])[-1]}, {MM['n']} points, with an offset per session: RMSE {MM['rmse']:.2f}&nbsp;&deg;C, leave-one-out {MM['loo']:.2f}&nbsp;&deg;C. Most of that is the rounding of the reading itself, whose standard deviation alone is about 0.29&nbsp;&deg;C.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-set">
     <thead><tr><th scope="col">Constant</th><th scope="col">Estimate</th><th scope="col">SE</th></tr></thead>
@@ -56,7 +53,8 @@ sec = f"""<!--datatables:start-->
   <p>The striking constant is the offset, {P['θ0m'][0]:.0f}&nbsp;&deg;C against about 2&nbsp;&deg;C for the core. The memory carries heat of its own that hardly changes with the board power: the load keeps the memory equally busy at every power limit, so cutting the limit removes little of the memory&rsquo;s heat. That is the same fact, seen from the model&rsquo;s side, as the widening gap between memory and core at low power limits in <a href="#memlimit">Memory temperature</a>.</p>
   <details class="ar-det"><summary>All {nblk * 0 + 112} points of the second run: 60-second, settled and model values</summary>
   <p class="ar-note">For every setting of the second run, case fans by power limit, the core and memory as read after 60 seconds (marked *), the settled value where one was measured later, and the model value from equation (11) and the memory model, at 19.3&nbsp;&deg;C intake air and the reference session. A dash means the setting was not measured that way. The 60-second values at 575&nbsp;W read low and those at lower power limits read high, as described under <a href="#run2-settle">How long a point needs</a>.</p>
-{cmp}  </details>
+{cmp}  <p class="ar-note"><a href="/research/data/gpu-map-compare-112.csv">All rows (CSV)</a>.</p>
+  </details>
 <!--datatables:end-->"""
 a, b = s.find("<!--datatables:start-->"), s.find("<!--datatables:end-->")
 if a < 0:

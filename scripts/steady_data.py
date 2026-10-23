@@ -114,6 +114,10 @@ if os.path.exists(V + "points.csv"):
 # steady2 (seria gęsta, 2026-10-22) — wchodzi automatycznie, gdy plik się pojawi; rdzeń w tabeli już z NVAPI 0,01 °C
 for f in sorted(glob.glob(D + "steady2*/grid.csv")):
     rows += day_session(os.path.dirname(f).split("/")[-1], "steady2")
+# later settled series (2026-10-23 on): pl90 = PL 90 gap fill at case 1500, steady3 = serpentine grid; session = folder prefix
+for pre in ("pl90", "steady3"):
+    for f in sorted(glob.glob(D + pre + "-*/grid.csv")):
+        rows += day_session(os.path.dirname(f).split("/")[-1], pre)
 
 df = pd.DataFrame(rows).sort_values("ts_end").reset_index(drop=True)
 # Rdzeń do modelu: NVAPI 0,01 °C, gdy jest w logu; inaczej tabela. Wlot: aquaero 0,01 °C z logu, inaczej tabela.

@@ -1,0 +1,21 @@
+2026-10-23 07:58:59 start (próba 1), tryb rpmgrid, budżet 2 h, obudowa: open top; 1 GPU (RTX 5090); 2026-10-23: case 1500 rpm, power limit 90 %, card fans 100 / 90 / 80 / 70 %, each ≥ 5 min then |dT/dt| < 0.1 °C/min (max 15 min); fills the missing settled points above 60 % at PL 90
+2026-10-23 07:58:59 spis czujników: 338
+2026-10-23 07:59:01 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-23 07:59:01 obciążenie: proces w sesji użytkownika
+2026-10-23 07:59:01 etap: Hold
+2026-10-23 07:59:01 siatka po obrotach: 4 punktów, start 100 % / 1500 rpm
+2026-10-23 obciążenie 07:59:01 start: plik stanu jest, tryb mix64
+2026-10-23 obciążenie 07:59:01 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-23 obciążenie 07:59:01 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-23 obciążenie 07:59:01 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-23 07:59:17 trzymanie: 45.2 % → 1508 rpm (cel 1500)
+2026-10-23 07:59:43 trzymanie: 44.0 % → 1497 rpm (cel 1500)
+2026-10-23 08:04:24 punkt 1/4: obie 100 % / 1500 rpm → rdzeń 56.0, pamięć 64.0 °C, 325 s
+2026-10-23 08:04:25 trzymanie: 44.0 % → 1497 rpm (cel 1500)
+2026-10-23 08:10:28 punkt 2/4: obie 90 % / 1500 rpm → rdzeń 56.4, pamięć 64.9 °C, 364 s
+2026-10-23 08:10:29 trzymanie: 44.0 % → 1497 rpm (cel 1500)
+2026-10-23 08:15:28 punkt 3/4: obie 80 % / 1500 rpm → rdzeń 58.0, pamięć 66.0 °C, 300 s
+2026-10-23 08:15:30 trzymanie: 44.0 % → 1497 rpm (cel 1500)
+2026-10-23 08:20:28 punkt 4/4: obie 70 % / 1500 rpm → rdzeń 60.0, pamięć 68.0 °C, 300 s
+2026-10-23 08:20:28 aquaero przywrócone: przywrócono aquaero-20261023-075901.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261023-082028.bin
+2026-10-23 08:20:28 ZAKOŃCZONO: siatka zakończona: 4 punktów

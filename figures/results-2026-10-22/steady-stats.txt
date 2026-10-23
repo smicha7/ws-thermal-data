@@ -1,80 +1,81 @@
-n = 75, rdzeń = core_settled, sesje = {'steady2': np.int64(37), 'val1': np.int64(20), 'val2': np.int64(9), 'night': np.int64(7), 'afternoon': np.int64(2)}, odniesienie = steady2
+n = 79, rdzeń = core_settled, sesje = {'steady2': np.int64(37), 'val1': np.int64(20), 'val2': np.int64(9), 'night': np.int64(7), 'pl90': np.int64(4), 'afternoon': np.int64(2)}, odniesienie = steady2
 
          model  k  rmse  mean_e     AIC     BIC   LOO   CV5  LOSO  DWser  DWtime
-           pow  6 0.828  -0.000 196.573 210.478 0.891 0.896 1.057  0.432   0.975
-           exp  6 0.755   0.000 182.602 196.507 0.811 0.819 0.976  0.443   0.831
-           rat  6 0.804  -0.000 192.149 206.054 0.864 0.868 1.034  0.446   0.904
-          cond  7 0.675  -0.000 167.814 184.036 0.733 0.742 0.941  0.444   0.804
-          flow  6 0.725  -0.000 176.555 190.460 0.776 0.782 0.972  0.375   0.792
-   R-resp cond  7 0.677   0.000 151.749 167.972 0.728 0.734 0.919  0.449   0.764
-       log-log  8 0.671   0.001 165.320 183.860 0.777 0.788 0.931  0.403   0.921
-        spline  9 1.627   0.000 303.863 324.721 1.824 2.141 2.448  0.775   0.692
-        tensor 14 0.469   0.000 127.286 159.731 2.187 2.652 2.791  1.122   1.025
-        pow +S 10 0.561   0.000 146.190 169.365 0.654 0.647 1.177  1.072   1.449
-        exp +S 10 0.449   0.000 112.585 135.760 0.517 0.515 1.040  1.038   1.453
-        rat +S 10 0.529  -0.000 137.214 160.389 0.611 0.605 1.147  1.033   1.420
-       cond +S 11 0.318  -0.000  63.033  88.525 0.375 0.384 0.940  1.160   2.019
-       flow +S 10 0.357   0.000  78.179 101.354 0.412 0.417 1.013  1.184   1.791
-R-resp cond +S 11 0.319  -0.001  57.702  83.195 0.373 0.382 0.940  1.110   1.970
-    log-log +S 12 0.361   0.000  85.796 113.606 0.445 0.454 0.934  1.056   1.422
-     spline +S 13 1.381  -0.000 287.210 317.338 1.660 1.841 2.611  1.343   0.826
-     tensor +S 18 0.215   0.000  18.524  60.239 0.681 0.859 1.593  1.443   1.468
+           pow  6 0.809  -0.000 202.769 216.986 0.865 0.864 1.018  0.442   0.972
+           exp  6 0.738   0.000 188.174 202.391 0.789 0.786 0.932  0.450   0.863
+           rat  6 0.786  -0.000 198.156 212.372 0.839 0.837 0.993  0.454   0.923
+          cond  7 0.665  -0.000 173.687 190.273 0.717 0.725 0.906  0.455   0.872
+          flow  6 0.710  -0.000 181.975 196.192 0.755 0.756 0.924  0.390   0.825
+   R-resp cond  7 0.667   0.000 158.369 174.955 0.713 0.719 0.886  0.455   0.851
+       log-log  8 0.669   0.000 173.341 192.297 0.758 0.760 0.927  0.404   1.051
+        spline  9 1.600  -0.000 316.460 337.785 1.784 1.777 2.416  0.748   0.707
+        tensor 14 0.476   0.000 134.900 168.073 2.161 2.761 3.006  1.063   1.009
+        pow +S 11 0.550  -0.000 151.626 177.690 0.641 0.656 1.114  1.081   1.456
+        exp +S 11 0.440   0.000 116.587 142.651 0.509 0.517 1.001  1.059   1.467
+        rat +S 11 0.520  -0.000 142.722 168.786 0.602 0.612 1.093  1.046   1.430
+       cond +S 12 0.321  -0.000  68.848  97.282 0.384 0.388 0.916  1.203   2.026
+       flow +S 11 0.356  -0.000  82.874 108.938 0.415 0.417 0.964  1.210   1.799
+R-resp cond +S 12 0.323  -0.001  64.246  92.679 0.383 0.387 0.922  1.159   1.986
+    log-log +S 13 0.371   0.000  97.601 128.404 0.458 0.467 0.979  1.084   1.464
+     spline +S 14 1.351  -0.000 299.773 332.946 1.614 1.674 2.461  1.356   0.832
+     tensor +S 19 0.218  -0.000  21.598  66.617 0.715 0.912 1.584  1.521   1.526
 
 WYBRANY: cond +S  (najmniejszy LOO wśród postaci parametrycznych z efektem sesji)
-  θ0               2.111 °C      SE kl 0.302  HC3 0.268  klaster-sesja 0.090  klaster-seria 0.291
-  r∞              53.213 m°C/W   SE kl 1.490  HC3 2.011  klaster-sesja 1.883  klaster-seria 2.396
-  gN               8.173 W/°C    SE kl 0.608  HC3 0.516  klaster-sesja 1.142  klaster-seria 0.425
-  m                2.138         SE kl 0.139  HC3 0.171  klaster-sesja 0.247  klaster-seria 0.201
-  gC               5.589 W/°C    SE kl 0.944  HC3 0.847  klaster-sesja 1.657  klaster-seria 0.800
-  s                1.061         SE kl 0.124  HC3 0.101  klaster-sesja 0.211  klaster-seria 0.081
-  θ[afternoon]    -0.120 °C      SE kl 0.265  HC3 0.144  klaster-sesja 0.081  klaster-seria 0.082
-  θ[night]         2.133 °C      SE kl 0.161  HC3 0.260  klaster-sesja 0.057  klaster-seria 0.261
-  θ[val1]         -0.262 °C      SE kl 0.105  HC3 0.100  klaster-sesja 0.062  klaster-seria 0.091
-  θ[val2]         -0.139 °C      SE kl 0.135  HC3 0.191  klaster-sesja 0.014  klaster-seria 0.167
-  zbiorczy (bez efektu sesji) + SE klastrowe: [('θ0', np.float64(0.82), np.float64(1.133)), ('r∞', np.float64(57.8), np.float64(4.626)), ('gN', np.float64(7.486), np.float64(2.293)), ('m', np.float64(2.317), np.float64(0.526)), ('gC', np.float64(7.145), np.float64(3.805)), ('s', np.float64(0.911), np.float64(0.324))]
-  mixed: σ_sesji 1.01 °C, σ_reszt 0.33 °C, ICC 0.90, RE {'afternoon': -0.41610813580220485, 'night': 1.775179144300519, 'steady2': -0.3205234859765404, 'val1': -0.5820406528617328, 'val2': -0.4565068696671588}
+  θ0               2.080 °C      SE kl 0.306  HC3 0.268  klaster-sesja 0.084  klaster-seria 0.293
+  r∞              53.945 m°C/W   SE kl 1.424  HC3 1.883  klaster-sesja 1.879  klaster-seria 2.162
+  gN               8.159 W/°C    SE kl 0.620  HC3 0.516  klaster-sesja 1.105  klaster-seria 0.438
+  m                2.187         SE kl 0.140  HC3 0.168  klaster-sesja 0.251  klaster-seria 0.190
+  gC               5.693 W/°C    SE kl 0.964  HC3 0.838  klaster-sesja 1.625  klaster-seria 0.780
+  s                1.073         SE kl 0.126  HC3 0.100  klaster-sesja 0.198  klaster-seria 0.084
+  θ[afternoon]    -0.133 °C      SE kl 0.268  HC3 0.140  klaster-sesja 0.086  klaster-seria 0.082
+  θ[night]         2.134 °C      SE kl 0.164  HC3 0.264  klaster-sesja 0.057  klaster-seria 0.267
+  θ[pl90]          0.717 °C      SE kl 0.208  HC3 0.270  klaster-sesja 0.116  klaster-seria 0.106
+  θ[val1]         -0.247 °C      SE kl 0.106  HC3 0.100  klaster-sesja 0.061  klaster-seria 0.095
+  θ[val2]         -0.146 °C      SE kl 0.137  HC3 0.187  klaster-sesja 0.019  klaster-seria 0.159
+  zbiorczy (bez efektu sesji) + SE klastrowe: [('θ0', np.float64(0.781), np.float64(1.093)), ('r∞', np.float64(58.743), np.float64(4.304)), ('gN', np.float64(7.71), np.float64(2.046)), ('m', np.float64(2.346), np.float64(0.459)), ('gC', np.float64(6.984), np.float64(3.431)), ('s', np.float64(0.964), np.float64(0.324))]
+  mixed: σ_sesji 0.91 °C, σ_reszt 0.34 °C, ICC 0.88, RE {'afternoon': -0.47951472586491994, 'night': 1.7045935092429212, 'pl90': 0.3100887747677412, 'steady2': -0.3821533956290214, 'val1': -0.6290351026229121, 'val2': -0.523979059889991}
                                                test    stat      p                                    H0          verdict                                                                                      note
                          Mean of residuals (t-test)  -0.000 1.0000                              E[e] = 0 do not reject H0                                                            mean -0.0000 °C, sum -0.000 °C
-    Durbin–Watson, along N within (case, PL) series   1.160 0.0104  no 1st-order autocorrelation along N        reject H0                                      exact p by Monte Carlo under H0 given the regressors
-                          Durbin–Watson, time order   2.019 0.2675  no 1st-order autocorrelation in time do not reject H0                                                                                          
-               Breusch–Godfrey LM, order 1, along N   4.937 0.0263      no autocorrelation up to order p        reject H0                                                                                          
- Breusch–Godfrey LM, order 1, time (within session)   0.102 0.7494      no autocorrelation up to order p do not reject H0                                                                                          
-               Breusch–Godfrey LM, order 2, along N   7.319 0.0257      no autocorrelation up to order p        reject H0                                                                                          
- Breusch–Godfrey LM, order 2, time (within session)   1.227 0.5413      no autocorrelation up to order p do not reject H0                                                                                          
-                                         corr(e, N)  -0.024 0.8391                                 ρ = 0 do not reject H0                                                                                          
-                                         corr(e, C)   0.010 0.9317                                 ρ = 0 do not reject H0                                                                                          
-                                         corr(e, P)  -0.000 1.0000                                 ρ = 0 do not reject H0                                                                                          
-                                    corr(e, fitted)  -0.000 1.0000                                 ρ = 0 do not reject H0                                                                                          
-                                       corr(e, Tin)   0.008 0.9484                                 ρ = 0 do not reject H0                                                                                          
-                                      corr(e, time)   0.005 0.9690                                 ρ = 0 do not reject H0                                                                                          
-              Breusch–Pagan (Koenker) on N, ln C, P  10.152 0.0173                         homoscedastic        reject H0                                                                                          
-            White (levels, squares, cross-products)  35.481 0.0000                         homoscedastic        reject H0                                                                                          
-                              White special (ŷ, ŷ²)   2.140 0.3430                         homoscedastic do not reject H0                                                                                          
-                                       Shapiro–Wilk   0.955 0.0092                      normal residuals        reject H0                                                                                          
-                                        Jarque–Bera  26.193 0.0000                      normal residuals        reject H0                                                             skewness +0.54, kurtosis 5.69
-                                 Ramsey RESET (ŷ^2)   0.908 0.3441              functional form adequate do not reject H0                                                                                          
-                               Ramsey RESET (ŷ^2,3)   2.271 0.1116              functional form adequate do not reject H0                                                                                          
-         Lack-of-fit F (pure error from replicates)   3.700 0.0038              functional form adequate        reject H0                                                15 replicate d.o.f., pure-error SD 0.19 °C
-Parametric vs natural-spline benchmark (F, approx.) -29.828 1.0000 parametric form not worse than spline do not reject H0                                                                                          
-                     Session effect = 0 (Wald, HC3)  72.487 0.0000                     no session effect        reject H0                                                                                          
-    Box–Cox λ (transform-both-sides), LR test λ = 1   1.464 0.2263                  λ = 1 (no transform) do not reject H0                            λ̂ = 1.70, 95 % CI [0.60, 2.85]; LR for λ = 0 (log): p = 0.004
- Within-session drift from repeated anchors (slope)   0.132 0.0129                              no drift        reject H0 +0.132 °C/h ± 0.025; 6 points in 2 anchor groups (night/55/2250/100, steady2/50/1500/100)
-             Shapiro–Wilk without outliers |t*| > 3   0.982 0.3637                      normal residuals do not reject H0                               removed: night card 70 % / case 654 rpm / PL 100 (t = +4.8)
-              Jarque–Bera without outliers |t*| > 3   2.272 0.3211                      normal residuals do not reject H0                                                                                          
+    Durbin–Watson, along N within (case, PL) series   1.203 0.0082  no 1st-order autocorrelation along N        reject H0                                      exact p by Monte Carlo under H0 given the regressors
+                          Durbin–Watson, time order   2.026 0.2438  no 1st-order autocorrelation in time do not reject H0                                                                                          
+               Breusch–Godfrey LM, order 1, along N   4.083 0.0433      no autocorrelation up to order p        reject H0                                                                                          
+ Breusch–Godfrey LM, order 1, time (within session)   0.169 0.6809      no autocorrelation up to order p do not reject H0                                                                                          
+               Breusch–Godfrey LM, order 2, along N   6.123 0.0468      no autocorrelation up to order p        reject H0                                                                                          
+ Breusch–Godfrey LM, order 2, time (within session)   1.237 0.5387      no autocorrelation up to order p do not reject H0                                                                                          
+                                         corr(e, N)  -0.016 0.8859                                 ρ = 0 do not reject H0                                                                                          
+                                         corr(e, C)  -0.010 0.9332                                 ρ = 0 do not reject H0                                                                                          
+                                         corr(e, P)   0.000 1.0000                                 ρ = 0 do not reject H0                                                                                          
+                                    corr(e, fitted)   0.000 1.0000                                 ρ = 0 do not reject H0                                                                                          
+                                       corr(e, Tin)   0.002 0.9881                                 ρ = 0 do not reject H0                                                                                          
+                                      corr(e, time)   0.003 0.9800                                 ρ = 0 do not reject H0                                                                                          
+              Breusch–Pagan (Koenker) on N, ln C, P  10.094 0.0178                         homoscedastic        reject H0                                                                                          
+            White (levels, squares, cross-products)  37.601 0.0000                         homoscedastic        reject H0                                                                                          
+                              White special (ŷ, ŷ²)   1.973 0.3729                         homoscedastic do not reject H0                                                                                          
+                                       Shapiro–Wilk   0.955 0.0074                      normal residuals        reject H0                                                                                          
+                                        Jarque–Bera  27.837 0.0000                      normal residuals        reject H0                                                             skewness +0.61, kurtosis 5.64
+                                 Ramsey RESET (ŷ^2)   1.073 0.3040              functional form adequate do not reject H0                                                                                          
+                               Ramsey RESET (ŷ^2,3)   2.435 0.0954              functional form adequate do not reject H0                                                                                          
+         Lack-of-fit F (pure error from replicates)   3.896 0.0028              functional form adequate        reject H0                                                15 replicate d.o.f., pure-error SD 0.19 °C
+Parametric vs natural-spline benchmark (F, approx.) -31.134 1.0000 parametric form not worse than spline do not reject H0                                                                                          
+                     Session effect = 0 (Wald, HC3)  75.083 0.0000                     no session effect        reject H0                                                                                          
+    Box–Cox λ (transform-both-sides), LR test λ = 1   1.933 0.1645                  λ = 1 (no transform) do not reject H0                            λ̂ = 1.75, 95 % CI [0.70, 2.85]; LR for λ = 0 (log): p = 0.002
+ Within-session drift from repeated anchors (slope)   0.132 0.0130                              no drift        reject H0 +0.132 °C/h ± 0.025; 6 points in 2 anchor groups (night/55/2250/100, steady2/50/1500/100)
+             Shapiro–Wilk without outliers |t*| > 3   0.982 0.3547                      normal residuals do not reject H0                               removed: night card 70 % / case 654 rpm / PL 100 (t = +4.9)
+              Jarque–Bera without outliers |t*| > 3   0.956 0.6199                      normal residuals do not reject H0                                                                                          
 
 Przyczyny niskiego DW:
                                                variant  rmse  DW_series  DW_distinctN  p_MC
-                      NVML table, whole °C (quantised) 0.426      1.051         0.962   NaN
-                      NVAPI 0.01 °C, mean of last 60 s 0.359      1.076         1.080   NaN
-NVAPI 0.01 °C, extrapolated to T∞ (settling-corrected) 0.318      1.160         1.294   NaN
-                     + power curvature P^β (β = 0.949) 0.315      1.199         1.321   NaN
-                                without session effect 0.675      0.444         0.720   NaN
-                   non-parametric benchmark: spline +S 1.381      1.343         2.150   NaN
-                   non-parametric benchmark: tensor +S 0.215      1.443         1.540   NaN
-                  tensor spline R(N, C) + P² + session 0.212      1.540         1.618 0.121
-    chosen model, replicate points at equal N averaged 0.318      1.160         1.294   NaN
+                      NVML table, whole °C (quantised) 0.427      1.119         1.088   NaN
+                      NVAPI 0.01 °C, mean of last 60 s 0.361      1.125         1.157   NaN
+NVAPI 0.01 °C, extrapolated to T∞ (settling-corrected) 0.321      1.203         1.346   NaN
+                     + power curvature P^β (β = 0.946) 0.318      1.239         1.364   NaN
+                                without session effect 0.665      0.455         0.723   NaN
+                   non-parametric benchmark: spline +S 1.351      1.356         2.178   NaN
+                   non-parametric benchmark: tensor +S 0.218      1.521         1.640   NaN
+                  tensor spline R(N, C) + P² + session 0.214      1.608         1.700 0.133
+    chosen model, replicate points at equal N averaged 0.321      1.203         1.346   NaN
 
-FGLS Prais–Winsten: ρ = 0.33, DW po transformacji 1.41, parametry {'θ0': (1.957690079466187, 0.3619157884254912), 'r∞': (52.5077612366404, 1.709465979157435), 'gN': (8.299678853192027, 0.6525486148753933), 'm': (2.0488970143799894, 0.14694118748976912), 'gC': (5.3193836710363325, 1.0042931345027397), 's': (1.0666425997643194, 0.1385289959590727), 'θ[afternoon]': (-0.08939183277637433, 0.2317136305670043), 'θ[night]': (2.0606878894008647, 0.16658058143915516), 'θ[val1]': (-0.23346609925712192, 0.09669658123708288), 'θ[val2]': (-0.13147038094625937, 0.12174055229570807)}
-Różnice pierwsze (26 par): {'gN': (8.138588601825253, 0.19256370684009858), 'm': (2.1158519704617014, 0.07028513028910087)} vs poziomy {'r∞': 53.21320932623348, 'gN': 8.173278574694281, 'm': 2.138384225068779, 'gC': 5.5887860093437896, 's': 1.0613002313250188}; RMSE różnic 0.343 (model z poziomów 0.344)
-Elastyczności log-log (w średniej): {'P': 0.956058443653568, 'N': -0.5978429996506202, 'C': -0.09605926242060853}
+FGLS Prais–Winsten: ρ = 0.30, DW po transformacji 1.42, parametry {'θ0': (1.9408986703591395, 0.36069492497659383), 'r∞': (53.45941091453896, 1.617002760828297), 'gN': (8.281944845080602, 0.6660913371766405), 'm': (2.1112405682887627, 0.14864276546064487), 'gC': (5.467182053456559, 1.0273355108826765), 's': (1.078308697960379, 0.1399126756051756), 'θ[afternoon]': (-0.11271466248327108, 0.2401212114588356), 'θ[night]': (2.059770031276172, 0.16928595274828606), 'θ[pl90]': (0.70953735721551, 0.24420807813385476), 'θ[val1]': (-0.22261151788117348, 0.09946623320437797), 'θ[val2]': (-0.1414516931486262, 0.1256537814530221)}
+Różnice pierwsze (29 par): {'gN': (8.189714885043271, 0.18382046572883534), 'm': (2.1801593198344196, 0.07149379955876044)} vs poziomy {'r∞': 53.94505009691797, 'gN': 8.158514715025246, 'm': 2.1871209468587676, 'gC': 5.692774054767573, 's': 1.0726876268107732}; RMSE różnic 0.356 (model z poziomów 0.356)
+Elastyczności log-log (w średniej): {'P': 0.9579968199818154, 'N': -0.5910537267986274, 'C': -0.09140651479725663}
 zapisano: results-2026-10-22/steady-diagnostics.png results-2026-10-22/steady-two-ways.png results-2026-10-22/steady-stats.json
