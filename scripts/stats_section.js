@@ -38,7 +38,9 @@ const testNames=[['Mean of residuals (t-test)','Mean residual is zero'],['Durbin
 const fstat=t=>{const v=t.stat; if(t.test.startsWith('corr')) return `r = ${f(v)}`; if(t.test.startsWith('Mean')) return `${f(v,3)}&nbsp;&deg;C`;
   if(t.test.startsWith('Within-session')) return `${v>=0?'+':'&minus;'}${Math.abs(v).toFixed(3)}&nbsp;&deg;C/h`; if(t.test.startsWith('Shapiro')) return `W = ${v.toFixed(3)}`;
   if(t.test.startsWith('Box')) return `&lambda;&#770; = ${J.boxcox.lam.toFixed(2)}`; return v.toFixed(2);};
-const trows=testNames.filter(([k])=>T[k]).map(([k,n])=>`<tr><td>${n}</td><td>${fstat(T[k])}</td><td>${fp(T[k].p)}</td><td>${vtxt(T[k])}</td></tr>`).join('');
+const CT=(...n)=>n.map(i=>`<a class="cite" href="#s${i}">[${i}]</a>`).join(' ');
+const TREF=k=>k.startsWith('Mean')?CT(16):k.startsWith('Durbin')?CT(17,18,19,41):k.startsWith('Breusch–Godfrey')?CT(20,21,41):k.startsWith('corr')?CT(40):k.startsWith('Breusch–Pagan')?CT(22,23,52):k.startsWith('White special')?CT(24,25):k.startsWith('White')?CT(24,52):k.startsWith('Shapiro')?CT(26,27,53):k.startsWith('Jarque')?CT(28,29,52):k.startsWith('Ramsey')?CT(30,41):k.startsWith('Lack')?CT(31):k.startsWith('Session')?CT(39,24,32,33):k.startsWith('Box')?CT(34,35):k.startsWith('Within-session')?CT(31):'';
+const trows=testNames.filter(([k])=>T[k]).map(([k,n])=>`<tr><td>${n}</td><td>${fstat(T[k])}</td><td>${fp(T[k].p)}</td><td>${vtxt(T[k])}</td><td>${TREF(k)}</td></tr>`).join('');
 const dwN=T['Durbin–Watson, along N within (case, PL) series'], dwT=T['Durbin–Watson, time order'];
 const outlNote=(T['Shapiro–Wilk without outliers |t*| > 3']||{}).note||'';
 const om=outlNote.match(/(\w+) card (\d+) % \/ case (\d+) rpm \/ PL (\d+) \(t = ([+\-0-9.]+)\)/);
@@ -76,6 +78,29 @@ const pl90txt=p9.length?(()=>{const off=P['θ[pl90]']?P['θ[pl90]'].est:0; const
 const sec=`<!--stats:start-->
   <h2 id="stats">Statistical tests</h2>
   ${prov}<p>This section tests the steady-state model on settled points only. The data are ${J.n} points: ${ns}. For the points with a 1&nbsp;Hz log the core is read from the NVAPI sensor at 0.01&nbsp;&deg;C, and each point&rsquo;s final value ${i('T_\\infty')} comes from fitting ${i('T(t) = T_\\infty - A\\,e^{-t/\\tau}')} to its last minutes. The reference session, against which the others are offset, is ${J.ref}. Units are &deg;C throughout, thermal resistance in m&deg;C/W and conductance in W/&deg;C.</p>
+  <h3 id="stats-methods">Methods and terms</h3>
+  <p>Each method below is named where it is first used and described here once, in plain words, with its source.</p>
+  <div class="ar-tw"><table class="ar-tab ar-txt ar-wrap ar-gl"><thead><tr><th scope="col">Method</th><th scope="col">What it is and why we use it</th><th scope="col">References</th></tr></thead><tbody>${[
+['Nonlinear least squares, Levenberg&ndash;Marquardt','Finds the constants that minimise the sum of squared residuals of a model that is not linear in them; the algorithm blends gradient descent and Gauss&ndash;Newton steps, so it converges from rough starting values.',[45,46,11,53]],
+['Leave-one-out and k-fold cross-validation','Refits the model without one point (or one fifth of the points) and predicts what was left out; the prediction error, unlike the fit error, penalises a form that merely bends to the noise.',[12,42]],
+['Bayesian information criterion (BIC)','Fit quality minus a penalty that grows with the number of constants; among forms that fit about equally well it prefers the simpler one.',[43]],
+['Bootstrap intervals','Resamples the points with replacement many times and refits; the spread of the refitted constants gives an interval without assuming normal errors.',[44]],
+['Heteroscedasticity-consistent (HC3) standard errors','Standard errors that stay valid when the scatter of the residuals is not the same everywhere; HC3 corrects best for small samples.',[24,32,33]],
+['Cluster-robust standard errors','Standard errors that allow residuals within one session to be correlated; with only a few sessions they are themselves uncertain, hence &ldquo;indicative only&rdquo;.',[38]],
+['Studentised residual','A residual divided by its own estimated standard error; the external form estimates that error without the point itself, so outliers stand out on a common scale.',[36,37]],
+['t-test','Tests whether a mean, here that of the residuals, differs from zero, scaled by its standard error.',[16]],
+['Correlation test','Tests whether the residuals still vary linearly with an input; a significant correlation means the model misses that input.',[40]],
+['Durbin&ndash;Watson','Compares each residual with its neighbour in a chosen order; near 2 the residuals are independent, below 2 they run in streaks. Its exact p-value is found by Monte Carlo: residual vectors are simulated under the null hypothesis with the same regressors.',[17,18,19]],
+['Breusch&ndash;Godfrey','Regresses the residuals on their own previous values; more general than Durbin&ndash;Watson, and valid for several lags.',[20,21]],
+['Breusch&ndash;Pagan and White','Test whether the variance of the residuals depends on the inputs (Breusch&ndash;Pagan) or on any of their squares and products (White); Koenker&rsquo;s form does not assume normal errors.',[22,23,24,25]],
+['Shapiro&ndash;Wilk and Jarque&ndash;Bera','Test whether the residuals are normally distributed, from the ordered residuals and from their skewness and kurtosis; intervals and tests above lean on this.',[26,27,28,29]],
+['Ramsey RESET','Adds powers of the fitted values to the model; if they help, the form of the model is wrong.',[30]],
+['Lack-of-fit F test','Compares the misfit of the model with the scatter of repeated points, the pure error; a misfit larger than the pure error means the form, not the noise, is at fault.',[31]],
+['Wald test','Tests several constants at once, here the session offsets, from their estimates and covariance.',[39]],
+['Box&ndash;Cox transformation','Searches a family of power transforms of the response for the one that makes the errors most nearly normal and of constant variance; &lambda; = 1 means no transform. Applied to both sides, so the physical model is kept.',[34,35]],
+['First-difference and Prais&ndash;Winsten estimators','Remove a constant offset or a first-order correlation of the residuals before fitting; used here only to check that the constants do not move.',[47,41]],
+['Software','Tests from statsmodels and SciPy; the rest of our own code, on the same definitions.',[52,53]]
+].map(([a,b,r])=>`<tr><td>${a}</td><td>${b}</td><td>${CT(...r)}</td></tr>`).join('')}</tbody></table></div>
   <h3 id="stats-model">The model</h3>
   ${eq}
   <p>${i('\\theta_j')} is an offset for each measuring session ${i('j')}, zero for the reference session. The heatsink passes heat to the air along two paths in parallel, one driven by the card&rsquo;s fans and one by the case airflow; their conductances add. That is why the case fans matter when the GPU fans are slow and hardly at all when they are fast. ${i('r_\\infty')} is the resistance that no airflow removes. The constants are estimated by nonlinear least squares (Levenberg&ndash;Marquardt).</p>
@@ -102,11 +127,11 @@ const sec=`<!--stats:start-->
   <h3 id="stats-tests">The tests</h3>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st ar-tests">
-    <thead><tr><th scope="col">Test</th><th scope="col">Statistic</th><th scope="col">p</th><th scope="col">Verdict on the null</th></tr></thead>
+    <thead><tr><th scope="col">Test</th><th scope="col">Statistic</th><th scope="col">p</th><th scope="col">Verdict on the null</th><th scope="col">References</th></tr></thead>
     <tbody>${trows}</tbody>
   </table>
   </div>
-  <p class="ar-note">Durbin&ndash;Watson p-values are exact, by Monte Carlo under the null given the regressors.${om?` The largest outlier is a ${om[1]==='night'?'first-run night-grid':om[1]} point at GPU fans ${om[2]}&nbsp;%, case fans ${om[3]}&nbsp;rpm and power limit ${om[4]}&nbsp;%, with a studentised residual of ${om[5].replace('-','&minus;')}.`:''}</p>
+  <p class="ar-note">References: the original paper first, then the source whose form of the test or whose software we followed; tests on the nonlinear model use its linearisation at the fitted constants, the Gauss&ndash;Newton regression [41]. The drift test is a straight-line regression of the repeated anchor points on time within each session [31]. Durbin&ndash;Watson p-values are exact, by Monte Carlo under the null given the regressors.${om?` The largest outlier is a ${om[1]==='night'?'first-run night-grid':om[1]} point at GPU fans ${om[2]}&nbsp;%, case fans ${om[3]}&nbsp;rpm and power limit ${om[4]}&nbsp;%, with an externally studentised residual of ${om[5].replace('-','&minus;')}: the residual divided by its standard error estimated with that point left out, so that the point cannot hide itself.`:''}</p>
   <p>The residuals average zero and do not correlate with any input, with the fitted value or with time. In time order they show no autocorrelation (Durbin&ndash;Watson ${dwT.stat.toFixed(2)}), and ${driftTxt}. ${normTxt}; ${varTxt}. The session offsets are real: ${i('\\chi^2')} = ${T['Session effect = 0 (Wald, HC3)'].stat.toFixed(1)}, p ${fp(T['Session effect = 0 (Wald, HC3)'].p)}.</p>
   <h3 id="stats-open">An open item: the residuals run along the GPU fans</h3>
   <p>Within each series the residuals change sign slowly as the GPU fans speed up: Durbin&ndash;Watson along the fan axis is ${dwN.stat.toFixed(2)}, p ${fp(dwN.p)}, and the lack-of-fit test against the pure error of repeated points${pe?` (${pedf} degrees of freedom, standard deviation ${pe}&nbsp;&deg;C)`:''} ${rej('Lack-of-fit F (pure error from replicates)')?'rejects':'does not reject'} the form, p ${fp(lof.p)}.${reset?` The Ramsey RESET test now rejects it as well.`:''} We tested three causes.</p>
