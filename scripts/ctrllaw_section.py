@@ -21,9 +21,36 @@ def pt(m):
     return f'{m.capitalize()} {x["dBA"]:.1f}&nbsp;dBA with the core at {x["core"]:.1f}&nbsp;&deg;C (GPU fans {x["gpu_pct"]:.0f}&nbsp;%, case fans {x["case_rpm"]:.0f}&nbsp;rpm)'
 shot_html = ("".join(f'<img src="/research/img/gpu-panel-{p.name}" alt="WS.Sensor graphics-card cooling panel" loading="lazy" style="width:100%;height:auto;margin:6px 0">' for p in shots)
              or '<p class="ar-ph-txt">Screenshot follows.</p>')
+
+SJ = json.load(open(G / "results-2026-10-22/steady-stats.json")); MJ = json.load(open(G / "results-2026-10-23/mem-model.json"))
+CP = {p["param"]: p for p in SJ["params"]}; MP = MJ["params"]
+c_ = lambda k, d: f'{CP[k]["est"]:.{d}f}'; m_ = lambda k, d: f'{MP[k][0]:.{d}f}'
+RT = [r"$$\hat T_{\mathrm{core}}=T_{\mathrm{in}}+" + c_("θ0", 2) + r"+P\Big[" + f'{CP["r∞"]["est"]/1000:.4f}' + r"+\frac{1}{" + c_("gN", 2) + r"\,(N/1000)^{" + c_("m", 2) + r"}+" + c_("gC", 2) + r"\,(C/1500)^{" + c_("s", 2) + r"}}\Big]\tag{R1}",
+      r"$$\hat T_{\mathrm{mem}}=T_{\mathrm{in}}+" + m_("θ0m", 2) + r"+P\Big[" + f'{MP["r∞"][0]/1000:.4f}' + r"+\frac{1}{" + m_("gN", 2) + r"\,(N/1000)^{" + m_("m", 2) + r"}+" + m_("gC", 2) + r"\,(C/1500)^{" + m_("s", 2) + r"}}\Big]\tag{R2}",
+      r"$$L=10\log_{10}\!\Big(10^{\,[32.5+50\log_{10}(N/1570)]/10}+7\cdot10^{\,[-167.1+60.2\log_{10}C]/10}\Big)\tag{R3}"]
+HR = json.loads(subprocess.run(["node", str(Path(__file__).parent / "tex.js")], input=json.dumps(RT), capture_output=True, text=True, check=True).stdout)
+UN = {"θ0": "&deg;C", "r∞": "m&deg;C/W", "gN": "W/&deg;C", "m": "&mdash;", "gC": "W/&deg;C", "s": "&mdash;"}
+SY = {"θ0": "&theta;<sub>0</sub>", "r∞": "r<sub>&infin;</sub>", "gN": "g<sub>N</sub>", "m": "m", "gC": "g<sub>C</sub>", "s": "s"}
+MK = {"θ0": "θ0m"}
+prow = "".join(f'<tr><td>{SY[k]}</td><td>{UN[k]}</td><td class="g">{CP[k]["est"]:.{2 if k != "r∞" else 1}f}</td><td>{CP[k]["ci95_HC3"][0]:.{2 if k != "r∞" else 1}f}</td><td>{CP[k]["ci95_HC3"][1]:.{2 if k != "r∞" else 1}f}</td>'
+               f'<td class="g">{MP[MK.get(k, k)][0]:.{2 if k != "r∞" else 1}f}</td><td>{MP[MK.get(k, k)][1]:.{2 if k != "r∞" else 1}f}</td></tr>' for k in ("θ0", "r∞", "gN", "m", "gC", "s"))
+MAIN = f"""  <div class="ar-main" id="main-result">
+  <p class="ar-main-h"><b>Main result.</b> The control law rests on three estimated equations: (R1) core temperature, (R2) memory temperature and (R3) fan noise, with N the GPU fan speed and C the case and radiator fan speed in rpm, P the board power in W and T<sub>in</sub> the intake air in &deg;C.</p>
+  {HR[0]}{HR[1]}{HR[2]}
+  </div>
+  <p class="ar-tcap"><b>Estimated parameters of the three equations.</b> Core (R1): model (11), {SJ["n"]} settled points from six sessions, nonlinear least squares with session offsets, 95&nbsp;% intervals heteroscedasticity-consistent (HC3). Memory (R2): the memory model, {MJ["n"]} settled points, standard errors classical. Offsets are those of the reference session, steady2.</p>
+  <div class="ar-tw">
+  <table class="ar-tab ar-num ar-st ar-ms ar-params">
+    <thead><tr><th scope="col" rowspan="2">Parameter</th><th scope="col" rowspan="2">Unit</th><th scope="colgroup" colspan="3">Core (R1)</th><th scope="colgroup" colspan="2">Memory (R2)</th></tr><tr><th scope="col" class="g">estimate</th><th scope="col">95&nbsp;% CI, lower</th><th scope="col">95&nbsp;% CI, upper</th><th scope="col" class="g">estimate</th><th scope="col">SE</th></tr></thead>
+    <tbody>{prow}</tbody>
+  </table>
+  </div>
+  <p class="ar-note">Noise (R3) has no estimated parameters of its own: 32.5&nbsp;dBA at 1570&nbsp;rpm for the card&rsquo;s fans at 1&nbsp;m (GamersNexus) scaled by the fan law 50&nbsp;log<sub>10</sub> of the speed ratio; a = &minus;167.1 and b = 60.2&nbsp;dB per decade of speed for one Silent Wings Pro 4 120 at 1&nbsp;m, a least-squares fit to Hardware Busters&rsquo; measurements; seven case and radiator fans summed on an energy basis (<a href="#noise-model">Section 2.5.4</a>, <a href="#appendix-e">Appendix E</a>). &theta;<sub>0</sub>: offset independent of power; r<sub>&infin;</sub>: resistance no airflow removes; g<sub>N</sub>, g<sub>C</sub>: conductances of the GPU-fan and case-fan paths at N = 1000 and C = 1500&nbsp;rpm; m, s: their exponents (dimensionless).</p>
+"""
 sec = f"""<!--ctrllaw:start-->
   <h3 id="control-law">The derived control law</h3>
   <p>The measurements, the models and the tests lead to one control law, which WS.Sensor implements. For the power P the card draws and the intake air T<sub>in</sub>, the core and memory temperatures at GPU fan speed N and case and radiator fan speed C (rpm) are predicted by equation (11) and the memory model:</p>
+{MAIN}
   {H[0]}{H[1]}
   <p>The noise of all fans at 1&nbsp;m follows from the literature-based fits, summed on an energy basis as in equation (13):</p>
   {H[2]}
