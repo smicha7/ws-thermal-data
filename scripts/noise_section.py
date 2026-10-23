@@ -164,12 +164,12 @@ sec = f"""<!--noise:start-->
 {tw('ar-txt ar-wrap', H6, R6)}  <p class="ar-note">{D('gpu-map-noise-seb-scale.csv')}.</p>
   <p>The scale describes a whole computer at the desk well: several fans and radiators add 6 to 9&nbsp;dB to a single fan, and the listener sits 0.5 to 1&nbsp;m away. For one fan in a chamber it is about one class too strict. For 140&nbsp;mm fans each boundary moves down by about 10 to 20&nbsp;%, for example 1500 to about 1250 to 1350&nbsp;rpm, as both the 4.7&nbsp;dB rule and the data show: the Arctic P14 reaches 20&nbsp;dBA at 1206&nbsp;rpm, the P12 at 1559. The exception is the Silent Wings Pro 4 140, which sounds like the 120&nbsp;mm version at the same speed.</p>
   <h3 id="noise-ctl">What this means for the controller</h3>
-  <p>The noise ceilings of the controller&rsquo;s modes are at present speeds. On the scales above they fall as follows.</p>
+  <p>The current modes are defined directly by a noise budget, 30, 35 and 40&nbsp;dBA at 1&nbsp;m (<a href="#controller-modes">How it decides</a>). The first version set its ceilings as fan speeds; on the scales above they fall as follows.</p>
 {tw('ar-txt', ['Mode', 'GPU fan ceiling', 'GPU fans at 1&nbsp;m', 'Case fan ceiling', 'Case fans at 1&nbsp;m'],
    [["Quiet", "1800&nbsp;rpm (about 57&nbsp;%)", f"~{L1(1800):.0f}&nbsp;dBA, subdued*", "1200&nbsp;rpm", f"~{case1(1200)+6:.0f}&nbsp;dBA, a gentle hum"],
     ["Balanced", "2300&nbsp;rpm (about 75&nbsp;%)", f"~{L1(2300):.0f}&nbsp;dBA, loud", "1500&nbsp;rpm", f"~{case1(1500)+6:.0f}&nbsp;dBA, noticeable"],
     ["Performance", "100&nbsp;%", f"~{L1(3030):.0f}&nbsp;dBA, very loud", "full speed", f"~{case1(2920)+6:.0f}&nbsp;dBA, loud"]])}  <p class="ar-note">Estimated levels at 1&nbsp;m. Case fans: four Silent Wings Pro 4 120 together, 6&nbsp;dB above one fan (one fan ~{case1(1200):.0f}&nbsp;dBA at 1200&nbsp;rpm, ~{case1(1500):.0f}&nbsp;dBA at 1500&nbsp;rpm). *About 3&nbsp;dB above the factory curve in games.</p>
-  <p>The graphics card, not the case, sets the noise of this machine: at every ceiling the card&rsquo;s fans are estimated to be louder than the four case fans together, by about 11&nbsp;dB in Quiet and Balanced and 3&nbsp;dB at full speed. Once our own measurements exist, the ceilings will be set in decibels instead of revolutions per minute, and the controller&rsquo;s literature-based noise estimate will become a measured map.</p>
+  <p>The graphics card, not the case, sets the noise of this machine: at every ceiling the card&rsquo;s fans are estimated to be louder than the four case fans together, by about 11&nbsp;dB in Quiet and Balanced and 3&nbsp;dB at full speed. Once our own measurements exist, the controller&rsquo;s literature-based noise estimate will become a measured map.</p>
   <ol class="ar-src ar-src-t">{srcs}</ol>
 <!--noise:end-->"""
 a, b = s.find("<!--noise:start-->"), s.find("<!--noise:end-->")
