@@ -18,7 +18,7 @@ const tableN=pts.filter(p=>p.core_src==='table').length, tableS=[...new Set(pts.
 const i=t=>katex.renderToString(t,{throwOnError:true}), d=t=>katex.renderToString(t,{displayMode:true,throwOnError:true});
 const R=String.raw;
 const f=(x,n=2)=>{const t=Math.abs(x).toFixed(n); return (x<0&&+t!==0?'&minus;':'')+t;};
-const fp=p=>p<0.001?'&lt; 0.001':p.toFixed(p<0.01?3:2);
+const fp=p=>p<0.001?'&lt; 0.001':p.toFixed(3);
 const P={}; J.params.forEach(p=>P[p.param]=p);
 const sessName={val1:'val1 (21 October, evening)',val2:'val2 (21 to 22 October, night)',afternoon:'second run, afternoon (21 October)',night:'first-run night grid (20 to 21 October)',steady2:'steady2 (22 October)'};
 const ns=Object.entries(J.sessions).map(([k,v])=>`${sessName[k]||k}: ${v}`).join('; ');
@@ -27,8 +27,8 @@ const rej=k=>T[k]&&T[k].verdict.startsWith('reject');
 const sym={'θ0':i('\\theta_0'),'r∞':i('r_\\infty'),'gN':i('g_N'),'m':i('m'),'gC':i('g_C'),'s':i('s')};
 const unitH={'°C':'&deg;C','m°C/W':'m&deg;C/W','W/°C':'W/&deg;C','':''};
 const prow=p=>{const name=p.param.startsWith('θ[')?`${i('\\theta_j')}, ${sessName[p.param.slice(2,-1)]||p.param.slice(2,-1)} &minus; ${J.ref}`:sym[p.param];
-  return `<tr><td>${name}</td><td>${(unitH[p.unit]??p.unit)||'&mdash;'}</td><td>${f(p.est)}</td><td>${p.se_classic.toFixed(2)}</td><td>${p.se_HC3.toFixed(2)}</td><td>${p.se_cluster.toFixed(2)}</td><td>${p.se_cluster_series.toFixed(2)}</td><td>${f(p.ci95_HC3[0])} to ${f(p.ci95_HC3[1])}</td></tr>`;};
-const formName={pow:'power, k N<sup>&minus;m</sup> C<sup>&minus;q</sup>',exp:'exponential in N',rat:'rational in N',cond:'<b>two parallel conductances (chosen)</b>',flow:'effective airflow, k (N + bC)<sup>&minus;m</sup>','R-resp cond':'per-watt response, same form','log-log':'log-log with interactions',spline:'natural cubic spline in ln N',tensor:'tensor spline surface (benchmark)'};
+  return `<tr><td>${name}</td><td>${(unitH[p.unit]??p.unit)||'&mdash;'}</td><td>${f(p.est)}</td><td>${p.se_classic.toFixed(2)}</td><td>${p.se_HC3.toFixed(2)}</td><td>${p.se_cluster.toFixed(2)}</td><td>${p.se_cluster_series.toFixed(2)}</td><td class="g">${f(p.ci95_HC3[0])}</td><td>${f(p.ci95_HC3[1])}</td></tr>`;};
+const formName={pow:'power, k N<sup>&minus;m</sup> C<sup>&minus;q</sup>',exp:'exponential in N',rat:'rational in N',cond:'two parallel conductances (chosen)',flow:'effective airflow, k (N + bC)<sup>&minus;m</sup>','R-resp cond':'per-watt response, same form','log-log':'log-log with interactions',spline:'natural cubic spline in ln N',tensor:'tensor spline surface (benchmark)'};
 const crow=r=>{const base=r.model.replace(' +S','');return `<tr><td>${formName[base]||base}</td><td>${r.k}</td><td>${r.rmse.toFixed(2)}</td><td>${r.LOO.toFixed(2)}</td><td>${r.CV5.toFixed(2)}</td><td>${(r.LOSO??NaN).toFixed(2)}</td><td>${r.BIC.toFixed(1)}</td><td>${r.DWser.toFixed(2)}</td></tr>`;};
 const withS=J.compare.filter(r=>r.model.endsWith('+S')); const without=J.compare.filter(r=>!r.model.endsWith('+S')&&r.model!=='tensor'&&r.model!=='spline');
 const rmseNoS=[Math.min(...without.map(r=>r.rmse)),Math.max(...without.map(r=>r.rmse))];
@@ -107,10 +107,11 @@ const sec=`<!--stats:start-->
   <p>Equation (11) replaces the static fit (9) for settled points. Its exponent ${i('m')} = ${P['m'].est.toFixed(2)} is far above the 0.5 to 0.8 that convection alone would give (section <a href="#model">A model of the cooler</a>): here the conductance also carries the fan&rsquo;s own airflow curve, so ${i('m')} is an empirical constant.${P['gC'].ci95_HC3[0]<0?` The case-fan path ${i('g_C')} is the least certain constant; its interval includes zero.`:''}</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
-    <thead><tr><th scope="col">Constant</th><th scope="col">Unit</th><th scope="col">Estimate</th><th scope="col">SE</th><th scope="col">SE HC3</th><th scope="col">SE cluster, session</th><th scope="col">SE cluster, series</th><th scope="col">95&nbsp;% interval, HC3</th></tr></thead>
+    <thead><tr><th scope="col" rowspan="2">Constant</th><th scope="col" rowspan="2">Unit</th><th scope="col" rowspan="2">Estimate</th><th scope="colgroup" colspan="4">Standard error, in the unit of the constant</th><th scope="colgroup" colspan="2">95&nbsp;% interval (HC3)</th></tr><tr><th scope="col">classical</th><th scope="col">HC3</th><th scope="col">cluster by session</th><th scope="col">cluster by series</th><th scope="col" class="g">lower</th><th scope="col">upper</th></tr></thead>
     <tbody>${J.params.map(prow).join('')}</tbody>
   </table>
   </div>
+  <p class="ar-note">Constants of equation (11): &theta;<sub>0</sub>, the temperature offset that does not depend on power; r<sub>&infin;</sub>, the thermal resistance no airflow removes; g<sub>N</sub> and g<sub>C</sub>, the conductance of the GPU-fan and case-fan paths at 1000 and 1500&nbsp;rpm; m and s, the exponents that say how fast each conductance grows with fan speed (dimensionless); &theta;<sub>j</sub>, the offset of session j against the reference session ${J.ref}. Sessions: steady2, dense grid of 22 October (reference); pl90, power limit 90&nbsp;% gap fill, 23 October; val1 and val2, validation series of 21 October (evening and night); night, the first-run night grid, 20&ndash;21 October; run2, the second run, 21 October. N and C are the GPU and case fan speeds in rpm (f<sub>g</sub>, f<sub>c</sub> in Table 1).</p>
   <p>The fit has an RMSE of ${chosen.rmse.toFixed(2)}&nbsp;&deg;C. Refitted with each point left out in turn, it predicts that point with an RMSE of ${chosen.LOO.toFixed(2)}&nbsp;&deg;C (leave-one-out); five-fold cross-validation gives ${chosen.CV5.toFixed(2)}&nbsp;&deg;C. ${heteroTxt} Cluster-robust errors by session rest on only ${nS} clusters and are indicative only.</p>
   <p>Figures 9 and 10, in the section on the second run, show the settled points with equation (11) along each fan axis, with their residuals.</p>
   <h3 id="stats-forms">Forms and transforms we tried</h3>
@@ -121,7 +122,7 @@ const sec=`<!--stats:start-->
     <tbody>${withS.map(crow).join('')}</tbody>
   </table>
   </div>
-  <p class="ar-note">RMSE and cross-validation errors in &deg;C. BIC on the scale of ${i('T - T_\\text{in}')}, with the Jacobian term for transformed responses.</p>
+  <p class="ar-note">N, C: GPU and case fan speed, rpm; k, m, q, b: fitted constants of each form. The chosen form is marked in its name; the per-watt form has a lower BIC but the same prediction errors and one more assumption (a response proportional to power), so the simpler two-conductance form was kept. BIC on the scale of ${i('T - T_\\text{in}')}, with the Jacobian term for transformed responses.</p>
   <p>The tensor spline fits the points most closely but predicts new ones worse (leave-one-out ${tensCmp.LOO.toFixed(2)}&nbsp;&deg;C), so it serves as a benchmark, not a model. Among the parametric forms, two conductances in parallel predict best.${s2} We also tried transforming the response. The Box&ndash;Cox profile, transforming both sides, gives ${i('\\hat\\lambda')} = ${J.boxcox.lam.toFixed(2)} with a 95&nbsp;% interval from ${f(J.boxcox.ci[0])} to ${f(J.boxcox.ci[1])}, which ${J.boxcox.ci[0]<=1&&J.boxcox.ci[1]>=1?'includes 1, no transform':'excludes 1'}${J.boxcox.ci[0]>0?' and excludes 0, the logarithm':''}. Modelling the per-watt rise ${i('R = (T - T_\\text{in})/P')} instead is the same mean with weights proportional to ${i('1/P^2')} and gives nearly the same constants. A log-log regression gives elasticities at the mean of ${el.P.toFixed(2)} for power, ${f(el.N)} for the GPU fans and ${f(el.C)} for the case fans: the rise is almost proportional to power.${betaV?` A power curvature ${i('P^{\\beta}')} gives ${i('\\beta')} = ${betaV} and only a small gain (RMSE ${beta.rmse.toFixed(2)}&nbsp;&deg;C).`:''}</p>
   <p>A first-difference estimator along the GPU fans, within each series of fixed session, case speed and power limit, removes ${i('\\theta_0')} and the session offsets altogether. On ${fd.n_pairs} pairs it gives ${i('g_N')} = ${fd.params.gN[0].toFixed(1)} &plusmn; ${fd.params.gN[1].toFixed(1)}&nbsp;W/&deg;C and ${i('m')} = ${fd.params.m[0].toFixed(2)} &plusmn; ${fd.params.m[1].toFixed(2)}, against ${P['gN'].est.toFixed(1)}&nbsp;W/&deg;C and ${P['m'].est.toFixed(2)} from the fit on levels.</p>
   <h3 id="stats-tests">The tests</h3>

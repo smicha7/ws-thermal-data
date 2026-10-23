@@ -13,7 +13,7 @@ def pltab(pl):
         body += f'<tr><td>{g}</td><td>{lab(c).replace(" (full speed)", "")}{"<sup>a</sup>" if c in (2920, 3000) else ""}</td><td>{q.core_settled.mean():.1f}</td><td>{q.fitted.mean():.1f}</td><td>{len(q)}</td></tr>'
     w = round(575 * pl / 100)
     return (f'<h4 class="ar-h4">Power limit {pl}&nbsp;% ({w}&nbsp;W): {len(d)} settled points</h4>\n'
-            f'  <div class="ar-tw"><table class="ar-tab ar-num ar-old"><thead><tr><th scope="col">GPU fans, %</th><th scope="col">Case fans, rpm</th><th scope="col">Core measured, &deg;C</th><th scope="col">Core model (11), &deg;C</th><th scope="col">Points averaged</th></tr></thead><tbody>{body}</tbody></table></div>\n')
+            f'  <div class="ar-tw"><table class="ar-tab ar-num ar-old"><thead><tr><th scope="col">GPU fans, %</th><th scope="col">Case fans, rpm</th><th scope="col">Core, measured, &deg;C</th><th scope="col">Core, predicted by model, &deg;C</th><th scope="col">Settled measurements averaged, n</th></tr></thead><tbody>{body}</tbody></table></div>\n')
 tabs = "".join(pltab(p) for p in (100, 90, 80, 70))
 P = MM["params"]; nm = {"θ0m": "&theta;<sub>0,mem</sub>", "r∞": "r<sub>&infin;</sub>", "gN": "g<sub>N</sub>", "m": "m", "gC": "g<sub>C</sub>", "s": "s"}
 un = {"θ0m": "&deg;C", "r∞": "m&deg;C/W", "gN": "W/&deg;C", "gC": "W/&deg;C", "m": "", "s": ""}
@@ -21,18 +21,18 @@ mrows = "".join(f"<tr><td>{nm.get(k, k)}</td><td>{un.get(k,'&deg;C') or '&mdash;
 off = "; ".join(f"{k[2:-1]} {v[0]:+.2f}&nbsp;&deg;C".replace("+-", "&minus;").replace("-", "&minus;") for k, v in P.items() if k.startswith("θ["))
 # 112-point comparison, computed from the data by compare_tables.py
 CMP = json.load(open(G + "results-2026-10-23/compare-112.json"))
-f1 = lambda v, d=1: "&mdash;" if v is None else f"{v:.{d}f}"
+f1 = lambda v, d=1: "&mdash;" if v is None else f"{v:.{d}f}&nbsp;&deg;C"
 cmp = ""
 for blk in CMP:
-    trs = "".join(f"<tr><td>{r['gpu']}</td><td>{r['rpm']}</td><td class='g'>{f1(r['c60'])}</td><td>{f1(r['cs'])}</td><td>{r['cm']:.1f}</td><td class='g'>{f1(r['m60'],0)}</td><td>{f1(r['ms'],0)}</td><td>{r['mmod']:.1f}</td></tr>" for r in blk["rows"])
+    trs = "".join(f"<tr><td>{r['gpu']}</td><td>{r['rpm']}</td><td class='g'>{f1(r['c60'])}</td><td>{f1(r['cs'])}</td><td>{r['cm']:.1f}&nbsp;&deg;C</td><td class='g'>{f1(r['m60'],0)}</td><td>{f1(r['ms'],0)}</td><td>{r['mmod']:.1f}&nbsp;&deg;C</td></tr>" for r in blk["rows"])
     cmp += (f'<h4 class="ar-h4">Case fans {lab(blk["case"]).replace(" (full", "&nbsp;rpm (full") if blk["case"] in (2920, 3000) else lab(blk["case"]) + "&nbsp;rpm"}, power limit {blk["pl"]}&nbsp;% ({blk["w"]}&nbsp;W)</h4>\n'
-            f'<div class="ar-tw"><table class="ar-tab ar-num ar-cmp ar-ms"><thead><tr><th scope="col" rowspan="2">GPU fans, %</th><th scope="col" rowspan="2">GPU fans, rpm</th><th scope="colgroup" colspan="3">Core, &deg;C</th><th scope="colgroup" colspan="3">Memory, &deg;C</th></tr><tr><th scope="col" class="g">after 60&nbsp;s</th><th scope="col">settled (&ge;&nbsp;5&nbsp;min)</th><th scope="col">model (eq. 11)</th><th scope="col" class="g">after 60&nbsp;s</th><th scope="col">settled</th><th scope="col">model</th></tr></thead><tbody>{trs}</tbody></table></div>\n')
+            f'<div class="ar-tw"><table class="ar-tab ar-num ar-cmp ar-ms"><thead><tr><th scope="col" rowspan="2">GPU fans, %</th><th scope="col" rowspan="2">GPU fans, rpm</th><th scope="colgroup" colspan="3">Core temperature</th><th scope="colgroup" colspan="3">Memory temperature</th></tr><tr><th scope="col" class="g">after 60&nbsp;s</th><th scope="col">settled (&ge;&nbsp;5&nbsp;min)</th><th scope="col">model (eq. 11)</th><th scope="col" class="g">after 60&nbsp;s, whole &deg;C</th><th scope="col">settled, whole &deg;C</th><th scope="col">model</th></tr></thead><tbody>{trs}</tbody></table></div>\n')
 blocks = CMP
 nblk = len(blocks)
 sec = f"""<!--datatables:start-->
   <h3 id="stats-data">Earlier sessions (21&ndash;22 October)</h3>
   <p>The settled core points of the sessions before steady3, against the value equation (11) gives for them; these are the points the model was fitted to.</p>
-{tabs}  <p class="ar-note">One row per setting that was measured. Core measured: the settled core temperature; where a setting was measured more than once, the mean, with the number of points in the last column. Core model: equation (11) with the offset of the session in which the point was measured, so the two differ only by the residual. Case fans set to 2250&nbsp;rpm are counted with 2240&nbsp;rpm. <sup>a</sup> 2920&nbsp;rpm: full speed, whether set as full speed or as 3000&nbsp;rpm. Points: {J['n']} settled values from the sessions listed under <a href="#stats">Statistical tests</a>. <a href="/research/data/gpu-map-steady-residuals.csv">Data (CSV)</a>.</p>
+{tabs}  <p class="ar-note">One row per setting that was measured. Core measured: the settled core temperature; where a setting was measured more than once, the mean; the last column gives how many settled measurements of this setting were averaged. Core, predicted by model: equation (11) (<a href="#stats-model">The model</a>) with the offset of the session in which the point was measured, so the two differ only by the residual. Case fans set to 2250&nbsp;rpm are counted with 2240&nbsp;rpm. <sup>a</sup> 2920&nbsp;rpm: full speed, whether set as full speed or as 3000&nbsp;rpm. Points: {J['n']} settled values from the sessions listed under <a href="#stats">Statistical tests</a>. <a href="/research/data/gpu-map-steady-residuals.csv">Data (CSV)</a>.</p>
   <h3 id="stats-mem">The memory: a first model</h3>
   <p class="ar-status"><b>Provisional.</b> The memory is read in whole degrees and was fitted once, on fewer points than the core.</p>
   <p>The same two-path form fits the settled memory temperatures of {', '.join(list(MM['sessions'])[:-1])} and {list(MM['sessions'])[-1]}, {MM['n']} points, with an offset per session: RMSE {MM['rmse']:.2f}&nbsp;&deg;C, leave-one-out {MM['loo']:.2f}&nbsp;&deg;C. Most of that is the rounding of the reading itself, whose standard deviation alone is about 0.29&nbsp;&deg;C.</p>
@@ -42,7 +42,7 @@ sec = f"""<!--datatables:start-->
     <tbody>{mrows}</tbody>
   </table>
   </div>
-  <p class="ar-note">Session offsets against {MM['ref']}: {off}. Standard errors are classical; with whole-degree readings they are indicative only. <a href="/research/data/gpu-map-steady-memory.csv">Data (CSV)</a>.</p>
+  <p class="ar-note">Same form as equation (11), for the memory: &theta;<sub>0,mem</sub>, the temperature offset that does not depend on power; r<sub>&infin;</sub>, the resistance no airflow removes; g<sub>N</sub>, g<sub>C</sub>, the conductance of the GPU-fan and case-fan paths; m, s, their exponents (dimensionless, &mdash; in the Unit column). Session offsets against {MM['ref']}: {off}. Standard errors are classical; with whole-degree readings they are indicative only. <a href="/research/data/gpu-map-steady-memory.csv">Data (CSV)</a>.</p>
   <p>The striking constant is the offset, {P['θ0m'][0]:.0f}&nbsp;&deg;C against about 2&nbsp;&deg;C for the core. The memory carries heat of its own that hardly changes with the board power: the load keeps the memory equally busy at every power limit, so cutting the limit removes little of the memory&rsquo;s heat. That is the same fact, seen from the model&rsquo;s side, as the widening gap between memory and core at low power limits in <a href="#memlimit">Memory temperature</a>.</p>
   <h3 id="stats-112">All 112 points of the second run</h3>
   <p>For every setting of the second run, the readings after 60 seconds, the settled values and the model, side by side.</p>

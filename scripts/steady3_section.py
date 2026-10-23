@@ -7,19 +7,18 @@ rows=''
 for c,g in d.groupby('card'):
     i=g.dT.abs().idxmax(); r=d.loc[i]; pr=d.loc[i-1]
     where=(f"the change of GPU fans, {int(pr.card)} to {int(r.card)}&nbsp;%" if pr.card!=r.card else f"power limit {int(pr.pl)} to {int(r.pl)}&nbsp;% at case fans {int(r['case'])}&nbsp;rpm")
-    rows+=f"<tr><td>{c}&nbsp;%</td><td>{len(g)}</td><td>{g.h.sum():.2f}</td><td>{g.core.min():.0f} to {g.core.max():.0f}</td><td>{abs(r.dT):.1f}</td><td>{where}</td></tr>"
+    rows+=f"<tr><td>{c}</td><td>{g.h.sum():.2f}</td><td class='g'>{g.core.min():.0f}</td><td>{g.core.max():.0f}</td><td class='g'>{abs(r.dT):.1f}</td><td>{where}</td></tr>"
 tot=d.h.sum()
 L1=lambda n: 32.5+50*math.log10(n/1570)
 gpu=[(30,1020,'inaudible to super quiet'),(40,1312,'inaudible to super quiet'),(50,1595,'very quiet'),(60,1879,'moderate'),(70,2162,'loud'),(80,2446,'very loud'),(90,2729,'very loud'),(100,3013,'very loud')]
-grow=''.join(f"<tr><td>{g}&nbsp;%</td><td>{'~' if g==30 else ''}{n}</td><td>~{L1(n):.0f}</td><td>{c}</td></tr>" for g,n,c in gpu)
-case=[(800,'ultra-quiet; the radiator fans cannot go below about 880&nbsp;rpm'),(1000,'very quiet'),(1300,'quiet'),(1600,'balanced'),(1900,'loud'),(2400,'between loud and very loud; added to constrain the model between 1900 and 3000&nbsp;rpm'),(3000,'very loud; full speed, about 2920&nbsp;rpm')]
+grow=''.join(f"<tr><td>{g}</td><td>{n}</td><td>{L1(n):.0f}</td><td>{c}</td></tr>" for g,n,c in gpu)
+case=[(800,'ultra-quiet<sup>b</sup>'),(1000,'very quiet'),(1300,'quiet'),(1600,'balanced'),(1900,'loud'),(2400,'between loud and very loud<sup>c</sup>'),(3000,'very loud')]
 import math
 Lc1=lambda r: -167.1+60.2*math.log10(r)   # SW Pro 4 120 at 1 m, literature fit (noise_pareto.py)
 def db(r):
     r=min(r,2920); one=Lc1(r); seven=one+10*math.log10(7)
-    o=f"&lt;15 (~{one:.1f})" if one<15 else f"~{one:.1f}"
-    return o+("*" if r<1280 else ""), f"~{seven:.1f}"
-crow=''.join(f"<tr><td>{c}&nbsp;rpm</td><td>{db(c)[0]}</td><td>{db(c)[1]}</td><td>{t}</td></tr>" for c,t in case)
+    return f"{one:.1f}" + ("<sup>a</sup>" if r < 1280 else ""), f"{seven:.1f}"
+crow=''.join(f"<tr><td>{'&asymp;2920 (full)' if c == 3000 else c}</td><td>{db(c)[0]}</td><td>{db(c)[1]}</td><td>{t}</td></tr>" for c,t in case)
 pic=lambda th: (f'<a class="ar-wide th-{th[0]}" href="/research/img/gpu-map-steady3-path-{th}.webp?v=1" aria-label="Open the measurement path at full size"><picture>'
   f'<source media="(max-width:620px)" srcset="/research/img/gpu-map-steady3-path-phone-{th}.webp?v=1" width="1000" height="3500">'
   f'<img src="/research/img/gpu-map-steady3-path-{th}.webp?v=1" width="3000" height="1320" loading="lazy" decoding="async" alt="Seven grids, one per GPU fan speed from 40 to 100 %, each with four power limits by seven case fan speeds, coloured by the predicted settled core temperature from about 85 °C at the top left of the 40 % grid down to 47 °C, with arrows tracing a serpentine path through every cell and marks at the first and last point of each grid"></picture></a>')
@@ -31,26 +30,26 @@ block=f'''<!--steady3:start-->
   </figure>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
-    <thead><tr><th scope="col">GPU fans</th><th scope="col">Points</th><th scope="col">Hours</th><th scope="col">Predicted core, &deg;C</th><th scope="col">Largest step, &deg;C</th><th scope="col">Where</th></tr></thead>
+    <thead><tr><th scope="col" rowspan="2">GPU fans, %</th><th scope="col" rowspan="2">Run time, h</th><th scope="colgroup" colspan="2">Predicted settled core, &deg;C</th><th scope="col" rowspan="2" class="g">Largest predicted change between consecutive points, &deg;C</th><th scope="col" rowspan="2">Where the largest change occurs</th></tr><tr><th scope="col" class="g">lowest</th><th scope="col">highest</th></tr></thead>
     <tbody>{rows}</tbody>
   </table>
   </div>
-  <p class="ar-note">Planned; the 196 points take about {tot:.1f} hours, and the two anchors bring the run to about 18.5 hours.</p>
+  <p class="ar-note">Planned, 28 points per GPU fan speed (7 case levels &times; 4 power limits); the 196 points take about {tot:.1f} hours, and the two anchors, repeats of GPU fans 40&nbsp;% / case fans 1600&nbsp;rpm / power limit 100&nbsp;% at the start and the end, bring the run to about 18.5 hours. steady3: the final grid run of 23 October. The 40&nbsp;% row takes longest because every point there waits at least eight minutes.</p>
   <p>The start anchor, at least eight minutes and then until it reaches a plateau, serves as the warm-up. After that each point waits at least eight minutes with the GPU fans at 40&nbsp;% and five minutes otherwise, and the Lab software ends it when the measured trend of core and memory over the last 120 seconds is below 0.1&nbsp;&deg;C per minute, not after a precomputed time; no point waits more than fifteen minutes. For planning, the wait is estimated from the model: after a step of size $$dT$$ the slope, in &deg;C per minute, starts at $$s0$$ and decays as $$decay$$, so it falls below 0.1&nbsp;&deg;C per minute after about $$tw$$, with $$tau$$ in seconds and $$dT$$ in &deg;C. The waits in the table above use that estimate, equation (11) and the time constants of the settled points; the run itself will show where they were wrong.</p>
   <p>The fan speeds of the plan sound, by Sebastian Michalski&rsquo;s scale for this machine, as follows; the levels for the card are the estimate of <a href="#noise-gpu">How loud is loud</a>, &plusmn;3&nbsp;dB.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
-    <thead><tr><th scope="col">GPU fans</th><th scope="col">rpm</th><th scope="col">Estimated dBA at 1&nbsp;m</th><th scope="col">Class</th></tr></thead>
+    <thead><tr><th scope="col">GPU fans, %</th><th scope="col">GPU fans, rpm</th><th scope="col">Estimated level at 1&nbsp;m, dBA</th><th scope="col">Sebastian&rsquo;s listening class (this machine, at the desk)</th></tr></thead>
     <tbody>{grow}</tbody>
   </table>
   </div>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
-    <thead><tr><th scope="col">Case and radiator fans</th><th scope="col">One fan, dBA at 1&nbsp;m</th><th scope="col">7 fans, dBA at 1&nbsp;m</th><th scope="col">Class</th></tr></thead>
+    <thead><tr><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="colgroup" colspan="2">Estimated level at 1&nbsp;m, dBA</th><th scope="col" rowspan="2">Sebastian&rsquo;s listening class (this machine, at the desk)</th></tr><tr><th scope="col" class="g">one fan</th><th scope="col">all 7 fans</th></tr></thead>
     <tbody>{crow}</tbody>
   </table>
   </div>
-  <p class="ar-note">Estimated levels for the case and radiator fans come from the literature fit for the SW Pro 4 120 at 1&nbsp;m, <i>L</i>&nbsp;=&nbsp;&minus;167.1&nbsp;+&nbsp;60.2&nbsp;log<sub>10</sub>&nbsp;rpm (<a href="#pareto-lit">A first frontier, from the literature</a>); seven fans (4 case + 3 radiator) add 10&nbsp;log<sub>10</sub>&nbsp;7&nbsp;&asymp;&nbsp;8.5&nbsp;dB. The 3000&nbsp;rpm row uses full speed, about 2920&nbsp;rpm. *Below about 1280&nbsp;rpm, the slowest point measured by Hardware Busters (20&nbsp;dBA), the values are extrapolations, and they lie under the room&rsquo;s own floor of 25 to 30&nbsp;dBA. At 800&nbsp;rpm the radiator fans run at their floor of about 880&nbsp;rpm, so the true level is slightly higher. Literature-based, provisional until our own sound map.</p>
+  <p class="ar-note">Estimated levels for the case and radiator fans come from the literature fit for the SW Pro 4 120 at 1&nbsp;m, <i>L</i>&nbsp;=&nbsp;&minus;167.1&nbsp;+&nbsp;60.2&nbsp;log<sub>10</sub>&nbsp;rpm; seven fans (4 case + 3 radiator) add 10&nbsp;log<sub>10</sub>&nbsp;7&nbsp;&asymp;&nbsp;8.5&nbsp;dB. The 3000&nbsp;rpm row uses full speed, about 2920&nbsp;rpm. <sup>a</sup> Below about 1280&nbsp;rpm, the slowest point measured by Hardware Busters (20&nbsp;dBA), the values are extrapolations, and they lie under the room&rsquo;s own floor of 25 to 30&nbsp;dBA. <sup>b</sup> At 800&nbsp;rpm the radiator fans run at their floor of about 880&nbsp;rpm, so the true level is slightly higher. <sup>c</sup> 2400&nbsp;rpm was added to constrain the model between 1900 and full speed, about 2920&nbsp;rpm. Literature-based, provisional until our own sound map.</p>
   <p class="ar-note">These classes are listening judgments of this machine in its room, at the desk. For the card they are more lenient than the SilentPCReview scale for a single source at 1&nbsp;m: a card at 40&nbsp;% and about 29&nbsp;dBA is &ldquo;quiet&rdquo; there and &ldquo;super quiet&rdquo; here, because the room&rsquo;s own floor and the other fans mask it.</p>
 <!--steady3:end-->'''
 if '<!--steady3:start-->' in s:
