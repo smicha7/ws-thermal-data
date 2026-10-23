@@ -1,0 +1,14 @@
+Card,Speeds and levels,Highest speed,Fan stop at idle
+RTX 5080 FE,"games: 1493 rpm, 36.8 dBA at 50 cm [N33]&dagger;; 1470–1500 rpm [N34]; 1620 rpm, 41.0 dBA at 30 cm [N30]; at 46 cm: 42 % (factory) 39.7, 50 % 41.4, 100 % 57.0 dBA [N32]; 2.9 sone in games, 9.2 at 100 % [N35]",not found,yes [N30]
+RTX 5070 FE,"games: 2578 rpm, 37.7 dBA at 50 cm [N37]&dagger;; up to 2520 rpm, 42.5 dBA at 30 cm [N38]; at 46 cm: 50 % 40.5, factory 40.9 dBA [N36]. Smaller fans: its rpm is not comparable with the 5090’s","4351 rpm, 57.5 dBA at 46 cm [N36]",yes [N37]&dagger;
+"RTX 5070 Ti, ASUS TUF OC","performance / quiet BIOS: 1413 / 1064 rpm, 30.8 / 25.4 dBA [N40]&dagger;; 1550 / 1100 rpm, 39 / 31 dBA at 30 cm [N41]",—,—
+"RTX 5070 Ti, MSI Gaming Trio OC+","1172 rpm, 24.3 dBA [N42]&dagger;; silent BIOS 1422 rpm, 31 dBA at 35 cm [N43]",—,—
+"RTX 5070 Ti, MSI Ventus 3X","2480 rpm, 45 dBA at 30 cm, &ldquo;frighteningly loud&rdquo; [N41]",—,—
+"RTX 5070 Ti, Galax 1-Click",50 / 75 / 100 %: 24.2 / 38.5 / 48.1 dBA at 1 m [N39]&Dagger;,—,—
+"RTX 5090, MSI Suprim SOC","at 35 cm: 30 % = 1000 rpm, 30 dBA; silent 1400–1500 rpm, 36–38; gaming 1780–1850 rpm, 42.1–43.4 [N45]; 1093 rpm, 28.4 dBA at 50 cm [N46]","3000 rpm, 58 dBA at 35 cm [N45]",—
+"RTX 5090, ASUS Astral","1675 rpm, 39.3 dBA; quiet BIOS 1385 rpm, 36.5 [N47]&dagger;",—,—
+"RTX 5090, Gigabyte Gaming OC",43.2 dBA; quiet BIOS 32.4 (no rpm given) [N48]&dagger;,—,—
+"RTX 5090, Aorus Infinity","outer fans 1000–3000 rpm, centre fan up to 4000 (manufacturer) [N49]",—,—
+"RTX 5080, MSI Suprim SOC","at 35 cm: 30 % = 1000 rpm, 30.5 dBA; silent 1300–1400 rpm, 35–36; gaming 1640 rpm, 40 [N50]","3000 rpm, 59.3 dBA [N50]",yes [N25]
+"RTX 5080, ASUS Astral / MSI Suprim / FE","at 30 cm: Astral quiet 36 (31 with a newer BIOS), performance 48; Suprim silent 36, gaming 44; FE 41 dBA [N25]",—,"yes, 0.0 dB(A) at the desktop [N25]"
+"RTX 5080, ASUS Noctua",30–100 % = 530–1750 rpm = 29.1–46.8 dBA [N51],1750 rpm [N51],—

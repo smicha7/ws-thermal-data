@@ -1,7 +1,7 @@
-GPU fans,rpm,dBA at 1 m,dBA at 0.5 m,Class
+GPU fans,rpm,dBA at 1 m,dBA at 0.5 m,SilentPCReview class at 1 m
 30 %,~1020,~23,~29,very quiet
 40 %,1310,~29,~35,quiet
-50 %,~1600,~33,~39,acceptable; the factory curve in games sits at 46 to 54 %
+50 %,~1600,~33,~39,acceptable; the factory curve in games sits at 46 to 52 %
 60 %,~1880,~36,~42,"loud, lower edge"
 70 %,~2170,~40,~46,loud
 90 %,~2740,~45,~51,very loud

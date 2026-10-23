@@ -1,7 +1,7 @@
 Source,"Distance, room floor",Result
 GamersNexus [N19],"1 m; anechoic chamber, floor 14 to 14.5 dBA; open bench","32.5 dBA at about 1570 rpm, gaming"
 TechPowerUp [N20],50 cm; open bench,40.1 dBA at 1673 rpm (RTX 4090 FE: 35.1 dBA)
-ComputerBase [N21],"distance not given; closed case, floor about 28 dB(A)",41.5 dB(A) at 1700 rpm (RTX 4090 FE: 40.5 at 1540)
+ComputerBase [N21][N25],"30 cm; closed Fractal Torrent case, door open, case fans stopped; floor about 28 dB(A)",41.5 dB(A) at 1700 rpm (RTX 4090 FE: 40.5 at 1540)
 PC Games Hardware [N22],50 cm,2.8 sone at 1620 rpm
 LanOC [N23],46 cm; floor 33.3 dBA; class 2 meter,50 % fan: 45.7 dBA; stock in a game (46 %): 44.1; 100 % (2873 rpm): 58.4
 Tom’s Hardware [N24],10 cm; floor 31 to 32 dB(A),50.0 dB(A) in Cyberpunk 2077

@@ -12,7 +12,7 @@ tot=d.h.sum()
 L1=lambda n: 32.5+50*math.log10(n/1570)
 gpu=[(30,1020,'inaudible to super quiet'),(40,1312,'inaudible to super quiet'),(50,1595,'very quiet'),(60,1879,'moderate'),(70,2162,'loud'),(80,2446,'very loud'),(90,2729,'very loud'),(100,3013,'very loud')]
 grow=''.join(f"<tr><td>{g}&nbsp;%</td><td>{'~' if g==30 else ''}{n}</td><td>~{L1(n):.0f}</td><td>{c}</td></tr>" for g,n,c in gpu)
-case=[(800,'ultra-quiet; the radiator fans cannot go below about 880&nbsp;rpm'),(1000,'very quiet'),(1300,'quiet'),(1600,'balanced'),(1900,'loud'),(2400,'loud; a reference point of the model'),(3000,'very loud; full speed, about 2920&nbsp;rpm')]
+case=[(800,'ultra-quiet; the radiator fans cannot go below about 880&nbsp;rpm'),(1000,'very quiet'),(1300,'quiet'),(1600,'balanced'),(1900,'loud'),(2400,'between loud and very loud; added to constrain the model between 1900 and 3000&nbsp;rpm'),(3000,'very loud; full speed, about 2920&nbsp;rpm')]
 crow=''.join(f"<tr><td>{c}&nbsp;rpm</td><td>{t}</td></tr>" for c,t in case)
 pic=lambda th: (f'<a class="ar-wide th-{th[0]}" href="/research/img/gpu-map-steady3-path-{th}.webp?v=1" aria-label="Open the measurement path at full size"><picture>'
   f'<source media="(max-width:620px)" srcset="/research/img/gpu-map-steady3-path-phone-{th}.webp?v=1" width="1000" height="3500">'
@@ -30,7 +30,7 @@ block=f'''<!--steady3:start-->
   </table>
   </div>
   <p class="ar-note">Planned; the 196 points take about {tot:.1f} hours, and the two anchors bring the run to about 18.5 hours.</p>
-  <p>Each point waits at least eight minutes with the GPU fans at 40&nbsp;% and five minutes otherwise, and then until the core changes by less than 0.1&nbsp;&deg;C per minute. After a step of size $$dT$$ the slope, in &deg;C per minute, starts at $$s0$$ and decays as $$decay$$, so it falls below 0.1&nbsp;&deg;C per minute after about $$tw$$, with $$tau$$ in seconds and $$dT$$ in &deg;C; no point waits more than fifteen minutes. The first point adds a ten-minute warm-up. The waits come from equation (11) and the time constants measured on the settled points, so the plan is only as good as the model, and the run itself will show where it was wrong.</p>
+  <p>The start anchor, at least eight minutes and then until it reaches a plateau, serves as the warm-up. After that each point waits at least eight minutes with the GPU fans at 40&nbsp;% and five minutes otherwise, and the Lab software ends it when the measured trend of core and memory over the last 120 seconds is below 0.1&nbsp;&deg;C per minute, not after a precomputed time; no point waits more than fifteen minutes. For planning, the wait is estimated from the model: after a step of size $$dT$$ the slope, in &deg;C per minute, starts at $$s0$$ and decays as $$decay$$, so it falls below 0.1&nbsp;&deg;C per minute after about $$tw$$, with $$tau$$ in seconds and $$dT$$ in &deg;C. The waits in the table above use that estimate, equation (11) and the time constants of the settled points; the run itself will show where they were wrong.</p>
   <p>The fan speeds of the plan sound, by Sebastian Michalski&rsquo;s scale for this machine, as follows; the levels for the card are the estimate of <a href="#noise-gpu">How loud is loud</a>, &plusmn;3&nbsp;dB.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">

@@ -1,0 +1,7 @@
+Class,GPU fans,rpm,dBA at 1 m,dBA at 0.5 m
+Ultra-quiet,"fan stop, or up to 32 %",up to about 1080,below 24,below 30
+Very quiet,33–40 %,1100–1310,24–29,30–35
+Quiet,41–49 %,1340–1570,29–32.5,35–38.5
+Balanced,50–60 %,1600–1880,33–36.5,39–42.5
+Loud,61–80 %,1910–2460,37–42,43–48
+Very loud,above 80 %,above 2460,42–52,48–58
