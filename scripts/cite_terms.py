@@ -196,10 +196,10 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Symbol¦", "vars", "Quantities of the test and their roles: what we set, what we only measure, and what the card returns.", "{T} lists the quantities; the role column separates what the test sets from what it only observes."),
  (r"^Card¦Generation", "limits", "Published temperature limits of NVIDIA GPUs by generation, core and memory: the basis for the limits we work to.", "{T} compares the published limits across generations; note how few memory limits are published at all."),
  (r"^Sensor¦", "static7", "First fit of the static model (7) for each sensor at 575&nbsp;W, first run: how strongly each fan set cools each sensor.", "{T} gives the fitted constants per sensor; the ratio a/b says how much more the GPU fans matter than the case fans."),
- (r"^Time after the change¦Share", "settle", "Share of a temperature step completed a given time after a change of fans or power, for a first-order response with &tau; = 50&nbsp;s: why a reading must wait.", "{T} shows how slowly a step completes; a reading after 20&nbsp;s has seen only a third of the change."),
+ (r"^Time after the change, s¦Share", "settle", "Share of a temperature step completed a given time after a change of fans or power, for a first-order response with &tau; = 50&nbsp;s: why a reading must wait.", "{T} shows how slowly a step completes; a reading after 20&nbsp;s has seen only a third of the change."),
  (r"^Case fans, rpm¦GPU fans", "run2", "Second run, 21 October: core and memory temperature over case fan speed (rows) and GPU fan speed (columns) at two power limits, the effect of both fan sets and of power.", "{T} gives the measured grid of the second run at the highest and the lowest power limit; read down a column for the case fans and along a row for the GPU fans."),
- (r"^Time after the change¦Small", "early", "Error of an early reading against the settled value, core, val1 series (20 points): how long a point must run.", "{T} shows how far a reading after 1 to 8 minutes still lies from the settled value, for small and large steps."),
- (r"^GPU fans¦rpm¦&deg;C per 100", "per100", "Core temperature rise per 100&nbsp;W of board power, by GPU fan speed, from models (9), (10) and (11): the effect of power at fixed fans.", "{T} compares the three models&rsquo; slope against power; they agree within about 1&nbsp;&deg;C per 100&nbsp;W."),
+ (r"^Time after the change, min¦Small", "early", "Early reading minus settled value, core temperature, val1 validation series (21 October, evening): how long a point must run.", "{T} shows how far a reading after 1 to 8 minutes still lies from the settled value, for small and large steps."),
+ (r"^GPU fans(?:, %¦GPU fans, rpm)?¦Core rise per 100", "per100", "Core temperature rise per 100&nbsp;W of board power, by GPU fan speed, from models (9), (10) and (11): the effect of power at fixed fans.", "{T} compares the three models&rsquo; slope against power; they agree within about 1&nbsp;&deg;C per 100&nbsp;W."),
  (r"^GPU fans, %¦Run time", "s3plan", "Plan of the final grid (steady3) by GPU fan speed: points, run time, predicted core range and the largest step between consecutive points.", "{T} summarises the plan of the final grid; the largest steps show where settling takes longest."),
  (r"^GPU fans(?:, %¦GPU fans, rpm)?¦Estimated level at 1&nbsp;m, dBA¦Sebastian", "gpuclass", "GPU fan speeds of the final grid with their estimated noise at 1&nbsp;m and how they sound on this machine.", "{T} links each GPU fan speed of the grid to a level and a listening class."),
  (r"^Case and radiator fans, rpm¦Estimated level", "caseclass", "Case and radiator fan levels of the final grid, chosen as listening classes for this machine at the desk, with the literature-based level of one fan and of all seven.", "{T} explains why the case and radiator fans are measured at these seven speeds: each is one listening class."),
@@ -222,7 +222,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Speed of a 120", "sebscale", "Sebastian&rsquo;s listening scale for a 120&nbsp;mm case fan against published measurements: does the ear agree with the meter?", "{T} checks each listening class against measurements; most agree."),
  (r"^Mode \(first version\)", "v1noise", "First version of the controller: estimated noise at the fan-speed ceilings of its modes, at 1&nbsp;m.", "{T} shows that in the first version the card&rsquo;s fans, not the case fans, set the noise."),
  (r"^Mode \(noise budget", "modes", None, "{T} is the definition of the modes: read across a row to see the fans each budget allows and the temperatures that result at each power limit."),
- (r"^Mode¦Core target", "v1modes", "First version of the controller (superseded): modes defined by a core target, with fan-speed ceilings and limits.", "{T} records the first, temperature-target design for comparison."),
+ (r"^Mode¦Core target, &deg;C¦GPU fan ceiling", "v1modes", "First version of the controller (superseded): modes defined by a core target, with fan-speed ceilings and limits.", "{T} records the first, temperature-target design for comparison."),
  (r"^Fan control¦", "sim", None, "{T} compares the simulated controller with the factory fan curve in three tests; look at noise first, then at the temperatures."),
  (r"^Mode \(target\)¦", "hw", "The first controller version on the real RTX 5090 against its simulation, open case, intake about 19.3&nbsp;&deg;C, 22 October: how well the model predicts the controlled card.", "{T} sets the first version on the real card beside its simulation; the closer each pair, the better the model."),
  (r"^Mode¦GPU fan reversals", "pump", "Fan pumping under 60-second load bursts on the real card in three controller runs, ctrl1 &rarr; ctrl2 &rarr; ctrl3: the effect of the corrections.", "{T} shows the fan reversals falling to zero over the three runs."),
@@ -325,3 +325,59 @@ s = F.read_text()
 UNIT = r"(?:&deg;C|rpm|%|dBA|W|s|h|MHz|n|per min|m&deg;C/W|W/&deg;C|dBA at 1&nbsp;m|&deg;C per 100&nbsp;W)"
 s = re.sub(r'(<th[^>]*>)([^<]{2,40}?), (' + UNIT + r')(</th>)', lambda m: f'{m.group(1)}<span class="hn{"" if len(m.group(2)) <= 14 else " hw"}">{m.group(2)}</span><br>{m.group(3)}{m.group(4)}', s)
 F.write_text(s)
+
+# --- figures: "Figure N." + bold title, then the description (Seb 2026-10-23); same flat panel as tables (CSS)
+FIGT = [
+ (r"The test set-up, side view", "Test set-up (side view, not to scale).", " Legend: arrows, airflow; bars, fans; &#9679; T<sub>in</sub>, the air temperature sensor; f<sub>g</sub>, f<sub>c</sub>, the GPU and case fan speeds."),
+ (r"The grid as run on the first night", "The first-night measurement grid.", ""),
+ (r"Hot-spot temperature at 575", "Hot-spot temperature over both fan speeds at 575&nbsp;W.", ""),
+ (r"Interactive surfaces", "Interactive temperature surfaces at 575&nbsp;W.", ""),
+ (r"Memory against core temperature", "Memory against core temperature at 575&nbsp;W.", ""),
+ (r"Graphics clock against GPU fan speed", "Graphics clock against GPU fan speed at 575&nbsp;W.", ""),
+ (r"Hot spot against board power", "Hot spot against board power at fixed fan speeds.", ""),
+ (r"Core \(solid\) and memory \(dashed\) against GPU fan speed", "Second run: core and memory over GPU fans, case fans and power limit.", ""),
+ (r"Core against GPU fan speed in rpm", "Settled core against GPU fan speed, with model (11).", ""),
+ (r"Core against case fan speed", "Settled core against case fan speed, with model (11).", ""),
+ (r"The second run, used for training", "Dynamic model on its training run.", ""),
+ (r"Runs the core model was not fitted to", "Dynamic model on runs it was not fitted to.", ""),
+ (r"The planned path of steady3", "Planned measurement path of the final grid (steady3).", ""),
+ (r"Residuals of equation \(11\)", "Residual diagnostics of model (11).", ""),
+ (r"controller in simulation", "The controller in simulation.", ""),
+ (r"The controller on the real card", "The first controller version on the real card.", ""),
+ (r"Full processor load", "Processor temperatures as the radiator fans slow.", ""),
+ (r"Settled core against total noise", "The quiet frontier: settled core against total fan noise.", ""),
+ (r"Highest power with the core", "Highest power within a noise budget.", ""),
+ (r"Total noise of all fans at 1&nbsp;m against the speed of the case", "Noise needed to hold 70&nbsp;&deg;C, by case fan speed and power limit.", ""),
+ (r"coupling matrix for two cards", "Two cards in one case: coupling and feed-forward (planned).", ""),
+]
+s = F.read_text()
+s = re.sub(r' <b class="ftitle">.*?</b>', "", s); s = re.sub(r'<span class="flegend">.*?</span><!--fl-->', "", s, flags=re.S)
+miss = []
+def figfix(m):
+    cap = m.group(2); t = next(((ti, lg) for rx, ti, lg in FIGT if re.search(rx, cap)), None)
+    if not t: miss.append(re.sub(r"<[^>]+>", "", cap)[:50]); return m.group(0)
+    return f'{m.group(1)} <b class="ftitle">{t[0]}</b>{cap}' + (f'<span class="flegend">{t[1]}</span><!--fl-->' if t[1] else "")
+s = re.sub(r'(<figcaption><b>Figure \d+\.</b>)(.*?)(?=</figcaption>)', figfix, s, flags=re.S)
+F.write_text(s); print("figure titles; untitled:", miss)
+
+# --- numbered sections (1, 1.1 ...) and the contents list (Seb 2026-10-23)
+s = F.read_text()
+s = re.sub(r'<span class="secno">[^<]*</span> ', "", s)
+body_a = s.index('<h2 id="problem">'); body_b = s.index('<h2 id="sources">')
+part = s[body_a:body_b]; n2 = n3 = 0; toc = []
+def slug(t): return "s-" + re.sub(r"[^a-z0-9]+", "-", re.sub(r"<[^>]+>|&[a-z]+;", "", t).lower()).strip("-")[:40]
+def num(m):
+    global n2, n3
+    tag, attrs, txt = m.group(1), m.group(2), m.group(3)
+    if tag == "h2": n2 += 1; n3 = 0; no = f"{n2}"
+    else: n3 += 1; no = f"{n2}.{n3}"
+    hid = re.search(r'id="([^"]+)"', attrs)
+    if not hid: attrs += f' id="{slug(txt)}"'; hid_v = slug(txt)
+    else: hid_v = hid.group(1)
+    toc.append((tag, no, hid_v, re.sub(r"<[^>]+>", "", txt)))
+    return f'<{tag}{attrs}><span class="secno">{no}</span> {txt}</{tag}>'
+part = re.sub(r"<(h[23])((?:\s[^>]*)?)>(.*?)</\1>", num, part, flags=re.S)
+s = s[:body_a] + part + s[body_b:]
+lis = "".join(f'<li><a href="#{h}"><span class="secno">{no}</span> {t}</a></li>' for tag, no, h, t in toc if tag == "h2")
+s = re.sub(r'(<nav class="ar-toc"[^>]*>\s*<h2 class="ar-toc-h">Contents</h2>\s*<ul>).*?(</ul>)', lambda m: m.group(1) + lis + '<li><a href="#sources">Sources</a></li>' + m.group(2), s, count=1, flags=re.S)
+F.write_text(s); print("sections numbered:", n2, "subsections:", sum(1 for t in toc if t[0] == "h3"))
