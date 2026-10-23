@@ -24,16 +24,18 @@ for name, bud in BUD:
 assert all(m["dBA"] <= m["budget"] for m in modes)
 json.dump(modes, open(G / "results-2026-10-23/modes-noise.json", "w"), indent=1)
 pc = lambda g: f"{g:.0f}" if g == int(g) else f"{g:.1f}"
-rows = "".join(f'<tr><td>{m["mode"]} (&le;&nbsp;{m["budget"]}&nbsp;dBA)</td><td>{pc(m["gpu_pct"])}&nbsp;% ({m["gpu_rpm"]:.0f}&nbsp;rpm)</td><td>{m["case_rpm"]:.0f}&nbsp;rpm</td><td>{m["dBA"]:.1f}&nbsp;dBA</td>'
-               + "".join(f'<td>{m["temps"][pl][0]:.1f} / {m["temps"][pl][1]:.1f}&nbsp;&deg;C</td>' for pl in PLW) + "</tr>" for m in modes)
+rows = "".join(f'<tr><td>{m["mode"]} (&le;&nbsp;{m["budget"]}&nbsp;dBA)</td><td>{m["gpu_pct"]:.1f}</td><td>{m["gpu_rpm"]:.0f}</td><td>{m["case_rpm"]:.0f}</td><td>{m["dBA"]:.1f}</td>'
+               + "".join(f'<td class="g">{m["temps"][pl][0]:.1f}</td><td>{m["temps"][pl][1]:.1f}</td>' for pl in PLW) + "</tr>" for m in modes)
+HEADPL = "".join(f'<th scope="colgroup" colspan="2">{"Power limit " if pl == 100 else ""}{pl}&nbsp;% ({w}&nbsp;W), &deg;C</th>' for pl, w in PLW.items())
+SUBPL = '<th scope="col" class="g">core</th><th scope="col">memory</th>' * 4
 q = modes[0]; qm = q["temps"][100][1]
 sec = f'''<!--modes:start-->
   <h3 id="controller-modes">How it decides: a noise budget per mode</h3>
   <p>A mode is defined by how loud the machine may be, not by a temperature. Each mode has a noise budget, the total level of all fans at 1&nbsp;m. Within the budget the controller picks the pair of GPU fan and case and radiator fan speeds that keeps the core coolest; the core and memory temperatures then follow from the power the card draws. Noise is what the user hears, so it is what the mode fixes; temperature is what the hardware must be protected from, so it is a constraint.</p>
   <p class="ar-tcap"><b>Controller modes defined by noise: the fan speeds each budget allows and the temperatures that result</b><br>Fan pair that keeps the core coolest within the budget at 575&nbsp;W; settled core / memory at each power limit from model (11) and the memory model, intake air {TIN}&nbsp;&deg;C, literature-based noise at 1&nbsp;m.</p>
   <div class="ar-tw ar-tw-wide">
-  <table class="ar-tab ar-num ar-st ar-modes">
-    <thead><tr><th scope="col">Mode (noise budget at 1&nbsp;m)</th><th scope="col">GPU fans</th><th scope="col">Case and radiator fans</th><th scope="col">Total noise at 1&nbsp;m</th><th scope="col">Core / memory, power limit 100&nbsp;% (575&nbsp;W)</th><th scope="col">Core / memory, 90&nbsp;% (518&nbsp;W)</th><th scope="col">Core / memory, 80&nbsp;% (460&nbsp;W)</th><th scope="col">Core / memory, 70&nbsp;% (402&nbsp;W)</th></tr></thead>
+  <table class="ar-tab ar-num ar-st ar-modes ar-ms">
+    <thead><tr><th scope="col" rowspan="2">Mode (noise budget at 1&nbsp;m)</th><th scope="colgroup" colspan="2">GPU fans</th><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="col" rowspan="2">Total noise at 1&nbsp;m, dBA</th>{HEADPL}</tr><tr><th scope="col">%</th><th scope="col">rpm</th>{SUBPL}</tr></thead>
     <tbody>{rows}</tbody>
   </table>
   </div>

@@ -13,7 +13,7 @@ GRP = [("Highest core, &deg;C"), ("Core after 10&nbsp;min, &deg;C"), ("Highest m
 HEAD = ('<thead><tr><th scope="col" rowspan="2">Mode (target)</th>' + "".join(f'<th scope="colgroup" colspan="2">{g}</th>' for g in GRP) + "</tr><tr>"
         + '<th scope="col" class="g">on the card</th><th scope="col">simulation</th>' * len(GRP) + "</tr></thead>")
 def table(sc, title):
-    return (f'  <p class="ar-tcap"><b>{title}</b></p>\n  <div class="ar-tw">\n  <table class="ar-tab ar-num ar-st ar-ms">\n    {HEAD}\n'
+    return (f'  <h4 class="ar-h4">{title}</h4>\n  <div class="ar-tw">\n  <table class="ar-tab ar-num ar-st ar-ms">\n    {HEAD}\n'
             f'    <tbody>{"".join(row(f"{m}-{sc}") for m in ("quiet", "balanced", "performance"))}</tbody>\n  </table>\n  </div>\n')
 keys = [f"{m}-{sc}" for m in ("quiet", "balanced", "performance") for sc in ("step", "bursts")]
 st = [C[f"{m}-step"] for m in ("quiet", "balanced", "performance")]
@@ -24,13 +24,13 @@ import os
 B = json.load(open(G + "article_tools/ctrl123-bursts.json")) if os.path.exists(G + "article_tools/ctrl123-bursts.json") else None
 fix = ""
 if B:
-    br = lambda m: (f"<tr><td>{NM[m]}</td><td>{B['ctrl1-'+m]['card']:.2f} &rarr; {B['ctrl2-'+m]['card']:.2f} &rarr; {B['ctrl3-'+m]['card']:.2f}</td>"
-                    f"<td>{B['ctrl1-'+m]['case']:.2f} &rarr; {B['ctrl2-'+m]['case']:.2f} &rarr; {B['ctrl3-'+m]['case']:.2f}</td><td>{B['ctrl3-'+m]['over']}</td><td>{B['ctrl3-'+m]['peak']:.1f}</td></tr>")
+    br = lambda m: (f"<tr><td>{NM[m]}</td>" + "".join(f"<td{' class=g' if r == 'ctrl1' else ''}>{B[r+'-'+m]['card']:.2f}</td>" for r in ("ctrl1", "ctrl2", "ctrl3"))
+                    + "".join(f"<td{' class=g' if r == 'ctrl1' else ''}>{B[r+'-'+m]['case']:.2f}</td>" for r in ("ctrl1", "ctrl2", "ctrl3")) + f"<td class=g>{B['ctrl3-'+m]['over']}</td><td>{B['ctrl3-'+m]['peak']:.1f}</td></tr>")
     fix = f"""  <h3 id="controller-fix">Stopping the pumping</h3>
   <p>Two more runs on the card, late on 22 October, tested the corrections. The second, ctrl2, with the first changes against pumping, cut the reversals to 0.2 to 0.4 a minute but still let the fans dip slowly every five to seven minutes: bursts at 574&nbsp;W never quite matched the 575&nbsp;W peak that held the load estimate, so the hold expired. The third, ctrl3, ran with all the corrections made since ctrl1: a low-pass filter on the intake reading, hysteresis in the feed-forward, a dead band and a pause before the fans slow down after a rise, any burst within 3&nbsp;% of the peak renewing the load hold, a margin never below 1.0&nbsp;&deg;C, and the core reaching the controller at 0.01&nbsp;&deg;C from the NVAPI sensor instead of in whole degrees.</p>
   <div class="ar-tw">
-  <table class="ar-tab ar-num ar-st">
-    <thead><tr><th scope="col">Mode, 60-second bursts</th><th scope="col">GPU fan reversals per minute, ctrl1 &rarr; ctrl2 &rarr; ctrl3</th><th scope="col">Case fan reversals per minute, ctrl1 &rarr; ctrl2 &rarr; ctrl3</th><th scope="col">ctrl3: seconds above target + 1&nbsp;&deg;C</th><th scope="col">ctrl3: peak core, &deg;C</th></tr></thead>
+  <table class="ar-tab ar-num ar-st ar-ms">
+    <thead><tr><th scope="col" rowspan="2">Mode</th><th scope="colgroup" colspan="3">GPU fan reversals, per min</th><th scope="colgroup" colspan="3">Case fan reversals, per min</th><th scope="colgroup" colspan="2">ctrl3</th></tr><tr><th scope="col" class="g">ctrl1</th><th scope="col">ctrl2</th><th scope="col">ctrl3</th><th scope="col" class="g">ctrl1</th><th scope="col">ctrl2</th><th scope="col">ctrl3</th><th scope="col" class="g">time over target + 1&nbsp;&deg;C, s</th><th scope="col">highest core, &deg;C</th></tr></thead>
     <tbody>{br('performance')}{br('balanced')}</tbody>
   </table>
   </div>

@@ -85,12 +85,12 @@ def ncols(head):
     return sum(int((re.search(r'colspan="(\d+)"', t) or [0, 1])[1]) for t in re.findall(r"<th[^>]*>", first))
 def wide(cls, head):
     th = re.sub(r"<[^>]+>", "", re.search(r"<th[^>]*>(.*?)</th>", head, re.S).group(1)).strip(); n = ncols(head)
-    return n >= 8 or "ar-s3" in cls or "ar-iso" in cls or th in ("Source", "Mode, 60-second bursts", "Card", "Controller", "Fan control") or (th == "Constant" and n >= 7)
+    return n >= 8 or "ar-s3" in cls or "ar-iso" in cls or th in ("Fan control",) or (th == "Constant" and n >= 7)
 def fix(m):
     cls, head = m.group(2), m.group(3)
     return f'<div class="ar-tw{" ar-tw-wide" if wide(cls, head) else ""}">{m.group(1)}<table class="{cls}"{m.group(4)}>{head}'
 s = F.read_text()
-s, k = re.subn(r'<div class="ar-tw(?: ar-tw-wide)?">(\s*)<table class="([^"]*)"([^>]*)>(\s*<thead>.*?</thead>)', lambda m: fix(type("M", (), {"group": lambda self, i: [None, m.group(1), m.group(2), m.group(4), m.group(3)][i]})()), s, flags=re.S)
+s, k = re.subn(r'<div class="ar-tw(?: ar-tw-wide)?">(\s*)<table class="([^"]*)"([^>]*)>(\s*(?:<caption>.*?</caption>\s*)?<thead>.*?</thead>)', lambda m: fix(type("M", (), {"group": lambda self, i: [None, m.group(1), m.group(2), m.group(4), m.group(3)][i]})()), s, flags=re.S)
 F.write_text(s); print("tables laid out:", k, "wide:", s.count('class="ar-tw ar-tw-wide"'))
 # --- plain-language terms under every table (Seb 2026-10-23): explained in the note directly after the table
 TERMS = [
@@ -99,7 +99,7 @@ TERMS = [
  (r"\bPackage\b", "Package", "the electrical power the whole processor draws"),
  (r"\bPL\b|[Pp]ower limit", "Power limit (PL)", "the share of the card&rsquo;s maximum power, 575&nbsp;W, that it may use"),
  (r"\bmeas\.", "meas./sim.", "measured on the card / computed by our simulation of the card"),
- (r"dBA", "dBA at 1&nbsp;m", "sound level at 1&nbsp;m"),
+ (r"dBA", "dBA", "A-weighted sound pressure level in decibels; &lsquo;at 1&nbsp;m&rsquo; is the distance from the source"),
  (r"reversals", "Reversals/min", "how often per minute the fans switch between speeding up and slowing down"),
  (r"\bRMSE\b", "RMSE", "root-mean-square error, the typical size of the gap between model and measurement"),
  (r"Leave-one-out", "Leave-one-out", "the error when each point is predicted by the model fitted without that point"),
@@ -162,6 +162,10 @@ def align(m):
     return t
 s_ = F.read_text(); s_ = re.sub(r' class="tl"', "", s_); s_ = s_.replace('class="tl ', 'class="')
 s_ = re.sub(r"<table[^>]*>.*?</table>", align, s_, flags=re.S); F.write_text(s_)
+# --- a value, its unit, note letter and citations never break apart
+s_ = F.read_text(); s_ = re.sub(r'<span class="nw">(.*?)</span><!--nw-->', r"\1", s_, flags=re.S)
+s_ = re.sub(r'(?<=>)((?:&asymp;|~)?[\d.,&ndash;&minus;+]+(?:&nbsp;(?:&deg;C|rpm|W|dBA|%|s|MHz))?(?:<sup>[a-z]</sup>)?(?:\s*<a class="cite"[^>]*>\[[^\]]+\]</a>)+)', r'<span class="nw">\1</span><!--nw-->', s_)
+F.write_text(s_)
 # --- journal-style tables (Seb 2026-10-23): "Table N." + caption above (what, why, which dimension), a lead sentence in the text,
 #     groups numbered N a, b, c ...; {tref:key} in the text becomes a link "Table N". Captions from generators (ar-tcap without data-auto) are kept.
 REG = [  # (regex on header key, key, caption title or None = keep the generator's, lead sentence; {T} = "Table N")
@@ -169,7 +173,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Card¦Generation", "limits", "Published temperature limits of NVIDIA GPUs by generation, core and memory: the basis for the limits we work to.", "{T} compares the published limits across generations; note how few memory limits are published at all."),
  (r"^Sensor¦", "static7", "First fit of the static model (7) for each sensor at 575&nbsp;W, first run: how strongly each fan set cools each sensor.", "{T} gives the fitted constants per sensor; the ratio a/b says how much more the GPU fans matter than the case fans."),
  (r"^Time after the change¦Share", "settle", "Share of a temperature step completed a given time after a change of fans or power, for a first-order response with &tau; = 50&nbsp;s: why a reading must wait.", "{T} shows how slowly a step completes; a reading after 20&nbsp;s has seen only a third of the change."),
- (r"^Case fans, rpm \\ GPU fans", "run2", "Second run, 21 October: core and memory temperature over case fan speed (rows) and GPU fan speed (columns) at two power limits, the effect of both fan sets and of power.", "{T} gives the measured grid of the second run at the highest and the lowest power limit; read down a column for the case fans and along a row for the GPU fans."),
+ (r"^Case fans, rpm¦GPU fans", "run2", "Second run, 21 October: core and memory temperature over case fan speed (rows) and GPU fan speed (columns) at two power limits, the effect of both fan sets and of power.", "{T} gives the measured grid of the second run at the highest and the lowest power limit; read down a column for the case fans and along a row for the GPU fans."),
  (r"^Time after the change¦Small", "early", "Error of an early reading against the settled value, core, val1 series (20 points): how long a point must run.", "{T} shows how far a reading after 1 to 8 minutes still lies from the settled value, for small and large steps."),
  (r"^GPU fans¦rpm¦&deg;C per 100", "per100", "Core temperature rise per 100&nbsp;W of board power, by GPU fan speed, from models (9), (10) and (11): the effect of power at fixed fans.", "{T} compares the three models&rsquo; slope against power; they agree within about 1&nbsp;&deg;C per 100&nbsp;W."),
  (r"^GPU fans¦Points¦Hours", "s3plan", "Plan of the final grid (steady3) by GPU fan speed: points, run time, predicted core range and the largest step between consecutive points.", "{T} summarises the plan of the final grid; the largest steps show where settling takes longest."),
@@ -180,10 +184,10 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Form of R", "forms", "Candidate forms of the fan-response term R(N,&nbsp;C), all with session offsets, compared by fit and by prediction error: why we chose two parallel conductances.", "{T} ranks the forms; prediction errors (leave-one-out, 5-fold, leave session out) matter more than the fit error."),
  (r"^Test¦Statistic", "tests", "Statistical tests on the residuals of model (11): which assumptions of the fit hold.", "{T} lists each test with its verdict; the rejected ones are discussed below it."),
  (r"^Variant¦", "variants", "Sensitivity of model (11) to the core reading and to the form: fit error and Durbin&ndash;Watson along the GPU fans.", "{T} tests the causes of the residual pattern; only a richer form moves Durbin&ndash;Watson towards 2."),
- (r"^GPU fans, % and rpm \\ case and radiator", "s3", "Final grid (steady3, 23 October), measured core and memory against the model, over GPU fans (rows) and case and radiator fans (columns), one table per power limit: the primary result.", "{T} is the final measurement: compare each measured value with the model value beside it, and watch the grid fill as the run proceeds."),
- (r"^GPU fans \\ case fans, rpm", "old", "Earlier sessions (21&ndash;22 October), settled core against model (11), over GPU fans and case fans, one table per power limit: the points the model was fitted to.", "{T} shows the points of the earlier sessions behind the model; the residual is the gap between the two values in a cell."),
+ (r"^GPU fans¦800", "s3", "Final grid (steady3, 23 October): measured core and memory temperature against the model, over GPU fans (rows) and case and radiator fan listening classes (columns), one table per power limit and quantity: the primary result.", "{T} is the final measurement: compare each measured value with the model value beside it, and watch the grid fill as the run proceeds."),
+ (r"^GPU fans, %¦Case fans, rpm¦Core measured", "old", "Earlier sessions (21&ndash;22 October): every settled core point against model (11), one table per power limit: the points the model was fitted to.", "{T} shows the points of the earlier sessions behind the model; the residual is the gap between the two values in a cell."),
  (r"^Constant¦Unit¦Estimate¦Standard error$", "constsmem", "Constants of the memory model (provisional), with standard errors, fitted to the settled memory points of the earlier sessions.", "{T} gives the memory model; its large offset &theta;<sub>0,mem</sub> is discussed below."),
- (r"^GPU fans¦rpm¦Core, &deg;C¦Memory", "cmp", "Second run, all 112 settings: core and memory after 60&nbsp;s, settled, and from the model, by case fan speed and power limit: how far the 60-second readings were off.", "{T} sets the 60-second readings of the second run beside the settled and model values."),
+ (r"^GPU fans, %¦GPU fans, rpm¦Core, &deg;C", "cmp", "Second run, all 112 settings: core and memory after 60&nbsp;s, settled, and from the model, by case fan speed and power limit: how far the 60-second readings were off.", "{T} sets the 60-second readings of the second run beside the settled and model values."),
  (r"^Class¦dBA at 1&nbsp;m¦Comparable", "spcr", "Noise classes after SilentPCReview for one source at 1&nbsp;m, with everyday comparisons: the scale used throughout.", "{T} gives the noise scale used throughout the article."),
  (r"^Fan, rpm at", "hwb", "120 and 140&nbsp;mm fans: speed at which each reaches a given noise level, free field at 1&nbsp;m (Hardware Busters): the basis of the case-fan noise model.", "{T} shows that premium fans reach each level within a few hundred rpm of one another."),
  (r"^Fan on a radiator", "tpu", "120&nbsp;mm fans on a radiator: noise at four speeds, at 15&nbsp;cm (TechPowerUp): a check of the case-fan model on a radiator.", "{T} gives radiator-mounted levels; they differ by about 1&nbsp;dB between fans."),
@@ -196,11 +200,11 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Mode \(noise budget", "modes", None, "{T} is the definition of the modes: read across a row to see the fans each budget allows and the temperatures that result at each power limit."),
  (r"^Mode¦Core target", "v1modes", "First version of the controller (superseded): modes defined by a core target, with fan-speed ceilings and limits.", "{T} records the first, temperature-target design for comparison."),
  (r"^Fan control¦", "sim", None, "{T} compares the simulated controller with the factory fan curve in three tests; look at noise first, then at the temperatures."),
- (r"^Mode \(target\)¦", "hw", None, "{T} sets the first version on the real card beside its simulation; the closer each pair, the better the model."),
- (r"^Mode, 60-second bursts", "pump", "Fan pumping under 60-second load bursts on the real card in three controller runs, ctrl1 &rarr; ctrl2 &rarr; ctrl3: the effect of the corrections.", "{T} shows the fan reversals falling to zero over the three runs."),
+ (r"^Mode \(target\)¦", "hw", "The first controller version on the real RTX 5090 against its simulation, open case, intake about 19.3&nbsp;&deg;C, 22 October: how well the model predicts the controlled card.", "{T} sets the first version on the real card beside its simulation; the closer each pair, the better the model."),
+ (r"^Mode¦GPU fan reversals", "pump", "Fan pumping under 60-second load bursts on the real card in three controller runs, ctrl1 &rarr; ctrl2 &rarr; ctrl3: the effect of the corrections.", "{T} shows the fan reversals falling to zero over the three runs."),
  (r"^¦Radiator fans at full speed", "cpu2", None, "{T} answers one question: does slowing the radiator fans heat the processor?"),
  (r"^Radiator fans, rpm¦Case fans, rpm¦Tctl", "cpu3", None, "{T} goes further: both sets of fans slow, down to the radiator fans&rsquo; floor."),
- (r"^Core target, &deg;C¦575", "pareto", "Quietest fan settings for each core target at 575&nbsp;W and 402&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature-based noise): the effect of the target on noise.", "{T} reads the frontier at fixed targets; at 402&nbsp;W the fans are already at their floor."),
+ (r"^Core target, &deg;C¦Power limit 100", "pareto", "Quietest fan settings for each core target at 575&nbsp;W and 402&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature-based noise): the effect of the target on noise.", "{T} reads the frontier at fixed targets; at 402&nbsp;W the fans are already at their floor."),
  (r"^Mode at 575", "paretomodes", "Quietest fan settings for the core targets of the first version&rsquo;s modes at 575&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature-based noise).", "{T} places the first version&rsquo;s modes on the frontier."),
  (r"^Intake air¦Core target", "pmax", "Quietest total noise at each power limit for core targets of 77 and 80&nbsp;&deg;C, at two room temperatures (model, literature-based noise): the effect of power and of room temperature on noise.", "{T} shows what lowering the power limit buys in noise, in a cool and in a warm room."),
  (r"^Case and radiator fans¦Power limit 100", "iso", None, "{T} shows the many settings that give one temperature; look down each noise column for the diamond, the quietest setting."),
@@ -260,3 +264,25 @@ def letters_fix(m):
 s = re.sub(r'<div class="ar-tw[^"]*">\s*<table.*?</table>\s*</div>(?:\s*<p class="ar-note[^"]*">.*?</p>)?', letters_fix, s, flags=re.S)
 s = s.replace("(marked *)", "(marked <sup>a</sup>)")
 F.write_text(s); print("tables numbered:", num, "groups:", sum(1 for v in gsize.values() if v > 1))
+
+# --- one flat panel per table block: caption + table(s) + notes (Swiss: no shadow, no radius)
+s = F.read_text()
+s = s.replace('<div class="ar-tblock ar-tblock-wide">', "").replace('<div class="ar-tblock">', "").replace("</div><!--/tblock-->", "")
+caps = [(m.start(), int(m.group(1))) for m in re.finditer(r'<p class="ar-tcap"[^>]*id="table-(\d+)"', s)]
+wr = []
+for k, (st, n) in enumerate(caps):
+    lim = caps[k + 1][0] if k + 1 < len(caps) else len(s)
+    lim = min(lim, *(x for x in (s.find("<h2", st), s.find("<h3", st), s.find('<p class="ar-lead"', st + 10)) if x > 0), len(s))
+    ends = [m.end() for m in re.finditer(r"</table>\s*</div>", s[st:lim])]
+    if not ends: continue
+    e = st + ends[-1]
+    while True:
+        mm = re.match(r'\s*<p class="ar-note[^"]*">.*?</p>', s[e:], re.S)
+        if not mm: break
+        e += mm.end()
+    wide = 'ar-tw-wide' in s[st:e]
+    wr.append((st, e, wide))
+for st, e, wide in reversed(wr):
+    s = s[:e] + "</div><!--/tblock-->" + s[e:]
+    s = s[:st] + f'<div class="ar-tblock{" ar-tblock-wide" if wide else ""}">' + s[st:]
+F.write_text(s); print("table panels:", len(wr))
