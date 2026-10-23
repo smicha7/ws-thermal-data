@@ -71,8 +71,8 @@ REFS = {
 c = lambda *n: "".join(f' <a class="cite" href="#s{i}">[{i}]</a>' for i in n)
 # (phrase at first use, refs, optional plain sentence appended after the phrase's sentence)
 FIRST = [
- ("settles exponentially with a time constant of about 50&nbsp;s", (51, 10)),
- ("A first-order response is fitted to each temperature:", (10, 11)),
+ ("A first-order response is fitted to each temperature:", (51, 10, 11)),
+ ("Noise from several fans adds on an energy basis", (50,)),
  ("With 95&nbsp;% bootstrap intervals over the points:", (44,)),
  ("t-test", (16,)),
  ("Shapiro&ndash;Wilk does not reject normality", (26, 27)),
@@ -98,8 +98,10 @@ for k, v in REFS.items():   # update in place or append to the reference list; n
     else:
         e = s.index("</ol>", s.index('<h2 id="sources">')); s = s[:e] + f'<li id="s{k}">{v}</li>' + s[e:]
 body_end = s.index('</article>'); miss = []
+GL = (s.find('ar-gl"'), s.find("</table>", s.find('ar-gl"')))
 for ph, refs in FIRST:
     i = s.find(ph)
+    while i >= 0 and GL[0] >= 0 and GL[0] < i < GL[1]: i = s.find(ph, i + 1)
     if i < 0 or i > body_end: miss.append(ph); continue
     j = i + len(ph); tag = c(*refs)
     if f'<a class="cite" href="#s{refs[0]}">' not in s[j:j + 120]: s = s[:j] + tag + s[j:]; body_end += len(tag)
@@ -236,7 +238,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Form of R", "forms", "Candidate forms of the fan-response term R(N,&nbsp;C), all with session offsets, compared by fit and by prediction error: why we chose two parallel conductances.", "{T} ranks the forms; prediction errors (leave-one-out, 5-fold, leave session out) matter more than the fit error."),
  (r"^Test¦Statistic", "tests", "Statistical tests on the residuals of model (11): which assumptions of the fit hold.", "{T} lists each test with its verdict; the rejected ones are discussed below it."),
  (r"^Variant¦", "variants", "Sensitivity of model (11) to the core reading and to the form: fit error and Durbin&ndash;Watson along the GPU fans.", "{T} tests the causes of the residual pattern; only a richer form moves Durbin&ndash;Watson towards 2."),
- (r"^GPU fans¦Case and radiator fans¦800", "s3", "Final grid (steady3, 23 October): measured core and memory temperature against the model, over GPU fans (rows) and case and radiator fan listening classes (columns), one table per power limit and quantity: the primary result.", "{T} is the final measurement: compare each measured value with the model value beside it, and watch the grid fill as the run proceeds."),
+ (r"^GPU fans¦Case and radiator fans¦800", "s3", "Final grid (steady3, 23 October): measured core and memory temperature against the model, over GPU fans (rows) and case and radiator fan listening classes (columns), one table per power limit and quantity: the primary result.", "{T} is the validation data set: compare each measured value with the model value beside it."),
  (r"^GPU fans, %¦Case fans, rpm¦Core, measured", "old", "Earlier sessions (21&ndash;22 October): every settled core point against model (11), one table per power limit: the points the model was fitted to.", "{T} shows the points of the earlier sessions behind the model; the residual is the gap between the measured and model columns."),
  (r"^Constant¦Unit¦Estimate¦Standard error$", "constsmem", "Constants of the memory model (provisional), with standard errors, fitted to the settled memory points of the earlier sessions.", "{T} gives the memory model; its large offset &theta;<sub>0,mem</sub> is discussed below."),
  (r"^GPU fans(?:, %¦GPU fans, rpm)?¦Core(?:, &deg;C| temperature)¦Memory", "cmp", "Second run, all 112 settings: core and memory after 60&nbsp;s, settled, and from the model, by case fan speed and power limit: how far the 60-second readings were off.", "{T} sets the 60-second readings of the second run beside the settled and model values."),
@@ -249,10 +251,11 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Card¦Setting¦Fan speed", "rtx50", "Other RTX 50 cards in reviews: fan speeds, levels and fan stop at idle, for comparison with the RTX 5090 FE.", "{T} compares other RTX 50 cards; most are louder at equal speed."),
  (r"^Speed of a 120", "sebscale", "Sebastian&rsquo;s listening scale for a 120&nbsp;mm case fan against published measurements, a qualitative comparison: does the ear agree with the meter?", "{T} checks each listening class against measurements; most agree."),
  (r"^Mode \(first version\)", "v1noise", "First version of the controller: estimated noise at the fan-speed ceilings of its modes, at 1&nbsp;m.", "{T} shows that in the first version the card&rsquo;s fans set the noise in Quiet and Balanced."),
+ (r"^Mode \(budget, dBA\)¦Intake air", "proom", None, "{T} gives the power limit each mode settles at in a warmer room."),
  (r"^Parameter¦Unit¦Core \(R1\)", "params", None, "{T} lists the estimated parameters behind the control law."),
  (r"^Mode¦Noise budget", "modes", None, "{T} is the definition of the modes: read across a row to see the fans each budget allows and the temperatures that result at each power limit."),
  (r"^Mode¦Core target, &deg;C¦GPU fan ceiling", "v1modes", "First version of the controller (superseded): modes defined by a core target, with fan-speed ceilings and limits.", "{T} records the first, temperature-target design for comparison."),
- (r"^Fan control¦", "sim", None, "{T} compares the simulated controller with the factory fan curve in three tests; look at noise first, then at the temperatures."),
+ (r"^Fan control¦", "sim", None, "{T} compares the simulated controller with the factory fan curve in four tests; look at noise first, then at the temperatures."),
  (r"^Mode \(target\)¦", "hw", "The first controller version on the real RTX 5090 against its simulation, open case, intake about 19.3&nbsp;&deg;C, 22 October: how well the model predicts the controlled card.", "{T} sets the first version on the real card beside its simulation; the closer each pair, the better the model."),
  (r"^Mode¦GPU fan reversals", "pump", "Fan pumping under 60-second load bursts on the real card in three controller runs, ctrl1, ctrl2 and ctrl3: the effect of the corrections.", "{T} shows the fan reversals falling to zero over the three runs."),
  (r"^Quantity¦Radiator fans at full speed", "cpu2", None, "{T} answers one question: does slowing the radiator fans heat the processor?"),
@@ -401,6 +404,12 @@ def figfix(m):
 s = re.sub(r'(<figcaption><b>Figure [A-Z]?\d+\.</b>)(.*?)(?=</figcaption>)', figfix, s, flags=re.S)
 F.write_text(s); print("figure titles; untitled:", miss)
 
+# --- the glossary's method-name cells carry no citations (the references column has them)
+s = F.read_text()
+def glfix(m):
+    return re.sub(r'(<tr><td[^>]*>)(.*?)(</td>)', lambda r: r.group(1) + re.sub(r' ?<a class="cite"[^>]*>\[[^\]]*\]</a>', "", r.group(2)) + r.group(3), m.group(0))
+s = re.sub(r'<table class="ar-tab ar-txt ar-wrap ar-gl">.*?</table>', glfix, s, flags=re.S)
+F.write_text(s)
 # --- remove repeated citation runs left by earlier runs: "[a] [b] [a] [b]" -> "[a] [b]"
 s = F.read_text()
 CIT = r'(?: ?<a class="cite" href="#[tns]\d+">\[[^\]]*\]</a>)'
@@ -455,7 +464,7 @@ HEADMAP = {
  "resistance": ("h4", "Thermal resistance: one number per setting"), "model": ("h4", "A model of the cooler"),
  "s-what-we-do-not-assume": ("h5", None), "run2-dyn": ("h4", "A dynamic model"), "dyn-results": ("h3", "Dynamic model"),
  "controller": ("h3", "Controller design"), "controller-modes": ("h4", "Modes defined by a noise budget"), "controller-mem": ("h4", "Memory temperature limit"),
- "steady3-grid": ("h3", "The final grid (steady3)"), "stats": ("h3", "Model fit and diagnostics"),
+ "steady3-grid": ("h3", "Validation data (steady3)"), "stats": ("h3", "Model fit and diagnostics"),
  "stats-methods": ("h4", "Methods and terms"), "stats-model": ("h4", "The model"), "stats-forms": ("h4", "Forms and transforms tried"),
  "stats-tests": ("h4", "Tests on the residuals"), "stats-open": ("h4", "An open item: residuals along the GPU fans"), "stats-sessions": ("h4", "Sessions"),
  "stats-mem": ("h3", "Memory model"), "pareto": ("h3", "Noise&ndash;temperature frontier"), "pareto-lit": ("h4", "A first frontier, from the literature"),

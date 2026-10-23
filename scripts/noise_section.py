@@ -104,7 +104,7 @@ R4 = [[f"GamersNexus {c('n19')}", "100", "anechoic chamber, floor 14 to 14.5&nbs
       [f"PC Games Hardware {c('n22')}", "50", "chamber", "gaming", "1620", "2.8&nbsp;sone"],
       [f"LanOC {c('n23')}", "46", "floor 33.3&nbsp;dBA; class 2 meter", "fans at 50&nbsp;%", "&mdash;", "45.7&nbsp;dBA"],
       [f"LanOC {c('n23')}", "46", "as above", "stock, in a game (46&nbsp;%)", "&mdash;", "44.1&nbsp;dBA"],
-      [f"LanOC {c('n23')}", "46", "as above", "fans at 100&nbsp;%", "2873", "58.4&nbsp;dBA"],
+      [f"LanOC {c('n23')}", "46", "as above", "fans at 100&nbsp;%", "2873", "58.5&nbsp;dBA"],
       [f"Tom&rsquo;s Hardware {c('n24')}", "10", "floor 31 to 32&nbsp;dBA", "Cyberpunk 2077", "&mdash;", "50.0&nbsp;dBA"]]
 # 4) our estimate: anchor GN 32.5 dBA @1570 rpm @1 m; 50·log10 scaling; −6 dB per doubling of distance
 L1 = lambda n: 32.5 + 50 * math.log10(n / 1570)

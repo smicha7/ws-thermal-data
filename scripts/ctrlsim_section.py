@@ -15,9 +15,9 @@ rows = "".join(f'<tr><td>{n}</td><td class="g">{li[k]["noise_mean"]:.1f}</td><td
                f'<td>{wa[k]["noise_max"]:.1f}</td><td>{wa[k]["pl_min"]*100:.0f}</td><td>{wa[k]["work_W"]:.0f}</td><td class="g">{bu[k]["card_reversals_per_min"]:.2f}</td><td class="g">{over(k)}</td></tr>' for k, n in K)
 f_, q, b_, p_ = (k for k, _ in K)
 sec = f'''<!--ctrlsim:start-->
-  <h3>What the simulation shows</h3>
+  <h3 id="s-what-the-simulation-shows">What the simulation shows</h3>
   <p>The simulated card is the dynamic model (10) with its memory node; the controller is the released WS.Sensor 0.30.69 with the noise-budget modes of <a href="#controller-modes">How it decides</a>. The factory curve is modelled from the card&rsquo;s driver fan curve with the case fans fixed at 1000&nbsp;rpm. Four tests: a light load of 150&nbsp;W, a load step from idle to 575&nbsp;W, intake air rising from 19 to 30&nbsp;&deg;C at full load, and load bursts of 60 seconds on and off.</p>
-  <p class="ar-tcap"><b>Simulated controller (noise-budget modes) against the factory fan curve, RTX 5090 in the open case: highest temperatures, noise, power and fan reversals in three tests.</b> Light load: idle to 150&nbsp;W. Load step: idle to 575&nbsp;W at 19.3&nbsp;&deg;C intake. Warm room: intake air rising from 19.3 to 30&nbsp;&deg;C at full load. Short bursts: 60&nbsp;s full load, 60&nbsp;s idle, repeated.</p>
+  <p class="ar-tcap"><b>Simulated controller (noise-budget modes) against the factory fan curve, RTX 5090 in the open case: highest temperatures, noise, power and fan reversals in four tests.</b> Light load: idle to 150&nbsp;W. Load step: idle to 575&nbsp;W at 19.3&nbsp;&deg;C intake. Warm room: intake air rising from 19.3 to 30&nbsp;&deg;C at full load. Short bursts: 60&nbsp;s full load, 60&nbsp;s idle, repeated.</p>
   <div class="ar-tw ar-tw-wide">
   <table class="ar-tab ar-num ar-st ar-ms">
     <thead><tr><th scope="col" rowspan="2">Fan control</th><th scope="col" class="g">Light load, 150&nbsp;W</th><th scope="colgroup" colspan="2">Load step</th><th scope="colgroup" colspan="5">Warm room</th><th scope="col" class="g">Short bursts</th><th scope="col" class="g">Any test</th></tr><tr><th scope="col" class="g">mean noise at 1&nbsp;m, dBA</th><th scope="col" class="g">highest core, &deg;C</th><th scope="col">mean noise at 1&nbsp;m, dBA</th><th scope="col" class="g">highest core, &deg;C</th><th scope="col">highest memory, &deg;C</th><th scope="col">highest noise at 1&nbsp;m, dBA</th><th scope="col">lowest power limit, %</th><th scope="col">mean power, W</th><th scope="col" class="g">fan reversals, per min</th><th scope="col" class="g">time over noise budget, s</th></tr></thead>
@@ -38,5 +38,5 @@ s = F.read_text()
 a, e = s.find("<!--ctrlsim:start-->"), s.find("<!--ctrlsim:end-->")
 if a >= 0: s = s[:a] + sec.rstrip("\n") + s[e + len("<!--ctrlsim:end-->"):]
 else:
-    i = s.index("  <h3>What the simulation shows</h3>"); j = s.index("<!--ctrl1:start-->"); s = s[:i] + sec + "\n" + s[j:]
+    i = s.index("<!--ctrlsim:start-->"); j = s.index("<!--ctrl1:start-->"); s = s[:i] + sec + "\n" + s[j:]
 F.write_text(s); print("ctrlsim written")

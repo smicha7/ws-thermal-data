@@ -19,8 +19,7 @@ LAW = json.load(open(G / "results-2026-10-23/ctrl-law.json"))
 def pt(m):
     x = [r for r in LAW[m]["rows"] if int(r["P"]) == 575][0]
     return f'{m.capitalize()} {x["dBA"]:.1f}&nbsp;dBA with the core at {x["core"]:.1f}&nbsp;&deg;C (GPU fans {x["gpu_pct"]:.0f}&nbsp;%, case fans {x["case_rpm"]:.0f}&nbsp;rpm)'
-shot_html = ("".join(f'<img src="/research/img/gpu-panel-{p.name}" alt="WS.Sensor graphics-card cooling panel" loading="lazy" style="width:100%;height:auto;margin:6px 0">' for p in shots)
-             or '<p class="ar-ph-txt">Screenshot follows.</p>')
+shot_html = "".join(f'<img src="/research/img/gpu-panel-{p.name}" alt="WS.Sensor graphics-card cooling panel" loading="lazy" style="width:100%;height:auto;margin:6px 0">' for p in shots)
 
 SJ = json.load(open(G / "results-2026-10-22/steady-stats.json")); MJ = json.load(open(G / "results-2026-10-23/mem-model.json"))
 CP = {p["param"]: p for p in SJ["params"]}; MP = MJ["params"]
@@ -47,6 +46,41 @@ MAIN = f"""  <div class="ar-main" id="main-result">
   </div>
   <p class="ar-note">Noise (R3) has no estimated parameters of its own: 32.5&nbsp;dBA at 1570&nbsp;rpm for the card&rsquo;s fans at 1&nbsp;m (GamersNexus) scaled by the fan law 50&nbsp;log<sub>10</sub> of the speed ratio; a = &minus;167.1 and b = 60.2&nbsp;dB per decade of speed for one Silent Wings Pro 4 120 at 1&nbsp;m, a least-squares fit to Hardware Busters&rsquo; measurements; seven case and radiator fans summed on an energy basis (<a href="#noise-model">Section 2.5.4</a>, <a href="#appendix-e">Appendix E</a>). &theta;<sub>0</sub>: offset independent of power; r<sub>&infin;</sub>: resistance no airflow removes; g<sub>N</sub>, g<sub>C</sub>: conductances of the GPU-fan and case-fan paths at N = 1000 and C = 1500&nbsp;rpm; m, s: their exponents (dimensionless).</p>
 """
+
+import sys as _sys; _sys.path.insert(0, str(G)); import controller_sim as cs
+PR = ""
+for _m in ("quiet", "balanced", "performance"):
+    _c = cs.Controller(_m)
+    for _T in (19.3, 25.0, 30.0, 35.0):
+        _N, _C, _pl, _ov = _c.make_plan(575, _T); _core, _mem = cs.steady_ff(575 * _pl, _N, _C, _T)
+        PR += (f'<tr><td>{_m.capitalize()} ({_c.budget:.0f})</td><td>{_T:.1f}</td><td class="g">{_pl*100:.0f}</td><td>{575*_pl:.0f}</td><td class="g">{cs.RPM_DUTY(_N):.1f}</td><td>{_C:.0f}</td>'
+               f'<td class="g">{cs.noise(_N, _C):.1f}{"<sup>a</sup>" if _ov else ""}</td><td>{_core:.1f}</td><td>{_mem:.1f}</td></tr>')
+POWER = f"""  <h3 id="power-room">Power limit and room temperature</h3>
+  <p>The same law answers how much power each mode can keep in a warmer room. Under full load Quiet gives up power first, Balanced only at 35&nbsp;&deg;C intake air, and Performance keeps full power up to 35&nbsp;&deg;C by spending its larger budget.</p>
+  <p class="ar-tcap"><b>Power limit each mode settles at under full load (575&nbsp;W requested) against intake air temperature, with its fans, noise and predicted temperatures.</b> Planning of the released controller, model (11) and the memory model, literature-based noise at 1&nbsp;m.</p>
+  <div class="ar-tw ar-tw-wide">
+  <table class="ar-tab ar-num ar-st ar-ms ar-proom">
+    <thead><tr><th scope="col" rowspan="2">Mode (budget, dBA)</th><th scope="col" rowspan="2">Intake air, &deg;C</th><th scope="colgroup" colspan="2">Power limit</th><th scope="colgroup" colspan="2">Fans</th><th scope="col" rowspan="2" class="g">Total noise at 1&nbsp;m, dBA</th><th scope="col" rowspan="2">Core, &deg;C</th><th scope="col" rowspan="2">Memory, &deg;C</th></tr><tr><th scope="col" class="g">%</th><th scope="col">W</th><th scope="col" class="g">GPU, %</th><th scope="col">case, rpm</th></tr></thead>
+    <tbody>{PR}</tbody>
+  </table>
+  </div>
+  <p class="ar-note"><sup>a</sup> The power limit is at its 70&nbsp;% floor and the fans exceed the budget to hold the safety limits.</p>
+"""
+PANEL = ""
+if shots:
+    PANEL = f"""  <figure class="ar-fig ar-ph">
+    {shot_html}
+    <figcaption><b>Figure 0.</b> WS.Sensor graphics-card cooling panel: three noise preferences, Quiet, Normal and Performance (30, 35 and 40&nbsp;dBA at 1&nbsp;m), and the two adjustable upper temperature limits, core and memory.</figcaption>
+  </figure>"""
+
+KEY = f"""<!--keyresult:start-->
+  <section class="ar-abs ar-keyres" aria-labelledby="kr-h">
+    <h2 id="kr-h" class="ar-key-h">Key result</h2>
+    <p>The control law rests on three estimated equations (<a href="#main-result">Section 5.1</a>): core temperature (R1), memory temperature (R2) and fan noise (R3), with N the GPU fan speed and C the case and radiator fan speed in rpm, P the board power in W and T<sub>in</sub> the intake air in &deg;C.</p>
+    {HR[0]}{HR[1]}{HR[2]}
+    <p>From them follows the control curve of each mode ({{fref:fig-the-control-law-fan-speeds-noise-and-pre}}): within a noise budget of 30, 35 or 40&nbsp;dBA the quietest fan pair that keeps the core and memory at the mode&rsquo;s comfort level, and a lower power limit only when the budget cannot hold the safety limits.</p>
+  </section>
+<!--keyresult:end-->"""
 sec = f"""<!--ctrllaw:start-->
   <h3 id="control-law">The derived control law</h3>
   <p>The measurements, the models and the tests lead to one control law, which WS.Sensor implements. For the power P the card draws and the intake air T<sub>in</sub>, the core and memory temperatures at GPU fan speed N and case and radiator fan speed C (rpm) are predicted by equation (11) and the memory model:</p>
@@ -61,10 +95,10 @@ sec = f"""<!--ctrllaw:start-->
     {pic("gpu-map-ctrl-law", 2600, 1720, 1000, 2800, "Four panels against board power for the Quiet, Balanced and Performance modes: GPU fan speed, case fan speed, total noise with each budget, and predicted core with each comfort level; all modes sit at the fan floors at low power and rise only as far as the comfort level requires")}
     <figcaption><b>Figure 0.</b> Planned fan speeds of the released controller against board power at full load, intake air 19.3&nbsp;&deg;C: GPU fans in % and rpm (top left), case and radiator fans in rpm and % (top right), total noise at 1&nbsp;m with each mode&rsquo;s budget dotted (bottom left), and predicted core with each mode&rsquo;s comfort level dotted (bottom right). Colours: Quiet (&le;&nbsp;30&nbsp;dBA) green, Balanced (&le;&nbsp;35&nbsp;dBA) blue, Performance (&le;&nbsp;40&nbsp;dBA) red.</figcaption>
   </figure>
-  <figure class="ar-fig ar-ph">
-    {shot_html}
-    <figcaption><b>Figure 0.</b> WS.Sensor graphics-card cooling panel: three noise preferences, Quiet, Normal and Performance (30, 35 and 40&nbsp;dBA at 1&nbsp;m), and the two adjustable upper temperature limits, core and memory.</figcaption>
-  </figure>
-<!--ctrllaw:end-->"""
+{PANEL}
+{POWER}<!--ctrllaw:end-->"""
 s = F.read_text(); a, b = s.index("<!--ctrllaw:start-->"), s.index("<!--ctrllaw:end-->") + len("<!--ctrllaw:end-->")
-F.write_text(s[:a] + sec + s[b:]); print("control law written; screenshots:", len(shots))
+s = s[:a] + sec + s[b:]
+a, b = s.index("<!--keyresult:start-->"), s.index("<!--keyresult:end-->") + len("<!--keyresult:end-->")
+s = s[:a] + KEY + s[b:]
+F.write_text(s); print("control law written; screenshots:", len(shots))

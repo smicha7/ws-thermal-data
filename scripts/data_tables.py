@@ -36,7 +36,7 @@ sec = f"""<!--datatables:start-->
 <!--datatables:end-->
 <!--dtmem:start-->
   <h3 id="stats-mem">The memory: a first model</h3>
-  <p class="ar-status"><b>Provisional.</b> The memory is read in whole degrees and was fitted once, on fewer points than the core.</p>
+  <p>The memory is read in whole degrees and was fitted once, on fewer points than the core.</p>
   <p>The same two-path form fits the settled memory temperatures of {', '.join(list(MM['sessions'])[:-1])} and {list(MM['sessions'])[-1]}, {MM['n']} points, with an offset per session: RMSE {MM['rmse']:.2f}&nbsp;&deg;C, leave-one-out {MM['loo']:.2f}&nbsp;&deg;C. Most of that is the rounding of the reading itself, whose standard deviation alone is about 0.29&nbsp;&deg;C.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-set">

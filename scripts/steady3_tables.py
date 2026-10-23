@@ -67,7 +67,7 @@ legend = ('<p class="ar-note ar-legend">steady3 only, single settled measurement
           'A dot (&middot;) means the setting has not been measured yet. A fit on steady3 alone follows once the grid covers enough GPU fan speeds.'
           + (' <i>Live values are taken from the test log until the full data file arrives; model values then use the target speeds, the nominal power and 19.3&nbsp;&deg;C intake.</i>' if src == "log" else "") + '</p>')
 sec = (f'<!--s3tables:start-->\n  <h3 id="steady3-grid">The final grid: steady3, 23 October</h3>\n'
-       f'  <p>The final grid is the primary result. Measurement is in progress: {ntot} of the 196 grid points are measured so far, and the tables are complete when the run is collected.</p>\n'
+       f'  <p>The final grid is the validation data set. Measurement is in progress: {ntot} of the 196 grid points are measured so far, and the tables are complete when the run is collected.</p>\n'
        + "".join(tab(p, q) for p in PLS for q in ("core", "mem")) +
        f'  {legend[:-4]} <a href="/research/data/gpu-map-steady3-cells.csv">Data (CSV)</a>.</p>\n<!--s3tables:end-->')
 with open(Path.home() / "Claude/gruency-site/research/data/gpu-map-steady3-cells.csv", "w", newline="") as f:
