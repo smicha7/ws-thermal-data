@@ -155,7 +155,7 @@ ${pl90txt}${fig('gpu-map-steady-diagnostics','Six residual diagnostics of the st
 <!--stats:end-->`;
 let a=s.indexOf('<!--stats:start-->'), b=s.indexOf('<!--stats:end-->'); if(a<0||b<0) throw 'markers missing';
 s=s.slice(0,a)+sec+s.slice(b+'<!--stats:end-->'.length);
-const kf=`<!--kf-stats--> On ${J.n} settled points from ${nS} sessions, the two-path model (11) fits within ${chosen.rmse.toFixed(2)}&nbsp;&deg;C (leave-one-out ${chosen.LOO.toFixed(2)}&nbsp;&deg;C)${tableN?'; provisional while part of the latest series is re-read at 0.01&nbsp;&deg;C':''}. <a href="#stats">Statistical tests</a><!--/kf-stats-->`;
+const kf=`<!--kf-stats--> On ${J.n} settled points from ${nS} earlier sessions, the two-path model (11) fits within ${chosen.rmse.toFixed(2)}&nbsp;&deg;C (leave-one-out ${chosen.LOO.toFixed(2)}&nbsp;&deg;C)${tableN?'; provisional while part of the latest series is re-read at 0.01&nbsp;&deg;C':''}.<!--/kf-stats-->`;
 a=s.indexOf('<!--kf-stats-->'); b=s.indexOf('<!--/kf-stats-->'); if(a<0||b<a) throw 'kf markers'; s=s.slice(0,a)+kf+s.slice(b+16);
 // per-100 W lookup table at case 1500 rpm: (11) from steady fit, (10) dynamic, (9) static
 const Rs=n=>P['r∞'].est/1000+1/(P['gN'].est*Math.pow(n/1000,P['m'].est)+P['gC'].est);

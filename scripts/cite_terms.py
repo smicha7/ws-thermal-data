@@ -443,7 +443,7 @@ HEADMAP = {
  "iso-temp": ("h4", "One temperature, many settings"), "power": ("h3", "Power and room temperature"),
  "s-what-the-simulation-shows": ("h4", "In simulation"), "controller-hw": ("h4", "On the real card"), "controller-fix": ("h4", "Stopping the pumping"),
  "cpu": ("h3", "The processor"), "cpu-low": ("h4", "Both sets of fans slow"),
- "limits": ("h3", "Limitations"), "multi": ("h3", "Two cards in one case"), "s-acting-before-the-temperature-rises": ("h4", None),
+ "limits": ("h3", "Limitations"), "multi": ("h3", "Coupling of two cards"), "s-acting-before-the-temperature-rises": ("h4", None),
  "results": ("h3", "First run (20 to 21 October)"), "s-the-cards-own-fans-dominate": ("h4", None), "core-mem": ("h4", None), "clocks": ("h4", None),
  "settling": ("h4", None), "s-repeatability": ("h4", None), "power-results": ("h4", None),
  "run2": ("h3", "Second run (21 October)"), "s-what-the-second-run-shows": ("h4", None), "s-how-settled-these-points-are": ("h4", None),
@@ -494,11 +494,11 @@ SECNO = {h: no for tag, no, h, t in toc if no}
 APPNO = {h: t.split(".")[0] for tag, no, h, t in toc if h.startswith("appendix-")}
 def secref(m):
     h, txt = m.group(1), m.group(2)
-    if "<span" in txt or re.match(r"\s*(Table|Figure|Section|Appendix|\d)", txt): return m.group(0)
+    if "<span" in txt or (re.match(r"\s*(Table|Figure|Section|Appendix|\d)", txt) and not re.fullmatch(r"(Section [\d.]+|Appendix [A-Z][\d.]*)", txt.strip())): return m.group(0)
     if h in SECNO: return f'<a href="#{h}">{"Appendix " + SECNO[h] if SECNO[h][0].isalpha() else "Section " + SECNO[h]}</a>'
     if h in APPNO: return f'<a href="#{h}">{APPNO[h]}</a>'
     return m.group(0)
-ba = s.index('<h2 id="intro">')
+ba = s.index('<main')
 s = s[:ba] + re.sub(r'<a href="#([a-z0-9-]+)">(.*?)</a>', secref, s[ba:], flags=re.S)
 F.write_text(s); print("sections numbered:", cnt[0], "headings:", len(toc))
 
