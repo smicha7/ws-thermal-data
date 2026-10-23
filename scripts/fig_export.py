@@ -178,7 +178,8 @@ def corevsmem(theme, phone):
     for x, ls, lw, lab in ((90, "-", 1.6, "core max operating 90"), (93, "--", 1.6, "core slowdown 93"), (96, "-", 3.2, "core shutdown 96")):
         ax.axvline(x, c=red, ls=ls, lw=lw, zorder=3)
         ax.text(x - 0.4, 61, lab, rotation=90, va="bottom", ha="right", color=red, fontsize=fs - 3, path_effects=[pe.withStroke(linewidth=2.5, foreground=th["bg"])])
-    ax.axhline(100, c=red, ls="--", lw=1.6, zorder=3); ax.text(56, 100.4, "mem working limit 100 (derived)", color=red, fontsize=fs - 3, va="bottom")
+    ax.axhline(95, c=red, ls="--", lw=1.6, zorder=3); ax.text(56, 95.4, "memory hard limit 95", color=red, fontsize=fs - 3, va="bottom")
+    ax.axhline(90, c=red, ls=":", lw=1.2, zorder=3); ax.text(56, 90.4, "memory default limit 90", color=red, fontsize=fs - 3, va="bottom")
     ax.axhline(88, c=th["dim"], lw=0.8, zorder=2); ax.text(56, 88.3, "first-night limit 88", color=th["dim"], fontsize=fs - 3, va="bottom")
     ax.set_xlim(55, 98); ax.set_ylim(60, 102.5); ax.set_xlabel("Core (°C)"); ax.set_ylabel("Memory (°C)")
     cb = fig.colorbar(sc, ax=ax, pad=0.14 if not phone else 0.26, fraction=0.05, orientation="vertical" if not phone else "horizontal", aspect=30)

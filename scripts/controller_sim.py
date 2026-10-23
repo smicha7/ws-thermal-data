@@ -40,7 +40,8 @@ MODES = {   # target core °C, card / case noise ceilings (rpm), may lower the p
     "balanced":    dict(target=77.0, card_max=2300.0, case_max=1500.0, pl_cut=True, margin_extra=0.3),   # +0.3 °C: warm-intake scenario 0 s above target + 1 (2026-10-23)
     "performance": dict(target=72.0, card_max=CARD_MAX, case_max=CASE_MAX, pl_cut=False),
 }
-MEM_MAX, MEM_MARGIN = 100.0, 4.0
+MEM_MAX, MEM_MARGIN = 95.0, 4.0   # GDDR7 0–95 °C (2026-10-23); panel default limit 90 °C → acting limit = min(mode mem_limit, 95 − 4)
+MEM_DEFAULT = 90.0
 TIN_TAU, FF_HYST_DB, UP_DEADBAND, DOWN_DEADBAND, HOLD_AFTER_UP = 60.0, 0.5, 0.0, 50.0, 60.0   # ctrl2 anti-pumping (2026-10-22)
 BOOST_MARGIN, BOOST_MIN_S = 1.0, 120   # transient boost after a load step: extra °C below target for the feedforward, minimum seconds
 
@@ -99,12 +100,14 @@ class Controller:
         self.tin_f = None; self.up_at = {"N": -999, "C": -999}   # ctrl2: filtered intake for the feedforward, time of last up-ramp per fan group
         self.boost_at = None   # transient boost (2026-10-23): load step > 20 % → fans to the optimum for the new power with an extra margin
 
+    def mem_lim(self): return min(self.m.get("mem_limit", MEM_DEFAULT), MEM_MAX - MEM_MARGIN)
+
     def feedforward(self, P, Tin, extra=0.0):
         tgt = self.m["target"] - SS_MARGIN - self.m.get("margin_extra", 0.0) - extra; best = None
         for C in np.linspace(800, self.m["case_max"], 18):
             for N in np.linspace(card_min(P, self.Pst), self.m["card_max"], 40):
                 core, mem = steady_ff(P, N, C, Tin)
-                if core <= tgt and mem <= MEM_MAX - MEM_MARGIN:
+                if core <= tgt and mem <= self.mem_lim():
                     L = noise(N, C)
                     if best is None or L < best[0]: best = (L, N, C)
                     break                                     # smallest N for this C that works
@@ -112,7 +115,7 @@ class Controller:
         if not self.m["pl_cut"]: return self.m["card_max"], self.m["case_max"], 1.0
         for pl in np.arange(0.95, 0.69, -0.05):              # fans at the ceiling are not enough -> lower the power limit
             core, mem = steady_ff(P * pl, self.m["card_max"], self.m["case_max"], Tin)
-            if core <= tgt and mem <= MEM_MAX - MEM_MARGIN: return self.m["card_max"], self.m["case_max"], pl
+            if core <= tgt and mem <= self.mem_lim(): return self.m["card_max"], self.m["case_max"], pl
         return self.m["card_max"], self.m["case_max"], 0.70
 
     def keep_ff(self, new):
@@ -120,7 +123,7 @@ class Controller:
         N, C, pl = self.ff
         if new[2] != 1.0 or pl != 1.0 or N < card_min(self.p_s, self.Pst) or N > self.m["card_max"] or C > self.m["case_max"]: return new
         core, mem = steady_ff(self.p_s, N, C, self.tin_f)
-        if core <= self.m["target"] - SS_MARGIN and mem <= MEM_MAX - MEM_MARGIN and noise(new[0], new[1]) > noise(N, C) - FF_HYST_DB: return self.ff
+        if core <= self.m["target"] - SS_MARGIN and mem <= self.mem_lim() and noise(new[0], new[1]) > noise(N, C) - FF_HYST_DB: return self.ff
         return new
 
     def step(self, core, mem, P_meas, Tin, dt=1.0):

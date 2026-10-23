@@ -19,8 +19,8 @@ def pltab(pl):
             else: tds += "<td></td>"
         body += f"<tr><td>{g}&nbsp;%</td>{tds}</tr>"
     w = round(575 * pl / 100)
-    return (f'<details class="ar-det"{" open" if pl == 100 else ""}><summary>Power limit {pl}&nbsp;% ({w}&nbsp;W): {len(d)} settled points</summary>\n'
-            f'  <div class="ar-tw"><table class="ar-tab ar-num ar-cmp"><thead><tr><th scope="col">GPU fans \\ case fans, rpm</th>{head}</tr></thead><tbody>{body}</tbody></table></div>\n</details>\n')
+    return (f'<details class="ar-det" open><summary>Power limit {pl}&nbsp;% ({w}&nbsp;W): {len(d)} settled points</summary>\n'
+            f'  <div class="ar-tw ar-tw-wide"><table class="ar-tab ar-num ar-cmp ar-cmp-pl"><thead><tr><th scope="col">GPU fans \\ case fans, rpm</th>{head}</tr></thead><tbody>{body}</tbody></table></div>\n</details>\n')
 tabs = "".join(pltab(p) for p in (100, 90, 80, 70))
 P = MM["params"]; nm = {"θ0m": "&theta;<sub>0,mem</sub>", "r∞": "r<sub>&infin;</sub>", "gN": "g<sub>N</sub>", "m": "m", "gC": "g<sub>C</sub>", "s": "s"}
 un = {"θ0m": "&deg;C", "r∞": "m&deg;C/W", "gN": "W/&deg;C", "gC": "W/&deg;C", "m": "", "s": ""}
@@ -63,4 +63,8 @@ else:
     s = s[:a] + sec + s[b + len("<!--datatables:end-->"):]
 if ".ar-det{" not in s:
     s = s.replace(".ar-r2 sup{", ".ar-det{margin:18px 0}.ar-det>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}.ar-cmp{font-size:13.5px}.ar-cmp td,.ar-cmp th{white-space:nowrap;padding:8px 10px}.ar-cmp sup{font-size:.7em;margin-left:1px}.ar .ar-h4{font:600 15px/1.35 var(--sans);margin:22px 0 6px}\n@media (max-width:620px){.ar-cmp{font-size:12px}.ar-cmp td,.ar-cmp th{padding:7px 5px}.ar-cmp thead{display:table-header-group}.ar-cmp tr{display:table-row}.ar-cmp td{display:table-cell;border-top:1px solid var(--ring-l)}.ar-cmp td:nth-child(3){grid-column:auto;font-size:inherit;color:inherit}}\n.ar-r2 sup{", 1)
+import re as _re
+s = _re.sub(r'\.ar-det\{margin:18px 0\}\.ar-det>summary\{[^}]*\}', "", s, count=1)
+if ".ar-cmp-pl{" not in s:
+    s = s.replace(".ar-r2 sup{", '.ar-det{margin:18px 0}.ar-det>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:10px;list-style:none;border-radius:8px;padding:0 8px;margin:0 -8px}.ar-det>summary::-webkit-details-marker{display:none}.ar-det>summary::before{content:"\\25B8";font-size:14px;transition:transform .15s;display:inline-block}.ar-det[open]>summary::before{transform:rotate(90deg)}.ar-det>summary::after{content:"Show table";margin-left:auto;font:500 13px/1 var(--sans);color:var(--mute-l)}.ar-det[open]>summary::after{content:"Hide"}.ar-det>summary:hover,.ar-det>summary:focus-visible{background:rgba(0,0,0,.05);outline:none}:root[data-theme="dark"] .ar-det>summary:hover,:root[data-theme="dark"] .ar-det>summary:focus-visible{background:rgba(255,255,255,.08)}:root[data-theme="dark"] #ar .ar-det>summary::after{color:var(--mute-d)}.ar-cmp-pl{font-size:12px}.ar-cmp-pl td,.ar-cmp-pl th{padding:6px 5px}@media (min-width:900px){.ar-tw-wide{width:min(980px,calc(100vw - 2*var(--gut)));margin-left:50%;transform:translateX(-50%)}}\\n.ar-r2 sup{', 1)
 open(F, "w").write(s); print("data tables written:", nblk, "comparison blocks")
