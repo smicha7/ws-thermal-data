@@ -27,7 +27,7 @@ const rej=k=>T[k]&&T[k].verdict.startsWith('reject');
 const sym={'θ0':i('\\theta_0'),'r∞':i('r_\\infty'),'gN':i('g_N'),'m':i('m'),'gC':i('g_C'),'s':i('s')};
 const unitH={'°C':'&deg;C','m°C/W':'m&deg;C/W','W/°C':'W/&deg;C','':''};
 const prow=p=>{const name=p.param.startsWith('θ[')?`${i('\\theta_j')}, ${sessName[p.param.slice(2,-1)]||p.param.slice(2,-1)} &minus; ${J.ref}`:sym[p.param];
-  return `<tr><td>${name}</td><td>${f(p.est)} ${unitH[p.unit]??p.unit}</td><td>${p.se_classic.toFixed(2)}</td><td>${p.se_HC3.toFixed(2)}</td><td>${p.se_cluster.toFixed(2)}</td><td>${p.se_cluster_series.toFixed(2)}</td><td>${f(p.ci95_HC3[0])} to ${f(p.ci95_HC3[1])}</td></tr>`;};
+  return `<tr><td>${name}</td><td>${(unitH[p.unit]??p.unit)||'&mdash;'}</td><td>${f(p.est)}</td><td>${p.se_classic.toFixed(2)}</td><td>${p.se_HC3.toFixed(2)}</td><td>${p.se_cluster.toFixed(2)}</td><td>${p.se_cluster_series.toFixed(2)}</td><td>${f(p.ci95_HC3[0])} to ${f(p.ci95_HC3[1])}</td></tr>`;};
 const formName={pow:'power, k N<sup>&minus;m</sup> C<sup>&minus;q</sup>',exp:'exponential in N',rat:'rational in N',cond:'<b>two parallel conductances (chosen)</b>',flow:'effective airflow, k (N + bC)<sup>&minus;m</sup>','R-resp cond':'per-watt response, same form','log-log':'log-log with interactions',spline:'natural cubic spline in ln N',tensor:'tensor spline surface (benchmark)'};
 const crow=r=>{const base=r.model.replace(' +S','');return `<tr><td>${formName[base]||base}</td><td>${r.k}</td><td>${r.rmse.toFixed(2)}</td><td>${r.LOO.toFixed(2)}</td><td>${r.CV5.toFixed(2)}</td><td>${(r.LOSO??NaN).toFixed(2)}</td><td>${r.BIC.toFixed(1)}</td><td>${r.DWser.toFixed(2)}</td></tr>`;};
 const withS=J.compare.filter(r=>r.model.endsWith('+S')); const without=J.compare.filter(r=>!r.model.endsWith('+S')&&r.model!=='tensor'&&r.model!=='spline');
@@ -107,7 +107,7 @@ const sec=`<!--stats:start-->
   <p>Equation (11) replaces the static fit (9) for settled points. Its exponent ${i('m')} = ${P['m'].est.toFixed(2)} is far above the 0.5 to 0.8 that convection alone would give (section <a href="#model">A model of the cooler</a>): here the conductance also carries the fan&rsquo;s own airflow curve, so ${i('m')} is an empirical constant.${P['gC'].ci95_HC3[0]<0?` The case-fan path ${i('g_C')} is the least certain constant; its interval includes zero.`:''}</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
-    <thead><tr><th scope="col">Constant</th><th scope="col">Estimate</th><th scope="col">SE</th><th scope="col">SE HC3</th><th scope="col">SE cluster, session</th><th scope="col">SE cluster, series</th><th scope="col">95&nbsp;% interval, HC3</th></tr></thead>
+    <thead><tr><th scope="col">Constant</th><th scope="col">Unit</th><th scope="col">Estimate</th><th scope="col">SE</th><th scope="col">SE HC3</th><th scope="col">SE cluster, session</th><th scope="col">SE cluster, series</th><th scope="col">95&nbsp;% interval, HC3</th></tr></thead>
     <tbody>${J.params.map(prow).join('')}</tbody>
   </table>
   </div>

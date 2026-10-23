@@ -19,8 +19,8 @@ crow = ""
 for Tk in ("19", "30"):
     for tg in ("77", "80"):
         d = C[Tk][tg]; v = [d[p]["dBA"] if d[p] else None for p in ("100", "90", "80", "70")]
-        steps = [f"{v[i]-v[i+1]:.1f}" for i in range(3)]
-        crow += f"<tr><td>{'19.3' if Tk=='19' else '30'}&nbsp;&deg;C</td><td>{tg}&nbsp;&deg;C</td>" + "".join(f"<td>{x:.1f}</td>" for x in v) + f"<td>{' / '.join(steps)}</td></tr>"
+        dl = lambda i: "" if i == 0 else f' <span class="dlt">({v[i]-v[i-1]:+.1f})</span>'.replace("+-", "&minus;").replace("(-", "(&minus;").replace("(+0.0)", "(0.0)").replace("(&minus;0.0)", "(0.0)")
+        crow += f"<tr><td>{'19.3' if Tk=='19' else '30.0'}&nbsp;&deg;C</td><td>{tg}&nbsp;&deg;C ({'Balanced' if tg=='77' else 'Quiet'}, first version)</td>" + "".join(f"<td>{x:.1f}{dl(i)}</td>" for i, x in enumerate(v)) + "</tr>"
 clk = R["clock_by_power"]
 par = f"""<!--pareto:start-->
   <h3 id="pareto-lit">A first frontier, from the literature</h3>
@@ -50,18 +50,18 @@ par = f"""<!--pareto:start-->
   <p>All three lie well inside the speed ceilings of the modes, and all three keep the case fans near their minimum, where the controller&rsquo;s earlier noise proxy, which weighed both groups by speed alone, spent more on the case fans. The controller&rsquo;s simulation now uses these decibel models in place of that proxy; the real controller follows once our own measurements confirm them.</p>
 <!--pareto:end-->"""
 pm = f"""<!--pmax:start-->
-  <p>The same models give equation (14). For a core target of 77&nbsp;&deg;C, Figure 19 shows the highest power the card can hold within each noise budget, for intake air at 19.3 and at 30&nbsp;&deg;C, and the table gives the quietest total level at each power limit and what each 10&nbsp;% of power limit buys.</p>
+  <p>The same models give equation (14). For a core target of 77&nbsp;&deg;C, Figure 19 shows the highest power the card can hold within each noise budget, for intake air at 19.3 and at 30&nbsp;&deg;C, and the table below gives the quietest total level at each power limit; look at how much each step down in power limit saves in a cool and in a warm room.</p>
   <figure class="ar-fig">
     {pic('gpu-map-noise-pmax', 'Highest sustainable power for a core target of 77 °C against the noise budget in dBA at 1 m, for intake air at 19.3 and 30 °C, with a second axis giving the average graphics clock at that power; at 19.3 °C full power is reached at about 32 dBA, at 30 °C only at about 38 dBA', 1600, 1040, 1000, 1200)}
     <figcaption><b>Figure 19.</b> Highest power with the core at or below 77&nbsp;&deg;C and the memory at or below 90&nbsp;&deg;C, against the noise budget of all fans at 1&nbsp;m, for intake air at 19.3&nbsp;&deg;C (blue) and 30&nbsp;&deg;C (red). Right axis: the average graphics clock measured at that power in the second run, a proxy for performance. Literature-based noise, provisional.</figcaption>
   </figure>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
-    <thead><tr><th scope="col">Intake air</th><th scope="col">Core target, &deg;C</th><th scope="col">575&nbsp;W, dBA</th><th scope="col">518&nbsp;W, dBA</th><th scope="col">460&nbsp;W, dBA</th><th scope="col">402&nbsp;W, dBA</th><th scope="col">dB saved per 10&nbsp;% step</th></tr></thead>
+    <thead><tr><th scope="col">Intake air</th><th scope="col">Core target</th><th scope="col">Power limit 100&nbsp;% (575&nbsp;W), dBA</th><th scope="col">90&nbsp;% (518&nbsp;W), dBA</th><th scope="col">80&nbsp;% (460&nbsp;W), dBA</th><th scope="col">70&nbsp;% (402&nbsp;W), dBA</th></tr></thead>
     <tbody>{crow}</tbody>
   </table>
   </div>
-  <p class="ar-note">Quietest total level of all fans at 1&nbsp;m for each power limit. A level of 28.9&nbsp;dBA is the floor: GPU fans at 40&nbsp;% and case fans at 800&nbsp;rpm.</p>
+  <p class="ar-note">Each cell: the quietest total level of all fans at 1&nbsp;m that holds the core target with the memory at or below 90&nbsp;&deg;C (model (11), literature-based noise). In parentheses: change from the column to the left, in dB. The core targets 77 and 80&nbsp;&deg;C are those of Balanced and Quiet in the first, temperature-target version of the controller. A level of 28.9&nbsp;dBA is the floor: GPU fans at 40&nbsp;% and case fans at 800&nbsp;rpm.</p>
   <p>In a cool room the power limit buys little quiet: from 575 to 518&nbsp;W about {C['19']['77']['100']['dBA']-C['19']['77']['90']['dBA']:.1f}&nbsp;dB at 77&nbsp;&deg;C, and below that the fans are already at their floor. On a warm day it buys about 3&nbsp;dB for each 10&nbsp;%. The price is speed: the average clock in the second run was {clk['575']}, {clk['518']}, {clk['460']} and {clk['402']}&nbsp;MHz at 575, 518, 460 and 402&nbsp;W. That is why the controller lowers the power limit only after the fans reach the ceiling of the mode.</p>
 <!--pmax:end-->"""
 def replace_fig(n, new):

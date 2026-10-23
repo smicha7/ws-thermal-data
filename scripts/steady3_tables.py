@@ -2,8 +2,9 @@
 Cell = steady3 measurement only (never averaged with earlier sessions) / model prediction, core and memory, °C.
 Source: data/steady3-*/grid.csv (settled rows, path order); until it exists, the Lab log lines and the watch notes.
 Writes <!--s3tables:start/end--> before <!--datatables:start--> and research/data/gpu-map-steady3-cells.csv. Usage: steady3_tables.py"""
-import csv, glob, json, math, re
+import csv, glob, json, math, re, sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent)); from caseclass import label
 G = Path(__file__).resolve().parent.parent; F = Path.home() / "Claude/gruency-site/research/gpu-cooling-method.html"
 CARDS = [40, 50, 60, 70, 80, 90, 100]; CASES = [800, 1000, 1300, 1600, 1900, 2400, 3000]; PLS = [100, 90, 80, 70]
 PLW = {100: 575, 90: 518, 80: 460, 70: 402}
@@ -40,7 +41,7 @@ for (pl, g, c), v in cells.items(): v["core_mod"] = core(v["N"], v["C"], v["W"],
 fmt = lambda x: "&middot;" if x is None else f"{x:.1f}"
 def tab(pl):
     n = sum(1 for (p, g, c) in cells if p == pl)
-    head = "".join(f'<th scope="col">{c if c != 3000 else "3000 (full, ~2920)"}</th>' for c in CASES)
+    head = "".join(f'<th scope="col">{label(c, True)}</th>' for c in CASES)
     body = ""
     for g in CARDS:
         tds = ""

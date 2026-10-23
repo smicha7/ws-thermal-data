@@ -73,7 +73,7 @@ def wcsv(name, head, rows):
 # 1) perception
 H1 = ["Class", "dBA at 1&nbsp;m", "Comparable to"]
 R1 = [["Inaudible", "below 15", "&mdash;"], ["Barely audible", "15&ndash;20", "a computer without fans"], ["Very quiet", "20&ndash;25", "a quiet whisper"],
-      ["Quiet", "25&ndash;30", "a bedroom at night"], ["Subdued", "35&ndash;45", "a typical computer; a quiet office or library"], ["Clearly audible", "about 50", "&mdash;"], ["Loud", "about 60", "&mdash;"]]
+      ["Quiet", "25&ndash;30", "a bedroom at night"], ["(no class named)<sup>a</sup>", "30&ndash;35", "&mdash;"], ["Subdued", "35&ndash;45", "a typical computer; a quiet office or library"], ["Clearly audible", "about 50", "&mdash;"], ["Loud", "about 60", "&mdash;"]]
 # 2) fans
 H2 = ["Fan", "20&nbsp;dBA", "25&nbsp;dBA", "30&nbsp;dBA", "35&nbsp;dBA", "40&nbsp;dBA"]
 R2 = [["Noctua NF-A12x25 G2", "1306", "1500", "1820", "&mdash;", "&mdash;"], ["Noctua NF-A12x25 G1", "1476", "1760", "2079", "&mdash;", "&mdash;"],
@@ -145,7 +145,7 @@ sec = f"""<!--noise:start-->
   <p>The controller trades temperature against noise, so it needs to know what a fan speed sounds like. Until we have measured our own fans, we rely on published measurements, and only on those that state their distance and the noise floor of the room; a level without a distance is not a number one can use. Three rules of thumb connect them: the level falls by about 6&nbsp;dB for each doubling of distance in a free field; by the fan laws it changes by about 50&nbsp;log<sub>10</sub> of the speed ratio {c('n7')}; and at the same speed a 140&nbsp;mm fan is about 4.7&nbsp;dB louder than a 120&nbsp;mm one, which means the same level at about 20&nbsp;% lower speed.</p>
   <h3 id="noise-scale">How loud things sound</h3>
   <p>SilentPCReview&rsquo;s classes, measured at 1&nbsp;m, are the most widely used scale for computers {c('n1')}:</p>
-{tw('ar-set', H1, R1)}  <p class="ar-note">{D('gpu-map-noise-perception.csv')}.</p>
+{tw('ar-set', H1, R1)}  <p class="ar-note"><sup>a</sup> The scale as we transcribed it from the source names no class between 30 and 35&nbsp;dBA; the source page could not be reopened today to check. {D('gpu-map-noise-perception.csv')}.</p>
   <p>A typical room is at 25 to 30&nbsp;dBA, a quiet room at night at about 20&nbsp;dBA, and a fan 5 to 10&nbsp;dB below that floor is practically inaudible. A level 10&nbsp;dB higher sounds about twice as loud; 3&nbsp;dB is a clearly audible difference and 1&nbsp;dB about the smallest one can hear {c('n1')}. Sources add on an energy basis: <i>n</i> identical fans are 10&nbsp;log<sub>10</sub>&nbsp;<i>n</i>&nbsp;dB louder than one, so two add 3&nbsp;dB, four 6&nbsp;dB and eight 9&nbsp;dB {c('n1')}. At 20&nbsp;dBA at 1&nbsp;m a computer is quieter than nearly all ready-made ones {c('n2')}. German magazines report loudness in sone, which is linear in perceived loudness; very roughly, 1&nbsp;sone at 50&nbsp;cm is about 35&nbsp;dBA at 1&nbsp;m {c('n3','n4')}.</p>
   <p>The standards say how to measure, not what is quiet. ECMA-74 and ISO&nbsp;7779 make the sound power level, in bels, the main quantity, with the pressure at an operator or bystander position as a supplement {c('n5')}. Noctua points out that a fan radiates like a dipole, so its level depends on the angle and on reflections, and different benches give conflicting results {c('n6')}.</p>
   <h3 id="noise-fans">120 and 140&nbsp;mm fans: speed against level</h3>
