@@ -43,6 +43,30 @@ REFS = {
  51: "[I. Newton.] Scala graduum caloris. <i>Philosophical Transactions of the Royal Society of London</i> 22 (1701) 824&ndash;829. <a href=\"https://doi.org/10.1098/rstl.1700.0082\">doi:10.1098/rstl.1700.0082</a>",
  52: "S. Seabold, J. Perktold. Statsmodels: econometric and statistical modeling with Python. <i>Proceedings of the 9th Python in Science Conference</i> (2010) 92&ndash;96. <a href=\"https://doi.org/10.25080/Majora-92bf1922-011\">doi:10.25080/Majora-92bf1922-011</a>",
  53: "P. Virtanen et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. <i>Nature Methods</i> 17 (2020) 261&ndash;272. <a href=\"https://doi.org/10.1038/s41592-019-0686-2\">doi:10.1038/s41592-019-0686-2</a>",
+ 54: "Z. Wang, C. Bash, N. Tolia, M. Marwah, X. Zhu, P. Ranganathan. Optimal fan speed control for thermal management of servers. In: <i>Proc. ASME InterPACK 2009</i>, Vol. 2, ASME, 2009, 709&ndash;719. <a href=\"https://doi.org/10.1115/InterPACK2009-89074\">doi:10.1115/InterPACK2009-89074</a>",
+ 55: "D. Shin, J. Kim, N. Chang, J. Choi, S. W. Chung, E.-Y. Chung. Energy-optimal dynamic thermal management for green computing. In: <i>Proc. ICCAD 2009</i>, ACM, 2009, 652&ndash;657. <a href=\"https://doi.org/10.1145/1687399.1687520\">doi:10.1145/1687399.1687520</a>",
+ 56: "D. Shin, S. W. Chung, E.-Y. Chung, N. Chang. Energy-optimal dynamic thermal management: computation and cooling power co-optimization. <i>IEEE Transactions on Industrial Informatics</i> 6 (2010) 340&ndash;351. <a href=\"https://doi.org/10.1109/TII.2010.2052059\">doi:10.1109/TII.2010.2052059</a>",
+ 57: "R. Ayoub, R. Nath, T. Rosing. JETC: joint energy thermal and cooling management for memory and CPU subsystems in servers. In: <i>Proc. IEEE HPCA 2012</i>, 2012, 1&ndash;12. <a href=\"https://doi.org/10.1109/HPCA.2012.6169035\">doi:10.1109/HPCA.2012.6169035</a>",
+ 58: "X. Han, Y. Joshi. Energy reduction in server cooling via real time thermal control. In: <i>Proc. 28th IEEE SEMI-THERM</i>, 2012. <a href=\"https://doi.org/10.1109/STHERM.2012.6188829\">doi:10.1109/STHERM.2012.6188829</a>",
+ 59: "J. Kim, M. M. Sabry, D. Atienza, K. Vaidyanathan, K. Gross. Global fan speed control considering non-ideal temperature measurements in enterprise servers. In: <i>Proc. DATE 2014</i>, 2014, 1&ndash;6. <a href=\"https://doi.org/10.7873/DATE.2014.289\">doi:10.7873/DATE.2014.289</a>",
+ 60: "M. Zapater, O. Tuncer, J. L. Ayala, J. M. Moya, K. Vaidyanathan, K. Gross, A. K. Coskun. Leakage-aware cooling management for improving server energy efficiency. <i>IEEE Transactions on Parallel and Distributed Systems</i> 26 (2015) 2764&ndash;2777. <a href=\"https://doi.org/10.1109/TPDS.2014.2361519\">doi:10.1109/TPDS.2014.2361519</a>",
+ 61: "J. Sarkinen, R. Brannvall, J. Gustafsson, J. Summers. Experimental analysis of server fan control strategies for improved data center air-based thermal management. In: <i>Proc. 19th IEEE ITherm</i>, 2020, 341&ndash;349. <a href=\"https://doi.org/10.1109/ITherm45881.2020.9190337\">doi:10.1109/ITherm45881.2020.9190337</a>",
+ 62: "E. Pakbaznia, M. Pedram. Minimizing data center cooling and server power costs. In: <i>Proc. ISLPED 2009</i>, ACM, 2009, 145&ndash;150. <a href=\"https://doi.org/10.1145/1594233.1594268\">doi:10.1145/1594233.1594268</a>",
+ 63: "L. Huang. Characterizing computer cooling fan noise. <i>Journal of the Acoustical Society of America</i> 114 (2003) 3189&ndash;3200. <a href=\"https://doi.org/10.1121/1.1624074\">doi:10.1121/1.1624074</a>",
+ 64: "R. H. Lyon, A. E. Bergles. Noise and cooling in electronics packages. <i>IEEE Transactions on Components and Packaging Technologies</i> 29 (2006) 535&ndash;542. <a href=\"https://doi.org/10.1109/TCAPT.2006.880512\">doi:10.1109/TCAPT.2006.880512</a>",
+ 65: "P. P. Nagrani, A. Alfoqaha, D. Demetriou, S. Bard. Multiphysics thermal-acoustic modeling of a server in a data center. In: <i>Proc. 21st IEEE ITherm</i>, 2022, 1&ndash;7. <a href=\"https://doi.org/10.1109/iTherm54085.2022.9899616\">doi:10.1109/iTherm54085.2022.9899616</a>",
+ 66: "N. Cerkovnik, J. Murovec, T. Novakovi&#263;, J. Prezelj. A psychoacoustic evaluation and predictive model for computer axial fan sound quality. <i>Applied Acoustics</i> 237 (2025) 110749. <a href=\"https://doi.org/10.1016/j.apacoust.2025.110749\">doi:10.1016/j.apacoust.2025.110749</a>",
+ 67: "H. Fastl, E. Zwicker. <i>Psychoacoustics: Facts and Models</i>, 3rd ed. Springer, Berlin, 2007. <a href=\"https://doi.org/10.1007/978-3-540-68888-4\">doi:10.1007/978-3-540-68888-4</a>",
+ 68: "D. Brooks, M. Martonosi. Dynamic thermal management for high-performance microprocessors. In: <i>Proc. 7th IEEE HPCA</i>, 2001, 171&ndash;182. <a href=\"https://doi.org/10.1109/HPCA.2001.903261\">doi:10.1109/HPCA.2001.903261</a>",
+ 69: "J. W. Sheaffer, K. Skadron, D. P. Luebke. Studying thermal management for graphics-processor architectures. In: <i>Proc. IEEE ISPASS 2005</i>, 2005. <a href=\"https://doi.org/10.1109/ISPASS.2005.1430559\">doi:10.1109/ISPASS.2005.1430559</a>",
+ 70: "X. Mei, Q. Wang, X. Chu. A survey and measurement study of GPU DVFS on energy conservation. <i>Digital Communications and Networks</i> 3 (2017) 89&ndash;100. <a href=\"https://doi.org/10.1016/j.dcan.2016.10.001\">doi:10.1016/j.dcan.2016.10.001</a>",
+ 71: "A. Krzywaniak, P. Czarnul, J. Proficz. GPU power capping for energy-performance trade-offs in training of deep convolutional neural networks for image recognition. In: <i>Computational Science &ndash; ICCS 2022</i>, LNCS, Springer, 2022, 667&ndash;681. <a href=\"https://doi.org/10.1007/978-3-031-08751-6_48\">doi:10.1007/978-3-031-08751-6_48</a>",
+ 72: "D. Zhao, S. Samsi, J. McDonald, B. Li, D. Bestor, M. Jones, D. Tiwari, V. Gadepally. Sustainable supercomputing for AI: GPU power capping at HPC scale. In: <i>Proc. ACM SoCC 2023</i>, 2023, 588&ndash;596. <a href=\"https://doi.org/10.1145/3620678.3624793\">doi:10.1145/3620678.3624793</a>",
+ 73: "W. Huang, S. Ghosh, S. Velusamy, K. Sankaranarayanan, K. Skadron, M. R. Stan. HotSpot: a compact thermal modeling methodology for early-stage VLSI design. <i>IEEE Transactions on VLSI Systems</i> 14 (2006) 501&ndash;513. <a href=\"https://doi.org/10.1109/TVLSI.2006.876103\">doi:10.1109/TVLSI.2006.876103</a>",
+ 74: "C. J. M. Lasance. Ten years of boundary-condition-independent compact thermal modeling of electronic parts: a review. <i>Heat Transfer Engineering</i> 29 (2008) 149&ndash;168. <a href=\"https://doi.org/10.1080/01457630701673188\">doi:10.1080/01457630701673188</a>",
+ 75: "lm-sensors project. fancontrol(8): automated software based fan speed regulation. <a href=\"https://github.com/lm-sensors/lm-sensors\">github.com/lm-sensors</a>",
+ 76: "Rem0o. FanControl: a highly customizable fan controlling software for Windows. <a href=\"https://github.com/Rem0o/FanControl.Releases\">github.com/Rem0o/FanControl.Releases</a>",
+ 77: "T. E. Dewey, M. Irwin, S. Lai, S. Y. K. Li (NVIDIA Corp.). Techniques for controlling computing performance for power-constrained multi-processor computing systems. US Patent 12,130,687 B2, 2024. <a href=\"https://patents.google.com/patent/US12130687B2/en\">patents.google.com</a>",
 }
 c = lambda *n: "".join(f' <a class="cite" href="#s{i}">[{i}]</a>' for i in n)
 # (phrase at first use, refs, optional plain sentence appended after the phrase's sentence)
@@ -69,8 +93,10 @@ FIRST = [
 ]
 s = F.read_text()
 # reference list: replace everything after s15 up to the end of that list
-a = s.index('<li id="s15">'); a = s.index("</li>", a) + 5; b = s.index("</ol>", a)
-s = s[:a] + "".join(f'<li id="s{k}">{v}</li>' for k, v in REFS.items()) + s[b:]
+for k, v in REFS.items():   # update in place or append to the reference list; never drop other entries
+    if f'<li id="s{k}">' in s: s = re.sub(rf'<li id="s{k}">.*?</li>', lambda m: f'<li id="s{k}">{v}</li>', s, count=1, flags=re.S)
+    else:
+        e = s.index("</ol>", s.index('<h2 id="sources">')); s = s[:e] + f'<li id="s{k}">{v}</li>' + s[e:]
 body_end = s.index('<h2 id="sources">'); miss = []
 for ph, refs in FIRST:
     i = s.find(ph)
@@ -98,7 +124,7 @@ TERMS = [
  (r"\bTctl\b", "Tctl", "the processor&rsquo;s overall temperature as AMD reports it"),
  (r"\bCCD\b", "CCD 1/2", "the two chiplets that hold the processor cores"),
  (r"\bPackage\b", "Package", "the electrical power the whole processor draws"),
- (r"\bPL\b|[Pp]ower limit", "Power limit (PL)", "the share of the card&rsquo;s maximum power, 575&nbsp;W, that it may use"),
+ (r"\bPL\b", "Power limit (PL)", "the share of the card&rsquo;s maximum power, 575&nbsp;W, that it may use"),
  (r"\bmeas\.", "meas.", "measured; the column beside it (sim. or model) is computed by our model for the same conditions"),
  (r"dBA", "dBA", "A-weighted sound pressure level in decibels"),
  (r"reversals", "Reversals/min", "how often per minute the fans switch between speeding up and slowing down"),
@@ -130,7 +156,8 @@ for m in re.finditer(r'<div class="ar-tw[^"]*">\s*<table[^>]*>(.*?)</table>\s*</
     tab = m.group(1); head = (re.search(r"<thead>(.*?)</thead>", tab, re.S) or [None, ""])[1] if re.search(r"<thead>", tab) else ""
     firstcol = " ".join(re.findall(r"<tr><td[^>]*>(.*?)</td>", tab))
     hay = head + " " + firstcol
-    found = [f"{lab}: {txt}" for rx, lab, txt in TERMS if re.search(rx, hay)]
+    after = re.match(r'\s*<p class="ar-note[^"]*"[^>]*>(.*?)</p>', s[m.end():], re.S); after = after.group(1).lower() if after else ""
+    found = [f"{lab}: {txt}" for rx, lab, txt in TERMS if re.search(rx, hay) and lab.lower().split("/")[0].split(" ")[0] + ":" not in after]
     if 'ar-cmp2' in m.group(0)[:300] or re.match(r"\s*(<tr>)?\s*<th[^>]*>\s*(Method|Constant|Fan control)", head): found = []   # row labels already spell the terms out
     out.append(s[pos:m.end()]); pos = m.end()
     if not found: continue
@@ -201,7 +228,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Time after the change, min¦Small", "early", "Early reading minus settled value, core temperature, val1 validation series (21 October, evening): how long a point must run.", "{T} shows how far a reading after 1 to 5 minutes still lies from the settled value, for small and large steps."),
  (r"^GPU fans(?:, %¦GPU fans, rpm)?¦Core rise per 100", "per100", "Core temperature rise per 100&nbsp;W of board power, by GPU fan speed, from models (9), (10) and (11): the effect of power at fixed fans.", "{T} compares the three models&rsquo; slope against power; they agree within about 1&nbsp;&deg;C per 100&nbsp;W."),
  (r"^GPU fans, %¦Run time", "s3plan", "Plan of the final grid (steady3) by GPU fan speed: points, run time, predicted core range and the largest step between consecutive points.", "{T} summarises the plan of the final grid; the largest steps show where settling takes longest."),
- (r"^GPU fans(?:, %¦GPU fans, rpm)?¦Estimated level at 1&nbsp;m, dBA¦(?:Sebastian|Class on our)", "gpuclass", "GPU fan speeds of the final grid with their estimated noise at 1&nbsp;m and how they sound on this machine.", "{T} links each GPU fan speed of the grid to a level and a listening class."),
+ (r"^GPU fans(?:, %¦GPU fans, rpm)?¦Estimated level at 1&nbsp;m, dBA¦(?:Sebastian|Class on our)", "gpuclass", "GPU fan speeds of the final grid with their estimated noise at 1&nbsp;m and their class on our RTX 5090 scale ({tref:gpuclassrange}).", "{T} links each GPU fan speed of the grid to an estimated level and a noise class."),
  (r"^Case and radiator fans, rpm¦Estimated level", "caseclass", "Case and radiator fan levels of the final grid, chosen as listening classes for this machine at the desk, with the literature-based level of one fan and of all seven.", "{T} explains why the case and radiator fans are measured at these seven speeds: each is one listening class."),
  (r"^Method¦", "methods", "Statistical methods and terms used in this article, with what each does and why we use it.", "{T} is a glossary of the statistical methods; each is cited where first used."),
  (r"^Constant¦Unit¦Estimate¦Standard error, in", "consts11", "Constants of the settled-point model (11), fitted to the settled points of the earlier sessions, with four kinds of standard error.", "{T} gives each constant with its uncertainty; compare the columns to see how much the choice of standard error matters."),
@@ -231,7 +258,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Core target, &deg;C¦Power limit 100", "pareto", "Quietest fan settings for each core target at 575&nbsp;W and 402&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature-based noise): the effect of the target on noise.", "{T} reads the frontier at fixed targets; at 402&nbsp;W the fans are already at their floor."),
  (r"^Mode at 575", "paretomodes", "Quietest fan settings for the core targets of the first version&rsquo;s modes at 575&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature-based noise).", "{T} places the first version&rsquo;s modes on the frontier."),
  (r"^Intake air(?:, &deg;C)?¦Core target", "pmax", "Quietest total noise at each power limit for core targets of 77 and 80&nbsp;&deg;C, at two room temperatures (model, literature-based noise): the effect of power and of room temperature on noise.", "{T} shows what lowering the power limit buys in noise, in a cool and in a warm room."),
- (r"^Case and radiator fans, rpm¦Listening class", "iso", None, "{T} shows the many settings that give one temperature; look down each noise column for the diamond, the quietest setting."),
+ (r"^Case and radiator fans, rpm¦Listening class", "iso", None, "{T} shows the many settings that give one temperature; look down each noise column for marker c, the quietest setting."),
 ]
 TNO = lambda n: f'<span class="tno">Table {n}.</span> '
 s = F.read_text()
@@ -240,7 +267,7 @@ assert "<details" not in s.split("</style>", 1)[1], "tables must never be hidden
 s = re.sub(r'(?::root\[data-theme="dark"\] (?:#ar )?)?\.ar-det[^{]*\{[^}]*\}', "", s)
 s = re.sub(r'<p class="ar-(?:tcap|lead)" data-auto="1"[^>]*>.*?</p>\s*', "", s, flags=re.S)
 s = re.sub(r'<span class="tno">[^<]*</span> ', "", s); s = re.sub(r' <span class="tdesc">.*?</span><!--tdesc-->', "", s, flags=re.S)
-s = re.sub(r'(<p class="ar-tcap"[^>]*?) id="table-[\dA-Z]+"', r"\1", s); s = re.sub(r'(<p class="ar-tcap"[^>]*?) id="table-[\dA-Z]+"', r"\1", s)
+s = re.sub(r'(<p class="ar-tcap"[^>]*?) id="table-[\dA-Za-z]+"', r"\1", s); s = re.sub(r'(<p class="ar-tcap"[^>]*?) id="table-[\dA-Za-z]+"', r"\1", s)
 s = re.sub(r'<span class="tgl">[^<]*</span> ', "", s)
 s = re.sub(r'\n?  <p class="ar-note" data-copy="1">.*?</p>', "", s, flags=re.S)
 # sub-tables become separate tables: an <h4> or <caption> directly above/inside a table turns into its own caption
@@ -259,19 +286,26 @@ num, out_n, prev, letters = 0, [], None, {}
 for st, en, reg in items:
     if reg[1] != prev: num += 1; letters[num] = 0
     letters[num] += 1; out_n.append((st, en, reg, num, letters[num])); prev = reg[1]
-REF = {}
-for st, en, reg, n, l in out_n: REF.setdefault(reg[1], n)
+APOS = sorted((m.start(), m.group(1).upper()) for m in re.finditer(r'<h2 id="appendix-([a-z])"', s))
+def appx(pos):
+    a = [L for p_, L in APOS if p_ <= pos]; return a[-1] if a else ""
+disp, cnt_by = {}, {}
+for st, en, reg, n, l in out_n:
+    if n in disp: continue
+    px = appx(st); cnt_by[px] = cnt_by.get(px, 0) + 1; disp[n] = f"{px}{cnt_by[px]}"
 gsize = dict(letters)
-lab = lambda n, l: f"{n}" if gsize[n] == 1 else f"{n}{chr(64 + l)}"
+lab = lambda n, l: disp[n] if gsize[n] == 1 else f"{disp[n]}{chr(64 + l) if not disp[n][0].isalpha() else chr(96 + l)}"
+REF = {}
+for st, en, reg, n, l in out_n: REF.setdefault(reg[1], (n, lab(n, l)))
 ins = []
 for st, en, reg, n, l in out_n:
     pre = s[max(0, st - 1500):st]; base = st - len(pre)
     k0 = pre.rfind('<p class="ar-tcap"'); pre = pre[k0:] if k0 >= 0 else ""; base = st - len(pre)
     cap = re.search(r'(<p class="ar-tcap"( data-sub="1")?>)(.*?)</p>\s*$', pre, re.S)
     tl = lab(n, l)
-    rng = f"Table {n}" if gsize[n] == 1 else f"Tables {n}A&ndash;{n}{chr(64 + gsize[n])}"
+    rng = f"Table {disp[n]}" if gsize[n] == 1 else f"Tables {lab(n, 1)}&ndash;{lab(n, gsize[n])}"
     ltxt = reg[3]
-    if gsize[n] > 1: ltxt = re.sub(r"\{T\} is\b", "{T} are", re.sub(r"\{T\} (\w+?)s\b", r"{T} \1", ltxt))
+    if gsize[n] > 1: ltxt = re.sub(r"\{T\} (?!is\b)(\w+?)s\b", r"{T} \1", re.sub(r"\{T\} is\b", "{T} are", ltxt))
     lead = f'<p class="ar-lead" data-auto="1">{ltxt.replace("{T}", f"<a href=\"#table-{tl}\">{rng}</a>")}</p>\n  '
     if cap:
         p0 = base + cap.start()
@@ -291,7 +325,7 @@ for n in [k for k, v in gsize.items() if v > 1]:
     for st, en in mem[:-1]:
         if not re.match(r'\s*<p class="ar-note', s[en:]): ins.append((en, f'\n  <p class="ar-note" data-copy="1">{txt}</p>'))
 for pos, txt in sorted(ins, key=lambda x: x[0], reverse=True): s = s[:pos] + txt + s[pos:]
-s = re.sub(r"\{tref:(\w+)\}", lambda m: f'<a href="#table-{REF[m.group(1)]}{"A" if gsize[REF[m.group(1)]] > 1 else ""}">Table {REF[m.group(1)]}{"A" if gsize[REF[m.group(1)]] > 1 else ""}</a>' if m.group(1) in REF else m.group(0), s)
+s = re.sub(r"\{tref:(\w+)\}", lambda m: f'<a href="#table-{REF[m.group(1)][1]}">Table {REF[m.group(1)][1]}</a>' if m.group(1) in REF else m.group(0), s)
 def letters_fix(m):
     t = m.group(0)
     if "*" not in t and "&dagger;" not in t: return t
@@ -299,12 +333,12 @@ def letters_fix(m):
     return t
 s = re.sub(r'<div class="ar-tw[^"]*">\s*<table.*?</table>\s*</div>(?:\s*<p class="ar-note[^"]*">.*?</p>)?', letters_fix, s, flags=re.S)
 s = s.replace("(marked *)", "(marked <sup>a</sup>)")
-F.write_text(s); print("tables numbered:", num, "groups:", sum(1 for v in gsize.values() if v > 1))
+F.write_text(s); print("tables numbered:", len(disp), "appendix:", sum(1 for v in disp.values() if v[0].isalpha()), "groups:", sum(1 for v in gsize.values() if v > 1))
 
 # --- one flat panel per table block: caption + table(s) + notes (Swiss: no shadow, no radius)
 s = F.read_text()
 s = s.replace('<div class="ar-tblock ar-tblock-wide">', "").replace('<div class="ar-tblock">', "").replace("</div><!--/tblock-->", "")
-caps = [(m.start(), m.group(1)) for m in re.finditer(r'<p class="ar-tcap"[^>]*id="table-(\d+[A-Z]?)"', s)]
+caps = [(m.start(), m.group(1)) for m in re.finditer(r'<p class="ar-tcap"[^>]*id="table-([A-Z]?\d+[A-Za-z]?)"', s)]
 wr = []
 for k, (st, n) in enumerate(caps):
     lim = caps[k + 1][0] if k + 1 < len(caps) else len(s)
@@ -351,6 +385,8 @@ FIGT = [
  (r"Settled core against total noise", "The quiet frontier: settled core against total fan noise.", ""),
  (r"Highest power with the core", "Highest power within a noise budget.", ""),
  (r"Total noise of all fans at 1&nbsp;m against the speed of the case", "Noise needed to hold 70&nbsp;&deg;C, by case fan speed and power limit.", ""),
+ (r"Left: fan speeds of each mode against board power", "The control law: fan speeds and predicted temperatures of each mode against power.", ""),
+ (r"WS.Sensor graphics-card cooling panel", "The WS.Sensor graphics-card cooling panel.", ""),
  (r"coupling matrix for two cards", "Two cards in one case: coupling and feed-forward (planned).", ""),
 ]
 s = F.read_text()
@@ -360,27 +396,124 @@ def figfix(m):
     cap = m.group(2); t = next(((ti, lg) for rx, ti, lg in FIGT if re.search(rx, cap)), None)
     if not t: miss.append(re.sub(r"<[^>]+>", "", cap)[:50]); return m.group(0)
     return f'{m.group(1)} <b class="ftitle">{t[0]}</b>{cap}' + (f'<span class="flegend">{t[1]}</span><!--fl-->' if t[1] else "")
-s = re.sub(r'(<figcaption><b>Figure \d+\.</b>)(.*?)(?=</figcaption>)', figfix, s, flags=re.S)
+s = re.sub(r'(<figcaption><b>Figure [A-Z]?\d+\.</b>)(.*?)(?=</figcaption>)', figfix, s, flags=re.S)
 F.write_text(s); print("figure titles; untitled:", miss)
 
-# --- numbered sections (1, 1.1 ...) and the contents list (Seb 2026-10-23)
+# --- one numbered reference list, in order of first citation (Elsevier numeric); in-section source lists are folded into it
+s = F.read_text()
+items = {}
+for m in re.finditer(r'<li id="([tns]\d+)">(.*?)</li>', s, re.S):
+    items.setdefault(m.group(1), re.sub(r'^\s*<span class="ar-tn">[^<]*</span>\s*', "", m.group(2)))
+s = re.sub(r'\s*<ol class="ar-src ar-src-t">.*?</ol>', "", s, flags=re.S)
+ra = s.index('<h2 id="sources">'); rb = s.index("</ol>", ra) + 5
+body = s[:ra]; tail = s[rb:]
+order = []
+for m in re.finditer(r'<a class="cite" href="#([tns]\d+)">', body + tail):
+    if m.group(1) not in order and m.group(1) in items: order.append(m.group(1))
+order += [k for k in items if k not in order]
+numof = {k: i + 1 for i, k in enumerate(order)}
+fix = lambda t: re.sub(r'<a class="cite" href="#([tns]\d+)">\[[^\]]*\]</a>', lambda m: f'<a class="cite" href="#{m.group(1)}">[{numof.get(m.group(1), "?")}]</a>', t)
+refs = "\n".join(f'    <li id="{k}">{items[k]}</li>' for k in order)
+s = fix(body) + '<h2 id="sources">References</h2>\n  <ol class="ar-src ar-refs">\n' + refs + "\n  </ol>" + fix(tail)
+F.write_text(s); print("references:", len(order), "cited:", sum(1 for k in order if re.search(rf'href="#{k}"', body + tail)))
+# --- journal structure: heading levels and titles (generators emit their own levels), numbering 1, 1.1, 1.1.1; appendices A, A.1
+HEADMAP = {
+ "setup": ("h3", "Test machine and set-up"), "variables": ("h4", "Quantities measured"), "templimits": ("h3", "Operating limits"),
+ "memlimit": ("h4", "Memory temperature and the limit we use"), "uncertainty": ("h3", "Sensors, logging and uncertainty"),
+ "grid": ("h3", "Measurement protocol"), "s-settling-and-extrapolation": ("h4", None), "s-checking-the-extrapolation": ("h4", None),
+ "s-safety-limits": ("h4", None), "s-repeats-and-drift": ("h4", None), "method-next": ("h4", "The final grid (steady3)"),
+ "resistance": ("h4", "Thermal resistance: one number per setting"), "model": ("h4", "A model of the cooler"),
+ "s-what-we-do-not-assume": ("h5", None), "run2-dyn": ("h4", "A dynamic model"),
+ "controller": ("h3", "Controller design"), "controller-modes": ("h4", "Modes defined by a noise budget"), "controller-mem": ("h4", "Memory temperature limit"),
+ "steady3-grid": ("h3", "The final grid (steady3)"), "stats": ("h3", "Model fit and diagnostics"),
+ "stats-methods": ("h4", "Methods and terms"), "stats-model": ("h4", "The model"), "stats-forms": ("h4", "Forms and transforms tried"),
+ "stats-tests": ("h4", "Tests on the residuals"), "stats-open": ("h4", "An open item: residuals along the GPU fans"), "stats-sessions": ("h4", "Sessions"),
+ "stats-mem": ("h4", "The memory model"), "pareto": ("h3", "Noise&ndash;temperature frontier"), "pareto-lit": ("h4", "A first frontier, from the literature"),
+ "iso-temp": ("h4", "One temperature, many settings"), "power": ("h3", "Power and room temperature"),
+ "s-what-the-simulation-shows": ("h4", "In simulation"), "controller-hw": ("h4", "On the real card"), "controller-fix": ("h4", "Stopping the pumping"),
+ "cpu": ("h3", "The processor"), "cpu-low": ("h4", "Both sets of fans slow"),
+ "limits": ("h3", "Limitations"), "multi": ("h3", "Two cards in one case"), "s-acting-before-the-temperature-rises": ("h4", None),
+ "results": ("h3", "First run (20 to 21 October)"), "s-the-cards-own-fans-dominate": ("h4", None), "core-mem": ("h4", None), "clocks": ("h4", None),
+ "settling": ("h4", None), "s-repeatability": ("h4", None), "power-results": ("h4", None),
+ "run2": ("h3", "Second run (21 October)"), "s-what-the-second-run-shows": ("h4", None), "s-how-settled-these-points-are": ("h4", None),
+ "run2-settle": ("h4", None), "run2-model": ("h3", "The first static fit"), "method-log": ("h3", "How the method was refined"),
+ "s-20-to-21-october-a-fast-grid": ("h4", None), "s-21-october-morning-looking-by-hand": ("h4", None), "s-21-october-afternoon-a-bigger-grid-and-i": ("h4", None),
+ "s-fitting-the-whole-time-series": ("h4", None), "s-21-to-22-october-evening-and-night-valid": ("h4", None),
+ "s-22-october-statistics-on-settled-points": ("h4", None), "s-in-numbers": ("h4", None), "stats-112": ("h3", "All 112 points of the second run"),
+ "stats-data": ("h3", "Earlier sessions (21 to 22 October)"), "controller-v1": ("h3", "Temperature targets"),
+ "noise": ("h3", "How loud is loud"), "noise-scale": ("h4", None), "noise-fans": ("h4", None), "noise-gpu": ("h4", None), "noise-rtx50": ("h4", None),
+ "noise-seb": ("h4", None), "noise-ctl": ("h4", None), "sources": ("h2", "References"),
+}
+UNNUM = {"data-availability", "contributions", "sources"}
 s = F.read_text()
 s = re.sub(r'<span class="secno">[^<]*</span> ', "", s)
-body_a = s.index('<h2 id="problem">'); body_b = s.index('<h2 id="sources">')
-part = s[body_a:body_b]; n2 = n3 = 0; toc = []
+def remap(m):
+    tag, attrs, txt = m.group(1), m.group(2), m.group(3)
+    hid = re.search(r'id="([^"]+)"', attrs)
+    if hid and hid.group(1) in HEADMAP:
+        nt, ti = HEADMAP[hid.group(1)]; return f"<{nt}{attrs}>{ti or txt}</{nt}>"
+    return m.group(0)
+s = re.sub(r"<(h[2-5])((?:\s[^>]*)?)>(.*?)</\1>", remap, s, flags=re.S)
+body_a = s.index('<h2 id="intro">'); body_b = s.index("</article>")
+part = s[body_a:body_b]; cnt = [0, 0, 0]; app = None; toc = []
 def slug(t): return "s-" + re.sub(r"[^a-z0-9]+", "-", re.sub(r"<[^>]+>|&[a-z]+;", "", t).lower()).strip("-")[:40]
 def num(m):
-    global n2, n3
+    global app
     tag, attrs, txt = m.group(1), m.group(2), m.group(3)
-    if tag == "h2": n2 += 1; n3 = 0; no = f"{n2}"
-    else: n3 += 1; no = f"{n2}.{n3}"
-    hid = re.search(r'id="([^"]+)"', attrs)
-    if not hid: attrs += f' id="{slug(txt)}"'; hid_v = slug(txt)
-    else: hid_v = hid.group(1)
-    toc.append((tag, no, hid_v, re.sub(r"<[^>]+>", "", txt)))
+    hid = re.search(r'id="([^"]+)"', attrs); hv = hid.group(1) if hid else slug(txt)
+    if not hid: attrs += f' id="{hv}"'
+    if tag == "h5" or 'class="foot-h"' in attrs: return m.group(0) if hid else f"<{tag}{attrs}>{txt}</{tag}>"
+    lvl = int(tag[1]) - 2
+    if tag == "h2":
+        txt = re.sub(r"^Appendix [A-Z]\. ", "", txt)
+        if hv.startswith("appendix-"):
+            app = hv[-1].upper(); cnt[1:] = [0, 0]; no = app; txt = f"Appendix {app}. {txt}"
+            toc.append((tag, "", hv, re.sub(r"<[^>]+>", "", txt))); return f"<h2{attrs}>{txt}</h2>"
+        if hv in UNNUM: toc.append((tag, "", hv, re.sub(r"<[^>]+>", "", txt))); return f"<h2{attrs}>{txt}</h2>"
+        cnt[0] += 1; cnt[1:] = [0, 0]; no = f"{cnt[0]}"
+    elif tag == "h3": cnt[1] += 1; cnt[2] = 0; no = f"{app or cnt[0]}.{cnt[1]}"
+    else: cnt[2] += 1; no = f"{app or cnt[0]}.{cnt[1]}.{cnt[2]}"
+    toc.append((tag, no, hv, re.sub(r"<[^>]+>", "", txt)))
     return f'<{tag}{attrs}><span class="secno">{no}</span> {txt}</{tag}>'
-part = re.sub(r"<(h[23])((?:\s[^>]*)?)>(.*?)</\1>", num, part, flags=re.S)
+part = re.sub(r"<(h[2-5])((?:\s[^>]*)?)>(.*?)</\1>", num, part, flags=re.S)
 s = s[:body_a] + part + s[body_b:]
-lis = "".join(f'<li><a href="#{h}"><span class="secno">{no}</span> {t}</a></li>' for tag, no, h, t in toc if tag == "h2")
-s = re.sub(r'(<nav class="ar-toc"[^>]*>\s*<h2 class="ar-toc-h">Contents</h2>\s*<ul>).*?(</ul>)', lambda m: m.group(1) + lis + '<li><a href="#sources">Sources</a></li>' + m.group(2), s, count=1, flags=re.S)
-F.write_text(s); print("sections numbered:", n2, "subsections:", sum(1 for t in toc if t[0] == "h3"))
+lis = "".join(f'<li><a href="#{h}">' + (f'<span class="secno">{no}</span> ' if no else "") + f"{t}</a></li>" for tag, no, h, t in toc if tag == "h2")
+s = re.sub(r'(<nav class="ar-toc"[^>]*>\s*<h2 class="ar-toc-h">Contents</h2>\s*<ul>).*?(</ul>)', lambda m: m.group(1) + lis + m.group(2), s, count=1, flags=re.S)
+F.write_text(s); print("sections numbered:", cnt[0], "headings:", len(toc))
+
+# --- figures: ids from their titles, numbered in order of appearance; "Figure N" in the text becomes a link that follows the number
+s = F.read_text()
+def fkey(t): return "fig-" + re.sub(r"[^a-z0-9]+", "-", re.sub(r"<[^>]+>|&[a-z]+;", "", t).lower()).strip("-")[:40]
+figs = list(re.finditer(r'<figure([^>]*)>(.*?)</figure>', s, re.S))
+old2key, order = {}, []
+for m in figs:
+    cap = re.search(r'<figcaption><b>Figure ([A-Z]?\d+)\.</b> <b class="ftitle">(.*?)</b>', m.group(2), re.S)
+    if not cap: continue
+    k = fkey(cap.group(2)); old2key.setdefault(cap.group(1), k); order.append(k)
+APOS = sorted((m.start(), m.group(1).upper()) for m in re.finditer(r'<h2 id="appendix-([a-z])"', s))
+kpos = {}
+for m in figs:
+    cap = re.search(r'<b class="ftitle">(.*?)</b>', m.group(2), re.S)
+    if cap: kpos[fkey(cap.group(1))] = m.start()
+new, cnt_f = {}, {}
+for k in order:
+    px = "".join(L for p_, L in APOS if p_ <= kpos[k])[-1:] ; cnt_f[px] = cnt_f.get(px, 0) + 1; new[k] = f"{px}{cnt_f[px]}"
+def figtag(m):
+    cap = re.search(r'<b class="ftitle">(.*?)</b>', m.group(2), re.S)
+    if not cap: return m.group(0)
+    k = fkey(cap.group(1)); attrs = re.sub(r'\s*id="fig-[^"]*"', "", m.group(1))
+    body = re.sub(r'<figcaption><b>Figure [A-Z]?\d+\.</b>', f'<figcaption><b>Figure {new[k]}.</b>', m.group(2), count=1)
+    return f'<figure{attrs} id="{k}">{body}</figure>'
+s = re.sub(r'<figure([^>]*)>(.*?)</figure>', figtag, s, flags=re.S)
+s = re.sub(r'<a class="fref" href="#(fig-[^"]+)">(Figure )?[A-Z]?\d+</a>', lambda m: f'<a class="fref" href="#{m.group(1)}">{m.group(2) or ""}{new.get(m.group(1), "?")}</a>', s)
+s = re.sub(r"\{fref:(fig-[a-z0-9-]+)\}", lambda m: f'<a class="fref" href="#{m.group(1)}">Figure {new.get(m.group(1), "?")}</a>', s)
+def plain(m):   # plain references outside captions and links, written with the numbering of their own generator
+    k = old2key.get(m.group(1))
+    return f'<a class="fref" href="#{k}">Figure {new[k]}</a>' if k else m.group(0)
+parts = re.split(r"(<figcaption>.*?</figcaption>|<a [^>]*>.*?</a>|<title>.*?</title>|<meta[^>]*>|<script.*?</script>)", s, flags=re.S)
+def plain2(m):
+    k1, k2 = old2key.get(m.group(1)), old2key.get(m.group(2))
+    if not (k1 and k2): return m.group(0)
+    return f'Figures <a class="fref" href="#{k1}">{new[k1]}</a> and <a class="fref" href="#{k2}">{new[k2]}</a>'
+s = "".join(p if i % 2 else re.sub(r"(?<![\w>])Figure (\d+)(?!\d)", plain, re.sub(r"Figures (\d+) and (\d+)", plain2, p)) for i, p in enumerate(parts))
+F.write_text(s); print("figures numbered:", len(order))

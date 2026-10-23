@@ -43,6 +43,7 @@ block=f'''<!--steady3:start-->
     <tbody>{grow}</tbody>
   </table>
   </div>
+  <p class="ar-note">Nominal fan speeds; class on our RTX 5090 scale ({{tref:gpuclassrange}}); levels from the GPU-fan noise model, &plusmn;3&nbsp;dB.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
     <thead><tr><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="colgroup" colspan="2">Estimated level at 1&nbsp;m, dBA</th><th scope="col" rowspan="2">Sebastian&rsquo;s listening class (this machine, at the desk)</th></tr><tr><th scope="col" class="g">one fan</th><th scope="col">all 7 fans</th></tr></thead>
@@ -50,7 +51,7 @@ block=f'''<!--steady3:start-->
   </table>
   </div>
   <p class="ar-note">Estimated levels for the case and radiator fans come from the literature fit for the SW Pro 4 120 at 1&nbsp;m, <i>L</i>&nbsp;=&nbsp;&minus;167.1&nbsp;+&nbsp;60.2&nbsp;log<sub>10</sub>&nbsp;rpm; seven fans (4 case + 3 radiator) add 10&nbsp;log<sub>10</sub>&nbsp;7&nbsp;&asymp;&nbsp;8.5&nbsp;dB. <sup>a</sup> Below about 1280&nbsp;rpm, the slowest point measured by Hardware Busters (20&nbsp;dBA), the values are extrapolations, and they lie under the room&rsquo;s own floor of 25 to 30&nbsp;dBA. <sup>b</sup> At 800&nbsp;rpm the radiator fans run at their floor of about 880&nbsp;rpm, so the true level is slightly higher. <sup>c</sup> 2400&nbsp;rpm was added to constrain the model between 1900 and full speed, about 2920&nbsp;rpm. Literature-based, provisional until our own sound map.</p>
-  <p class="ar-note">Case-fan classes: listening judgments of this machine in its room, at the desk. GPU-fan classes: our RTX 5090 scale ({{tref:gpuclassrange}}), nominal fan speeds.</p>
+  <p class="ar-note">Classes: listening judgments of this machine in its room, at the desk.</p>
 <!--steady3:end-->'''
 if '<!--steady3:start-->' in s:
     a2=s.index('<!--steady3:start-->'); b2=s.index('<!--steady3:end-->')+len('<!--steady3:end-->'); s=s[:a2]+block+s[b2:]

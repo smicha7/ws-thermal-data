@@ -1,6 +1,6 @@
 """Noise-thresholds section (<!--noise:start--> … <!--noise:end-->) before the controller section, from HALAS-PROGI-2026-10-23.md.
 Also writes the tables as CSV files into the site's research/data/."""
-import csv, math, os
+import csv, math, os, re
 import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from caseclass import L7
 F = "/Users/smicha/Claude/gruency-site/research/gpu-cooling-method.html"; DATA = "/Users/smicha/Claude/gruency-site/research/data/"
 s = open(F).read()
@@ -129,29 +129,29 @@ T = lambda k: f"{c(k)}<sup>a</sup>"
 HC = ["Class", "from", "to", "from", "to", "from", "to", "from", "to"]
 RC = [["Ultra-quiet<sup>a</sup>", "0", "32", "0", "1080", "&mdash;", "24", "&mdash;", "30"], ["Very quiet", "33", "40", "1100", "1310", "24", "29", "30", "35"],
       ["Quiet", "41", "49", "1340", "1570", "29", "33", "35", "39"], ["Balanced", "50", "60", "1600", "1880", "33", "37", "39", "43"],
-      ["Loud", "61", "80", "1910", "2460", "37", "42", "43", "48"], ["Very loud<sup>b</sup>", "81", "100", "2460", "3010", "42", "52", "48", "58"]]
+      ["Loud", "61", "80", "1910", "2460", "37", "42", "43", "48"], ["Very loud<sup>b</sup>", "81", "100", "2490", "3010", "42", "52", "48", "58"]]
 TC = [("Class", 1), ("GPU fans, %", 2), ("GPU fans, rpm", 2), ("Level at 1&nbsp;m, dBA", 2), ("Level at 0.5&nbsp;m, dBA", 2)]
 HO = ["Card", "Setting", "Fan speed, rpm", "Level, dBA", "Distance, cm", "Source"]
 _o = [
  ("RTX 5080 FE", "games", "1493", "36.8", "50", T('n33')), ("RTX 5080 FE", "games", "1470&ndash;1500", "&mdash;", "&mdash;", c('n34')),
  ("RTX 5080 FE", "games", "1620", "41.0", "30", c('n30')), ("RTX 5080 FE", "factory curve (42&nbsp;%)", "&mdash;", "39.7", "46", c('n32')),
  ("RTX 5080 FE", "fans at 50&nbsp;%", "&mdash;", "41.4", "46", c('n32')), ("RTX 5080 FE", "fans at 100&nbsp;%", "&mdash;", "57.0", "46", c('n32')),
- ("RTX 5080 FE", "games, in sone<sup>c</sup>", "&mdash;", "2.9 sone", "50", c('n35')), ("RTX 5080 FE", "fan stop at idle", "0", "&mdash;", "&mdash;", c('n30')),
- ("RTX 5070 FE<sup>d</sup>", "games", "2578", "37.7", "50", T('n37')), ("RTX 5070 FE<sup>d</sup>", "games", "2520", "42.5", "30", c('n38')),
- ("RTX 5070 FE<sup>d</sup>", "fans at 50&nbsp;%", "&mdash;", "40.5", "46", c('n36')), ("RTX 5070 FE<sup>d</sup>", "factory curve", "&mdash;", "40.9", "46", c('n36')),
- ("RTX 5070 FE<sup>d</sup>", "highest speed", "4351", "57.5", "46", c('n36')),
+ ("RTX 5080 FE", "fan stop at idle", "0", "&mdash;", "&mdash;", c('n30')),
+ ("RTX 5070 FE<sup>c</sup>", "games", "2578", "37.7", "50", T('n37')), ("RTX 5070 FE<sup>c</sup>", "games", "2520", "42.5", "30", c('n38')),
+ ("RTX 5070 FE<sup>c</sup>", "fans at 50&nbsp;%", "&mdash;", "40.5", "46", c('n36')), ("RTX 5070 FE<sup>c</sup>", "factory curve", "&mdash;", "40.9", "46", c('n36')),
+ ("RTX 5070 FE<sup>c</sup>", "highest speed", "4351", "57.5", "46", c('n36')),
  ("RTX 5070 Ti, ASUS TUF OC", "performance BIOS", "1413", "30.8", "50", T('n40')), ("RTX 5070 Ti, ASUS TUF OC", "quiet BIOS", "1064", "25.4", "50", T('n40')),
  ("RTX 5070 Ti, ASUS TUF OC", "performance BIOS", "1550", "39", "30", c('n41')), ("RTX 5070 Ti, ASUS TUF OC", "quiet BIOS", "1100", "31", "30", c('n41')),
  ("RTX 5070 Ti, MSI Gaming Trio OC+", "default", "1172", "24.3", "50", T('n42')), ("RTX 5070 Ti, MSI Gaming Trio OC+", "silent BIOS", "1422", "31", "35", c('n43')),
  ("RTX 5070 Ti, MSI Ventus 3X", "games", "2480", "45", "30", c('n41')),
- ("RTX 5070 Ti, Galax 1-Click<sup>b</sup>", "fans at 50&nbsp;%", "&mdash;", "24.2", "100", c('n39')), ("RTX 5070 Ti, Galax 1-Click<sup>b</sup>", "fans at 75&nbsp;%", "&mdash;", "38.5", "100", c('n39')),
- ("RTX 5070 Ti, Galax 1-Click<sup>b</sup>", "fans at 100&nbsp;%", "&mdash;", "48.1", "100", c('n39')),
+ ("RTX 5070 Ti, Galax 1-Click<sup>d</sup>", "fans at 50&nbsp;%", "&mdash;", "24.2", "100", c('n39')), ("RTX 5070 Ti, Galax 1-Click<sup>d</sup>", "fans at 75&nbsp;%", "&mdash;", "38.5", "100", c('n39')),
+ ("RTX 5070 Ti, Galax 1-Click<sup>d</sup>", "fans at 100&nbsp;%", "&mdash;", "48.1", "100", c('n39')),
  ("RTX 5090, MSI Suprim SOC", "fans at 30&nbsp;%", "1000", "30", "35", c('n45')), ("RTX 5090, MSI Suprim SOC", "silent BIOS", "1400&ndash;1500", "36&ndash;38", "35", c('n45')),
  ("RTX 5090, MSI Suprim SOC", "gaming BIOS", "1780&ndash;1850", "42.1&ndash;43.4", "35", c('n45')), ("RTX 5090, MSI Suprim SOC", "default", "1093", "28.4", "50", c('n46')),
  ("RTX 5090, MSI Suprim SOC", "highest speed", "3000", "58", "35", c('n45')),
  ("RTX 5090, ASUS Astral", "default", "1675", "39.3", "50", T('n47')), ("RTX 5090, ASUS Astral", "quiet BIOS", "1385", "36.5", "50", T('n47')),
  ("RTX 5090, Gigabyte Gaming OC", "default", "&mdash;", "43.2", "50", T('n48')), ("RTX 5090, Gigabyte Gaming OC", "quiet BIOS", "&mdash;", "32.4", "50", T('n48')),
- ("RTX 5090, Aorus Infinity", "outer fans, manufacturer range", "1000&ndash;3000", "&mdash;", "&mdash;", c('n49')), ("RTX 5090, Aorus Infinity", "centre fan, highest", "4000", "&mdash;", "&mdash;", c('n49')),
+ ("RTX 5090, Aorus Infinity", "outer fans, lowest (manufacturer)", "1000", "&mdash;", "&mdash;", c('n49')), ("RTX 5090, Aorus Infinity", "outer fans, highest (manufacturer)", "3000", "&mdash;", "&mdash;", c('n49')), ("RTX 5090, Aorus Infinity", "centre fan, highest", "4000", "&mdash;", "&mdash;", c('n49')),
  ("RTX 5080, MSI Suprim SOC", "fans at 30&nbsp;%", "1000", "30.5", "35", c('n50')), ("RTX 5080, MSI Suprim SOC", "silent BIOS", "1300&ndash;1400", "35&ndash;36", "35", c('n50')),
  ("RTX 5080, MSI Suprim SOC", "gaming BIOS", "1640", "40", "35", c('n50')), ("RTX 5080, MSI Suprim SOC", "highest speed", "3000", "59.3", "35", c('n50')),
  ("RTX 5080, MSI Suprim SOC", "fan stop at idle", "0", "&mdash;", "&mdash;", c('n25')),
@@ -160,15 +160,21 @@ _o = [
  ("RTX 5080, MSI Suprim", "gaming BIOS", "&mdash;", "44", "30", c('n25')), ("RTX 5080 FE", "default", "&mdash;", "41", "30", c('n25')),
  ("RTX 5080, ASUS Noctua", "fans at 30&nbsp;%", "530", "29.1", "&mdash;", c('n51')), ("RTX 5080, ASUS Noctua", "fans at 100&nbsp;%", "1750", "46.8", "&mdash;", c('n51')),
 ]
-RO = [list(r) for r in _o]
-wcsv("gpu-map-noise-rtx5090-classes.csv", HC, RC); wcsv("gpu-map-noise-rtx50-cards.csv", HO, RO)
+def _mid(x):
+    m = re.match(r"^([\d.]+)&ndash;([\d.]+)$", x)
+    if not m: return x
+    a, b = float(m.group(1)), float(m.group(2)); d = max(len(m.group(1).split(".")[1]) if "." in m.group(1) else 0, 0)
+    return f"{(a + b) / 2:.{d}f}<sup>b</sup>"
+RO = [[r[0], r[1], _mid(r[2]), _mid(r[3]), r[4], r[5]] for r in _o]
+RO_CSV = [list(r) for r in _o]
+wcsv("gpu-map-noise-rtx5090-classes.csv", HC, RC); wcsv("gpu-map-noise-rtx50-cards.csv", HO, RO_CSV)
 rtx50 = f"""  <h3 id="noise-rtx50">The RTX 5090 more closely, and other RTX 50 cards</h3>
   <p>The reviews differ in how they measure, so each figure needs its set-up: ComputerBase at 30&nbsp;cm in a closed case with the door open and the case fans stopped {c('n25')}; PC Games Hardware in a chamber at 50&nbsp;cm, perpendicular to the fan hub, in sone {c('n22')}; HWCooling at 35&nbsp;cm from the PCIe slot, with a meter that reads nothing below about 30&nbsp;dBA {c('n26')}; LanOC at 46&nbsp;cm with a floor of 33.3&nbsp;dBA; TechPowerUp at 50&nbsp;cm; Hardware Busters at 1&nbsp;m in a chamber with a floor of about 6&nbsp;dBA {c('n27')}.</p>
   <p>At the same speed the Founders Edition is not louder than a large partner card. On HWCooling&rsquo;s bench it read 44&nbsp;dBA at 35&nbsp;cm at 1750&nbsp;rpm in games {c('n29')}, and MSI&rsquo;s RTX 5090 Suprim SOC 42.1 to 43.4&nbsp;dBA at 1780 to 1850&nbsp;rpm {c('n45')}. Partner cards are quieter because they need fewer revolutions for the same power; the Suprim becomes audible from about 1400&nbsp;rpm {c('n45')}.</p>
   <p class="ar-status"><b>Estimate.</b> A class scale for the RTX 5090 Founders Edition, from the same model as the estimate above. It agrees with TechPowerUp and HWCooling scaled to 1&nbsp;m within about 2&nbsp;dB (about 34&nbsp;dBA at 1673&nbsp;rpm and 35 at 1750). At 100&nbsp;% LanOC and HWCooling scaled to 1&nbsp;m give 49 to 52&nbsp;dBA against the model&rsquo;s 47, so the top of the scale spans 47 to 52.</p>
 {tw('ar-st', HC, RC, TC)}  <p class="ar-note">Our class scale for the RTX 5090 Founders Edition fans, used throughout the article; band edges rounded to 1&nbsp;dB, so neighbouring classes meet. <sup>a</sup> Includes fan stop at idle. <sup>b</sup> The model gives 47&nbsp;dBA at 100&nbsp;%; reviews scaled to 1&nbsp;m give 49 to 52&nbsp;dBA. {D('gpu-map-noise-rtx5090-classes.csv')}.</p>
   <p>For a workstation at a desk, 0.5&nbsp;m from the listener, this suggests: quiet up to 45&nbsp;%, balanced from 45 to 55&nbsp;%, loud from 60&nbsp;%, and truly quiet near 40&nbsp;%, the 2.3&nbsp;sone that PC Games Hardware found pleasant {c('n22')}. The class limits belong in revolutions per minute, not in percent: duty in the driver or Afterburner, the PWM duty cycle and the speed are three different scales, and cards differ. Our 40&nbsp;% is 1310&nbsp;rpm, PC Games Hardware&rsquo;s 40&nbsp;% PWM is 1440&nbsp;rpm {c('n22')}, and an owner reports 30&nbsp;% as about 1200&nbsp;rpm {c('n28')} where we extrapolate about 1020.</p>
-{tw('ar-txt ar-rev', HO, RO)}  <p class="ar-note">One row per published measurement; a range is the range the source reports for that setting. &mdash;: not given. Levels in dBA except where marked sone. <sup>a</sup> TechPowerUp&rsquo;s pages could not be opened directly; these figures come from search-engine summaries, agree with the rest, but were not checked on the page. <sup>b</sup> Hardware Busters gives exactly the same three levels in its review of the Galax RTX 5080 {c('n44')}, possibly a copied template; treat with caution. <sup>c</sup> Sone: perceived loudness, not convertible uniquely to dBA. <sup>d</sup> Smaller fans: its rpm is not comparable with the RTX 5090&rsquo;s. {D('gpu-map-noise-rtx50-cards.csv')}.</p>
+{tw('ar-txt ar-rev', HO, RO)}  <p class="ar-note">One row per published measurement. &mdash;: not given. PC Games Hardware gives 2.9&nbsp;sone in games for the RTX 5080 FE {c('n35')}; sone, a unit of perceived loudness, does not convert uniquely to dBA. <sup>a</sup> TechPowerUp&rsquo;s pages could not be opened directly; these figures come from search-engine summaries, agree with the rest, but were not checked on the page. <sup>b</sup> The source gives a range; the cell shows its midpoint, the range is in the CSV. <sup>c</sup> Smaller fans: its rpm is not comparable with the RTX 5090&rsquo;s. <sup>d</sup> Hardware Busters gives exactly the same three levels in its review of the Galax RTX 5080 {c('n44')}, possibly a copied template; treat with caution. {D('gpu-map-noise-rtx50-cards.csv')}.</p>
   <p>Gaps and caveats. We found no highest fan speed for the RTX 5080 FE; for the 5090 FE we measure 3030&nbsp;rpm and LanOC 2873 {c('n23')}. Igor&rsquo;s Lab and Hardwareluxx were not accessible to our tools, and several curves from Hardware Busters, Guru3D and HWCooling exist only as images we could not read. Sone do not convert uniquely to dBA, so the PC Games Hardware values are used only as ratios. dBA misses tones: the RTX 5080 FE hums at about 170 to 200&nbsp;Hz {c('n52','n53')}, and ComputerBase heard the electronics of a 5090 FE tick {c('n21')}. In one ComputerBase sample the fan stop did not engage {c('n30')}, and owners report the 5090 FE spinning up to about 30&nbsp;% every few minutes while browsing {c('n31')}. Other owner reports are anecdotes: a partner card &ldquo;whisper quiet&rdquo; at 44&nbsp;% and 1000&nbsp;rpm under full load and audible at about 1300&nbsp;rpm at 600&nbsp;W {c('n54')}, and an ASUS card moving from 45 to 55&ndash;60&nbsp;% under heavy load {c('n55')}. Our own measurement at 30, 40, 45, 50, 55, 60, 70 and 100&nbsp;%, and of the speed at which the card leaves its fan stop, will settle these.</p>
 """
 srcs = "".join(f'<li id="{k}"><span class="ar-tn">N{N[k]}.</span> {t} <a href="{u}">{u.split("/")[2].replace("www.", "")}</a></li>' for k, t, u in SRC)
@@ -194,7 +200,7 @@ sec = f"""<!--noise:start-->
 {tw('ar-set', H5, R5)}  <p class="ar-note">Nominal fan speeds; class on our RTX 5090 scale ({{tref:gpuclassrange}}). <sup>a</sup> The factory fan curve sits at 46 to 52&nbsp;% in games. At a desk, 0.5 to 0.7&nbsp;m away, shift each boundary down one class. {D('gpu-map-noise-gpu-estimate.csv')}.</p>
 {rtx50}  <h3 id="noise-seb">A practical scale</h3>
   <p>Sebastian Michalski, who builds and listens to these machines, describes 120&nbsp;mm fan speeds like this. We checked each step against the measurements above.</p>
-{tw('ar-txt ar-wrap', H6, R6)}  <p class="ar-note">{D('gpu-map-noise-seb-scale.csv')}.</p>
+{tw('ar-txt ar-wrap', H6, R6)}  <p class="ar-note">Levels in dBA at 1&nbsp;m, free field, unless stated. {D('gpu-map-noise-seb-scale.csv')}.</p>
   <p>The scale describes a whole computer at the desk well: several fans and radiators add 6 to 9&nbsp;dB to a single fan, and the listener sits 0.5 to 1&nbsp;m away. For one fan in a chamber it is about one class too strict. For 140&nbsp;mm fans each boundary moves down by about 10 to 20&nbsp;%, for example 1500 to about 1250 to 1350&nbsp;rpm, as both the 4.7&nbsp;dB rule and the data show: the Arctic P14 reaches 20&nbsp;dBA at 1206&nbsp;rpm, the P12 at 1559. The exception is the Silent Wings Pro 4 140, which sounds like the 120&nbsp;mm version at the same speed.</p>
   <h3 id="noise-ctl">What this means for the controller</h3>
   <p>The current modes are defined directly by a noise budget, 30, 35 and 40&nbsp;dBA at 1&nbsp;m (<a href="#controller-modes">How it decides</a>). The first version set its ceilings as fan speeds; on the scales above they fall as follows.</p>

@@ -24,7 +24,7 @@ CMP = json.load(open(G + "results-2026-10-23/compare-112.json"))
 f1 = lambda v, d=1: "&mdash;" if v is None else f"{v:.{d}f}&nbsp;&deg;C"
 cmp = ""
 for blk in CMP:
-    trs = "".join(f"<tr><td>{r['gpu']}{'<sup>a</sup>' if r['c60'] is None else ''}</td><td>{r['rpm']}</td><td class='g'>{f1(r['c60'])}</td><td>{f1(r['cs'])}</td><td>{r['cm']:.1f}&nbsp;&deg;C</td><td class='g'>{f1(r['m60'],0)}</td><td>{f1(r['ms'],0)}</td><td>{r['mmod']:.1f}&nbsp;&deg;C</td></tr>" for r in blk["rows"])
+    trs = "".join(f"<tr><td>{r['gpu']}{'<sup>a</sup>' if r['c60'] is None else ''}</td><td>{r['rpm']}</td><td class='g'>{f1(r['c60'])}</td><td>{f1(r['cs'])}</td><td>{r['cm']:.1f}&nbsp;&deg;C</td><td class='g'>{f1(r['m60'],0)}</td><td>{f1(r['ms'],0) + ('<sup>b</sup>' if r['ms'] is None and r['cs'] is not None else '')}</td><td>{r['mmod']:.1f}&nbsp;&deg;C</td></tr>" for r in blk["rows"])
     cmp += (f'<h4 class="ar-h4">Second run, case fans {lab(blk["case"]).replace(" (full", "&nbsp;rpm (full") if blk["case"] in (2920, 3000) else lab(blk["case"]) + "&nbsp;rpm"}, power limit {blk["pl"]}&nbsp;% ({blk["w"]}&nbsp;W): core and memory temperature after 60&nbsp;s, settled, and from the model.</h4>\n'
             f'<div class="ar-tw"><table class="ar-tab ar-num ar-cmp ar-ms"><thead><tr><th scope="col" rowspan="2">GPU fans, %</th><th scope="col" rowspan="2">GPU fans, rpm</th><th scope="colgroup" colspan="3">Core temperature</th><th scope="colgroup" colspan="3">Memory temperature</th></tr><tr><th scope="col" class="g">after 60&nbsp;s</th><th scope="col">settled (&ge;&nbsp;5&nbsp;min)</th><th scope="col">model (eq. 11)</th><th scope="col" class="g">after 60&nbsp;s, whole &deg;C</th><th scope="col">settled, whole &deg;C</th><th scope="col">model</th></tr></thead><tbody>{trs}</tbody></table></div>\n')
 blocks = CMP
@@ -33,6 +33,8 @@ sec = f"""<!--datatables:start-->
   <h3 id="stats-data">Earlier sessions (21&ndash;22 October)</h3>
   <p>The settled core points of the sessions before steady3, against the value equation (11) gives for them; these are the points the model was fitted to.</p>
 {tabs}  <p class="ar-note">One row per setting that was measured. Core measured: the settled core temperature; where a setting was measured more than once, the mean; the last column gives how many settled measurements of this setting were averaged. Core, predicted by model: equation (11) (<a href="#stats-model">The model</a>) with the offset of the session in which the point was measured, so the two differ only by the residual. Case fans set to 2250&nbsp;rpm are counted with 2240&nbsp;rpm. <sup>a</sup> 2920&nbsp;rpm: full speed, whether set as full speed or as 3000&nbsp;rpm. Points: {J['n']} settled values from the sessions listed under <a href="#stats">Statistical tests</a>. <a href="/research/data/gpu-map-steady-residuals.csv">Data (CSV)</a>.</p>
+<!--datatables:end-->
+<!--dtmem:start-->
   <h3 id="stats-mem">The memory: a first model</h3>
   <p class="ar-status"><b>Provisional.</b> The memory is read in whole degrees and was fitted once, on fewer points than the core.</p>
   <p>The same two-path form fits the settled memory temperatures of {', '.join(list(MM['sessions'])[:-1])} and {list(MM['sessions'])[-1]}, {MM['n']} points, with an offset per session: RMSE {MM['rmse']:.2f}&nbsp;&deg;C, leave-one-out {MM['loo']:.2f}&nbsp;&deg;C. Most of that is the rounding of the reading itself, whose standard deviation alone is about 0.29&nbsp;&deg;C.</p>
@@ -44,13 +46,19 @@ sec = f"""<!--datatables:start-->
   </div>
   <p class="ar-note">Same form as equation (11), for the memory: &theta;<sub>0,mem</sub>, the temperature offset that does not depend on power; r<sub>&infin;</sub>, the resistance no airflow removes; g<sub>N</sub>, g<sub>C</sub>, the conductance of the GPU-fan and case-fan paths; m, s, their exponents (dimensionless, &mdash; in the Unit column). Session offsets against {MM['ref']}: {off}. Standard errors are classical; with whole-degree readings they are indicative only. <a href="/research/data/gpu-map-steady-memory.csv">Data (CSV)</a>.</p>
   <p>The striking constant is the offset, {P['θ0m'][0]:.0f}&nbsp;&deg;C against about 2&nbsp;&deg;C for the core. The memory carries heat of its own that hardly changes with the board power: the load keeps the memory equally busy at every power limit, so cutting the limit removes little of the memory&rsquo;s heat. That is the same fact, seen from the model&rsquo;s side, as the widening gap between memory and core at low power limits in <a href="#memlimit">Memory temperature</a>.</p>
+<!--dtmem:end-->
+<!--dt112:start-->
   <h3 id="stats-112">All 112 points of the second run</h3>
   <p>For every setting of the second run, the readings after 60 seconds, the settled values and the model, side by side.</p>
-{cmp}  <p class="ar-note">For every setting of the second run, case fans by power limit, the core and memory as read after 60 seconds, the settled value where one was measured later, and the model value from equation (11) and the memory model, at 19.3&nbsp;&deg;C intake air and the reference session. A dash (&mdash;) means the setting was not measured that way. <sup>a</sup> No 60-second value: a settled point from another session at this setting. Memory readings are whole degrees, as the card reports them. The 60-second values at 575&nbsp;W read low and those at lower power limits read high, as described under <a href="#run2-settle">How long a point needs</a>. <a href="/research/data/gpu-map-compare-112.csv">All rows (CSV)</a>.</p>
-<!--datatables:end-->"""
-a, b = s.find("<!--datatables:start-->"), s.find("<!--datatables:end-->")
-if a < 0:
-    i = s.index("<!--stats:end-->") + len("<!--stats:end-->"); s = s[:i] + "\n" + sec + s[i:]
-else:
+{cmp}  <p class="ar-note">For every setting of the second run, case fans by power limit, the core and memory as read after 60 seconds, the settled value where one was measured later, and the model value from equation (11) and the memory model, at 19.3&nbsp;&deg;C intake air and the reference session. A dash (&mdash;) means the setting was not measured that way. GPU fans, rpm: the measured mean at this setting. <sup>a</sup> No 60-second value: a settled point from another session at this setting. <sup>b</sup> The settled memory reading was not logged for this point. Memory readings are whole degrees, as the card reports them. The 60-second values at 575&nbsp;W read low and those at lower power limits read high, as described under <a href="#run2-settle">How long a point needs</a>. <a href="/research/data/gpu-map-compare-112.csv">All rows (CSV)</a>.</p>
+<!--dt112:end-->"""
+import re as _re
+blocks = dict((k, v) for k, v in _re.findall(r"<!--(datatables|dtmem|dt112):start-->(.*?)<!--\1:end-->", sec, _re.S))
+if "<!--dtmem:start-->" in s:
+    for k, v in blocks.items():
+        a, b = s.index(f"<!--{k}:start-->"), s.index(f"<!--{k}:end-->") + len(f"<!--{k}:end-->")
+        s = s[:a] + f"<!--{k}:start-->{v}<!--{k}:end-->" + s[b:]
+else:   # first run after the split: replace the old combined block by the three blocks in a row
+    a, b = s.find("<!--datatables:start-->"), s.find("<!--datatables:end-->")
     s = s[:a] + sec + s[b + len("<!--datatables:end-->"):]
 open(F, "w").write(s); print("data tables written:", nblk, "comparison blocks")

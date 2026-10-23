@@ -9,9 +9,11 @@ $PY article_tools/steady3_tables.py
 $PY article_tools/data_tables.py
 $PY article_tools/noise_section.py
 $PY article_tools/modes_noise.py >/dev/null
-$PY article_tools/ctrlsim_section.py 8
+$PY article_tools/ctrlsim_section.py 9
 python3 article_tools/ctrl1_section.py 2 16
 $PY article_tools/cpu_section.py 1 17
 $PY article_tools/pareto_section.py; (cd article_tools && node fill_pareto.js)
 $PY article_tools/iso_section.py 1
+$PY article_tools/ctrl_law.py article_tools/out/law >/dev/null && cp article_tools/out/law/*.webp /Users/smicha/Claude/gruency-site/research/img/
+$PY article_tools/ctrllaw_section.py
 python3 article_tools/cite_terms.py
