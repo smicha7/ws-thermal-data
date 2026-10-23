@@ -79,7 +79,7 @@ const sec=`<!--stats:start-->
   <h2 id="stats">Statistical tests</h2>
   ${prov}<p>This section tests the steady-state model on settled points only. The data are ${J.n} points: ${ns}. For the points with a 1&nbsp;Hz log the core is read from the NVAPI sensor at 0.01&nbsp;&deg;C, and each point&rsquo;s final value ${i('T_\\infty')} comes from fitting ${i('T(t) = T_\\infty - A\\,e^{-t/\\tau}')} to its last minutes. The reference session, against which the others are offset, is ${J.ref}. Units are &deg;C throughout, thermal resistance in m&deg;C/W and conductance in W/&deg;C.</p>
   <h3 id="stats-methods">Methods and terms</h3>
-  <p>Each method below is named where it is first used and described here once, in plain words, with its source.</p>
+  <p>Each method below is named where it is first used and described once, with its source.</p>
   <div class="ar-tw"><table class="ar-tab ar-txt ar-wrap ar-gl"><thead><tr><th scope="col">Method</th><th scope="col">What it is and why we use it</th><th scope="col">References</th></tr></thead><tbody>${[
 ['Nonlinear least squares, Levenberg&ndash;Marquardt','Finds the constants that minimise the sum of squared residuals of a model that is not linear in them; the algorithm blends gradient descent and Gauss&ndash;Newton steps, so it converges from rough starting values.',[45,46,11,53]],
 ['Leave-one-out and k-fold cross-validation','Refits the model without one point (or one fifth of the points) and predicts what was left out; the prediction error, unlike the fit error, penalises a form that merely bends to the noise.',[12,42]],
@@ -154,7 +154,13 @@ ${pl90txt}${fig('gpu-map-steady-diagnostics','Six residual diagnostics of the st
   <p class="ar-note">Data: ${DATA}. Scripts: steady_data.py, steady_stats.py, fig_steady.py in the <a href="https://github.com/smicha7/ws-thermal-data">public data repository</a>.</p>
 <!--stats:end-->`;
 let a=s.indexOf('<!--stats:start-->'), b=s.indexOf('<!--stats:end-->'); if(a<0||b<0) throw 'markers missing';
-s=s.slice(0,a)+sec+s.slice(b+'<!--stats:end-->'.length);
+// methods part (data description and the glossary) goes to Section 2.6 between <!--statmeth:start/end-->; results stay here
+const mH=sec.indexOf('<h2 id="stats">'), mE=sec.indexOf('<h3 id="stats-model">');
+const hEnd=sec.indexOf('</h2>',mH)+5;
+const meth=sec.slice(hEnd,mE); const secR=sec.slice(0,hEnd)+'\n'+sec.slice(mE);
+s=s.slice(0,a)+secR+s.slice(b+'<!--stats:end-->'.length);
+{const a2=s.indexOf('<!--statmeth:start-->'), b2=s.indexOf('<!--statmeth:end-->');
+ if(a2>=0&&b2>a2) s=s.slice(0,a2)+'<!--statmeth:start-->'+meth.replace('<h3 id="stats-methods">','<h4 id="stats-methods">').replace(/<\/h3>/,'</h4>')+'<!--statmeth:end-->'+s.slice(b2+'<!--statmeth:end-->'.length);}
 const kf=`<!--kf-stats--> On ${J.n} settled points from ${nS} earlier sessions, the two-path model (11) fits within ${chosen.rmse.toFixed(2)}&nbsp;&deg;C (leave-one-out ${chosen.LOO.toFixed(2)}&nbsp;&deg;C)${tableN?'; provisional while part of the latest series is re-read at 0.01&nbsp;&deg;C':''}.<!--/kf-stats-->`;
 a=s.indexOf('<!--kf-stats-->'); b=s.indexOf('<!--/kf-stats-->'); if(a<0||b<a) throw 'kf markers'; s=s.slice(0,a)+kf+s.slice(b+16);
 // per-100 W lookup table at case 1500 rpm: (11) from steady fit, (10) dynamic, (9) static

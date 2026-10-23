@@ -61,7 +61,7 @@ def tab(pl, q):
 ntot = len(cells)
 legend = ('<p class="ar-note ar-legend">steady3 only, single settled measurement per cell, not averaged with earlier sessions. '
           'Rows: GPU fan duty in % with the nominal rpm; columns: target speed of the four case fans and three radiator fans, in rpm, with their listening class ({tref:caseclass}); below about 880&nbsp;rpm the radiator fans stay at their floor, and 2400&nbsp;rpm is a model point between loud and very loud. '
-          'Measured: the settled value of this one point. Model: the prediction for the same fan speeds, power and room air. Core and memory are in separate tables. '
+          'Measured: the settled value of this one point. Model: the prediction for the same fan speeds, power and intake air. Core and memory are in separate tables. '
           'Measured core from the 0.01&nbsp;&deg;C sensor; measured memory in whole degrees, as the card reports it. '
           'Model: equation (11) and the memory model fitted to the earlier sessions (21&ndash;22 October), evaluated at this point&rsquo;s fan speeds, power and intake air with the reference-session offset; steady3 is not in that fit, so the model column is a prediction. '
           'A dot (&middot;) means the setting has not been measured yet. A fit on steady3 alone follows once the grid covers enough GPU fan speeds.'

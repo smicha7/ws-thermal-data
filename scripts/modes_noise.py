@@ -1,55 +1,46 @@
-"""Noise-defined controller modes (Seb 2026-10-23): a noise budget at 1 m defines the mode; within it, the fan pair that keeps the core
-coolest at 575 W (model 11, literature noise, intake 19.3 °C); core and memory at each power limit are the result.
-Writes results-2026-10-23/modes-noise.json and the block <!--modes:start/end--> in the controller section. Usage: modes_noise.py"""
-import json, re
+"""Controller modes as released (WS.Sensor 0.30.69): a noise budget is a ceiling; within it the quietest fan pair that keeps the core and
+memory at the mode's comfort level, else the coolest pair within the budget, then the power limit (floor 70 %), only then over budget.
+Planned operating points at full load for each power limit (controller_sim planning, intake 19.3 °C). Writes <!--modes:start/end-->
+and results-2026-10-23/modes-noise.json. Usage: modes_noise.py"""
+import json, sys
 from pathlib import Path
-import numpy as np
-G = Path(__file__).resolve().parent.parent; F = Path.home() / "Claude/gruency-site/research/gpu-cooling-method.html"
-J = json.load(open(G / "results-2026-10-22/steady-stats.json")); MJ = json.load(open(G / "results-2026-10-23/mem-model.json"))
-P = {p["param"]: p["est"] for p in J["params"]}; Q = {k: v[0] for k, v in MJ["params"].items()}
-TIN = 19.3; PLW = {100: 575, 90: 518, 80: 460, 70: 402}; BUD = [("Quiet", 30), ("Balanced", 35), ("Performance", 40)]
-core = lambda N, C, W: TIN + P["θ0"] + W * (P["r∞"] / 1000 + 1 / (P["gN"] * (N / 1000) ** P["m"] + P["gC"] * (C / 1500) ** P["s"]))
-mem = lambda N, C, W: TIN + Q["θ0m"] + W * (Q["r∞"] / 1000 + 1 / (Q["gN"] * (N / 1000) ** Q["m"] + Q["gC"] * (C / 1500) ** Q["s"]))
-hwb = np.array([(1281, 20), (1573, 25), (1871, 30), (2274, 35), (2771, 40)], float)
-(a, b), *_ = np.linalg.lstsq(np.column_stack([np.ones(5), np.log10(hwb[:, 0])]), hwb[:, 1], rcond=None)
-Ltot = lambda N, C: 10 * np.log10(10 ** ((32.5 + 50 * np.log10(N / 1570)) / 10) + 7 * 10 ** ((a + b * np.log10(C)) / 10))
-pct2rpm = lambda p: 1313 + (p - 40) * (3012 - 1313) / 60
-GP, CC = np.meshgrid(np.arange(40, 100.01, 0.5), np.arange(800, 3000.1, 25)); NN = pct2rpm(GP); L = Ltot(NN, CC)
+G = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(G)); F = Path.home() / "Claude/gruency-site/research/gpu-cooling-method.html"
+import controller_sim as cs
+TIN = 19.3; PLW = {100: 575, 90: 518, 80: 460, 70: 402}; NM = {"quiet": "Quiet", "balanced": "Balanced", "performance": "Performance"}
 modes = []
-for name, bud in BUD:
-    ok = L <= bud + 1e-9; i = np.argmin(np.where(ok, core(NN, CC, 575), np.inf))
-    g, c, n = float(GP.ravel()[i]), float(CC.ravel()[i]), float(NN.ravel()[i])
-    modes.append(dict(mode=name, budget=bud, gpu_pct=g, gpu_rpm=round(n, -1), case_rpm=c, dBA=round(float(L.ravel()[i]), 1),
-                      temps={pl: (round(core(n, c, w), 1), round(mem(n, c, w), 1)) for pl, w in PLW.items()}))
-assert all(m["dBA"] <= m["budget"] for m in modes)
+for m in ("quiet", "balanced", "performance"):
+    c = cs.Controller(m); d = dict(mode=NM[m], budget=c.budget, core_comfort=cs.CORE_LIMIT_DEFAULT - cs.MODES[m]["comfort"][0],
+                                   mem_comfort=c.mem_l - cs.MODES[m]["comfort"][1], points={})
+    for pl, W in PLW.items():
+        N, C, plc, over = c.make_plan(W, TIN); core, mem = cs.steady_ff(W * plc, N, C, TIN)
+        d["points"][pl] = dict(W=W, gpu_pct=round(float(cs.RPM_DUTY(N)), 1), gpu_rpm=int(round(N, -1)), case_rpm=int(round(C, -1)), dBA=round(float(cs.noise(N, C)), 1),
+                               core=round(float(core), 1), mem=round(float(mem), 1), pl_cut=round(float(plc) * 100), over=bool(over), comfy=bool(core <= d["core_comfort"] + 1e-9 and mem <= d["mem_comfort"] + 1e-9))
+    modes.append(d)
 json.dump(modes, open(G / "results-2026-10-23/modes-noise.json", "w"), indent=1)
-pc = lambda g: f"{g:.0f}" if g == int(g) else f"{g:.1f}"
-rows = "".join(f'<tr><td>{m["mode"]} (&le;&nbsp;{m["budget"]}&nbsp;dBA)</td><td>{m["gpu_pct"]:.1f}</td><td>{m["gpu_rpm"]:.0f}</td><td>{m["case_rpm"]:.0f}</td><td>{m["dBA"]:.1f}</td>'
-               + "".join(f'<td class="g">{m["temps"][pl][0]:.1f}</td><td>{m["temps"][pl][1]:.1f}</td>' for pl in PLW) + "</tr>" for m in modes)
-HEADPL = "".join(f'<th scope="colgroup" colspan="2">{"Power limit " if pl == 100 else ""}{pl}&nbsp;% ({w}&nbsp;W), &deg;C</th>' for pl, w in PLW.items())
-SUBPL = '<th scope="col" class="g">core</th><th scope="col">memory</th>' * 4
-q = modes[0]; qm = q["temps"][100][1]
+rows = ""
+for d in modes:
+    for pl, p in d["points"].items():
+        mk = "" if p["comfy"] else "<sup>a</sup>"
+        rows += (f'<tr><td>{d["mode"]}</td><td>{d["budget"]:.0f}</td><td>{d["core_comfort"]:.0f}</td><td>{d["mem_comfort"]:.0f}</td><td>{pl}&nbsp;% ({p["W"]}&nbsp;W)</td>'
+                 f'<td class="g">{p["gpu_pct"]:.1f}</td><td>{p["gpu_rpm"]}</td><td>{p["case_rpm"]}</td><td class="g">{p["dBA"]:.1f}</td><td>{p["core"]:.1f}{mk}</td><td>{p["mem"]:.1f}</td></tr>')
+q = modes[0]["points"][100]
 sec = f'''<!--modes:start-->
   <h3 id="controller-modes">How it decides: a noise budget per mode</h3>
-  <p>A mode is defined by how loud the machine may be, not by a temperature. Each mode has a noise budget, the total level of all fans at 1&nbsp;m. Within the budget the controller picks the pair of GPU fan and case and radiator fan speeds that keeps the core coolest; the core and memory temperatures then follow from the power the card draws. Noise is what the user hears, so it is what the mode fixes; temperature is what the hardware must be protected from, so it is a constraint.</p>
-  <p class="ar-tcap"><b>Controller modes defined by noise: the fan speeds each budget allows and the temperatures that result.</b> Fan pair that keeps the core coolest within the budget at 575&nbsp;W; settled core / memory at each power limit from model (11) and the memory model, intake air {TIN}&nbsp;&deg;C, literature-based noise at 1&nbsp;m.</p>
+  <p>A mode is defined by how loud the machine may become, not by a temperature. Each mode has a noise budget, the total level of all fans at 1&nbsp;m, which is a ceiling, and a comfort level for the core and the memory, a set distance below their limits: 5 and 3&nbsp;&deg;C in Quiet, 10 and 5&nbsp;&deg;C in Balanced, 15 and 8&nbsp;&deg;C in Performance. Within the budget the controller chooses the quietest fan pair that keeps both at their comfort levels. If no pair within the budget can, it takes the coolest pair within the budget; if that would break a safety limit, it lowers the power limit, by 5&nbsp;% at most every 30 seconds down to 70&nbsp;%; only at that floor may the fans exceed the budget.</p>
+  <p class="ar-tcap"><b>Controller modes: noise budget, comfort levels and the planned operating point at full load for each power limit.</b> Quietest fan pair within the budget that keeps the core and memory at their comfort levels, from model (11) and the memory model, intake air {TIN}&nbsp;&deg;C, literature-based noise at 1&nbsp;m.</p>
   <div class="ar-tw ar-tw-wide">
   <table class="ar-tab ar-num ar-st ar-modes ar-ms">
-    <thead><tr><th scope="col" rowspan="2">Mode (noise budget at 1&nbsp;m)</th><th scope="colgroup" colspan="2">GPU fans</th><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="col" rowspan="2">Total noise at 1&nbsp;m, dBA</th>{HEADPL}</tr><tr><th scope="col">%</th><th scope="col">rpm</th>{SUBPL}</tr></thead>
+    <thead><tr><th scope="col" rowspan="2">Mode</th><th scope="col" rowspan="2">Noise budget, dBA</th><th scope="colgroup" colspan="2">Comfort level, &deg;C</th><th scope="col" rowspan="2">Power limit</th><th scope="colgroup" colspan="2">GPU fans</th><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="col" rowspan="2" class="g">Total noise at 1&nbsp;m, dBA</th><th scope="col" rowspan="2">Core, &deg;C</th><th scope="col" rowspan="2">Memory, &deg;C</th></tr><tr><th scope="col">core</th><th scope="col">memory</th><th scope="col" class="g">%</th><th scope="col">rpm</th></tr></thead>
     <tbody>{rows}</tbody>
   </table>
   </div>
-  <p class="ar-note">Seven case and radiator fans run at the same speed; below about 880&nbsp;rpm the radiator fans stay at their floor. The noise models are literature-based and provisional until our own sound map; the temperatures are model predictions in an open case.</p>
+  <p class="ar-note">Comfort levels are set below the default limits of 83&nbsp;&deg;C (core) and 90&nbsp;&deg;C (memory). <sup>a</sup> The comfort level cannot be reached within the budget; the coolest pair within the budget is used, still inside the safety limits.</p>
   <ul>
-    <li><b>Safety constraints.</b> The memory stays at or below its limit, 90&nbsp;&deg;C by default and never above 91&nbsp;&deg;C, the 95&nbsp;&deg;C hard limit less 4&nbsp;&deg;C (<a href="#controller-mem">Memory temperature limit</a>), and the core stays at or below its safety limit, 83&nbsp;&deg;C by default, adjustable by the user up to a hard cap of 88&nbsp;&deg;C, always below NVIDIA&rsquo;s own limits (maximum operating 90&nbsp;&deg;C, slowdown 93&nbsp;&deg;C).</li>
-    <li><b>Power before noise.</b> If a constraint would be broken within the budget, the controller first lowers the power limit, by at most 5&nbsp;% every 30 seconds; it goes over the noise budget only when the power limit is already at its floor, 70&nbsp;% (402&nbsp;W), about the lowest the card accepts (a request for 50&nbsp;% is raised to 69&nbsp;%). Quiet at 575&nbsp;W already puts the memory at {qm:.1f}&nbsp;&deg;C at {TIN}&nbsp;&deg;C intake, {"right at" if qm > 89 else "close to"} the default limit, so in a warmer room Quiet lowers the power limit rather than speed up the fans.</li>
-    <li><b>Model, then feedback.</b> The fan pair comes from equation (11); a proportional-integral term <a class="cite" href="#s15">[15]</a> on the measured temperatures corrects what the model misses, and the fans speed up quickly and slow down slowly, as in the first version below.</li>
+    <li><b>Safety constraints.</b> The core stays at or below its safety limit, 83&nbsp;&deg;C by default and at most 88&nbsp;&deg;C, and the memory at or below 90&nbsp;&deg;C by default and never above 91&nbsp;&deg;C, the 95&nbsp;&deg;C hard limit less a 4&nbsp;&deg;C margin (<a href="#templimits">Section 2.2</a>). The feed-forward keeps a model margin of at least 1&nbsp;&deg;C below each limit.</li>
+    <li><b>Power before noise.</b> Quiet at 575&nbsp;W cannot reach its comfort level within 30&nbsp;dBA; it runs at {q["dBA"]:.1f}&nbsp;dBA with the core at {q["core"]:.1f}&nbsp;&deg;C, and in a warmer room it lowers the power limit rather than exceed its budget.</li>
+    <li><b>Floors and ramps.</b> At light load every mode runs at the fan floors, GPU fans 30&nbsp;% rising to 40&nbsp;% with load, case fans 800&nbsp;rpm, never 0&nbsp;rpm. The fans speed up quickly and slow down slowly, and a pair is kept until a new one is clearly quieter, so the fans do not hunt.</li>
   </ul>
 <!--modes:end-->'''
-s = F.read_text()
-a, e = s.find("<!--modes:start-->"), s.find("<!--modes:end-->")
-if a >= 0: s = s[:a] + sec + s[e + len("<!--modes:end-->"):]
-else:
-    i = s.index("  <h3>How it decides</h3>"); s = s[:i] + sec + "\n" + s[i:]
-F.write_text(s)
-for m in modes: print(m)
+s = F.read_text(); a, b = s.index("<!--modes:start-->"), s.index("<!--modes:end-->") + len("<!--modes:end-->")
+F.write_text(s[:a] + sec + s[b:])
+for d in modes: print(d["mode"], {k: (v["gpu_pct"], v["case_rpm"], v["dBA"], v["core"], v["mem"], v["comfy"]) for k, v in d["points"].items()})

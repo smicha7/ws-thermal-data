@@ -9,7 +9,7 @@ $PY article_tools/steady3_tables.py
 $PY article_tools/data_tables.py
 $PY article_tools/noise_section.py
 $PY article_tools/modes_noise.py >/dev/null
-$PY article_tools/ctrlsim_section.py 9
+$PY article_tools/ctrlsim_section.py 10
 python3 article_tools/ctrl1_section.py 2 16
 $PY article_tools/cpu_section.py 1 17
 $PY article_tools/pareto_section.py; (cd article_tools && node fill_pareto.js)

@@ -43,7 +43,7 @@ CMP2 = (_r("Radiator fan speed", m(g0,'rad_rpm'), m(g2,'rad_rpm'), "rpm", 0)
         + _r("Average core clock", m(g0,'clock_avg_mhz'), m(g2,'clock_avg_mhz'), "MHz", 0, ("", "", "<sup>a</sup>" if abs(_clk) < 100 else "")))
 cpu3 = f"""  <h3 id="cpu-low">Both sets of fans slow</h3>
   <p>The third run, cpu3, slowed the case fans to 1000&nbsp;rpm as well and then asked the radiator fans for 1000, 800, 600&nbsp;rpm and their minimum, about five minutes each. The radiator fans will not turn slower than about {lo[0]['rad']:.0f}&nbsp;rpm, even at {lo[0]['radp']:.1f}&nbsp;% of their control signal, so the last three points are one setting measured three times.</p>
-  <p class="ar-tcap"><b>How warm does the processor get with both sets of fans slow?</b><br>Ryzen 9 9950X at full load (all 32 threads, 200&nbsp;W limit), room air 19.3 to 19.5&nbsp;&deg;C; mean from one minute after each change to its end (cpu3, cpu3e).</p>
+  <p class="ar-tcap"><b>How warm does the processor get with both sets of fans slow?</b><br>Ryzen 9 9950X at full load (all 32 threads, 200&nbsp;W limit), intake air 19.3 to 19.5&nbsp;&deg;C; mean from one minute after each change to its end (cpu3, cpu3e).</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
     <thead><tr><th scope="col">Radiator fans, rpm</th><th scope="col">Radiator control signal, %</th><th scope="col">Case fans, rpm</th><th scope="col">Tctl, &deg;C</th><th scope="col">CCD 1, &deg;C</th><th scope="col">CCD 2, &deg;C</th><th scope="col">Highest Tctl, &deg;C</th><th scope="col">Package, W</th><th scope="col">Average clock, MHz</th></tr></thead>
@@ -58,7 +58,7 @@ sec = f"""<!--cpu:start-->
   <h2 id="cpu">The processor: a first measurement</h2>
   <p>The same controller must also look after the processor, so on the evening of 22 October we loaded it alone. The AMD Ryzen 9 9950X ran at stock settings on all 32 threads with an arithmetic load of our own, the graphics card idle, the liquid cooler&rsquo;s pump at full speed and the four case fans at 100&nbsp;%. Intake air was {pd.read_csv(G + 'data/cpu2-2026-10-22/cpu2/cpu.csv').intake_c.mean():.1f}&nbsp;&deg;C.</p>
   <p>The first run, cpu1b, held the three radiator fans at full speed for only {int(c1.t_s.max())} seconds. It is a lesson from the graphics card repeated: Tctl was still moving at the end ({m(l1,'tctl_c'):.1f}&nbsp;&deg;C over the last minute), because the liquid in the loop warms over minutes, not seconds. The second run, cpu2, waited until Tctl had settled ({dur[0]:.1f} minutes), then lowered the radiator fans by 100&nbsp;rpm every 10 seconds to 1500&nbsp;rpm and held them there for {dur[max(st)]:.1f} minutes.</p>
-  <p class="ar-tcap"><b>Does slowing the radiator fans heat the processor?</b><br>Ryzen 9 9950X at full load (all 32 threads, 200&nbsp;W limit), case fans at full speed, room air {pd.read_csv(G + 'data/cpu2-2026-10-22/cpu2/cpu.csv').intake_c.mean():.1f}&nbsp;&deg;C; mean of the last 60&nbsp;s at each fan speed.</p>
+  <p class="ar-tcap"><b>Does slowing the radiator fans heat the processor?</b><br>Ryzen 9 9950X at full load (all 32 threads, 200&nbsp;W limit), case fans at full speed, intake air {pd.read_csv(G + 'data/cpu2-2026-10-22/cpu2/cpu.csv').intake_c.mean():.1f}&nbsp;&deg;C; mean of the last 60&nbsp;s at each fan speed.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-cmp2">
     <thead><tr><th scope="col">Quantity</th><th scope="col">Radiator fans at full speed</th><th scope="col">Radiator fans slowed down</th><th scope="col">Change</th></tr></thead>
@@ -66,7 +66,6 @@ sec = f"""<!--cpu:start-->
   </table>
   </div>
   <p class="ar-note">Control signal: the PWM duty the fans are driven with. Change: slowed minus full speed. <sup>a</sup> Within the run-to-run spread of the clock.</p>
-  <p>Answer: almost nothing. Halving the radiator fan speed costs {m(g2,'tctl_c')-m(g0,'tctl_c'):.1f}&nbsp;&deg;C on Tctl and about {((m(g2,'ccd1_c')-m(g0,'ccd1_c'))+(m(g2,'ccd2_c')-m(g0,'ccd2_c')))/2:.0f}&nbsp;&deg;C on the chiplets; the processor stays at full power and clock.</p>
   <p>Almost halving the radiator fan speed raised Tctl by {m(g2,'tctl_c')-m(g0,'tctl_c'):.1f}&nbsp;&deg;C and the two CCDs by about {((m(g2,'ccd1_c')-m(g0,'ccd1_c'))+(m(g2,'ccd2_c')-m(g0,'ccd2_c')))/2:.0f}&nbsp;&deg;C. The package stayed at its 200&nbsp;W stock limit throughout, the clocks did not fall, and the highest one-second Tctl was {w.tctl_c.max():.1f}&nbsp;&deg;C, about 20&nbsp;&deg;C below the 95&nbsp;&deg;C maximum. The processor is limited by power, not by temperature, so the controller can run the radiator fans far slower than full speed without costing any performance. The 10-second steps were too short to see the loop respond; each step&rsquo;s change is lost in the second-to-second jitter of the sensors.</p>
   <figure class="ar-fig">
     {pic('light')}{pic('dark')}

@@ -71,22 +71,22 @@ REFS = {
 c = lambda *n: "".join(f' <a class="cite" href="#s{i}">[{i}]</a>' for i in n)
 # (phrase at first use, refs, optional plain sentence appended after the phrase's sentence)
 FIRST = [
- ("settles exponentially with a time constant of about 50&nbsp;s.", (51, 10)),
+ ("settles exponentially with a time constant of about 50&nbsp;s", (51, 10)),
  ("A first-order response is fitted to each temperature:", (10, 11)),
  ("With 95&nbsp;% bootstrap intervals over the points:", (44,)),
- ("(t-test p", (16,)),
+ ("t-test", (16,)),
  ("Shapiro&ndash;Wilk does not reject normality", (26, 27)),
- ("Durbin&ndash;Watson is", (17, 18)),
- ("nonlinear least squares (Levenberg&ndash;Marquardt).", (45, 46)),
- ("five-fold cross-validation gives", (42,)),
- ("heteroscedasticity-consistent (HC3) standard errors.", (24, 32, 33)),
+ ("Durbin&ndash;Watson", (17, 18)),
+ ("nonlinear least squares (Levenberg&ndash;Marquardt)", (45, 46)),
+ ("five-fold cross-validation", (42,)),
+ ("heteroscedasticity-consistent (HC3) standard errors", (24, 32, 33)),
  ("Cluster-robust errors by session", (38,)),
- ("Bayesian information criterion (BIC).", (43,)),
+ ("Bayesian information criterion (BIC)", (43,)),
  ("The Box&ndash;Cox profile, transforming both sides,", (34, 35)),
- ("Monte Carlo under the null given the regressors.", (19,)),
+ ("Monte Carlo under the null given the regressors", (19,)),
  ("studentised residual", (36, 37)),
  ("lack-of-fit test against the pure error of repeated points", (31,)),
- ("generalised least squares,", (47,)),
+ ("generalised least squares", (47,)),
  ("We trace it with the &epsilon;-constraint method", (48, 49)),
  ("Sources add on an energy basis", (50,)),
  ("A proportional-integral term", (15,)),
@@ -97,12 +97,13 @@ for k, v in REFS.items():   # update in place or append to the reference list; n
     if f'<li id="s{k}">' in s: s = re.sub(rf'<li id="s{k}">.*?</li>', lambda m: f'<li id="s{k}">{v}</li>', s, count=1, flags=re.S)
     else:
         e = s.index("</ol>", s.index('<h2 id="sources">')); s = s[:e] + f'<li id="s{k}">{v}</li>' + s[e:]
-body_end = s.index('<h2 id="sources">'); miss = []
+body_end = s.index('</article>'); miss = []
 for ph, refs in FIRST:
     i = s.find(ph)
     if i < 0 or i > body_end: miss.append(ph); continue
     j = i + len(ph); tag = c(*refs)
-    if not s[j:j + 60].startswith(f' <a class="cite" href="#s{refs[0]}">'): s = s[:j] + tag + s[j:]; body_end += len(tag)
+    if f'<a class="cite" href="#s{refs[0]}">' not in s[j:j + 120]: s = s[:j] + tag + s[j:]; body_end += len(tag)
+s = re.sub(r'\.((?: <a class="cite" href="#[tns]\d+">\[[^\]]*\]</a>)+)(?=\s|<)', r"\1.", s)   # citation before the full stop
 F.write_text(s)
 used = set(map(int, re.findall(r'href="#s(\d+)"', s)))
 print("missing anchors:", miss); print("refs never cited:", sorted(set(REFS) - used))
@@ -248,7 +249,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Card¦Setting¦Fan speed", "rtx50", "Other RTX 50 cards in reviews: fan speeds, levels and fan stop at idle, for comparison with the RTX 5090 FE.", "{T} compares other RTX 50 cards; most are louder at equal speed."),
  (r"^Speed of a 120", "sebscale", "Sebastian&rsquo;s listening scale for a 120&nbsp;mm case fan against published measurements, a qualitative comparison: does the ear agree with the meter?", "{T} checks each listening class against measurements; most agree."),
  (r"^Mode \(first version\)", "v1noise", "First version of the controller: estimated noise at the fan-speed ceilings of its modes, at 1&nbsp;m.", "{T} shows that in the first version the card&rsquo;s fans set the noise in Quiet and Balanced."),
- (r"^Mode \(noise budget", "modes", None, "{T} is the definition of the modes: read across a row to see the fans each budget allows and the temperatures that result at each power limit."),
+ (r"^Mode¦Noise budget", "modes", None, "{T} is the definition of the modes: read across a row to see the fans each budget allows and the temperatures that result at each power limit."),
  (r"^Mode¦Core target, &deg;C¦GPU fan ceiling", "v1modes", "First version of the controller (superseded): modes defined by a core target, with fan-speed ceilings and limits.", "{T} records the first, temperature-target design for comparison."),
  (r"^Fan control¦", "sim", None, "{T} compares the simulated controller with the factory fan curve in three tests; look at noise first, then at the temperatures."),
  (r"^Mode \(target\)¦", "hw", "The first controller version on the real RTX 5090 against its simulation, open case, intake about 19.3&nbsp;&deg;C, 22 October: how well the model predicts the controlled card.", "{T} sets the first version on the real card beside its simulation; the closer each pair, the better the model."),
@@ -256,7 +257,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Quantity¦Radiator fans at full speed", "cpu2", None, "{T} answers one question: does slowing the radiator fans heat the processor?"),
  (r"^Radiator fans, rpm¦Radiator control", "cpu3", None, "{T} goes further: both sets of fans slow, down to the radiator fans&rsquo; floor."),
  (r"^Core target, &deg;C¦Power limit 100", "pareto", "Quietest fan settings for each core target at 575&nbsp;W and 402&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature-based noise): the effect of the target on noise.", "{T} reads the frontier at fixed targets; at 402&nbsp;W the fans are already at their floor."),
- (r"^Mode at 575", "paretomodes", "Quietest fan settings for the core targets of the first version&rsquo;s modes at 575&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature-based noise).", "{T} places the first version&rsquo;s modes on the frontier."),
+ (r"^Mode at 575 W NOTUSED", "paretomodes", "Quietest fan settings for the core targets of the first version&rsquo;s modes at 575&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature-based noise).", "{T} places the first version&rsquo;s modes on the frontier."),
  (r"^Intake air(?:, &deg;C)?¦Core target", "pmax", "Quietest total noise at each power limit for core targets of 77 and 80&nbsp;&deg;C, at two room temperatures (model, literature-based noise): the effect of power and of room temperature on noise.", "{T} shows what lowering the power limit buys in noise, in a cool and in a warm room."),
  (r"^Case and radiator fans, rpm¦Listening class", "iso", None, "{T} shows the many settings that give one temperature; look down each noise column for marker c, the quietest setting."),
 ]
@@ -385,7 +386,7 @@ FIGT = [
  (r"Settled core against total noise", "The quiet frontier: settled core against total fan noise.", ""),
  (r"Highest power with the core", "Highest power within a noise budget.", ""),
  (r"Total noise of all fans at 1&nbsp;m against the speed of the case", "Noise needed to hold 70&nbsp;&deg;C, by case fan speed and power limit.", ""),
- (r"Left: fan speeds of each mode against board power", "The control law: fan speeds and predicted temperatures of each mode against power.", ""),
+ (r"Planned fan speeds of the released controller", "The control law: fan speeds, noise and predicted core of each mode against power.", ""),
  (r"WS.Sensor graphics-card cooling panel", "The WS.Sensor graphics-card cooling panel.", ""),
  (r"coupling matrix for two cards", "Two cards in one case: coupling and feed-forward (planned).", ""),
 ]
@@ -418,10 +419,22 @@ for m in re.finditer(r'<li id="([tns]\d+)">(.*?)</li>', s, re.S):
 s = re.sub(r'\s*<ol class="ar-src ar-src-t">.*?</ol>', "", s, flags=re.S)
 ra = s.index('<h2 id="sources">'); rb = s.index("</ol>", ra) + 5
 body = s[:ra]; tail = s[rb:]
+norm = lambda t: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", t)).strip().lower()
+seen_txt = {}
+for k in list(items):   # identical entries under two ids: keep the first, point the second to it
+    n_ = norm(items[k])
+    if n_ in seen_txt:
+        body = body.replace(f'href="#{k}"', f'href="#{seen_txt[n_]}"'); tail = tail.replace(f'href="#{k}"', f'href="#{seen_txt[n_]}"'); del items[k]
+    else: seen_txt[n_] = k
+def webfix(t):   # full URL as link text, access date for web sources without a DOI
+    t = re.sub(r'<a href="(https?://[^"]+)">([a-z0-9.-]+\.[a-z]{2,})</a>', lambda m: f'<a href="{m.group(1)}">{m.group(1)}</a>', t)
+    if "doi" not in t.lower() and "Accessed" not in t and re.search(r'href="https?://', t): t = t.rstrip() + " Accessed 23 October 2026."
+    return t
+items = {k: webfix(v) for k, v in items.items()}
 order = []
 for m in re.finditer(r'<a class="cite" href="#([tns]\d+)">', body + tail):
     if m.group(1) not in order and m.group(1) in items: order.append(m.group(1))
-order += [k for k in items if k not in order]
+# references never cited are left out (Elsevier: every listed reference is cited)
 numof = {k: i + 1 for i, k in enumerate(order)}
 fix = lambda t: re.sub(r'<a class="cite" href="#([tns]\d+)">\[[^\]]*\]</a>', lambda m: f'<a class="cite" href="#{m.group(1)}">[{numof.get(m.group(1), "?")}]</a>', t)
 refs = "\n".join(f'    <li id="{k}">{items[k]}</li>' for k in order)
@@ -439,7 +452,7 @@ HEADMAP = {
  "steady3-grid": ("h3", "The final grid (steady3)"), "stats": ("h3", "Model fit and diagnostics"),
  "stats-methods": ("h4", "Methods and terms"), "stats-model": ("h4", "The model"), "stats-forms": ("h4", "Forms and transforms tried"),
  "stats-tests": ("h4", "Tests on the residuals"), "stats-open": ("h4", "An open item: residuals along the GPU fans"), "stats-sessions": ("h4", "Sessions"),
- "stats-mem": ("h4", "The memory model"), "pareto": ("h3", "Noise&ndash;temperature frontier"), "pareto-lit": ("h4", "A first frontier, from the literature"),
+ "stats-mem": ("h3", "Memory model"), "pareto": ("h3", "Noise&ndash;temperature frontier"), "pareto-lit": ("h4", "A first frontier, from the literature"),
  "iso-temp": ("h4", "One temperature, many settings"), "power": ("h3", "Power and room temperature"),
  "s-what-the-simulation-shows": ("h4", "In simulation"), "controller-hw": ("h4", "On the real card"), "controller-fix": ("h4", "Stopping the pumping"),
  "cpu": ("h3", "The processor"), "cpu-low": ("h4", "Both sets of fans slow"),
@@ -500,6 +513,17 @@ def secref(m):
     return m.group(0)
 ba = s.index('<main')
 s = s[:ba] + re.sub(r'<a href="#([a-z0-9-]+)">(.*?)</a>', secref, s[ba:], flags=re.S)
+# grammar around numbered references produced from link text
+NOUN = {"run2": "second run", "run2-model": "first static fit", "settling": "first run", "run2-dyn": "dynamic model", "results": "first run",
+        "power-results": "first run", "run2-settle": "second run"}
+L = r'(<a href="#([a-z0-9-]+)">((?:Section|Appendix) [A-Z0-9.]+)</a>)'
+s = re.sub(r"\(section " + L + r"\)", r"(\1)", s)
+s = re.sub(r"\b(under) " + L, r"in \2", s)
+def the(m):
+    art, link, h = m.group(1), m.group(2), m.group(3)
+    return f"{art} {NOUN[h]} ({link})" if h in NOUN else (link if art in ("the", "The") else f"{art} {link}")
+s = re.sub(r"\b(the|The) " + L, lambda m: the(m) if not m.group(0).startswith("The") else "The " + NOUN.get(m.group(3), "") + f" ({m.group(2)})" if m.group(3) in NOUN else the(m), s)
+s = re.sub(L + r" report as", r"\1 reports as", s)
 F.write_text(s); print("sections numbered:", cnt[0], "headings:", len(toc))
 
 # --- figures: ids from their titles, numbered in order of appearance; "Figure N" in the text becomes a link that follows the number

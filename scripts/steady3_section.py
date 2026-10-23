@@ -36,7 +36,7 @@ block=f'''<!--steady3:start-->
   </div>
   <p class="ar-note">Planned, 28 points per GPU fan speed (7 case levels &times; 4 power limits); the 196 points take about {tot:.1f} hours, and the two anchors, repeats of GPU fans 40&nbsp;% / case fans 1600&nbsp;rpm / power limit 100&nbsp;% at the start and the end, bring the run to about 18.5 hours. steady3: the final grid run of 23 October. The 40&nbsp;% row takes longest because every point there waits at least eight minutes.</p>
   <p>The start anchor, at least eight minutes and then until it reaches a plateau, serves as the warm-up. After that each point waits at least eight minutes with the GPU fans at 40&nbsp;% and five minutes otherwise, and the Lab software ends it when the measured trend of core and memory over the last 120 seconds is below 0.1&nbsp;&deg;C per minute, not after a precomputed time; no point waits more than fifteen minutes. For planning, the wait is estimated from the model: after a step of size $$dT$$ the slope, in &deg;C per minute, starts at $$s0$$ and decays as $$decay$$, so it falls below 0.1&nbsp;&deg;C per minute after about $$tw$$, with $$tau$$ in seconds and $$dT$$ in &deg;C. The waits in the table above use that estimate, equation (11) and the time constants of the settled points; the run itself will show where they were wrong.</p>
-  <p>The fan speeds of the plan sound, by Sebastian Michalski&rsquo;s scale for this machine, as follows; the levels for the card are the estimate of <a href="#noise-gpu">How loud is loud</a>, &plusmn;3&nbsp;dB.</p>
+  <p>The fan speeds of the plan sound, on the author&rsquo;s listening scale for this machine, as follows; the levels for the card are the estimate of <a href="#noise-gpu">How loud is loud</a>, &plusmn;3&nbsp;dB.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
     <thead><tr><th scope="col">GPU fans, %</th><th scope="col">GPU fans, rpm</th><th scope="col">Estimated level at 1&nbsp;m, dBA</th><th scope="col">Class on our RTX 5090 scale</th></tr></thead>
@@ -46,7 +46,7 @@ block=f'''<!--steady3:start-->
   <p class="ar-note">Nominal fan speeds; class on our RTX 5090 scale ({{tref:gpuclassrange}}); levels from the GPU-fan noise model, &plusmn;3&nbsp;dB.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
-    <thead><tr><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="colgroup" colspan="2">Estimated level at 1&nbsp;m, dBA</th><th scope="col" rowspan="2">Sebastian&rsquo;s listening class (this machine, at the desk)</th></tr><tr><th scope="col" class="g">one fan</th><th scope="col">all 7 fans</th></tr></thead>
+    <thead><tr><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="colgroup" colspan="2">Estimated level at 1&nbsp;m, dBA</th><th scope="col" rowspan="2">Listening class (author, this machine, at the desk)</th></tr><tr><th scope="col" class="g">one fan</th><th scope="col">all 7 fans</th></tr></thead>
     <tbody>{crow}</tbody>
   </table>
   </div>

@@ -112,7 +112,7 @@ EST = [(30, 1020, "ultra-quiet"), (40, 1310, "very quiet"), (50, 1600, "balanced
 H5 = ["GPU fans, %", "GPU fans, rpm", "Estimated level at 1&nbsp;m, dBA", "Estimated level at 0.5&nbsp;m, dBA", "Class on our RTX 5090 scale"]
 R5 = [[f"{p}", f"{r}", f"{L1(r):.0f}", f"{L1(r)+6:.0f}", cl] for p, r, cl in EST]
 # 5) Seb's scale
-H6 = ["Speed of a 120&nbsp;mm fan, rpm", "Sebastian&rsquo;s listening description", "Published evidence", "Verdict"]
+H6 = ["Speed of a 120&nbsp;mm fan, rpm", "Listening description (author)", "Published evidence", "Verdict"]
 R6 = [["800", "inaudible", "NF-A12x25 G2 about 9&nbsp;dBA (extrapolated); about 27 to 28&nbsp;dBA at 15&nbsp;cm on a radiator at 750&nbsp;rpm", "agrees"],
       ["1000", "almost silent", "G2 about 14, G1 about 12&nbsp;dBA", "agrees: below the floor of a room"],
       ["1200", "gentle hum", "G2 about 18, Silent Wings Pro 4 about 19&nbsp;dBA", "agrees: audible only close by in a quiet room"],
@@ -199,7 +199,7 @@ sec = f"""<!--noise:start-->
   <p class="ar-status"><b>Estimate.</b> The next table is not a measurement. It takes our mapping of fan duty to speed (40&nbsp;% = 1310&nbsp;rpm, 100&nbsp;% = 3030&nbsp;rpm on this card), anchors the level at GamersNexus&rsquo;s 32.5&nbsp;dBA at 1570&nbsp;rpm and 1&nbsp;m, and scales it by 50&nbsp;log<sub>10</sub> of the speed. The anchors agree with each other: GamersNexus moved to 50&nbsp;cm gives 38.7&nbsp;dBA at 1570&nbsp;rpm, as does TechPowerUp scaled to the same speed. LanOC&rsquo;s step from 50 to 100&nbsp;%, +12.7&nbsp;dB, compares with +13.7&nbsp;dB from the model. We take the uncertainty as &plusmn;3&nbsp;dB, more at 30&nbsp;%, where motor and bearing noise stop falling with speed. Our own measurement, with a phone sound meter at 0.5 and 1&nbsp;m and the room floor recorded, at 30 to 90&nbsp;%, will replace it.</p>
 {tw('ar-set', H5, R5)}  <p class="ar-note">Nominal fan speeds; class on our RTX 5090 scale ({{tref:gpuclassrange}}). <sup>a</sup> The factory fan curve sits at 46 to 52&nbsp;% in games. At a desk, 0.5 to 0.7&nbsp;m away, shift each boundary down one class. {D('gpu-map-noise-gpu-estimate.csv')}.</p>
 {rtx50}  <h3 id="noise-seb">A practical scale</h3>
-  <p>Sebastian Michalski, who builds and listens to these machines, describes 120&nbsp;mm fan speeds like this. We checked each step against the measurements above.</p>
+  <p>The author&rsquo;s listening scale for 120&nbsp;mm fan speeds is as follows. We checked each step against the measurements above.</p>
 {tw('ar-txt ar-wrap', H6, R6)}  <p class="ar-note">Levels in dBA at 1&nbsp;m, free field, unless stated. {D('gpu-map-noise-seb-scale.csv')}.</p>
   <p>The scale describes a whole computer at the desk well: several fans and radiators add 6 to 9&nbsp;dB to a single fan, and the listener sits 0.5 to 1&nbsp;m away. For one fan in a chamber it is about one class too strict. For 140&nbsp;mm fans each boundary moves down by about 10 to 20&nbsp;%, for example 1500 to about 1250 to 1350&nbsp;rpm, as both the 4.7&nbsp;dB rule and the data show: the Arctic P14 reaches 20&nbsp;dBA at 1206&nbsp;rpm, the P12 at 1559. The exception is the Silent Wings Pro 4 140, which sounds like the 120&nbsp;mm version at the same speed.</p>
   <h3 id="noise-ctl">What this means for the controller</h3>
