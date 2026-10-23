@@ -388,7 +388,7 @@ FIGT = [
  (r"Total noise of all fans at 1&nbsp;m against the speed of the case", "Noise needed to hold 70&nbsp;&deg;C, by case fan speed and power limit.", ""),
  (r"Planned fan speeds of the released controller", "The control law: fan speeds, noise and predicted core of each mode against power.", ""),
  (r"WS.Sensor graphics-card cooling panel", "The WS.Sensor graphics-card cooling panel.", ""),
- (r"coupling matrix for two cards", "Two cards in one case: coupling and feed-forward (planned).", ""),
+ (r"coupling matrix for two cards", "Two cards in one case: coupling and feed-forward.", ""),
 ]
 s = F.read_text()
 s = re.sub(r' <b class="ftitle">.*?</b>', "", s); s = re.sub(r'<span class="flegend">.*?</span><!--fl-->', "", s, flags=re.S)
@@ -440,14 +440,19 @@ fix = lambda t: re.sub(r'<a class="cite" href="#([tns]\d+)">\[[^\]]*\]</a>', lam
 refs = "\n".join(f'    <li id="{k}">{items[k]}</li>' for k in order)
 s = fix(body) + '<h2 id="sources">References</h2>\n  <ol class="ar-src ar-refs">\n' + refs + "\n  </ol>" + fix(tail)
 F.write_text(s); print("references:", len(order), "cited:", sum(1 for k in order if re.search(rf'href="#{k}"', body + tail)))
+# --- status labels: the noise caveat is stated once in Section 2.5.4
+s = F.read_text()
+for rx in [r" ?Literature-based, provisional until our own sound map\.", r" ?Literature-based noise, provisional\.", r";? ?literature-based noise, provisional", r" ?provisional until our own sound map"]:
+    s = re.sub(rx, "", s)
+F.write_text(s)
 # --- journal structure: heading levels and titles (generators emit their own levels), numbering 1, 1.1, 1.1.1; appendices A, A.1
 HEADMAP = {
  "setup": ("h3", "Test machine and set-up"), "variables": ("h4", "Quantities measured"), "templimits": ("h3", "Operating limits"),
- "memlimit": ("h4", "Memory temperature and the limit we use"), "uncertainty": ("h3", "Sensors, logging and uncertainty"),
+ "memlimit": ("h3", "Memory and core: the binding limit"), "uncertainty": ("h3", "Sensors, logging and uncertainty"),
  "grid": ("h3", "Measurement protocol"), "s-settling-and-extrapolation": ("h4", None), "s-checking-the-extrapolation": ("h4", None),
  "s-safety-limits": ("h4", None), "s-repeats-and-drift": ("h4", None), "method-next": ("h4", "The final grid (steady3)"),
  "resistance": ("h4", "Thermal resistance: one number per setting"), "model": ("h4", "A model of the cooler"),
- "s-what-we-do-not-assume": ("h5", None), "run2-dyn": ("h4", "A dynamic model"),
+ "s-what-we-do-not-assume": ("h5", None), "run2-dyn": ("h4", "A dynamic model"), "dyn-results": ("h3", "Dynamic model"),
  "controller": ("h3", "Controller design"), "controller-modes": ("h4", "Modes defined by a noise budget"), "controller-mem": ("h4", "Memory temperature limit"),
  "steady3-grid": ("h3", "The final grid (steady3)"), "stats": ("h3", "Model fit and diagnostics"),
  "stats-methods": ("h4", "Methods and terms"), "stats-model": ("h4", "The model"), "stats-forms": ("h4", "Forms and transforms tried"),
