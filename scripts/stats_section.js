@@ -103,7 +103,7 @@ const sec=`<!--stats:start-->
 ].map(([a,b,r])=>`<tr><td>${a}</td><td>${b}</td><td>${CT(...r)}</td></tr>`).join('')}</tbody></table></div>
   <h3 id="stats-model">The model</h3>
   ${eq}
-  <p>${i('\\theta_j')} is an offset for each measuring session ${i('j')}, zero for the reference session. The heatsink passes heat to the air along two paths in parallel, one driven by the card&rsquo;s fans and one by the case airflow; their conductances add. That is why the case fans matter when the GPU fans are slow and hardly at all when they are fast. ${i('r_\\infty')} is the resistance that no airflow removes. The constants are estimated by nonlinear least squares (Levenberg&ndash;Marquardt).</p>
+  <p>${i('\\theta_j')} is an offset for each measuring session ${i('j')}, zero for the reference session. The heat sink passes heat to the air along two paths in parallel, one driven by the card&rsquo;s fans and one by the case airflow; their conductances add. That is why the case fans matter when the GPU fans are slow and hardly at all when they are fast. ${i('r_\\infty')} is the resistance that no airflow removes. The constants are estimated by nonlinear least squares (Levenberg&ndash;Marquardt).</p>
   <p>Equation (11) replaces the static fit (9) for settled points. Its exponent ${i('m')} = ${P['m'].est.toFixed(2)} is far above the 0.5 to 0.8 that convection alone would give (section <a href="#model">A model of the cooler</a>): here the conductance also carries the fan&rsquo;s own airflow curve, so ${i('m')} is an empirical constant.${P['gC'].ci95_HC3[0]<0?` The case-fan path ${i('g_C')} is the least certain constant; its interval includes zero.`:''}</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
