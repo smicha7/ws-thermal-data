@@ -27,8 +27,21 @@ for p_, g in c3.groupby("point"):
     h = g[g.t > g.t.min() + 60]; P3.append(dict(rad=h.rad_rpm.mean(), radp=h.rad_pct.mean(), case=h.case_rpm.mean(), tctl=h.tctl_c.mean(), c1=h.ccd1_c.mean(), c2=h.ccd2_c.mean(), mx=h.tctl_c.max(), w=h.pkg_w.mean(), clk=h.clock_avg_mhz.mean(), mins=(g.t.max() - g.t.min()) / 60))
 lo = [q for q in P3 if q["radp"] < 10]
 r3 = "".join(f"<tr><td>{q['rad']:.0f} ({q['radp']:.0f}&nbsp;%)</td><td>{q['case']:.0f}</td><td>{q['tctl']:.1f}</td><td>{q['c1']:.1f}</td><td>{q['c2']:.1f}</td><td>{q['mx']:.1f}</td><td>{q['w']:.0f}</td><td>{q['clk']:.0f}</td></tr>" for q in P3 + P3E)
+
+def _r(name, a, b, unit, d=1, extra=""):
+    ch = round(b, d) - round(a, d); ch = 0 if abs(ch) < 10 ** -d / 2 else ch; f = lambda v: f"{v:.{d}f}&nbsp;{unit}"
+    sg = "+" if ch > 0 else ("&minus;" if ch < 0 else "")
+    return f'<tr><td>{name}</td><td>{f(a)}{extra[0] if extra else ""}</td><td>{f(b)}{extra[1] if extra else ""}</td><td class="chg">{sg}{abs(ch):.{d}f}&nbsp;{unit}{extra[2] if extra else ""}</td></tr>'
+_clk = m(g2,'clock_avg_mhz') - m(g0,'clock_avg_mhz')
+CMP2 = (_r("Radiator fan speed", m(g0,'rad_rpm'), m(g2,'rad_rpm'), "rpm", 0, (f"<br><span class=\"sub\">{m(g0,'rad_pct'):.0f}&nbsp;% control signal</span>", f"<br><span class=\"sub\">{m(g2,'rad_pct'):.0f}&nbsp;% control signal</span>", ""))
+        + _r("Processor temperature (Tctl)", m(g0,'tctl_c'), m(g2,'tctl_c'), "&deg;C")
+        + _r("Core chiplet 1 temperature (CCD 1)", m(g0,'ccd1_c'), m(g2,'ccd1_c'), "&deg;C")
+        + _r("Core chiplet 2 temperature (CCD 2)", m(g0,'ccd2_c'), m(g2,'ccd2_c'), "&deg;C")
+        + _r("Processor power", m(g0,'pkg_w'), m(g2,'pkg_w'), "W", 0)
+        + _r("Average core clock", m(g0,'clock_avg_mhz'), m(g2,'clock_avg_mhz'), "MHz", 0, ("", "", "<br><span class=\"sub\">within run-to-run spread</span>" if abs(_clk) < 100 else "")))
 cpu3 = f"""  <h3 id="cpu-low">Both sets of fans slow</h3>
   <p>The third run, cpu3, slowed the case fans to 1000&nbsp;rpm as well and then asked the radiator fans for 1000, 800, 600&nbsp;rpm and their minimum, about five minutes each. The radiator fans will not turn slower than about {lo[0]['rad']:.0f}&nbsp;rpm, even at {lo[0]['radp']:.1f}&nbsp;% of their control signal, so the last three points are one setting measured three times.</p>
+  <p class="ar-tcap"><b>How warm does the processor get with both sets of fans slow?</b><br>Ryzen 9 9950X at full load (all 32 threads, 200&nbsp;W limit), room air 19.3 to 19.5&nbsp;&deg;C; mean from one minute after each change to its end (cpu3, cpu3e).</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
     <thead><tr><th scope="col">Radiator fans, rpm</th><th scope="col">Case fans, rpm</th><th scope="col">Tctl, &deg;C</th><th scope="col">CCD 1, &deg;C</th><th scope="col">CCD 2, &deg;C</th><th scope="col">Highest Tctl, &deg;C</th><th scope="col">Package, W</th><th scope="col">Average clock, MHz</th></tr></thead>
@@ -43,12 +56,15 @@ sec = f"""<!--cpu:start-->
   <h2 id="cpu">The processor: a first measurement</h2>
   <p>The same controller must also look after the processor, so on the evening of 22 October we loaded it alone. The AMD Ryzen 9 9950X ran at stock settings on all 32 threads with an arithmetic load of our own, the graphics card idle, the liquid cooler&rsquo;s pump at full speed and the four case fans at 100&nbsp;%. Intake air was {pd.read_csv(G + 'data/cpu2-2026-10-22/cpu2/cpu.csv').intake_c.mean():.1f}&nbsp;&deg;C.</p>
   <p>The first run, cpu1b, held the three radiator fans at full speed for only {int(c1.t_s.max())} seconds. It is a lesson from the graphics card repeated: Tctl was still moving at the end ({m(l1,'tctl_c'):.1f}&nbsp;&deg;C over the last minute), because the liquid in the loop warms over minutes, not seconds. The second run, cpu2, waited until Tctl had settled ({dur[0]:.1f} minutes), then lowered the radiator fans by 100&nbsp;rpm every 10 seconds to 1500&nbsp;rpm and held them there for {dur[max(st)]:.1f} minutes.</p>
+  <p class="ar-tcap"><b>Does slowing the radiator fans heat the processor?</b><br>Ryzen 9 9950X at full load (all 32 threads, 200&nbsp;W limit), case fans at full speed, room air {pd.read_csv(G + 'data/cpu2-2026-10-22/cpu2/cpu.csv').intake_c.mean():.1f}&nbsp;&deg;C; mean of the last 60&nbsp;s at each fan speed.</p>
   <div class="ar-tw">
-  <table class="ar-tab ar-num ar-set">
-    <thead><tr><th scope="col">Last 60&nbsp;s of each stage</th><th scope="col">Radiator {m(g0,'rad_rpm'):.0f}&nbsp;rpm ({m(g0,'rad_pct'):.0f}&nbsp;%)</th><th scope="col">Radiator {m(g2,'rad_rpm'):.0f}&nbsp;rpm ({m(g2,'rad_pct'):.0f}&nbsp;%)</th></tr></thead>
-    <tbody>{row('Tctl, &deg;C', m(g0,'tctl_c'), m(g2,'tctl_c'))}{row('CCD 1, &deg;C', m(g0,'ccd1_c'), m(g2,'ccd1_c'))}{row('CCD 2, &deg;C', m(g0,'ccd2_c'), m(g2,'ccd2_c'))}{row('Package power, W', m(g0,'pkg_w'), m(g2,'pkg_w'), '{:.0f}')}{row('Average clock, MHz', m(g0,'clock_avg_mhz'), m(g2,'clock_avg_mhz'), '{:.0f}')}</tbody>
+  <table class="ar-tab ar-num ar-cmp2">
+    <thead><tr><th scope="col"></th><th scope="col">Radiator fans at full speed</th><th scope="col">Radiator fans slowed down</th><th scope="col">Change</th></tr></thead>
+    <tbody>{CMP2}</tbody>
   </table>
   </div>
+  <p class="ar-note">% control signal: the PWM duty the fans are driven with.</p>
+  <p>Answer: almost nothing. Halving the radiator fan speed costs {m(g2,'tctl_c')-m(g0,'tctl_c'):.1f}&nbsp;&deg;C on Tctl and about {((m(g2,'ccd1_c')-m(g0,'ccd1_c'))+(m(g2,'ccd2_c')-m(g0,'ccd2_c')))/2:.0f}&nbsp;&deg;C on the chiplets; the processor stays at full power and clock.</p>
   <p>Almost halving the radiator fan speed raised Tctl by {m(g2,'tctl_c')-m(g0,'tctl_c'):.1f}&nbsp;&deg;C and the two CCDs by about {((m(g2,'ccd1_c')-m(g0,'ccd1_c'))+(m(g2,'ccd2_c')-m(g0,'ccd2_c')))/2:.0f}&nbsp;&deg;C. The package stayed at its 200&nbsp;W stock limit throughout, the clocks did not fall, and the highest one-second Tctl was {w.tctl_c.max():.1f}&nbsp;&deg;C, about 20&nbsp;&deg;C below the 95&nbsp;&deg;C maximum. The processor is limited by power, not by temperature, so the controller can run the radiator fans far slower than full speed without costing any performance. The 10-second steps were too short to see the loop respond; each step&rsquo;s change is lost in the second-to-second jitter of the sensors.</p>
   <figure class="ar-fig">
     {pic('light')}{pic('dark')}

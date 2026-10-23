@@ -13,7 +13,7 @@ mark = {"memory": "<sup>m</sup>", "floor": "<sup>f</sup>", "core": ""}
 def td(pl, c):
     r = cell[(pl, c)]; lab = f'{pl}&nbsp;% ({W[pl]}&nbsp;W)'
     if r["gpu_pct"] is None: return f'<td data-label="{lab}">none</td>'
-    v = f'{r["gpu_pct"]}&nbsp;% / {r["dBA"]:.1f}{mark[r["binding"]]}'
+    v = f'{r["gpu_pct"]}&nbsp;% / {r["dBA"]:.1f}&nbsp;dBA{mark[r["binding"]]}'
     return f'<td data-label="{lab}">' + (f'<b>{v}</b>' if B[str(pl)]["case_rpm"] == c else v) + '</td>'
 head = '<tr><th scope="col">Case and radiator fans</th>' + "".join(f'<th scope="col">{pl}&nbsp;% ({W[pl]}&nbsp;W)</th>' for pl in PL) + "</tr>"
 body = "".join(f'<tr><td data-label="Case fans">{c}&nbsp;rpm ({(c - 330.4) / 26.13:.0f}&nbsp;%)</td>' + "".join(td(pl, c) for pl in PL) + "</tr>" for c in cases)

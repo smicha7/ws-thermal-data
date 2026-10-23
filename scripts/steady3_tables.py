@@ -18,9 +18,9 @@ grids = sorted(glob.glob(str(G / "data/steady3-*/grid.csv")))
 if grids:
     src = "grid"
     rows = list(csv.DictReader(open(grids[-1])))
-    for k, r in enumerate(rows, start=1):           # Lab point k = path n k-1; k = 1 and k = 198 are the anchors
-        if k - 1 not in path or r.get("settled") != "1": continue
-        g, pl, c = path[k - 1]; f = lambda x: float(r[x]) if r.get(x) not in (None, "") else None
+    for k, r in enumerate(rows, start=1):           # k = 1 and k = 198 are the anchors (40 % / 1600 / PL 100), not grid cells
+        if k in (1, 198) or r.get("settled") != "1": continue
+        g, pl, c = int(r["gpu_pct"]), int(r["pl_pct"]), int(float(r["case_rpm_target"])); f = lambda x: float(r[x]) if r.get(x) not in (None, "") else None
         cells[(pl, g, c)] = dict(core=f("cardA_core_nvapi_c") or f("core_c_max"), mem=f("mem_c_max"), N=f("cardA_fan_rpm") or pct2rpm(g),
                                  C=f("case_rpm") or c, W=f("power_w_sum") or PLW[pl], T=f("intake_c") or 19.3)
 else:   # live fallback: Lab log lines, then the watch notes (core/memory as logged; model at target speeds, 19.3 °C)

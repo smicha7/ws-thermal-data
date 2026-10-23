@@ -115,7 +115,7 @@ if os.path.exists(V + "points.csv"):
 for f in sorted(glob.glob(D + "steady2*/grid.csv")):
     rows += day_session(os.path.dirname(f).split("/")[-1], "steady2")
 # later settled series (2026-10-23 on): pl90 = PL 90 gap fill at case 1500, steady3 = serpentine grid; session = folder prefix
-for pre in ("pl90", "steady3"):
+for pre in ("pl90",):   # steady3 is NEVER pooled with earlier sessions (Seb 2026-10-23); it has its own tables and fit
     for f in sorted(glob.glob(D + pre + "-*/grid.csv")):
         rows += day_session(os.path.dirname(f).split("/")[-1], pre)
 

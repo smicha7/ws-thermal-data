@@ -82,10 +82,10 @@ print("missing anchors:", miss); print("refs never cited:", sorted(set(REFS) - u
 # --- table width: text column by default; the 980 px wide box only where the content cannot fit the column (measured 2026-10-23)
 def ncols(head):
     first = re.search(r"<tr>(.*?)</tr>", head, re.S).group(1)
-    return sum(int(m or 1) for m in re.findall(r"<th[^>]*?(?:colspan=\"(\d+)\")?[^>]*>", first))
+    return sum(int((re.search(r'colspan="(\d+)"', t) or [0, 1])[1]) for t in re.findall(r"<th[^>]*>", first))
 def wide(cls, head):
     th = re.sub(r"<[^>]+>", "", re.search(r"<th[^>]*>(.*?)</th>", head, re.S).group(1)).strip(); n = ncols(head)
-    return n >= 8 or "ar-s3" in cls or th in ("Source", "Mode, 60-second bursts", "Card", "Controller", "Fan control") or (th == "Constant" and n >= 7)
+    return n >= 8 or "ar-s3" in cls or "ar-iso" in cls or th in ("Source", "Mode, 60-second bursts", "Card", "Controller", "Fan control") or (th == "Constant" and n >= 7)
 def fix(m):
     cls, head = m.group(2), m.group(3)
     return f'<div class="ar-tw{" ar-tw-wide" if wide(cls, head) else ""}">{m.group(1)}<table class="{cls}"{m.group(4)}>{head}'
@@ -130,6 +130,7 @@ for m in re.finditer(r'<div class="ar-tw[^"]*">\s*<table[^>]*>(.*?)</table>\s*</
     firstcol = " ".join(re.findall(r"<tr><td[^>]*>(.*?)</td>", tab))
     hay = head + " " + firstcol
     found = [f"{lab}: {txt}" for rx, lab, txt in TERMS if re.search(rx, hay)]
+    if 'ar-cmp2' in m.group(0)[:300]: found = []   # row labels already spell the terms out
     out.append(s[pos:m.end()]); pos = m.end()
     if not found: continue
     span = f' <span class="ar-terms">Terms: {"; ".join(found)}.</span>'; n += 1
@@ -137,3 +138,47 @@ for m in re.finditer(r'<div class="ar-tw[^"]*">\s*<table[^>]*>(.*?)</table>\s*</
     if nxt: out.append(s[pos:pos + nxt.end(2)] + span + nxt.group(3)); pos += nxt.end()
     else: out.append(f'\n  <p class="ar-note">{span.strip()}</p>')
 out.append(s[pos:]); F.write_text("".join(out)); print("terms added to", n, "tables")
+# --- a title above every table that does not have one (Seb 2026-10-23: the table must be readable without the legend)
+TITLES = [
+ (r"^Symbol¦", "Quantities of the test and the role of each"),
+ (r"^Card¦Generation", "Temperature limits by GPU generation: core and memory"),
+ (r"^Sensor¦", "First fit of the static model (7) per sensor, 575&nbsp;W, first run: constants and fit error"),
+ (r"^Time after the change¦Share", "Share of a temperature step reached after a change of fans or power, first-order response, &tau; = 50&nbsp;s"),
+ (r"^Time after the change¦Small", "Error of an early reading: snapshot minus settled value, core, val1 series (20 points)"),
+ (r"^GPU fans¦rpm¦&deg;C per 100", "Core temperature rise per 100&nbsp;W of board power, by GPU fan speed, from models (9), (10) and (11)"),
+ (r"^GPU fans¦Points¦Hours", "steady3 plan by GPU fan speed: points, hours, predicted core and largest step between points"),
+ (r"^GPU fans¦rpm¦Estimated dBA", "GPU fan speeds of the steady3 plan: estimated noise at 1&nbsp;m and how they sound on this machine"),
+ (r"^Case and radiator fans¦One fan", "Case and radiator fan speeds of the steady3 plan: estimated noise at 1&nbsp;m and how they sound on this machine"),
+ (r"^Method¦", "Statistical methods used in this article"),
+ (r"^Constant¦Estimate¦SE¦SE HC3", "Constants of the settled-point model (11), all settled points of the earlier sessions: estimates and standard errors"),
+ (r"^Form of R", "Forms of the fan-response term R(N,&nbsp;C) compared, all with session offsets: fit and prediction errors"),
+ (r"^Test¦Statistic", "Statistical tests on the residuals of model (11)"),
+ (r"^Variant¦", "Sensitivity of model (11): fit error and Durbin&ndash;Watson along the GPU fans for each variant"),
+ (r"^Constant¦Estimate¦SE$", "Constants of the memory model (provisional)"),
+ (r"^Class¦dBA at 1&nbsp;m¦Comparable", "Noise classes after SilentPCReview, one source at 1&nbsp;m"),
+ (r"^Fan, rpm at", "120 and 140&nbsp;mm fans: speed (rpm) at which each reaches a given noise level, free field at 1&nbsp;m (Hardware Busters)"),
+ (r"^Fan on a radiator", "120&nbsp;mm fans on a radiator: noise at four speeds, dBA at 15&nbsp;cm (TechPowerUp)"),
+ (r"^Source¦Distance", "RTX 5090 Founders Edition noise in reviews: distance, room floor and result"),
+ (r"^GPU fans¦rpm¦dBA at 1&nbsp;m¦dBA at 0.5", "RTX 5090 FE fans: estimated noise at 1&nbsp;m and 0.5&nbsp;m by fan speed"),
+ (r"^Class¦GPU fans¦rpm", "Noise classes applied to the RTX 5090 FE fans: speed range and level"),
+ (r"^Card¦Speeds and levels", "Other RTX 50 cards: fan speeds and noise in reviews"),
+ (r"^Speed, 120", "Sebastian&rsquo;s listening scale for a 120&nbsp;mm case fan against published measurements"),
+ (r"^Mode¦GPU fan ceiling", "Noise at the fan-speed ceilings of the controller modes, estimated at 1&nbsp;m"),
+ (r"^Mode¦Core target", "Controller modes: core target, fan-speed ceilings and limits"),
+ (r"^Mode, 60-second bursts", "Fan pumping under 60-second load bursts on the card: three controller runs (ctrl1 &rarr; ctrl2 &rarr; ctrl3)"),
+ (r"^Core target, &deg;C¦575", "Quietest fan settings for each core target at 575&nbsp;W and 402&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature noise)"),
+ (r"^Mode at 575", "Quietest fan settings for each controller mode at 575&nbsp;W, intake 19.3&nbsp;&deg;C (model, literature noise)"),
+ (r"^Intake air¦Core target", "Quietest total noise at each power limit for a 77&nbsp;&deg;C core target, two intake temperatures (model, literature noise)"),
+ (r"^Case and radiator fans¦100&nbsp;%", "Holding the core at or below 70&nbsp;&deg;C and the memory at or below 80&nbsp;&deg;C: slowest GPU fan speed and total noise, by case fan speed and power limit, intake 19.3&nbsp;&deg;C (model)"),
+]
+s = F.read_text(); s = re.sub(r'<p class="ar-tcap" data-auto="1">.*?</p>\n  ', "", s, flags=re.S)
+out, pos, n, miss = [], 0, 0, []
+for m in re.finditer(r'<div class="ar-tw[^"]*">\s*<table[^>]*>(.*?)</table>', s, re.S):
+    pre = s[max(0, m.start() - 600):m.start()].rstrip()
+    if re.search(r'(<p class="ar-tcap"[^>]*>.*?</p>|</h4>|</summary>)\s*$', pre, re.S) or "<caption>" in m.group(1)[:200]: continue
+    head = re.sub(r'<span class="katex-html".*?</span></span></span>|<annotation.*?</annotation>', "", (re.search(r"<thead>(.*?)</thead>", m.group(1), re.S) or [0, ""])[1], flags=re.S)
+    key = "¦".join(re.sub(r"<[^>]+>", "", x).strip() for x in re.findall(r"<th[^>]*>(.*?)</th>", head, re.S))
+    t = next((tt for rx, tt in TITLES if re.search(rx, key)), None)
+    if not t: miss.append(key[:50]); continue
+    out.append(s[pos:m.start()] + f'<p class="ar-tcap" data-auto="1"><b>{t}</b></p>\n  '); pos = m.start(); n += 1
+out.append(s[pos:]); F.write_text("".join(out)); print("titles added:", n, "untitled:", miss)

@@ -8,7 +8,7 @@ H = os.path.dirname(os.path.abspath(__file__)); R = os.path.join(H, "results-202
 D = pd.read_csv(os.path.join(R, "steady-residuals.csv"))
 import glob
 SRC = {"val1": "val1-2026-10-21", "val2": "val2-2026-10-21", "steady2": "steady2-2026-10-22"}
-for pre in ("pl90", "steady3"):
+for pre in ("pl90",):   # steady3 never pooled (Seb 2026-10-23)
     for f in sorted(glob.glob(os.path.join(H, "data", pre + "-*", "grid.csv"))): SRC[pre] = os.path.basename(os.path.dirname(f))
 rows = []
 for sess, d in SRC.items():
