@@ -9,6 +9,7 @@ from pathlib import Path
 import numpy as np, pandas as pd, matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import controller_sim as cs
 from PIL import Image
 H = os.path.dirname(os.path.abspath(__file__)); out = Path(sys.argv[1]); out.mkdir(parents=True, exist_ok=True)
 J = json.load(open(os.path.join(H, "results-2026-10-22/steady-stats.json"))); MJ = json.load(open(os.path.join(H, "results-2026-10-23/mem-model.json")))
@@ -94,11 +95,13 @@ def fig_pareto(theme, phone):
                 ax.scatter([L.ravel()[i]], [Tc.ravel()[i]], s=22, color=col, zorder=5)
                 ax.annotate(f"{int(GG.ravel()[i])} % / {int(CCm.ravel()[i])}", (L.ravel()[i], Tc.ravel()[i]), xytext=(5, 3), textcoords="offset points", fontsize=fs - 4, color=th["fg"])
                 last = Tc.ravel()[i]
-        for m, t, mk in (("Quiet", 80, "o"), ("Balanced", 77, "s"), ("Performance", 72, "D")):
-            q = quietest(W, t)
-            ax.axhline(t, color=th["dim"], lw=0.8, ls=":")
-            if q: ax.scatter([q["dBA"]], [q["core"]], s=90, marker=mk, facecolors="none", edgecolors=th["fg"], linewidths=1.6, zorder=6)
-            ax.text(0.99, t, f"{m} {t} °C", transform=ax.get_yaxis_transform(), ha="right", va="bottom", fontsize=fs - 3, color=th["fg"])
+        for m, mk in (("quiet", "o"), ("balanced", "s"), ("performance", "D")):   # released modes (WS.Sensor 0.30.69), controller_sim planning
+            c = cs.Controller(m); t = cs.CORE_LIMIT_DEFAULT - cs.MODES[m]["comfort"][0]; B = cs.MODES[m]["budget"]
+            N, C, plc, over = c.make_plan(W, TIN); qc = core(N, C, W * plc)   # model (11), as the frontier
+            ax.axhline(t, color=th["dim"], lw=0.8, ls=":"); ax.axvline(B, color=th["dim"], lw=0.8, ls="--")
+            ax.scatter([cs.noise(N, C)], [qc], s=90, marker=mk, facecolors="none", edgecolors=th["fg"], linewidths=1.6, zorder=6)
+            ax.text(0.01, t, f"{m.capitalize()} comfort {t:.0f} °C", transform=ax.get_yaxis_transform(), ha="left", va="bottom", fontsize=fs - 3, color=th["fg"])
+            ax.text(B + 0.3, 0.97, f"{B:.0f} dBA", transform=ax.get_xaxis_transform(), ha="left", va="top", fontsize=fs - 4, color=th["dim"])
         ax.set_xlim(18, 52); ax.set_ylim(min(45, float(np.nanmin(Tc)) - 1), 90)
         ax.set_xlabel("Total noise, all fans, dBA at 1 m (literature-based estimate)"); ax.set_ylabel("Settled core (°C)")
         ax.set_title(f"Power limit {W} W", loc="left", fontsize=fs, color=th["fg"])
