@@ -99,7 +99,7 @@ for k, v in REFS.items():   # update in place or append to the reference list; n
         e = s.index("</ol>", s.index('<h2 id="sources">')); s = s[:e] + f'<li id="s{k}">{v}</li>' + s[e:]
 body_end = s.index('</article>'); miss = []
 GL = (s.find('ar-gl"'), s.find("</table>", s.find('ar-gl"')))
-for ph, refs in FIRST:
+for ph, refs in FIRST:  # noqa
     i = s.find(ph)
     while i >= 0 and GL[0] >= 0 and GL[0] < i < GL[1]: i = s.find(ph, i + 1)
     if i < 0 or i > body_end: miss.append(ph); continue
@@ -384,7 +384,7 @@ FIGT = [
  (r"The second run, used for training", "Dynamic model on its training run.", ""),
  (r"Runs the core model was not fitted to", "Dynamic model on runs it was not fitted to.", ""),
  (r"The planned path of steady3", "Planned measurement path of the final grid (steady3).", ""),
- (r"Residuals of equation \(11\)", "Residual diagnostics of model (11).", ""),
+ (r"Residuals of equation", "Residual diagnostics of model (11).", ""),
  (r"controller in simulation", "The controller in simulation.", ""),
  (r"The controller on the real card", "The first controller version on the real card.", ""),
  (r"Full processor load", "Processor temperatures as the radiator fans slow.", ""),
@@ -618,7 +618,7 @@ for (st, en, orig, tex), h in sorted(zip(eqs, rend), key=lambda x: -x[0][0]):
     s = s[:st] + f'<span class="eqw" data-eq="{orig}">{h}</span>' + s[en:]
 # references in the text (outside math): plain ones carry the original label; eqref spans are renumbered
 s = re.sub(r'<span class="eqref" data-eq="(\w+)">\([^)]*\)</span>', lambda m: f'<span class="eqref" data-eq="{m.group(1)}">({newno.get(m.group(1), m.group(1))})</span>', s)
-WORD = r"(equations?|Equations?|model|fit|form|eq\.|Eq\.|law)"
+WORD = r"(equations?|Equations?|model|fit|form|eq\.|Eq\.|law|residuals of|Solving|solving|evaluate|as in|of)"
 def textfix(t):
     t = re.sub(WORD + r"(\s+)\((\d+)\)", lambda m: f'{m.group(1)}{m.group(2)}<span class="eqref" data-eq="{m.group(3)}">({newno.get(m.group(3), m.group(3))})</span>' if m.group(3) in newno else m.group(0), t)
     for _ in range(3):

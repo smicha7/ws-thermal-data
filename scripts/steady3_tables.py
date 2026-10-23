@@ -56,7 +56,7 @@ def tab(pl, q):
             tds += ('<td class="g s3-e">&middot;</td><td class="s3-e">&middot;</td>' if v is None else
                     f'<td class="g">{v[k]:.{d}f}</td><td>{v[k + "_mod"]:.1f}</td>')
         body += f'<tr><td>{g}&nbsp;%</td><td>{RPM[g]}&nbsp;rpm</td>{tds}</tr>'
-    return (f'<h4 class="ar-h4">{qn} in &deg;C at power limit {pl}&nbsp;% ({PLW[pl]}&nbsp;W): measured (left sub-column) and predicted by model ({"11" if q == "core" else "the memory model"}) (right sub-column), for each GPU fan speed (rows) and case-and-radiator fan speed (columns). Intake air about 19.3&nbsp;&deg;C. {n} of 49 settings measured; measurement in progress, tables complete when the run is collected.</h4>\n'
+    return (f'<h4 class="ar-h4">{qn} in &deg;C at power limit {pl}&nbsp;% ({PLW[pl]}&nbsp;W): measured (left sub-column) and predicted by model ({"11" if q == "core" else "the memory model"}) (right sub-column), for each GPU fan speed (rows) and case-and-radiator fan speed (columns). Intake air about 19.3&nbsp;&deg;C. {n} of 49 settings measured; partly collected; tables complete when the run is collected.</h4>\n'
             f'<div class="ar-tw ar-tw-wide"><table class="ar-tab ar-num ar-cmp ar-s3 ar-ms"><thead><tr><th scope="colgroup" colspan="2" rowspan="3">GPU fans</th>{top}</tr><tr>{lev}</tr><tr>{sub}</tr></thead><tbody>{body}</tbody></table></div>\n')
 ntot = len(cells)
 legend = ('<p class="ar-note ar-legend">steady3 only, single settled measurement per cell, not averaged with earlier sessions. '
@@ -67,7 +67,7 @@ legend = ('<p class="ar-note ar-legend">steady3 only, single settled measurement
           'A dot (&middot;) means the setting has not been measured yet. A fit on steady3 alone follows once the grid covers enough GPU fan speeds.'
           + (' <i>Live values are taken from the test log until the full data file arrives; model values then use the target speeds, the nominal power and 19.3&nbsp;&deg;C intake.</i>' if src == "log" else "") + '</p>')
 sec = (f'<!--s3tables:start-->\n  <h3 id="steady3-grid">The final grid: steady3, 23 October</h3>\n'
-       f'  <p>The final grid is the validation data set. Measurement is in progress: {ntot} of the 196 grid points are measured so far, and the tables are complete when the run is collected.</p>\n'
+       f'  <p>The final grid is the validation data set. At the last collection the run had reached {ntot} of the 196 grid points; the tables are complete when the run is collected.</p>\n'
        + "".join(tab(p, q) for p in PLS for q in ("core", "mem")) +
        f'  {legend[:-4]} <a href="/research/data/gpu-map-steady3-cells.csv">Data (CSV)</a>.</p>\n<!--s3tables:end-->')
 with open(Path.home() / "Claude/gruency-site/research/data/gpu-map-steady3-cells.csv", "w", newline="") as f:

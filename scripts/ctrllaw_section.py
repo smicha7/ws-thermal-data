@@ -1,6 +1,6 @@
 """Conclusions: the control law WS.Sensor implements, the figure of its fan settings and predicted temperatures against power,
 the panel screenshots (placeholder until PNGs appear in research/gpu-panel-shots/). Between <!--ctrllaw:start/end-->. Usage: ctrllaw_section.py"""
-import json, shutil, subprocess
+import json, re, shutil, subprocess
 from pathlib import Path
 G = Path(__file__).resolve().parent.parent; SITE = Path.home() / "Claude/gruency-site"; F = SITE / "research/gpu-cooling-method.html"
 M = json.load(open(G / "results-2026-10-23/modes-noise.json"))
@@ -28,6 +28,7 @@ RT = [r"$$\hat T_{\mathrm{core}}=T_{\mathrm{in}}+" + c_("θ0", 2) + r"+P\Big[" +
       r"$$\hat T_{\mathrm{mem}}=T_{\mathrm{in}}+" + m_("θ0m", 2) + r"+P\Big[" + f'{MP["r∞"][0]/1000:.4f}' + r"+\frac{1}{" + m_("gN", 2) + r"\,(N/1000)^{" + m_("m", 2) + r"}+" + m_("gC", 2) + r"\,(C/1500)^{" + m_("s", 2) + r"}}\Big]\tag{R2}",
       r"$$L=10\log_{10}\!\Big(10^{\,[32.5+50\log_{10}(N/1570)]/10}+7\cdot10^{\,[-167.1+60.2\log_{10}C]/10}\Big)\tag{R3}"]
 HR = json.loads(subprocess.run(["node", str(Path(__file__).parent / "tex.js")], input=json.dumps(RT), capture_output=True, text=True, check=True).stdout)
+HK = json.loads(subprocess.run(["node", str(Path(__file__).parent / "tex.js")], input=json.dumps([re.sub(r"\\tag\{R\d\}", "", t) for t in RT]), capture_output=True, text=True, check=True).stdout)
 UN = {"θ0": "&deg;C", "r∞": "m&deg;C/W", "gN": "W/&deg;C", "m": "&mdash;", "gC": "W/&deg;C", "s": "&mdash;"}
 SY = {"θ0": "&theta;<sub>0</sub>", "r∞": "r<sub>&infin;</sub>", "gN": "g<sub>N</sub>", "m": "m", "gC": "g<sub>C</sub>", "s": "s"}
 MK = {"θ0": "θ0m"}
@@ -80,11 +81,15 @@ def _st(meas, mod):
     e = [float(r[meas]) - float(r[mod]) for r in _rows]; n = len(e)
     return dict(n=n, mean=sum(e) / n, rmse=(sum(x * x for x in e) / n) ** 0.5, mx=max(abs(x) for x in e), w1=sum(1 for x in e if abs(x) <= 1.0))
 VC, VM = _st("core_measured_c", "core_model_c"), _st("mem_measured_c", "mem_model_c")
+def _rm(g):
+    e = [float(r["core_measured_c"]) - float(r["core_model_c"]) for r in _rows if int(r["gpu_pct"]) == g]
+    return (sum(x * x for x in e) / len(e)) ** 0.5
+BYG = ", ".join(f"{g}&nbsp;% {_rm(g):.2f}" for g in sorted({int(r["gpu_pct"]) for r in _rows}))
 _gp = sorted({int(r["gpu_pct"]) for r in _rows}); _pl = sorted({int(r["pl_pct"]) for r in _rows})
 fmt = lambda x: f"{x:+.2f}".replace("+", "+").replace("-", "&minus;")
 VTAB = f"""<!--validation:start-->
   <h3 id="validation">Validation on the final grid</h3>
-  <p>The final grid was not used in the estimation, so it tests the equations out of sample. On the {VC["n"]} settled points measured so far, with GPU fans at {", ".join(str(g) for g in _gp)}&nbsp;% and every case fan level and power limit, the equations predict the settled core within &plusmn;1&nbsp;&deg;C at {VC["w1"]} of {VC["n"]} points; both models read about {-VC["mean"]:.1f}&nbsp;&deg;C high on average. The out-of-sample RMSE of the core, {VC["rmse"]:.2f}&nbsp;&deg;C, is close to the leave-one-out error of the estimation, so the model generalises across sessions; the faster GPU fan speeds remain to be tested when the run is collected.</p>
+  <p>The final grid was not used in the estimation, so it tests the equations out of sample. On the {VC["n"]} settled points measured so far, with GPU fans at {", ".join(str(g) for g in _gp)}&nbsp;% and every case fan level and power limit, the equations predict the settled core within &plusmn;1&nbsp;&deg;C at {VC["w1"]} of {VC["n"]} points and the memory at {VM["w1"]}; the mean errors are {fmt(VC["mean"])} and {fmt(VM["mean"])}&nbsp;&deg;C. The core RMSE by GPU fan speed is {BYG}&nbsp;&deg;C. The out-of-sample RMSE of the core, {VC["rmse"]:.2f}&nbsp;&deg;C, is close to the leave-one-out error of the estimation, so the model generalises across sessions; the faster GPU fan speeds remain to be tested when the run is collected.</p>
   <p class="ar-tcap"><b>Out-of-sample accuracy of the estimated equations on the final grid (steady3).</b> Error = measured minus predicted settled temperature; equations (R1) and (R2) estimated on the earlier sessions only; {VC["n"]} points at GPU fans {", ".join(str(g) for g in _gp)}&nbsp;%, case fans 800&nbsp;rpm to full speed, power limits {", ".join(str(p) for p in _pl)}&nbsp;%.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st ar-valid">
@@ -97,19 +102,16 @@ VTAB = f"""<!--validation:start-->
 KEY = f"""<!--keyresult:start-->
   <section class="ar-abs ar-keyres" aria-labelledby="kr-h">
     <h2 id="kr-h" class="ar-key-h">Key result</h2>
-    <p>The control law rests on three estimated equations (<a href="#main-result">Section 5.1</a>): core temperature (R1), memory temperature (R2) and fan noise (R3), with N the GPU fan speed and C the case and radiator fan speed in rpm, P the board power in W and T<sub>in</sub> the intake air in &deg;C.</p>
+    <p>The control law rests on three estimated equations, core temperature, memory temperature and fan noise (R1 to R3, <a href="#main-result">Section 5.1</a>), with N the GPU fan speed and C the case and radiator fan speed in rpm, P the board power in W and T<sub>in</sub> the intake air in &deg;C.</p>
     {HR[0]}{HR[1]}{HR[2]}
-    <p>Given power, GPU fan speed and case fan speed, the equations predict the settled core temperature within &plusmn;1&nbsp;&deg;C at {"every point" if VC["w1"] == VC["n"] else f'{VC["w1"]} of {VC["n"]} points'} of the final grid measured so far ({VC["n"]} points; core RMSE {VC["rmse"]:.2f}&nbsp;&deg;C, memory {VM["rmse"]:.2f}&nbsp;&deg;C; {{tref:valid}}).</p>
+    <p>Given power, GPU fan speed and case fan speed, the equations predict the settled core temperature within &plusmn;1&nbsp;&deg;C at {"every point" if VC["w1"] == VC["n"] else f'{VC["w1"]} of {VC["n"]} points'} of the final grid measured so far (core RMSE {VC["rmse"]:.2f}&nbsp;&deg;C, memory {VM["rmse"]:.2f}&nbsp;&deg;C; {{tref:valid}}).</p>
     <p>From them follows the control curve of each mode ({{fref:fig-the-control-law-fan-speeds-noise-and-pre}}): within a noise budget of 30, 35 or 40&nbsp;dBA the quietest fan pair that keeps the core and memory at the mode&rsquo;s comfort level, and a lower power limit only when the budget cannot hold the safety limits.</p>
   </section>
 <!--keyresult:end-->"""
 sec = f"""<!--ctrllaw:start-->
   <h3 id="control-law">The derived control law</h3>
-  <p>The measurements, the models and the tests lead to one control law, which WS.Sensor implements. For the power P the card draws and the intake air T<sub>in</sub>, the core and memory temperatures at GPU fan speed N and case and radiator fan speed C (rpm) are predicted by equation (11) and the memory model:</p>
+  <p>The measurements, the models and the tests lead to one control law, which WS.Sensor implements.</p>
 {MAIN}
-  {H[0]}{H[1]}
-  <p>The noise of all fans at 1&nbsp;m follows from the literature-based fits, summed on an energy basis as in equation (13):</p>
-  {H[2]}
   <p>Each mode is a noise budget {H[5]}, a ceiling: 30&nbsp;dBA for Quiet, 35 for Balanced (shown as Normal in WS.Sensor) and 40 for Performance, with comfort distances &Delta; below the safety limits {H[6]}, 83&nbsp;&deg;C by default and at most 88&nbsp;&deg;C, and {H[7]}, 90&nbsp;&deg;C by default and never above 91&nbsp;&deg;C: 5 and 3&nbsp;&deg;C in Quiet, 10 and 5&nbsp;&deg;C in Balanced, 15 and 8&nbsp;&deg;C in Performance. The controller picks the quietest pair within the budget that holds both comfort levels; only if none does, the coolest pair within the budget, then a lower power limit, and only at the power-limit floor a pair over the budget:</p>
   {H[3]}{H[4]}
   <p>At light load the comfort levels are met at the fan floors, so every mode runs at the same 24.1&nbsp;dBA; as the power rises the fans rise only as far as the comfort level requires, and the modes part when their budgets are reached. At 575&nbsp;W the planned operating points are {pt('quiet')}, {pt('balanced')} and {pt('performance')}. In simulation of the released controller (WS.Sensor 0.30.69) no mode spent a second over a limit or over its budget, and none reversed its fans under 60-second bursts of load; with the intake air rising from 19.3 to 30&nbsp;&deg;C, Quiet held its budget by lowering the power limit to 75&nbsp;%, while Balanced and Performance stayed at full power with the core at 82.1 and 75.5&nbsp;&deg;C (<a href="#controller-res">Section 3.5</a>).</p>
@@ -125,4 +127,7 @@ a, b = s.index("<!--keyresult:start-->"), s.index("<!--keyresult:end-->") + len(
 s = s[:a] + KEY + s[b:]
 a, b = s.index("<!--validation:start-->"), s.index("<!--validation:end-->") + len("<!--validation:end-->")
 s = s[:a] + VTAB + s[b:]
+ABS = (f'On {VC["n"]} points of an independent final grid (GPU fans {_gp[0]} to {_gp[-1]}&nbsp;%, 402 to 575&nbsp;W) it predicts the core within {VC["rmse"]:.2f}&nbsp;&deg;C and the memory within {VM["rmse"]:.2f}&nbsp;&deg;C (RMSE), '
+       f'{VC["w1"]} of {VC["n"]} core predictions within &plusmn;1&nbsp;&deg;C.')
+if "<!--absval-->" in s: s = s[:s.index("<!--absval-->") + 13] + ABS + s[s.index("<!--/absval-->"):]
 F.write_text(s); print("control law written; screenshots:", len(shots))
