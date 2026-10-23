@@ -73,11 +73,33 @@ if shots:
     <figcaption><b>Figure 0.</b> WS.Sensor graphics-card cooling panel: three noise preferences, Quiet, Normal and Performance (30, 35 and 40&nbsp;dBA at 1&nbsp;m), and the two adjustable upper temperature limits, core and memory.</figcaption>
   </figure>"""
 
+
+import csv as _csv
+_rows = list(_csv.DictReader(open(Path.home() / "Claude/gruency-site/research/data/gpu-map-steady3-cells.csv")))
+def _st(meas, mod):
+    e = [float(r[meas]) - float(r[mod]) for r in _rows]; n = len(e)
+    return dict(n=n, mean=sum(e) / n, rmse=(sum(x * x for x in e) / n) ** 0.5, mx=max(abs(x) for x in e), w1=sum(1 for x in e if abs(x) <= 1.0))
+VC, VM = _st("core_measured_c", "core_model_c"), _st("mem_measured_c", "mem_model_c")
+_gp = sorted({int(r["gpu_pct"]) for r in _rows}); _pl = sorted({int(r["pl_pct"]) for r in _rows})
+fmt = lambda x: f"{x:+.2f}".replace("+", "+").replace("-", "&minus;")
+VTAB = f"""<!--validation:start-->
+  <h3 id="validation">Validation on the final grid</h3>
+  <p>The final grid was not used in the estimation, so it tests the equations out of sample. On the {VC["n"]} settled points measured so far, with GPU fans at {", ".join(str(g) for g in _gp)}&nbsp;% and every case fan level and power limit, the equations predict the settled core within &plusmn;1&nbsp;&deg;C at {VC["w1"]} of {VC["n"]} points; both models read about {-VC["mean"]:.1f}&nbsp;&deg;C high on average. The out-of-sample RMSE of the core, {VC["rmse"]:.2f}&nbsp;&deg;C, is close to the leave-one-out error of the estimation, so the model generalises across sessions; the faster GPU fan speeds remain to be tested when the run is collected.</p>
+  <p class="ar-tcap"><b>Out-of-sample accuracy of the estimated equations on the final grid (steady3).</b> Error = measured minus predicted settled temperature; equations (R1) and (R2) estimated on the earlier sessions only; {VC["n"]} points at GPU fans {", ".join(str(g) for g in _gp)}&nbsp;%, case fans 800&nbsp;rpm to full speed, power limits {", ".join(str(p) for p in _pl)}&nbsp;%.</p>
+  <div class="ar-tw">
+  <table class="ar-tab ar-num ar-st ar-valid">
+    <thead><tr><th scope="col">Quantity</th><th scope="col">Points</th><th scope="col">Mean error, &deg;C</th><th scope="col">RMSE, &deg;C</th><th scope="col">Largest |error|, &deg;C</th><th scope="col">Within &plusmn;1&nbsp;&deg;C</th></tr></thead>
+    <tbody><tr><td>Core</td><td>{VC["n"]}</td><td>{fmt(VC["mean"])}</td><td>{VC["rmse"]:.2f}</td><td>{VC["mx"]:.2f}</td><td>{VC["w1"]}</td></tr><tr><td>Memory</td><td>{VM["n"]}</td><td>{fmt(VM["mean"])}</td><td>{VM["rmse"]:.2f}</td><td>{VM["mx"]:.2f}</td><td>{VM["w1"]}</td></tr></tbody>
+  </table>
+  </div>
+  <p class="ar-note">The memory is read in whole degrees, which alone adds a rounding error of up to 0.5&nbsp;&deg;C. <a href="/research/data/gpu-map-steady3-cells.csv">Data (CSV)</a>.</p>
+<!--validation:end-->"""
 KEY = f"""<!--keyresult:start-->
   <section class="ar-abs ar-keyres" aria-labelledby="kr-h">
     <h2 id="kr-h" class="ar-key-h">Key result</h2>
     <p>The control law rests on three estimated equations (<a href="#main-result">Section 5.1</a>): core temperature (R1), memory temperature (R2) and fan noise (R3), with N the GPU fan speed and C the case and radiator fan speed in rpm, P the board power in W and T<sub>in</sub> the intake air in &deg;C.</p>
     {HR[0]}{HR[1]}{HR[2]}
+    <p>Given power, GPU fan speed and case fan speed, the equations predict the settled core temperature within &plusmn;1&nbsp;&deg;C at {"every point" if VC["w1"] == VC["n"] else f'{VC["w1"]} of {VC["n"]} points'} of the final grid measured so far ({VC["n"]} points; core RMSE {VC["rmse"]:.2f}&nbsp;&deg;C, memory {VM["rmse"]:.2f}&nbsp;&deg;C; {{tref:valid}}).</p>
     <p>From them follows the control curve of each mode ({{fref:fig-the-control-law-fan-speeds-noise-and-pre}}): within a noise budget of 30, 35 or 40&nbsp;dBA the quietest fan pair that keeps the core and memory at the mode&rsquo;s comfort level, and a lower power limit only when the budget cannot hold the safety limits.</p>
   </section>
 <!--keyresult:end-->"""
@@ -101,4 +123,6 @@ s = F.read_text(); a, b = s.index("<!--ctrllaw:start-->"), s.index("<!--ctrllaw:
 s = s[:a] + sec + s[b:]
 a, b = s.index("<!--keyresult:start-->"), s.index("<!--keyresult:end-->") + len("<!--keyresult:end-->")
 s = s[:a] + KEY + s[b:]
+a, b = s.index("<!--validation:start-->"), s.index("<!--validation:end-->") + len("<!--validation:end-->")
+s = s[:a] + VTAB + s[b:]
 F.write_text(s); print("control law written; screenshots:", len(shots))

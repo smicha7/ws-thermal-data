@@ -1,0 +1,674 @@
+{
+ "s1": {
+  "title": "NVIDIA GeForce RTX 5090 Graphics Cards",
+  "site": "NVIDIA",
+  "year": null,
+  "author": "NVIDIA",
+  "status": "verified"
+ },
+ "s75": {
+  "title": "lm-sensors/lm-sensors: lm-sensors repository",
+  "site": "GitHub",
+  "year": null,
+  "author": "lm-sensors",
+  "status": "verified"
+ },
+ "s76": {
+  "title": "Rem0o/FanControl.Releases: This is the release repository for Fan Control, a highly customizable fan controlling software for Windows.",
+  "site": "GitHub",
+  "year": null,
+  "author": "Rem0o",
+  "status": "verified"
+ },
+ "s77": {
+  "title": "US12130687B2 - Techniques for controlling computing performance for power-constrained multi-processor computing systems",
+  "site": "Google Patents",
+  "year": "2024",
+  "author": "Thomas E. Dewey, Michael Irwin, Simon Lai, Sau Yan Keith Li (Nvidia Corp)",
+  "status": "verified"
+ },
+ "t9": {
+  "title": "nvidia-smi - NVIDIA System Management Interface program",
+  "site": "NVIDIA Documentation",
+  "year": null,
+  "author": "NVIDIA",
+  "status": "verified"
+ },
+ "t2": {
+  "title": "NVIDIA GeForce RTX 4090 Graphics Cards",
+  "site": "NVIDIA",
+  "year": null,
+  "author": "NVIDIA",
+  "status": "verified"
+ },
+ "t6": {
+  "title": "Limited clock for the new RTX3090Ti + Ubuntu 20.04",
+  "site": "NVIDIA Developer Forums",
+  "year": "2022",
+  "author": "filip.zoric1",
+  "status": "verified"
+ },
+ "t13": {
+  "title": null,
+  "site": "Samsung Semiconductor Global",
+  "year": null,
+  "author": "Samsung Semiconductor",
+  "status": "unknown"
+ },
+ "t19": {
+  "title": "K4VAF325ZC SC28",
+  "site": "Fusion Worldwide",
+  "year": null,
+  "author": null,
+  "status": "search"
+ },
+ "t14": {
+  "title": "Check out the tiny PCB in the new Nvidia GeForce RTX 5090 graphics card",
+  "site": "PCGamesN",
+  "year": "2025",
+  "author": "Ben Hardwidge",
+  "status": "verified"
+ },
+ "t15": {
+  "title": "GeForce RTX 50: Modders Read Individual GDDR7 Temperature Zones for the First Time",
+  "site": "igor'sLAB",
+  "year": "2026",
+  "author": "Samir Bashir",
+  "status": "verified"
+ },
+ "t4": {
+  "title": "Compare Current and Previous GeForce Series of Graphics Cards",
+  "site": "NVIDIA",
+  "year": null,
+  "author": "NVIDIA",
+  "status": "verified"
+ },
+ "t7": {
+  "title": "RTX 2080 Ti always Power Cap and low utilization",
+  "site": "NVIDIA Developer Forums",
+  "year": "2019",
+  "author": "ilyadr",
+  "status": "verified"
+ },
+ "t10": {
+  "title": "MT61K256M32JE-14:A TR Micron Technology Inc.",
+  "site": "DigiKey",
+  "year": null,
+  "author": null,
+  "status": "search"
+ },
+ "t3": {
+  "title": "3090 & 3090 Ti Graphics Cards",
+  "site": "NVIDIA",
+  "year": null,
+  "author": "NVIDIA",
+  "status": "verified"
+ },
+ "t12": {
+  "title": "Hot-headed unicorn under water – Alphacool Eisblock Aurora Acryl GPX-N for Nvidia RTX 3090 Founders Edition | Installation and Test",
+  "site": "igor'sLAB",
+  "year": "2021",
+  "author": "Xaver Amberger (skullbringer)",
+  "status": "verified"
+ },
+ "t11": {
+  "title": "MT61K512M32KPA-21:U Micron Technology Inc.",
+  "site": "DigiKey",
+  "year": null,
+  "author": null,
+  "status": "search"
+ },
+ "t8": {
+  "title": "Question about RTX 6000 Ada slowing under load",
+  "site": "NVIDIA Developer Forums",
+  "year": "2023",
+  "author": "bigharryox",
+  "status": "verified"
+ },
+ "t16": {
+  "title": "NVIDIA RTX A6000 Powered by Ampere Architecture",
+  "site": "NVIDIA",
+  "year": null,
+  "author": "NVIDIA",
+  "status": "verified"
+ },
+ "t17": {
+  "title": "NVIDIA RTX 6000 Ada Generation Graphics Card",
+  "site": "NVIDIA",
+  "year": null,
+  "author": "NVIDIA",
+  "status": "verified"
+ },
+ "t18": {
+  "title": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+  "site": "NVIDIA",
+  "year": null,
+  "author": "NVIDIA",
+  "status": "verified"
+ },
+ "t21": {
+  "title": "Samsung Is Primary Supplier for GDDR7 Memory GeForce RTX 50 GPUs",
+  "site": "Guru3D",
+  "year": "2024",
+  "author": "Hilbert Hagedoorn",
+  "status": "verified"
+ },
+ "t26": {
+  "title": "Insider Claims NVIDIA GeForce RTX 50 Series Transitioning to Usage of SK hynix GDDR7 Memory Modules",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "t24": {
+  "title": "Micron GDDR7 Memory Product Brief",
+  "site": "Micron Technology",
+  "year": "2024",
+  "author": "Micron Technology",
+  "status": "verified"
+ },
+ "t27": {
+  "title": "NVIDIA GeForce RTX 50 Series GDDR7 Memory Shift: Transition to SK hynix Modules",
+  "site": "Guru3D",
+  "year": "2025",
+  "author": "Hilbert Hagedoorn",
+  "status": "verified"
+ },
+ "t28": {
+  "title": "First-Ever RTX 50 Series Card Spotted With Micron GDDR7 Memory Chips, Reveals Galax RTX 5060 Teardown",
+  "site": "Wccftech",
+  "year": "2026",
+  "author": "Sarfraz Khan",
+  "status": "verified"
+ },
+ "t25": {
+  "title": "JEDEC JESD239B",
+  "site": "Accuris Standards Store",
+  "year": "2025",
+  "author": "JEDEC",
+  "status": "search"
+ },
+ "t29": {
+  "title": "RogueSergeant/nvidia-blackwell-vram-temp: Read RTX 50 / Blackwell GDDR7 VRAM temperature on Linux (rootless)",
+  "site": "GitHub",
+  "year": null,
+  "author": "RogueSergeant",
+  "status": "verified"
+ },
+ "t23": {
+  "title": "RTX 50: Modders unlock per-module temperatures for GDDR7 memory",
+  "site": "igor'sLAB",
+  "year": "2026",
+  "author": "Karsten Rabeneck-Ketme",
+  "status": "verified"
+ },
+ "t30": {
+  "title": "GPU Memory Junction Temp: Safe Limits & Fixes 2026",
+  "site": "Misar Blog",
+  "year": "2026",
+  "author": "Misar.AI",
+  "status": "verified"
+ },
+ "t31": {
+  "title": "GDDR7, hohe Temperaturen?",
+  "site": "ComputerBase Forum",
+  "year": "2025",
+  "author": "ViperOne",
+  "status": "verified"
+ },
+ "t20": {
+  "title": "Neue Version von HWInfo: Zeigt als erstes Tool Temperaturen von GDDR6X",
+  "site": "PC Games Hardware",
+  "year": "2021",
+  "author": "Benjamin Gründken",
+  "status": "verified"
+ },
+ "t33": {
+  "title": "GDDR6X in 3080 and 3090 Hits 110C While Mining Ethereum",
+  "site": "Tom's Hardware",
+  "year": "2021",
+  "author": "Aaron Klotz",
+  "status": "verified"
+ },
+ "t32": {
+  "title": "GDDR6X at the limit? Over 100 degrees measured inside of the chip with the GeForce RTX 3080 FE! | Investigative",
+  "site": "igor'sLAB",
+  "year": "2020",
+  "author": "Igor Wallossek",
+  "status": "verified"
+ },
+ "t34": {
+  "title": "NVIDIA GeForce RTX 5090 Founders Edition Review & Benchmarks: Gaming, Thermals, & Power",
+  "site": "GamersNexus",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "t35": {
+  "title": "Nvidia GeForce RTX 5090 Review",
+  "site": "TechSpot",
+  "year": "2025",
+  "author": "Steven Walton",
+  "status": "search"
+ },
+ "t36": {
+  "title": "NVIDIA GeForce RTX 5090 Founders Edition Video Card Review",
+  "site": "The FPS Review",
+  "year": "2025",
+  "author": "Brent Justice",
+  "status": "verified"
+ },
+ "t38": {
+  "title": "Nvidia GeForce RTX 5090 Founders Edition review: Blackwell commences its reign with a few stumbles",
+  "site": "Tom's Hardware",
+  "year": "2025",
+  "author": "Jarred Walton",
+  "status": "verified"
+ },
+ "t37": {
+  "title": "Overclocking NVIDIA GeForce RTX 5090 Founders Edition",
+  "site": "The FPS Review",
+  "year": "2025",
+  "author": "Brent Justice",
+  "status": "verified"
+ },
+ "t39": {
+  "title": "Tested the Gigabyte RTX 5090 AORUS MASTER now that HWINFO displays the GPU hot spot temperature on RTX 50 cards.",
+  "site": "X (formerly Twitter)",
+  "year": "2026",
+  "author": "Charlie (@ghost_motley)",
+  "status": "verified"
+ },
+ "t22": {
+  "title": "Review: MSI GeForce RTX 5090 32G SUPRIM LIQUID SOC Graphics Card",
+  "site": "Alktech",
+  "year": "2025",
+  "author": "Aaron Wong",
+  "status": "verified"
+ },
+ "n1": {
+  "title": "Archive: A Primer on Noise in Computing",
+  "site": "Silent PC Review",
+  "year": "2003",
+  "author": "Mike Chin",
+  "status": "search"
+ },
+ "n12": {
+  "title": "be quiet! Silent Wings Pro 4 120mm Fan Review",
+  "site": "Hardware Busters",
+  "year": "2023",
+  "author": "crmaris",
+  "status": "verified"
+ },
+ "n7": {
+  "title": "Acoustic Noise: Causes, Rating Systems, and Design Guidelines",
+  "site": "Comair Rotron",
+  "year": null,
+  "author": "Comair Rotron",
+  "status": "search"
+ },
+ "n2": {
+  "title": "Six-HDD SFF Server Test Results",
+  "site": "Silent PC Review",
+  "year": "2010",
+  "author": null,
+  "status": "search"
+ },
+ "n3": {
+  "title": "Lärm messen",
+  "site": "heise online / c't",
+  "year": "2008",
+  "author": "Benjamin Benz",
+  "status": "verified"
+ },
+ "n4": {
+  "title": "Sone? dB(A)? Wir erklären Geräusch-Messungen [Update: Video]",
+  "site": "PC Games Hardware",
+  "year": "2019",
+  "author": "Torsten Vogel",
+  "status": "verified"
+ },
+ "n5": {
+  "title": "ECMA-74",
+  "site": "Ecma International",
+  "year": null,
+  "author": "Ecma International",
+  "status": "verified"
+ },
+ "n6": {
+  "title": "Noctua on measuring fan noise: Different angles, different results",
+  "site": "HWCooling.net",
+  "year": "2024",
+  "author": "Ľubomír Samák",
+  "status": "verified"
+ },
+ "n16": {
+  "title": "Noctua NF-A12x25 G2 LS-PWM 120mm Fan Review - Money for Nothing?",
+  "site": "Hardware Busters",
+  "year": "2025",
+  "author": "crmaris",
+  "status": "verified"
+ },
+ "n15": {
+  "title": "ARCTIC P14 PWM PST 140mm Fan Review",
+  "site": "Hardware Busters",
+  "year": "2024",
+  "author": "crmaris",
+  "status": "verified"
+ },
+ "n17": {
+  "title": "DarkSide Gentle Typhoon 1450 RPM Black Edition Fan Review",
+  "site": "TechPowerUp",
+  "year": null,
+  "author": null,
+  "status": "verified"
+ },
+ "n18": {
+  "title": "Noctua NF-A12x25 G2 PWM Fan Review",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n8": {
+  "title": "NF-A12x25 G2 PWM: Specifications",
+  "site": "Noctua",
+  "year": null,
+  "author": "Noctua",
+  "status": "search"
+ },
+ "n9": {
+  "title": "NF-A12x25 G2 LS-PWM: Specifications",
+  "site": "Noctua",
+  "year": null,
+  "author": "Noctua",
+  "status": "search"
+ },
+ "n10": {
+  "title": "NF-A12x25 PWM: Specifications",
+  "site": "Noctua",
+  "year": null,
+  "author": "Noctua",
+  "status": "search"
+ },
+ "n11": {
+  "title": "NF-A14 PWM: Specifications",
+  "site": "Noctua",
+  "year": null,
+  "author": "Noctua",
+  "status": "search"
+ },
+ "n13": {
+  "title": "be quiet! Silent Wings Pro 4 140 mm PWM",
+  "site": "Aqua Computer Shop",
+  "year": null,
+  "author": "Aqua Computer GmbH & Co. KG",
+  "status": "verified"
+ },
+ "n14": {
+  "title": "be quiet! Silent Wings 4 140mm PWM Fan Review",
+  "site": "Hardware Busters",
+  "year": "2023",
+  "author": "crmaris",
+  "status": "verified"
+ },
+ "n19": {
+  "title": "NVIDIA GeForce RTX 5090 Founders Edition Review & Benchmarks: Gaming, Thermals, & Power",
+  "site": "GamersNexus",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n20": {
+  "title": "NVIDIA GeForce RTX 5090 Founders Edition Review - The New Flagship",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n21": {
+  "title": "Nvidia GeForce RTX 5090 im Test: DLSS 4 MFG trifft 575 Watt",
+  "site": "ComputerBase",
+  "year": "2025",
+  "author": "Wolfgang Andermahr",
+  "status": "verified"
+ },
+ "n25": {
+  "title": "RTX 5080: Asus ROG Astral vs. MSI Suprim SOC vs. Zotac AMP: Benchmarks und Testergebnisse",
+  "site": "ComputerBase",
+  "year": "2025",
+  "author": "Jan-Frederik Timm",
+  "status": "verified"
+ },
+ "n22": {
+  "title": "Nvidia Geforce RTX 5090 im Test: Black-almost-well? [Verkaufsstart]",
+  "site": "PC Games Hardware",
+  "year": "2025",
+  "author": "Raffael Vötter",
+  "status": "verified"
+ },
+ "n23": {
+  "title": "Nvidia RTX 5090 Founders Edition",
+  "site": "LanOC Reviews",
+  "year": "2025",
+  "author": "Wes Compton",
+  "status": "verified"
+ },
+ "n24": {
+  "title": "Nvidia GeForce RTX 5090 Founders Edition review: Blackwell commences its reign with a few stumbles",
+  "site": "Tom's Hardware",
+  "year": "2025",
+  "author": "Jarred Walton",
+  "status": "verified"
+ },
+ "n26": {
+  "title": "Gigabyte RX 7900 GRE Gaming OC 16G in test of 30 graphics cards",
+  "site": "HWCooling.net",
+  "year": "2024",
+  "author": "Ľubomír Samák",
+  "status": "verified"
+ },
+ "n27": {
+  "title": "XPG Invader X Mini Chassis Review",
+  "site": "Hardware Busters",
+  "year": "2025",
+  "author": "tstamadianos",
+  "status": "verified"
+ },
+ "n29": {
+  "title": "Nvidia GeForce RTX 5090 FE review: Next-Level Gaming",
+  "site": "HWCooling.net",
+  "year": "2025",
+  "author": "Adam Vágner",
+  "status": "verified"
+ },
+ "n45": {
+  "title": "MSI GeForce RTX 5090 Suprim SOC Review: 600W with Ease",
+  "site": "HWCooling.net",
+  "year": "2025",
+  "author": "Adam Vágner",
+  "status": "verified"
+ },
+ "n28": {
+  "title": "[Official] NVIDIA RTX 5090 Owner's Club",
+  "site": "Overclock.net",
+  "year": null,
+  "author": null,
+  "status": "search"
+ },
+ "n33": {
+  "title": "NVIDIA GeForce RTX 5080 Founders Edition Review",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n34": {
+  "title": "NVIDIA GeForce RTX 5080 Founders Edition Review & Benchmarks vs 5090, 7900 XTX, 4080, & More",
+  "site": "GamersNexus",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n30": {
+  "title": "Nvidia GeForce RTX 5080 im Test: DLSS 4 MFG & Mini-FPS-Boost",
+  "site": "ComputerBase",
+  "year": "2025",
+  "author": "Wolfgang Andermahr",
+  "status": "verified"
+ },
+ "n32": {
+  "title": "Nvidia RTX 5080 Founders Edition",
+  "site": "LanOC Reviews",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n37": {
+  "title": "NVIDIA GeForce RTX 5070 Founders Edition Review",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n38": {
+  "title": "Nvidia GeForce RTX 5070 im Test",
+  "site": "ComputerBase",
+  "year": "2025",
+  "author": "Fabian Vecellio del Monego",
+  "status": "verified"
+ },
+ "n36": {
+  "title": "Nvidia RTX 5070 Founders Edition",
+  "site": "LanOC Reviews",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n40": {
+  "title": "ASUS GeForce RTX 5070 Ti TUF OC Review",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n41": {
+  "title": "Nvidia GeForce RTX 5070 Ti im Test",
+  "site": "ComputerBase",
+  "year": "2025",
+  "author": "Wolfgang Andermahr",
+  "status": "verified"
+ },
+ "n42": {
+  "title": "MSI GeForce RTX 5070 Ti Gaming Trio OC+ Review",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n43": {
+  "title": "MSI GeForce RTX 5070 Ti Gaming Trio OC Plus Review: Picky-Grade",
+  "site": "HWCooling.net",
+  "year": "2025",
+  "author": "Adam Vágner",
+  "status": "verified"
+ },
+ "n39": {
+  "title": "GALAX GeForce RTX 5070 Ti 1-Click OC Performance, Power Analysis & Noise Output",
+  "site": "Hardware Busters",
+  "year": "2025",
+  "author": "crmaris",
+  "status": "verified"
+ },
+ "n46": {
+  "title": "MSI GeForce RTX 5090 Suprim SOC Review",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n47": {
+  "title": "ASUS GeForce RTX 5090 Astral OC Review - Astronomical Premium",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n48": {
+  "title": "Gigabyte GeForce RTX 5090 Gaming OC Review",
+  "site": "TechPowerUp",
+  "year": "2025",
+  "author": null,
+  "status": "verified"
+ },
+ "n49": {
+  "title": null,
+  "site": "zod.kr",
+  "year": null,
+  "author": null,
+  "status": "unknown"
+ },
+ "n50": {
+  "title": "MSI GeForce RTX 5080 Suprim SOC Review: Top of the Line",
+  "site": "HWCooling.net",
+  "year": "2025",
+  "author": "Adam Vágner",
+  "status": "verified"
+ },
+ "n51": {
+  "title": "Asus GeForce RTX 5080 Noctua OC Ed. 16GB Review: Silent Monster",
+  "site": "HWCooling.net",
+  "year": "2025",
+  "author": "Adam Vágner",
+  "status": "verified"
+ },
+ "n35": {
+  "title": "Geforce RTX 5080 im Test: Halber Preis, halber Speicher, halber Spaß? [Update]",
+  "site": "PC Games Hardware",
+  "year": "2025",
+  "author": "Raffael Vötter",
+  "status": "verified"
+ },
+ "n44": {
+  "title": "GALAX GeForce RTX 5080 1-Click OC Performance, Power Analysis & Noise Output",
+  "site": "Hardware Busters",
+  "year": "2025",
+  "author": "crmaris",
+  "status": "verified"
+ },
+ "n52": {
+  "title": "Asus GeForce RTX 5080 Noctua Edition review: Silent running",
+  "site": "Tom's Hardware",
+  "year": "2026",
+  "author": "Jeffrey Kampman",
+  "status": "verified"
+ },
+ "n53": {
+  "title": "NVIDIA GeForce RTX 5080 Founders Edition Review",
+  "site": "igor'sLAB",
+  "year": "2025",
+  "author": "Igor Wallossek",
+  "status": "verified"
+ },
+ "n31": {
+  "title": "5090 FE Fan Curve Starting RPM is Too Aggressive",
+  "site": "NVIDIA GeForce Forums",
+  "year": "2025",
+  "author": null,
+  "status": "search"
+ },
+ "n54": {
+  "title": "[Sammelthread] Blackwell RTX 5xxx: Coilwhine / Fiep / Rassel Thread - Here we go again",
+  "site": "Hardwareluxx",
+  "year": null,
+  "author": null,
+  "status": "search"
+ },
+ "n55": {
+  "title": "Asus TUF Gaming GeForce RTX 5090 Review: The Energy Hog!",
+  "site": "Hardware Busters",
+  "year": "2025",
+  "author": "crmaris",
+  "status": "verified"
+ }
+}

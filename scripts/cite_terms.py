@@ -1,6 +1,6 @@
 """Statistical/method references (s16+) and first-use citations in the GPU cooling article. Idempotent; run after every
 section generator. Usage: cite_terms.py"""
-import re
+import re, html as _html
 from pathlib import Path
 F = Path.home() / "Claude/gruency-site/research/gpu-cooling-method.html"
 _t = F.read_text(); F.write_text(re.sub(r'<span class="hn[^"]*">(.*?)</span><br>', r"\1, ", _t))   # undo the header split; redone at the end
@@ -251,6 +251,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Card¦Setting¦Fan speed", "rtx50", "Other RTX 50 cards in reviews: fan speeds, levels and fan stop at idle, for comparison with the RTX 5090 FE.", "{T} compares other RTX 50 cards; most are louder at equal speed."),
  (r"^Speed of a 120", "sebscale", "Sebastian&rsquo;s listening scale for a 120&nbsp;mm case fan against published measurements, a qualitative comparison: does the ear agree with the meter?", "{T} checks each listening class against measurements; most agree."),
  (r"^Mode \(first version\)", "v1noise", "First version of the controller: estimated noise at the fan-speed ceilings of its modes, at 1&nbsp;m.", "{T} shows that in the first version the card&rsquo;s fans set the noise in Quiet and Balanced."),
+ (r"^Quantity¦Points¦Mean error", "valid", None, "{T} gives the out-of-sample accuracy of the estimated equations."),
  (r"^Mode \(budget, dBA\)¦Intake air", "proom", None, "{T} gives the power limit each mode settles at in a warmer room."),
  (r"^Parameter¦Unit¦Core \(R1\)", "params", None, "{T} lists the estimated parameters behind the control law."),
  (r"^Mode¦Noise budget", "modes", None, "{T} is the definition of the modes: read across a row to see the fans each budget allows and the temperatures that result at each power limit."),
@@ -436,11 +437,21 @@ for k in list(items):   # identical entries under two ids: keep the first, point
     if n_ in seen_txt:
         body = body.replace(f'href="#{k}"', f'href="#{seen_txt[n_]}"'); tail = tail.replace(f'href="#{k}"', f'href="#{seen_txt[n_]}"'); del items[k]
     else: seen_txt[n_] = k
+import json as _j0
+WT = _j0.load(open(Path(__file__).parent / "webtitles.json"))
+def webtitle(k, t):   # web source: author/organisation, real page title, site, year, full URL, access date
+    w = WT.get(k)
+    if not w or not w.get("title") or "doi" in t.lower(): return t
+    u = re.search(r'href="(https?://[^"]+)"', t)
+    if not u: return t
+    esc = lambda x: _html.escape(x, quote=False) if x else x
+    head = ". ".join(x for x in [esc(w.get("author")) if w.get("author") and w.get("author") != w.get("site") else None, f"<i>{esc(w['title'].rstrip('.'))}</i>", ", ".join(x for x in [esc(w.get("site")), w.get("year")] if x)] if x)
+    return f'{head}. <a href="{u.group(1)}">{u.group(1)}</a>. Accessed 23 October 2026.'
 def webfix(t):   # full URL as link text, access date for web sources without a DOI
     t = re.sub(r'<a href="(https?://[^"]+)">([a-z0-9.-]+\.[a-z]{2,})</a>', lambda m: f'<a href="{m.group(1)}">{m.group(1)}</a>', t)
     if "doi" not in t.lower() and "Accessed" not in t and re.search(r'href="https?://', t): t = t.rstrip() + " Accessed 23 October 2026."
     return t
-items = {k: webfix(v) for k, v in items.items()}
+items = {k: webfix(webtitle(k, v)) for k, v in items.items()}
 order = []
 for m in re.finditer(r'<a class="cite" href="#([tns]\d+)">', body + tail):
     if m.group(1) not in order and m.group(1) in items: order.append(m.group(1))
