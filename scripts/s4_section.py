@@ -97,8 +97,8 @@ if ST:
 else:
     STRESS = ""
 # ---- fan and power-limit sweeps of the pair (each its own table; PL sweep appears when its folder lands)
-def sweep(pattern, hid, title, var):
-    fs = sorted(glob.glob(str(G / f"data/{pattern}/grid.csv")))
+def sweep(pattern, hid, title, var, excl=None):
+    fs = sorted(f for f in glob.glob(str(G / f"data/{pattern}/grid.csv")) if not (excl and excl in f))
     if not fs: return "", None
     rows = list(csv.DictReader(open(fs[-1]))); cj = json.load(open(Path(fs[-1]).parent / "conditions.json")); st = json.load(open(Path(fs[-1]).parent / "status.json"))
     f = lambda x, k: float(x[k]) if x.get(k) not in (None, "") else float("nan")
@@ -107,15 +107,27 @@ def sweep(pattern, hid, title, var):
         stop = x.get("settled") != "1"
         lab = (f'{x["gpu_pct"]}&nbsp;%' if var == "gpu" else f'{x["pl_pct"]}&nbsp;% ({f(x, "power_w_sum") / 2:.0f}&nbsp;W)') + ("<sup>a</sup>" if stop else "")
         body += (f'<tr><td>{lab}</td><td class="g">{f(x, "cardA_core_nvapi_c"):.1f}</td><td>{f(x, "cardA_mem_c"):.0f}</td><td>{f(x, "cardA_hot_c"):.1f}</td>'
-                 f'<td class="g">{f(x, "cardB_core_nvapi_c"):.1f}</td><td>{f(x, "cardB_mem_c"):.0f}</td><td>{f(x, "cardB_hot_c"):.1f}</td><td class="g">{f(x, "cardA_fan_rpm"):.0f}</td><td>{x["seconds"]}</td></tr>')
+                 f'<td class="g">{f(x, "cardB_core_nvapi_c"):.1f}</td><td>{f(x, "cardB_mem_c"):.0f}</td><td>{f(x, "cardB_hot_c"):.1f}</td>' + (f'<td class="g">{f(x, "cardA_fan_rpm"):.0f}</td><td>{x["seconds"]}</td></tr>' if var == "gpu" else f'<td class="g">{f(x, "cardA_clock_mhz"):.0f}</td><td>{f(x, "cardB_clock_mhz"):.0f}</td></tr>'))
     tin = sum(f(x, "intake_c") for x in rows) / len(rows)
     tab = (f'  <p class="ar-tcap"><b>{title}</b> Both cards at the same setting, case and radiator fans about 1600&nbsp;rpm, intake air {tin:.1f}&nbsp;&deg;C, front panel with dust filter on, top and side panels off; {cj["started_utc"][:10]}.</p>\n'
-           f'  <div class="ar-tw ar-tw-wide">\n  <table class="ar-tab ar-num ar-st ar-ms ar-sweep">\n    <thead><tr><th scope="col" rowspan="2">{"GPU fans, both cards" if var == "gpu" else "Power limit, both cards"}</th><th scope="colgroup" colspan="3">Card A (PCIE1), &deg;C</th><th scope="colgroup" colspan="3">Card B (PCIE2), &deg;C</th><th scope="col" rowspan="2" class="g">GPU fans, rpm</th><th scope="col" rowspan="2">Held, s</th></tr>'
-           f'<tr><th scope="col" class="g">core</th><th scope="col">memory</th><th scope="col">hot spot</th><th scope="col" class="g">core</th><th scope="col">memory</th><th scope="col">hot spot</th></tr></thead>\n    <tbody>{body}</tbody>\n  </table>\n  </div>\n'
-           f'  <p class="ar-note"><sup>a</sup> Stopped before settling by the safety rule (memory 95, core 85 or hot spot 92&nbsp;&deg;C on either card); the values are the last readings. Core from the NVAPI sensor; memory in whole degrees. <a href="https://github.com/smicha7/ws-thermal-data/tree/main/{Path(fs[-1]).parent.name}">Data</a>.</p>')
+           f'  <div class="ar-tw ar-tw-wide">\n  <table class="ar-tab ar-num ar-st ar-ms ar-sweep">\n    <thead><tr><th scope="col" rowspan="2">{"GPU fans, both cards" if var == "gpu" else "Power limit, both cards"}</th><th scope="colgroup" colspan="3">Card A (PCIE1), &deg;C</th><th scope="colgroup" colspan="3">Card B (PCIE2), &deg;C</th>' + ('<th scope="col" rowspan="2" class="g">GPU fans, rpm</th><th scope="col" rowspan="2">Held, s</th></tr>' if var == "gpu" else '<th scope="colgroup" colspan="2">Graphics clock, MHz</th></tr>') +
+           f'<tr><th scope="col" class="g">core</th><th scope="col">memory</th><th scope="col">hot spot</th><th scope="col" class="g">core</th><th scope="col">memory</th><th scope="col">hot spot</th>{"" if var == "gpu" else '<th scope="col" class="g">card A</th><th scope="col">card B</th>'}</tr></thead>\n    <tbody>{body}</tbody>\n  </table>\n  </div>\n'
+           f'  <p class="ar-note">{"<sup>a</sup> Stopped before settling by the safety rule (memory 95, core 85 or hot spot 92&nbsp;&deg;C on either card); the values are the last readings. " if any(x.get("settled") != "1" for x in rows) else ""}Core from the NVAPI sensor; memory in whole degrees. <a href="https://github.com/smicha7/ws-thermal-data/tree/main/{Path(fs[-1]).parent.name}">Data</a>.</p>')
     return tab, rows
-SW_TAB, SWR = sweep("*sweep-top-off", "sweep", "Fan sweep of the two Founders Edition cards at 575&nbsp;W each: settled temperatures of both cards as the GPU fans of both step down from 100&nbsp;%.", "gpu")
-PL_TAB, PLR = sweep("*plsweep*", "plsweep", "Power-limit sweep of the two Founders Edition cards at GPU fans 90&nbsp;%: settled temperatures of both cards by power limit.", "pl")
+SW_TAB, SWR = sweep("*sweep-top-off", "sweep", "Fan sweep of the two Founders Edition cards at 575&nbsp;W each: settled temperatures of both cards as the GPU fans of both step down from 100&nbsp;%.", "gpu", excl="pl-sweep")
+PL_TAB, PLR = sweep("*pl-sweep*", "plsweep", "Power-limit sweep of the two Founders Edition cards at GPU fans 90&nbsp;%: settled temperatures and clocks of both cards by power limit.", "pl")
+PLTXT = WALL = ""
+if PLR:
+    W = np.array([float(x["power_w_sum"]) / 2 for x in PLR]); am = np.array([float(x["cardA_mem_c"]) for x in PLR]); ck = np.array([float(x["cardA_clock_mhz"]) for x in PLR])
+    sl = np.polyfit(W, am, 1)[0] * 10; ok90 = [x for x in PLR if float(x["cardA_mem_c"]) <= 90.0]; top = max(ok90, key=lambda x: int(x["pl_pct"])) if ok90 else None
+    pls = np.array([int(x["pl_pct"]) for x in PLR]); hi = pls >= 85; dck = np.polyfit(pls[hi], ck[hi], 1)[0] * 5 / ck.max() * 100
+    PLTXT = (f"At GPU fans 90&nbsp;% the power limit of both cards was then stepped down from 100 to {pls.min()}&nbsp;% ({{tref:plsweep}}), every step settled. Card A&rsquo;s memory falls by about {sl:.1f}&nbsp;&deg;C per 10&nbsp;W"
+             + (f"; a power limit of {top['pl_pct']}&nbsp;% ({float(top['power_w_sum']) / 2:.0f}&nbsp;W per card) holds it at {float(top['cardA_mem_c']):.0f}&nbsp;&deg;C" if top else "")
+             + f". The price is speed: card A&rsquo;s graphics clock falls by about {dck:.1f}&nbsp;% for each 5&nbsp;% of power limit down to 85&nbsp;%, and more steeply below.")
+    wp = sorted(glob.glob(str(G / "data/*sweep-top-off/wall-power.md")))
+    if wp:
+        WALL = ("During this sweep, at a power limit of 90&nbsp;% (518&nbsp;W per card), a meter at the wall socket read 1341&nbsp;W for the whole computer, while NVML reported 1036&nbsp;W for the two cards and the processor package drew 60.6&nbsp;W. "
+                "The remaining 305&nbsp;W are the rest of the system and the losses of the power supply; with an assumed efficiency of 92&nbsp;% they split into about 107&nbsp;W of supply losses and about 137&nbsp;W for the board, memory, drives, pump and fans, an estimate, since the supply&rsquo;s efficiency curve was not measured.")
 SWEEP = ""
 if SWR:
     _lg = (Path(sorted(glob.glob(str(G / "data/*sweep-top-off/log.txt")))[-1])).read_text(errors="ignore")
@@ -128,8 +140,9 @@ if SWR:
              + (f"""; at {bad[0]["gpu_pct"]}&nbsp;% the safety stop ended the run after {bad[0]["seconds"]}&nbsp;s, with card A&rsquo;s memory at {STOPM}&nbsp;&deg;C""" if bad else "")
              + f""". The lowest safe GPU fan speed of the pair at full power in this configuration is therefore {ok[-1]["gpu_pct"]}&nbsp;%. Card B&rsquo;s memory stayed {min(d):.1f} to {max(d):.1f}&nbsp;&deg;C cooler than card A&rsquo;s throughout: the upper card sets the fans.</p>
 {SW_TAB}""" + (f"""
-  <p>A power-limit sweep at GPU fans 90&nbsp;% followed ({{tref:plsweep}}).</p>
-{PL_TAB}""" if PLR else "\n  <p>A power-limit sweep at GPU fans 90&nbsp;% follows; its results will be added here.</p>"))
+  <p>{PLTXT}</p>
+{PL_TAB}
+  <p>{WALL}</p>""" if PLR else "\n  <p>A power-limit sweep at GPU fans 90&nbsp;% follows; its results will be added here.</p>"))
 # the two cards compared
 s3c = [x for x in csv.DictReader(open(sorted(glob.glob(str(G / "data/steady3-*/grid.csv")))[-1]))][1:-1]
 zc = [x for x in s3c if x["settled"] == "1" and x["pl_pct"] == "100" and x["gpu_pct"] == "40" and x["case_rpm_target"] == "1600"][-1]

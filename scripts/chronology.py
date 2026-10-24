@@ -30,6 +30,8 @@ NOTE = {
  "2026-10-22-cpu3e": ("cpu3e", "case fans varied at slow radiator fans", "case fans do not cool the processor"),
  "2026-10-23-pl90-case1500": ("pl90", "power limit 90&nbsp;% at case fans 1500&nbsp;rpm", "points for the power term"),
  "2026-10-24-top-off": ("top-off", "memory let past every limit to find the card&rsquo;s own protection", "GDDR7 protection at about 106&nbsp;&deg;C, reported as a power cap"),
+ "2026-10-24-pl-sweep-top-off": ("power-limit sweep, top off", "both cards at GPU fans 90&nbsp;%, power limit 100 down to 80&nbsp;%", "card A memory 90&nbsp;&deg;C at 95&nbsp;%"),
+ "2026-10-24-steady4": ("steady4 (two-card grid)", "the steady3 levels on both cards together", "in progress"),
  "2026-10-24-sweep-top-off": ("fan sweep, top off", "both cards, GPU fans 100 down to 60&nbsp;%, safety stops", "lowest safe GPU fan speed of the pair"),
  "2026-10-24-stress1": ("stress1", "two cards at 575&nbsp;W, fans at full speed: each alone, then both", "card A +11&nbsp;&deg;C core, +10&nbsp;&deg;C memory with both loaded"),
  "2026-10-23-steady3": ("steady3 (final grid)", "all 196 cells, settled", "estimation data of the primary model"),
