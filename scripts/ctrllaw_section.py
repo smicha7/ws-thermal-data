@@ -149,6 +149,7 @@ ABS = (f'On a final grid of {S3["n"]} settled points (GPU fans {_gp[0]} to {_gp[
 _bc, _bm = S3["forms"]["core"]["power exponent β"], S3["forms"]["mem"]["power exponent β"]
 _xs = S3["crosscheck_earlier"]["core"]; _sp = S3["forms"]["core"]["spline benchmark (4×4 tensor)"]
 GEN = {
+ "hl1": f'A two-path model with a saturating GPU-fan path fits the settled RTX 5090 core within {FC3["rmse"]:.2f}&nbsp;&deg;C on {S3["n"]} points (leave-one-out {FC3["loo"]:.2f}&nbsp;&deg;C).',
  "interp": (f'Two cooling paths in parallel, the GPU-fan path saturating above about {CP["n½"][0]*1000:.0f}&nbsp;rpm, fit the {S3["n"]} settled points of the final grid within {FC3["rmse"]:.2f}&nbsp;&deg;C (leave-one-out {FC3["loo"]:.2f}&nbsp;&deg;C); '
             f'without saturation the same form, estimated on six earlier sessions, predicts that grid within {VC["rmse"]:.2f}&nbsp;&deg;C. What remains is a smooth error of shape, about {(FC3["rmse"]**2 - _sp["rmse"]**2)**0.5:.2f}&nbsp;&deg;C root-mean-square, and between sessions an offset of up to about {max(abs(v) for v in _xs["by_session"].values()):.1f}&nbsp;&deg;C, most likely the temperature of the air reaching the card.'),
  "limits": (f'though offset and slope are hard to separate in this range. On the final grid a power exponent on the fan term comes out at {_bc["x"][6]:.2f} &plusmn; {_bc["se"][6]:.2f} for the core and {_bm["x"][6]:.2f} &plusmn; {_bm["se"][6]:.2f} for the memory, so the fan-dependent resistance may grow slightly with power; '
