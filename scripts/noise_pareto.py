@@ -26,7 +26,8 @@ Lg = lambda r: 32.5 + 50 * np.log10(r / 1570)
 anchors = [("GamersNexus, 1 m", 1570, 32.5, 0.0), ("TechPowerUp, 50 cm", 1673, 40.1, 0.5), ("HWCooling, 35 cm", 1750, 44.0, 0.35), ("LanOC 100 %, 46 cm", 2873, 58.4, 0.46)]
 res_g = [(n, r, L, round(L + (20 * np.log10(d) if d else 0) - Lg(r), 1)) for n, r, L, d in anchors]
 pcgh = dict(l40_60=round(10 * np.log2(4.2 / 2.3), 1), model40_60=round(50 * np.log10(1920 / 1440), 1), l40_100=round(10 * np.log2(9.5 / 2.3), 1), model40_100=round(50 * np.log10(3030 / 1440), 1))
-Ltot = lambda N, C: 10 * np.log10(10 ** (Lg(N) / 10) + 7 * 10 ** (Lc(C) / 10))
+import noise_model
+Ltot = lambda N, C: noise_model.L_total(N, C)   # GPU + 4 case + 3 radiator (measured speed), energy sum
 pct2rpm = lambda p: 1313 + (p - 40) * (3012 - 1313) / 60; rpm2pct = lambda r: 40 + (r - 1313) * 60 / (3012 - 1313)
 GP = np.arange(40, 101, 1.0); CC = np.arange(800, 3001, 50.0); GG, CCm = np.meshgrid(GP, CC); NN = pct2rpm(GG)
 CLASSES = [(0, 24, "ultra-quiet"), (24, 29, "very quiet"), (29, 33, "quiet"), (33, 37, "balanced"), (37, 42, "loud"), (42, 99, "very loud")]

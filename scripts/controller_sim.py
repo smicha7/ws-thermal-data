@@ -28,7 +28,7 @@ CORE = M["M2-pow"]["params"]; MEM = M["mem"]["params"]
 # n = N/1000, c = C/1500; margin = 2 × leave-one-out RMSE of that model (≈ 95 %). The dynamic model is only the simulated plant.
 SS = json.load(open(os.path.join(HERE, "results-2026-10-22", "steady-stats.json")))
 SP = {d["param"]: d["est"] for d in SS["params"]}
-import model3   # 2026-10-24: feed-forward = the primary model, fitted on steady3 alone (saturating GPU-fan conductance), core AND memory
+import noise_model, model3   # 2026-10-24: feed-forward = the primary model, fitted on steady3 alone (saturating GPU-fan conductance), core AND memory
 SS_MARGIN = max(2 * float(model3.LOO), 1.0)   # rule (2026-10-22): never below 1.0 °C — safety over extra quietness
 
 DUTY_RPM = lambda d: 180 + 28.33 * d            # RTX 5090 FE: fan duty % -> rpm (ws298 measurement)
@@ -81,11 +81,9 @@ class Plant:
 
 
 def noise(N, C):
-    """Literature noise at 1 m, dBA (article commit 77e621576): card RTX 5090 FE 32.5 + 50·log10(N/1570) (GamersNexus/PCGH/LanOC, may read
-    4–6 dB low near full speed); case + radiator SW Pro 4 120 (Hardware Busters) −167.1 + 60.2·log10(C) per fan, 7 fans +8.45 dB; energy sum (eq. 13)."""
-    lg = 32.5 + 50 * math.log10(max(N, 300) / 1570)
-    lc = -167.1 + 60.2 * math.log10(max(C, 300)) + 10 * math.log10(7)
-    return 10 * math.log10(10 ** (lg / 10) + 10 ** (lc / 10))
+    """Literature noise at 1 m, dBA (noise_model.py): card RTX 5090 FE 32.5 + 50·log10(N/1570); 4 case SW Pro 4 120 at C and
+    3 SilverStone radiator fans at their measured speed (888–2745 rpm), SW Pro 4 fit (assumption, provisional); energy sum."""
+    return float(noise_model.L_total(N, C))
 
 
 # ---------------------------------------------------------------- controller

@@ -16,7 +16,8 @@ core = lambda N, C, W: model3.core(N, C, W, TIN)
 mem = lambda N, C, W: model3.mem(N, C, W, TIN)
 hwb = np.array([(1281, 20), (1573, 25), (1871, 30), (2274, 35), (2771, 40)], float)
 (a, b), *_ = np.linalg.lstsq(np.column_stack([np.ones(5), np.log10(hwb[:, 0])]), hwb[:, 1], rcond=None)
-Lc7 = lambda r: a + b * np.log10(r) + 10 * np.log10(7)          # seven case + radiator fans together
+import noise_model
+Lc7 = lambda r: float(noise_model.L_fans7(r))          # 4 case + 3 radiator fans together (radiator at its measured speed)
 Lg = lambda r: 32.5 + 50 * np.log10(r / 1570)
 pct2rpm = lambda p: 1313 + (p - 40) * (3012 - 1313) / 60
 PLW = {100: 575, 90: 518, 80: 460, 70: 402}; CASE = [800, 1000, 1300, 1600, 1900, 2400, 3000]

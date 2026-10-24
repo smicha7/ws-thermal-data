@@ -1,4 +1,5 @@
-import pandas as pd, math
+import pandas as pd, math, sys
+from pathlib import Path
 p='/Users/smicha/Claude/gruency-site/research/gpu-cooling-method.html'; s=open(p).read()
 d=pd.read_csv('/Users/smicha/Applications/Pasek/research/gpu-map/plan/steady3_path.csv'); d['h']=d.wait_s/3600
 if ' The next series, steady3, is planned this way:' in s:
@@ -14,11 +15,11 @@ gpu=[(30,1020,'ultra-quiet'),(40,1310,'very quiet'),(50,1600,'balanced'),(60,188
 grow=''.join(f"<tr><td>{g}</td><td>{n}</td><td>{L1(n):.0f}</td><td>{c}</td></tr>" for g,n,c in gpu)
 case=[(800,'ultra-quiet<sup>b</sup>'),(1000,'very quiet'),(1300,'quiet'),(1600,'balanced'),(1900,'loud'),(2400,'between loud and very loud<sup>c</sup>'),(3000,'very loud')]
 import math
-Lc1=lambda r: -167.1+60.2*math.log10(r)   # SW Pro 4 120 at 1 m, literature fit (noise_pareto.py)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent)); import noise_model as NM   # SW Pro 4 120 fit at 1 m; radiator fans at their measured speed
 def db(r):
-    r=min(r,2920); one=Lc1(r); seven=one+10*math.log10(7)
-    return f"{one:.1f}" + ("<sup>a</sup>" if r < 1280 else ""), f"{seven:.1f}"
-crow=''.join(f"<tr><td>{'&asymp;2920 (full)' if c == 3000 else c}</td><td>{db(c)[0]}</td><td>{db(c)[1]}</td><td>{t}</td></tr>" for c,t in case)
+    c, rr = float(NM.case_rpm(r)), float(NM.rad_rpm(r)); f = lambda x: f"{x:.1f}"
+    return f(NM.Lf(c)) + ("<sup>a</sup>" if c < 1280 else ""), f"{rr:.0f}", f(NM.Lf(rr)) + ("<sup>a</sup>" if rr < 1280 else ""), f(NM.L_fans7(r))
+crow=''.join(f"<tr><td>{'&asymp;2920 (full)' if c == 3000 else c}</td><td>{db(c)[0]}</td><td>{db(c)[1]}</td><td>{db(c)[2]}</td><td>{db(c)[3]}</td><td>{t}</td></tr>" for c,t in case)
 pic=lambda th: (f'<a class="ar-wide th-{th[0]}" href="/research/img/gpu-map-steady3-path-{th}.webp?v=1" aria-label="Open the measurement path at full size"><picture>'
   f'<source media="(max-width:620px)" srcset="/research/img/gpu-map-steady3-path-phone-{th}.webp?v=1" width="1000" height="3500">'
   f'<img src="/research/img/gpu-map-steady3-path-{th}.webp?v=1" width="3000" height="1320" loading="lazy" decoding="async" alt="Seven grids, one per GPU fan speed from 40 to 100 %, each with four power limits by seven case fan speeds, coloured by the predicted settled core temperature from about 85 °C at the top left of the 40 % grid down to 47 °C, with arrows tracing a serpentine path through every cell and marks at the first and last point of each grid"></picture></a>')
@@ -46,11 +47,11 @@ block=f'''<!--steady3:start-->
   <p class="ar-note">Nominal fan speeds; class on our RTX 5090 scale ({{tref:gpuclassrange}}); levels from the GPU-fan noise model, &plusmn;3&nbsp;dB.</p>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-txt">
-    <thead><tr><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="colgroup" colspan="2">Estimated level at 1&nbsp;m, dBA</th><th scope="col" rowspan="2">Listening class (author, this machine, at the desk)</th></tr><tr><th scope="col" class="g">one fan</th><th scope="col">all 7 fans</th></tr></thead>
+    <thead><tr><th scope="col" rowspan="2">Case and radiator fans, rpm</th><th scope="colgroup" colspan="4">Estimated level at 1&nbsp;m, dBA</th><th scope="col" rowspan="2">Listening class (author, this machine, at the desk)</th></tr><tr><th scope="col" class="g">one case fan</th><th scope="col">radiator fans, measured rpm</th><th scope="col">one radiator fan</th><th scope="col">4 case + 3 radiator fans</th></tr></thead>
     <tbody>{crow}</tbody>
   </table>
   </div>
-  <p class="ar-note">Estimated levels for the case and radiator fans come from the literature fit for the SW Pro 4 120 at 1&nbsp;m, <i>L</i>&nbsp;=&nbsp;&minus;167.1&nbsp;+&nbsp;60.2&nbsp;log<sub>10</sub>&nbsp;rpm; seven fans (4 case + 3 radiator) add 10&nbsp;log<sub>10</sub>&nbsp;7&nbsp;&asymp;&nbsp;8.5&nbsp;dB. <sup>a</sup> Below about 1280&nbsp;rpm, the slowest point measured by Hardware Busters (20&nbsp;dBA), the values are extrapolations, and they lie under the room&rsquo;s own floor of 25 to 30&nbsp;dBA. <sup>b</sup> At 800&nbsp;rpm the radiator fans run at their floor of about 880&nbsp;rpm, so the true level is slightly higher. <sup>c</sup> 2400&nbsp;rpm was added to constrain the model between 1900 and full speed, about 2920&nbsp;rpm. Literature-based, provisional until our own sound map.</p>
+  <p class="ar-note">Estimated levels for the case and radiator fans come from the literature fit for the SW Pro 4 120 at 1&nbsp;m, <i>L</i>&nbsp;=&nbsp;&minus;167.1&nbsp;+&nbsp;60.2&nbsp;log<sub>10</sub>&nbsp;rpm, used for the be quiet! case fans and, as a provisional assumption, for the SilverStone radiator fans at their measured speed (<a href="#noise-fans">Appendix E.1.2</a>); the seven are summed on an energy basis. <sup>a</sup> Below about 1280&nbsp;rpm, the slowest point measured by Hardware Busters (20&nbsp;dBA), the values are extrapolations, and they lie under the room&rsquo;s own floor of 25 to 30&nbsp;dBA. <sup>b</sup> At 800&nbsp;rpm the radiator fans run at their floor of 888&nbsp;rpm; at full speed they reach 2745&nbsp;rpm, the case fans 2920&nbsp;rpm. <sup>c</sup> 2400&nbsp;rpm was added to constrain the model between 1900 and full speed, about 2920&nbsp;rpm. Literature-based, provisional until our own sound map.</p>
   <p class="ar-note">Classes: listening judgments of this machine in its room, at the desk.</p>
 <!--steady3:end-->'''
 if '<!--steady3:start-->' in s:
