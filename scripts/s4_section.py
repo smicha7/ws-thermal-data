@@ -41,12 +41,35 @@ SET = f"""  <h3 id="settle">Settling time on the final grid</h3>
   </table>
   </div>
   <p class="ar-note">Error = |reading after the given time &minus; settled value| of the same point. The hold is a minimum: a point ends only when the core and memory of both cards have also stopped rising (<a href="#steady4-method">Section 2.4.2</a>). <a href="/research/data/gpu-map-steady3-cells.csv">Data (CSV)</a>; early readings in the steady3 grid file of the repository.</p>"""
+# ---- PCIe links and the first two-card stress test (spot values until the data folders arrive)
+PC = sorted(glob.glob(str(G / "data/pcie-*")))
+pc_txt = (f'The copy-bandwidth test and the error counters are in <code>{Path(PC[-1]).name}</code>; their summary will be added here.' if PC else
+          'The copy bandwidth between host and each card and the PCIe replay counters after load are being measured; the results will be added here.')
+PCIE = f"""  <h4 id="pcie-links">PCIe links of the two cards</h4>
+  <p>The board splits the processor&rsquo;s sixteen PCIe 5.0 lanes between its two x16 slots, eight each, when both are populated. NVML reports both cards at PCIe Gen5 x8 under load: the slot could take x16 and the card supports Gen5, so the width is set by the board&rsquo;s split. At idle both links drop to Gen1, the normal power-saving down-training, and return to Gen5 under load. The cards are connected through risers that, per the builder, are rated for PCIe 4.0, so a Gen5 link runs beyond the risers&rsquo; rating; the replay counters, which count retransmitted packets, tell whether the link is clean. {pc_txt} For this load, which streams from the card&rsquo;s own memory, the link width does not limit the board power, which stays at the 575&nbsp;W limit.</p>"""
+ST = sorted(glob.glob(str(G / "data/stress1-*")))
+STRESS = f"""  <h4 id="stress1">A first two-card stress test (preliminary)</h4>
+  <p class="ar-status"><b>Preliminary.</b> Spot readings{(" until the files in <code>" + Path(ST[-1]).name + "</code> are analysed") if ST else ", to be replaced by the settled values of the run stress1 when its data arrive"}.</p>
+  <p>Before steady4, both cards ran our load at 575&nbsp;W each, in the open frame, with the card fans at 100&nbsp;%, case and radiator fans at 1600&nbsp;rpm and the pump at 2200&nbsp;rpm ({{tref:stress1}}). Each card alone reached a core of 62 to 63&nbsp;&deg;C and a memory of 78&nbsp;&deg;C. With both running, card A, whose fans face card B, rose above its single-card values within the first minutes, while card B was still rising when read. Both stayed power-limited at 575&nbsp;W, with no errors.</p>
+  <p class="ar-tcap"><b>First two-card stress test (stress1), spot readings: card temperatures and clock with one card or both under full load.</b> Open frame, 575&nbsp;W per card, card fans 100&nbsp;%, case and radiator fans 1600&nbsp;rpm, pump 2200&nbsp;rpm.</p>
+  <div class="ar-tw">
+  <table class="ar-tab ar-num ar-st ar-stress1">
+    <thead><tr><th scope="col">Load</th><th scope="col">Card</th><th scope="col">Core, &deg;C</th><th scope="col">Memory, &deg;C</th><th scope="col">Hot spot, &deg;C</th><th scope="col">Graphics clock, MHz</th></tr></thead>
+    <tbody><tr><td>card B alone</td><td>B</td><td>63</td><td>78</td><td>71.8</td><td>2827</td></tr>
+    <tr><td>card A alone</td><td>A</td><td>62</td><td>78</td><td>71.7</td><td>2790</td></tr>
+    <tr><td>both, early</td><td>A</td><td>64</td><td>80</td><td>74.1</td><td>&mdash;</td></tr>
+    <tr><td>both, early</td><td>B</td><td>53<sup>a</sup></td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr></tbody>
+  </table>
+  </div>
+  <p class="ar-note"><sup>a</sup> Still rising when read. &mdash;: not read. Spot values from the Lab&rsquo;s live view, not settled.</p>"""
 # ---- methods subsection
 mins = sum(28 * hold(gp) for gp in CARDS) / 60
 MET = f"""  <h4 id="steady4-method">The two-card study (in progress)</h4>
   <p>A second RTX 5090 Founders Edition is now fitted: card A in the first PCIe slot, card B in the second, at the board&rsquo;s slot spacing ({{fref:fig-two-card-set-up-panels-on-schematic}}), and the side, front and top panels of the frame are closed. The grid steady4 repeats the levels of steady3, GPU fans 40 to 100&nbsp;% on both cards together, case and radiator fans 800&nbsp;rpm to full speed and power limits 100, 90, 80 and 70&nbsp;%, both cards under the same load. Following the settling analysis of steady3 (<a href="#settle">Section 4.2</a>), each point is held for at least 5 minutes at GPU fans 40 and 50&nbsp;%, 4 at 60&nbsp;% and 3 from 70&nbsp;% up, and then until the core and memory of both cards have stopped rising, the same plateau test as in steady3. The minimum holds alone add up to {mins:.1f}&nbsp;h for the 196 points; with the plateau extensions and the transitions the Lab&rsquo;s estimate is about 12.9&nbsp;h, and we plan for 13 to 16 hours, since both cards must settle in the closed case, against 18.8 for steady3.</p>
   <p>The grid answers three questions: how much the two cards heat each other, card A&rsquo;s fans facing card B, whose flow-through air leaves towards them, and how that depends on both fan sets; how much the closed case changes the settled temperatures and the role of the case fans, against the open frame of steady3; and what control law two cards need, with one noise budget for the whole machine and the hotter card setting the fans.</p>
-<!--setupfig2:start--><!--setupfig2:end-->"""
+<!--setupfig2:start--><!--setupfig2:end-->
+{PCIE}
+{STRESS}"""
 # ---- live tables
 G4 = sorted(glob.glob(str(G / "data/steady4-*/grid.csv")))
 cells = {}
