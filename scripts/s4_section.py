@@ -7,7 +7,7 @@ import numpy as np, pandas as pd
 G = Path(__file__).resolve().parent.parent; F = Path.home() / "Claude/gruency-site/research/gpu-cooling-method.html"; SITE = F.parent
 CARDS = [40, 50, 60, 70, 80, 90, 100]; CASES = [800, 1000, 1300, 1600, 1900, 2400, 3000]; PLS = [100, 90, 80, 70]
 PLW = {100: 575, 90: 518, 80: 460, 70: 402}
-HOLD = {40: 5, 50: 4}; hold = lambda g: HOLD.get(g, 3)                       # minutes, from the settling analysis below
+HOLD = {40: 5, 50: 5, 60: 4}; hold = lambda g: HOLD.get(g, 3)   # Lab steady4 holds                       # minutes, from the settling analysis below
 def put(s, name, html, before=None, after=None):
     a, b = s.find(f"<!--{name}:start-->"), s.find(f"<!--{name}:end-->")
     blk = f"<!--{name}:start-->\n{html}\n<!--{name}:end-->"
@@ -44,7 +44,7 @@ SET = f"""  <h3 id="settle">Settling time on the final grid</h3>
 # ---- methods subsection
 mins = sum(28 * hold(gp) for gp in CARDS) / 60
 MET = f"""  <h4 id="steady4-method">The two-card study (in progress)</h4>
-  <p>A second RTX 5090 Founders Edition is now fitted: card A in the first PCIe slot, card B in the second, at the board&rsquo;s slot spacing ({{fref:fig-two-card-set-up-panels-on-schematic}}), and the side, front and top panels of the frame are closed. The grid steady4 repeats the levels of steady3, GPU fans 40 to 100&nbsp;% on both cards together, case and radiator fans 800&nbsp;rpm to full speed and power limits 100, 90, 80 and 70&nbsp;%, both cards under the same load. Following the settling analysis of steady3 (<a href="#settle">Section 4.2</a>), each point is held for at least 5 minutes at GPU fans 40&nbsp;%, 4 at 50&nbsp;% and 3 from 60&nbsp;% up, and then until the core and memory of both cards have stopped rising, the same plateau test as in steady3. The minimum holds alone add up to {mins:.1f}&nbsp;h for the 196 points; with the plateau extensions and the transitions we expect about 12 to 14 hours, against 18.8 for steady3.</p>
+  <p>A second RTX 5090 Founders Edition is now fitted: card A in the first PCIe slot, card B in the second, at the board&rsquo;s slot spacing ({{fref:fig-two-card-set-up-panels-on-schematic}}), and the side, front and top panels of the frame are closed. The grid steady4 repeats the levels of steady3, GPU fans 40 to 100&nbsp;% on both cards together, case and radiator fans 800&nbsp;rpm to full speed and power limits 100, 90, 80 and 70&nbsp;%, both cards under the same load. Following the settling analysis of steady3 (<a href="#settle">Section 4.2</a>), each point is held for at least 5 minutes at GPU fans 40 and 50&nbsp;%, 4 at 60&nbsp;% and 3 from 70&nbsp;% up, and then until the core and memory of both cards have stopped rising, the same plateau test as in steady3. The minimum holds alone add up to {mins:.1f}&nbsp;h for the 196 points; with the plateau extensions and the transitions the Lab&rsquo;s estimate is about 12.9&nbsp;h, and we plan for 13 to 16 hours, since both cards must settle in the closed case, against 18.8 for steady3.</p>
   <p>The grid answers three questions: how much the two cards heat each other, card A&rsquo;s fans facing card B, whose flow-through air leaves towards them, and how that depends on both fan sets; how much the closed case changes the settled temperatures and the role of the case fans, against the open frame of steady3; and what control law two cards need, with one noise budget for the whole machine and the hotter card setting the fans.</p>
 <!--setupfig2:start--><!--setupfig2:end-->"""
 # ---- live tables
