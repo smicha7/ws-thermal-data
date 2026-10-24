@@ -258,7 +258,7 @@ REG = [  # (regex on header key, key, caption title or None = keep the generator
  (r"^Mode¦Noise budget", "modes", None, "{T} is the definition of the modes: read across a row to see the fans each budget allows and the temperatures that result at each power limit."),
  (r"^Mode¦Core target, &deg;C¦GPU fan ceiling", "v1modes", "First version of the controller (superseded): modes defined by a core target, with fan-speed ceilings and limits.", "{T} records the first, temperature-target design for comparison."),
  (r"^Fan control¦", "sim", None, "{T} compares the simulated controller with the factory fan curve in four tests; look at noise first, then at the temperatures."),
- (r"^Mode \(target\)¦", "hw", "The first controller version on the real RTX 5090 against its simulation, open case, intake about 19.3&nbsp;&deg;C, 22 October: how well the model predicts the controlled card.", "{T} sets the first version on the real card beside its simulation; the closer each pair, the better the model."),
+ (r"^Mode \(target\)¦", "hw", "The first controller version on the real RTX 5090 against its simulation, open frame, intake about 19.3&nbsp;&deg;C, 22 October: how well the model predicts the controlled card.", "{T} sets the first version on the real card beside its simulation; the closer each pair, the better the model."),
  (r"^Mode¦GPU fan reversals", "pump", "Fan pumping under 60-second load bursts on the real card in three controller runs, ctrl1, ctrl2 and ctrl3: the effect of the corrections.", "{T} shows the fan reversals falling to zero over the three runs."),
  (r"^Quantity¦Radiator fans at full speed", "cpu2", None, "{T} answers one question: does slowing the radiator fans heat the processor?"),
  (r"^Radiator fans, rpm¦Radiator control", "cpu3", None, "{T} goes further: both sets of fans slow, down to the radiator fans&rsquo; floor."),
@@ -372,7 +372,7 @@ F.write_text(s)
 
 # --- figures: "Figure N." + bold title, then the description (Seb 2026-10-23); same flat panel as tables (CSS)
 FIGT = [
- (r"The test set-up, side view|Air enters through three 120", "Test set-up (side view, not to scale).", " Legend: arrows, airflow; bars, fans; &#9679; T<sub>in</sub>, the air temperature sensor; f<sub>g</sub>, f<sub>c</sub>, the GPU and case fan speeds."),
+ (r"As built; board layout to scale", "Test set-up (schematic).", " Legend: arrows, airflow; bars, fans; &#9679; T<sub>in</sub>, the intake air sensor; f<sub>g</sub>, f<sub>c</sub>, f<sub>r</sub>, the GPU, case and radiator fan speeds; dashed, a second card&rsquo;s place."),
  (r"The grid as run on the first night", "The first-night measurement grid.", ""),
  (r"Hot-spot temperature at 575", "Hot-spot temperature over both fan speeds at 575&nbsp;W.", ""),
  (r"Interactive surfaces", "Interactive temperature surfaces at 575&nbsp;W.", ""),
