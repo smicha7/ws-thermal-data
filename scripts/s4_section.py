@@ -56,7 +56,7 @@ if PR:
     pc_txt = (f'A copy test settles it ({{tref:pcie}}): 1&nbsp;GiB copies between system memory and each card&rsquo;s memory, 10 repetitions per direction, each card alone and then both at once, in two full runs with identical results. '
               f'Alone, each card moves {al:.1f}&nbsp;GB/s from host to device and {num(PR[0][3]):.1f}&nbsp;GB/s back, {al / 31.5 * 100:.0f}&nbsp;% of the 31.5&nbsp;GB/s a Gen5 x8 link carries in theory and {al / 15.8:.1f} times the 15.8&nbsp;GB/s ceiling of Gen4 x8, so the links really run at Gen5. '
               f'With both cards copying at once each gets {num(PR[0][4]):.1f} and {num(PR[0][5]):.1f}&nbsp;GB/s, {aggr:.0f}&nbsp;GB/s together from host to device; the drop of about {(1 - num(PR[0][4]) / al) * 100:.0f}&nbsp;% is set by the processor&rsquo;s input-output die, not by the links. '
-              f'The replay counters stood at {PR[0][6]} and {PR[1][6]} since the driver started and did not move during the tests, and the system logged no hardware error (WHEA) in seven days. One repetition on card B, at 17.1&nbsp;GB/s, is an outlier; every other lay within &plusmn;0.3&nbsp;%. The risers, rated for PCIe 4.0, therefore run stably at Gen5 x8.')
+              f'The replay counters stood at {PR[0][6]} and {PR[1][6]} since the driver started and did not move during the tests, and the system logged no hardware error (WHEA) in seven days. One repetition on card B, at 17.1&nbsp;GB/s, is an outlier; every other lay within &plusmn;0.3&nbsp;%. Both links therefore run stably at Gen5 x8.')
     PTAB = f"""
   <p class="ar-tcap"><b>PCIe link check of the two cards: negotiated link, copy bandwidth with each card alone and both at once, and link errors.</b> 1&nbsp;GiB copies (D3D11), 10 repetitions per direction, two runs with identical results, 24 October 2026; GB/s = 10<sup>9</sup>&nbsp;bytes/s.</p>
   <div class="ar-tw ar-tw-wide">
@@ -66,11 +66,11 @@ if PR:
     <tbody>{pcrows}</tbody>
   </table>
   </div>
-  <p class="ar-note">Theoretical x8 bandwidth: Gen5 31.5, Gen4 15.8, Gen3 7.9&nbsp;GB/s. Both cards connect through risers rated for PCIe 4.0. Each card&rsquo;s link maximum is x16; the board gives x8 to each slot when both are used. <a href="https://github.com/smicha7/ws-thermal-data/tree/main/{Path(PC[-1]).name}">Data</a>.</p>"""
+  <p class="ar-note">Theoretical x8 bandwidth: Gen5 31.5, Gen4 15.8, Gen3 7.9&nbsp;GB/s. Each card&rsquo;s link maximum is x16; the board gives x8 to each slot when both are used. <a href="https://github.com/smicha7/ws-thermal-data/tree/main/{Path(PC[-1]).name}">Data</a>.</p>"""
 else:
     pc_txt = 'The copy bandwidth between host and each card and the PCIe replay counters after load are being measured; the results will be added here.'; PTAB = ""
 PCIE = f"""  <h4 id="pcie-links">PCIe links of the two cards</h4>
-  <p>The board splits the processor&rsquo;s sixteen PCIe 5.0 lanes between its two x16 slots, eight each, when both are populated. NVML reports both cards at PCIe Gen5 x8 under load: the slot could take x16 and the card supports Gen5, so the width is set by the board&rsquo;s split. At idle both links drop to Gen1, the normal power-saving down-training, and return to Gen5 under load. The cards are connected through risers that, per the builder, are rated for PCIe 4.0, so a Gen5 link runs beyond the risers&rsquo; rating; the replay counters, which count retransmitted packets, tell whether the link is clean. {pc_txt} For our load, which streams from the card&rsquo;s own memory, the link does not limit the board power, which stays at the 575&nbsp;W limit.</p>{PTAB}"""
+  <p>The board splits the processor&rsquo;s sixteen PCIe 5.0 lanes between its two x16 slots, eight each, when both are populated. NVML reports both cards at PCIe Gen5 x8 under load: the slot could take x16 and the card supports Gen5, so the width is set by the board&rsquo;s split. At idle both links drop to Gen1, the normal power-saving down-training, and return to Gen5 under load. The replay counters, which count retransmitted packets, show whether a link is clean. {pc_txt} For our load, which streams from the card&rsquo;s own memory, the link does not limit the board power, which stays at the 575&nbsp;W limit.</p>{PTAB}"""
 ST = sorted(glob.glob(str(G / "data/*stress1*/grid.csv")))
 SR = []
 if ST:
