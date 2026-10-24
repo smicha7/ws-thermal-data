@@ -1,0 +1,210 @@
+{
+  "at": 1792837696,
+  "bytes": 1073741824,
+  "reps": 10,
+  "method": "D3D11 CopyResource 1 GiB staging(system RAM) \u003C-\u003E default(VRAM); wait = 16-byte readback Map; GB/s = 1e9 bytes",
+  "pcie_before": [
+    {
+      "gen": 1,
+      "gen_max": 5,
+      "gen_gpu_max": 5,
+      "width": 8,
+      "width_max": 16,
+      "tx_kbs": 1007,
+      "rx_kbs": 11,
+      "replay": 1,
+      "bus": 1
+    },
+    {
+      "gen": 5,
+      "gen_max": 5,
+      "gen_gpu_max": 5,
+      "width": 8,
+      "width_max": 16,
+      "tx_kbs": 1,
+      "rx_kbs": 867,
+      "replay": 8,
+      "bus": 3
+    }
+  ],
+  "whea_before": {
+    "days": 7,
+    "total": 0,
+    "pcie": 0,
+    "by_id": {},
+    "last": null
+  },
+  "results": {
+    "card0_single": {
+      "pcie_mid_h2d": {
+        "gen": 5,
+        "gen_max": 5,
+        "gen_gpu_max": 5,
+        "width": 8,
+        "width_max": 16,
+        "tx_kbs": 974,
+        "rx_kbs": 159,
+        "replay": 1
+      },
+      "h2d_gbs": {
+        "median": 28.86,
+        "max": 28.87,
+        "min": 28.8
+      },
+      "pcie_mid_d2h": {
+        "gen": 5,
+        "gen_max": 5,
+        "gen_gpu_max": 5,
+        "width": 8,
+        "width_max": 16,
+        "tx_kbs": 1,
+        "rx_kbs": 1784,
+        "replay": 1
+      },
+      "d2h_gbs": {
+        "median": 28.67,
+        "max": 28.68,
+        "min": 28.59
+      }
+    },
+    "card1_single": {
+      "pcie_mid_h2d": {
+        "gen": 5,
+        "gen_max": 5,
+        "gen_gpu_max": 5,
+        "width": 8,
+        "width_max": 16,
+        "tx_kbs": 1127,
+        "rx_kbs": 891,
+        "replay": 8
+      },
+      "h2d_gbs": {
+        "median": 28.86,
+        "max": 28.87,
+        "min": 28.74
+      },
+      "pcie_mid_d2h": {
+        "gen": 5,
+        "gen_max": 5,
+        "gen_gpu_max": 5,
+        "width": 8,
+        "width_max": 16,
+        "tx_kbs": 1,
+        "rx_kbs": 106,
+        "replay": 8
+      },
+      "d2h_gbs": {
+        "median": 28.65,
+        "max": 28.67,
+        "min": 28.6
+      }
+    },
+    "card0_both": {
+      "pcie_mid_h2d": {
+        "gen": 5,
+        "gen_max": 5,
+        "gen_gpu_max": 5,
+        "width": 8,
+        "width_max": 16,
+        "tx_kbs": 975,
+        "rx_kbs": 106,
+        "replay": 1
+      },
+      "h2d_gbs": {
+        "median": 25.6,
+        "max": 25.7,
+        "min": 25.32
+      },
+      "pcie_mid_d2h": {
+        "gen": 5,
+        "gen_max": 5,
+        "gen_gpu_max": 5,
+        "width": 8,
+        "width_max": 16,
+        "tx_kbs": 1,
+        "rx_kbs": 46,
+        "replay": 1
+      },
+      "d2h_gbs": {
+        "median": 26.17,
+        "max": 26.38,
+        "min": 26.03
+      }
+    },
+    "card1_both": {
+      "pcie_mid_h2d": {
+        "gen": 5,
+        "gen_max": 5,
+        "gen_gpu_max": 5,
+        "width": 8,
+        "width_max": 16,
+        "tx_kbs": 1,
+        "rx_kbs": 129,
+        "replay": 8
+      },
+      "h2d_gbs": {
+        "median": 25.6,
+        "max": 25.71,
+        "min": 25.33
+      },
+      "pcie_mid_d2h": {
+        "gen": 5,
+        "gen_max": 5,
+        "gen_gpu_max": 5,
+        "width": 8,
+        "width_max": 16,
+        "tx_kbs": 1085,
+        "rx_kbs": 881,
+        "replay": 8
+      },
+      "d2h_gbs": {
+        "median": 26.19,
+        "max": 26.36,
+        "min": 26.03
+      }
+    }
+  },
+  "cards": [
+    {
+      "ord": 0,
+      "bus": 1,
+      "name": "NVIDIA GeForce RTX 5090"
+    },
+    {
+      "ord": 1,
+      "bus": 3,
+      "name": "NVIDIA GeForce RTX 5090"
+    }
+  ],
+  "pcie_after": [
+    {
+      "gen": 1,
+      "gen_max": 5,
+      "gen_gpu_max": 5,
+      "width": 8,
+      "width_max": 16,
+      "tx_kbs": 3,
+      "rx_kbs": 1949,
+      "replay": 1,
+      "bus": 1
+    },
+    {
+      "gen": 1,
+      "gen_max": 5,
+      "gen_gpu_max": 5,
+      "width": 8,
+      "width_max": 16,
+      "tx_kbs": 3,
+      "rx_kbs": 2794,
+      "replay": 8,
+      "bus": 3
+    }
+  ],
+  "whea_after": {
+    "days": 7,
+    "total": 0,
+    "pcie": 0,
+    "by_id": {},
+    "last": null
+  }
+}

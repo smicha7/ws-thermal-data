@@ -1,7 +1,7 @@
 """Two-card study (steady4, in progress): methods subsection under 2.4 (with Figure 'two-card set-up' via setup_fig.py),
 the settling-time analysis of steady3 in Section 4 (justifies the shorter protocol), and live data tables in Section 3 from
 data/steady4-*/grid.csv (empty until the file exists). Markers: s4method, settle, s4tables. Usage: s4_section.py"""
-import csv, glob, json
+import csv, glob, json, re
 from pathlib import Path
 import numpy as np, pandas as pd
 G = Path(__file__).resolve().parent.parent; F = Path.home() / "Claude/gruency-site/research/gpu-cooling-method.html"; SITE = F.parent
@@ -43,30 +43,64 @@ SET = f"""  <h3 id="settle">Settling time on the final grid</h3>
   <p class="ar-note">Error = |reading after the given time &minus; settled value| of the same point. The hold is a minimum: a point ends only when the core and memory of both cards have also stopped rising (<a href="#steady4-method">Section 2.4.2</a>). <a href="/research/data/gpu-map-steady3-cells.csv">Data (CSV)</a>; early readings in the steady3 grid file of the repository.</p>"""
 # ---- PCIe links and the first two-card stress test (spot values until the data folders arrive)
 PC = sorted(glob.glob(str(G / "data/pcie-*")))
-pc_txt = (f'The copy-bandwidth test and the error counters are in <code>{Path(PC[-1]).name}</code>; their summary will be added here.' if PC else
-          'The copy bandwidth between host and each card and the PCIe replay counters after load are being measured; the results will be added here.')
-PCIE = f"""  <h4 id="pcie-links">PCIe links of the two cards</h4>
-  <p>The board splits the processor&rsquo;s sixteen PCIe 5.0 lanes between its two x16 slots, eight each, when both are populated. NVML reports both cards at PCIe Gen5 x8 under load: the slot could take x16 and the card supports Gen5, so the width is set by the board&rsquo;s split. At idle both links drop to Gen1, the normal power-saving down-training, and return to Gen5 under load. The cards are connected through risers that, per the builder, are rated for PCIe 4.0, so a Gen5 link runs beyond the risers&rsquo; rating; the replay counters, which count retransmitted packets, tell whether the link is clean. {pc_txt} For this load, which streams from the card&rsquo;s own memory, the link width does not limit the board power, which stays at the 575&nbsp;W limit.</p>"""
-ST = sorted(glob.glob(str(G / "data/stress1-*")))
-STRESS = f"""  <h4 id="stress1">A first two-card stress test (preliminary)</h4>
-  <p class="ar-status"><b>Preliminary.</b> Spot readings{(" until the files in <code>" + Path(ST[-1]).name + "</code> are analysed") if ST else ", to be replaced by the settled values of the run stress1 when its data arrive"}.</p>
-  <p>Before steady4, both cards ran our load at 575&nbsp;W each, in the open frame, with the card fans at 100&nbsp;%, case and radiator fans at 1600&nbsp;rpm and the pump at 2200&nbsp;rpm ({{tref:stress1}}). Each card alone reached a core of 62 to 63&nbsp;&deg;C and a memory of 78&nbsp;&deg;C. With both running, card A, whose fans face card B, rose above its single-card values within the first minutes, while card B was still rising when read. Both stayed power-limited at 575&nbsp;W, with no errors.</p>
-  <p class="ar-tcap"><b>First two-card stress test (stress1), spot readings: card temperatures and clock with one card or both under full load.</b> Open frame, 575&nbsp;W per card, card fans 100&nbsp;%, case and radiator fans 1600&nbsp;rpm, pump 2200&nbsp;rpm.</p>
-  <div class="ar-tw">
-  <table class="ar-tab ar-num ar-st ar-stress1">
-    <thead><tr><th scope="col">Load</th><th scope="col">Card</th><th scope="col">Core, &deg;C</th><th scope="col">Memory, &deg;C</th><th scope="col">Hot spot, &deg;C</th><th scope="col">Graphics clock, MHz</th></tr></thead>
-    <tbody><tr><td>card B alone</td><td>B</td><td>63</td><td>78</td><td>71.8</td><td>2827</td></tr>
-    <tr><td>card A alone</td><td>A</td><td>62</td><td>78</td><td>71.7</td><td>2790</td></tr>
-    <tr><td>both, early</td><td>A</td><td>64</td><td>80</td><td>74.1</td><td>&mdash;</td></tr>
-    <tr><td>both, early</td><td>B</td><td>53<sup>a</sup></td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr></tbody>
+PR = []   # rows of the link check (SUMMARY.md table): card, link, H→D alone, D→H alone, H→D both, D→H both, replays, Δ, WHEA
+if PC and (Path(PC[-1]) / "SUMMARY.md").exists():
+    for l in open(Path(PC[-1]) / "SUMMARY.md"):
+        c = [x.strip() for x in l.strip().strip("|").split("|")]
+        if len(c) == 9 and re.match(r"^[AB] \(bus", c[0]): PR.append(c)
+num = lambda x: float(re.sub(r"[^\d.]", "", x))
+if PR:
+    al = num(PR[0][2]); both = [num(r[4]) + num(r[5]) for r in PR]; tot = sum(num(r[4]) for r in PR) + sum(num(r[5]) for r in PR)
+    pcrows = "".join(f'<tr><td>{r[0][0]}</td><td>{"PCIE1" if r[0][0] == "A" else "PCIE2"}</td><td class="tl">{r[1].replace(" (max x16)", "")}</td><td class="g">{num(r[2]):.1f}</td><td>{num(r[3]):.1f}</td><td class="g">{num(r[4]):.1f}</td><td>{num(r[5]):.1f}</td><td class="g">{r[6]}</td><td>{r[7]}</td><td>{r[8]}</td></tr>' for r in PR)
+    aggr = sum(num(r[4]) for r in PR)
+    pc_txt = (f'A copy test settles it ({{tref:pcie}}): 1&nbsp;GiB copies between system memory and each card&rsquo;s memory, 10 repetitions per direction, each card alone and then both at once, in two full runs with identical results. '
+              f'Alone, each card moves {al:.1f}&nbsp;GB/s from host to device and {num(PR[0][3]):.1f}&nbsp;GB/s back, {al / 31.5 * 100:.0f}&nbsp;% of the 31.5&nbsp;GB/s a Gen5 x8 link carries in theory and {al / 15.8:.1f} times the 15.8&nbsp;GB/s ceiling of Gen4 x8, so the links really run at Gen5. '
+              f'With both cards copying at once each gets {num(PR[0][4]):.1f} and {num(PR[0][5]):.1f}&nbsp;GB/s, {aggr:.0f}&nbsp;GB/s together from host to device; the drop of about {(1 - num(PR[0][4]) / al) * 100:.0f}&nbsp;% is set by the processor&rsquo;s input-output die, not by the links. '
+              f'The replay counters stood at {PR[0][6]} and {PR[1][6]} since the driver started and did not move during the tests, and the system logged no hardware error (WHEA) in seven days. One repetition on card B, at 17.1&nbsp;GB/s, is an outlier; every other lay within &plusmn;0.3&nbsp;%. The risers, rated for PCIe 4.0, therefore run stably at Gen5 x8.')
+    PTAB = f"""
+  <p class="ar-tcap"><b>PCIe link check of the two cards: negotiated link, copy bandwidth with each card alone and both at once, and link errors.</b> 1&nbsp;GiB copies (D3D11), 10 repetitions per direction, two runs with identical results, 24 October 2026; GB/s = 10<sup>9</sup>&nbsp;bytes/s.</p>
+  <div class="ar-tw ar-tw-wide">
+  <table class="ar-tab ar-num ar-st ar-ms ar-pcie">
+    <thead><tr><th scope="col" rowspan="2">Card</th><th scope="col" rowspan="2">Slot</th><th scope="col" rowspan="2" class="tl">Link under copy</th><th scope="colgroup" colspan="2">Card alone, GB/s</th><th scope="colgroup" colspan="2">Both cards at once, GB/s</th><th scope="colgroup" colspan="3">Link errors</th></tr>
+    <tr><th scope="col" class="g">host to device</th><th scope="col">device to host</th><th scope="col" class="g">host to device</th><th scope="col">device to host</th><th scope="col" class="g">replays since driver start</th><th scope="col">new replays in the tests</th><th scope="col">WHEA events, 7 days</th></tr></thead>
+    <tbody>{pcrows}</tbody>
   </table>
   </div>
-  <p class="ar-note"><sup>a</sup> Still rising when read. &mdash;: not read. Spot values from the Lab&rsquo;s live view, not settled.</p>"""
+  <p class="ar-note">Theoretical x8 bandwidth: Gen5 31.5, Gen4 15.8, Gen3 7.9&nbsp;GB/s. Both cards connect through risers rated for PCIe 4.0. Each card&rsquo;s link maximum is x16; the board gives x8 to each slot when both are used. <a href="https://github.com/smicha7/ws-thermal-data/tree/main/{Path(PC[-1]).name}">Data</a>.</p>"""
+else:
+    pc_txt = 'The copy bandwidth between host and each card and the PCIe replay counters after load are being measured; the results will be added here.'; PTAB = ""
+PCIE = f"""  <h4 id="pcie-links">PCIe links of the two cards</h4>
+  <p>The board splits the processor&rsquo;s sixteen PCIe 5.0 lanes between its two x16 slots, eight each, when both are populated. NVML reports both cards at PCIe Gen5 x8 under load: the slot could take x16 and the card supports Gen5, so the width is set by the board&rsquo;s split. At idle both links drop to Gen1, the normal power-saving down-training, and return to Gen5 under load. The cards are connected through risers that, per the builder, are rated for PCIe 4.0, so a Gen5 link runs beyond the risers&rsquo; rating; the replay counters, which count retransmitted packets, tell whether the link is clean. {pc_txt} For our load, which streams from the card&rsquo;s own memory, the link does not limit the board power, which stays at the 575&nbsp;W limit.</p>{PTAB}"""
+ST = sorted(glob.glob(str(G / "data/*stress1*/grid.csv")))
+SR = []
+if ST:
+    for x in csv.DictReader(open(ST[-1])):
+        if x.get("settled") != "1": continue
+        on = [c for c in "AB" if float(x[f"card{c}_power_w"] or 0) > 300]
+        for c in on: SR.append(dict(load="both cards" if len(on) == 2 else f"card {c} alone", card=c, core=float(x[f"card{c}_core_nvapi_c"] or x[f"card{c}_core_c"]), mem=float(x[f"card{c}_mem_c"]),
+                                    hot=float(x[f"card{c}_hot_c"]), clk=float(x[f"card{c}_clock_mhz"]), w=float(x[f"card{c}_power_w"]), rpm=float(x[f"card{c}_fan_rpm"]),
+                                    tin=float(x["intake_c"]), case=float(x["case_rpm"]), rad=float(x["rad_rpm"])))
+    SR.sort(key=lambda r: (r["load"] == "both cards", r["card"]))
+    g = lambda load, c: next(r for r in SR if r["load"] == load and r["card"] == c)
+    A1, B1, A2, B2 = g("card A alone", "A"), g("card B alone", "B"), g("both cards", "A"), g("both cards", "B")
+    srows = "".join(f'<tr><td class="tl">{r["load"]}</td><td>{r["card"]}</td><td class="g">{r["core"]:.1f}</td><td>{r["mem"]:.0f}</td><td>{r["hot"]:.1f}</td><td class="g">{r["clk"]:.0f}</td><td>{r["w"]:.0f}</td></tr>' for r in SR)
+    STRESS = f"""  <h4 id="stress1">A two-card stress test (stress1)</h4>
+  <p>Before steady4, both cards ran our load in the open frame at their stock 575&nbsp;W, with the card fans at 100&nbsp;% (about {A2["rpm"]:.0f}&nbsp;rpm), case and radiator fans at about 1600&nbsp;rpm and the pump at 2200&nbsp;rpm, intake air {min(r["tin"] for r in SR):.1f} to {max(r["tin"] for r in SR):.1f}&nbsp;&deg;C: card A alone, card B alone, then both, each point held to its plateau ({{tref:stress1}}). Alone, the two cards differ by little: card A settled at {A1["core"]:.1f}&nbsp;&deg;C core and {A1["mem"]:.0f}&nbsp;&deg;C memory, card B at {B1["core"]:.1f} and {B1["mem"]:.0f}&nbsp;&deg;C. With both loaded, card A, in the upper slot, ran {A2["core"] - A1["core"]:.0f}&nbsp;&deg;C hotter at the core and {A2["mem"] - A1["mem"]:.0f}&nbsp;&deg;C hotter at the memory than alone, because its fans draw in card B&rsquo;s flow-through exhaust, and its clock fell by {A1["clk"] - A2["clk"]:.0f}&nbsp;MHz; card B was unchanged within {max(abs(B2["core"] - B1["core"]), abs(B2["mem"] - B1["mem"])):.1f}&nbsp;&deg;C. Both cards stayed at 575&nbsp;W, held only by the software power cap with no thermal throttling, on PCIe Gen5 x8 links and without errors. Card A&rsquo;s memory, at {A2["mem"]:.0f}&nbsp;&deg;C even with every fan at full speed, is the binding temperature of the two-card machine and of its controller.</p>
+  <p class="ar-tcap"><b>Two-card stress test (stress1): settled temperatures and clock of each card with one card or both under full load.</b> Open frame, 575&nbsp;W per card, card fans 100&nbsp;%, case and radiator fans about 1600&nbsp;rpm, pump 2200&nbsp;rpm, 24 October 2026; each point held to a plateau below 0.1&nbsp;&deg;C per minute on each card.</p>
+  <div class="ar-tw">
+  <table class="ar-tab ar-num ar-st ar-stress1">
+    <thead><tr><th scope="col" class="tl">Load</th><th scope="col">Card</th><th scope="col" class="g">Core, &deg;C</th><th scope="col">Memory, &deg;C</th><th scope="col">Hot spot, &deg;C</th><th scope="col" class="g">Graphics clock, MHz</th><th scope="col">Board power, W</th></tr></thead>
+    <tbody>{srows}</tbody>
+  </table>
+  </div>
+  <p class="ar-note">Card A: first slot (PCIE1), upper; card B: second slot (PCIE2). Core from the NVAPI sensor; memory in whole degrees. Throttle reasons reported: software power cap only. <a href="https://github.com/smicha7/ws-thermal-data/tree/main/{Path(ST[-1]).parent.name}">Data</a>.</p>"""
+else:
+    STRESS = ""
 # ---- methods subsection
 mins = sum(28 * hold(gp) for gp in CARDS) / 60
 MET = f"""  <h4 id="steady4-method">The two-card study (in progress)</h4>
   <p>A second RTX 5090 Founders Edition is now fitted: card A in the first PCIe slot, card B in the second, at the board&rsquo;s slot spacing ({{fref:fig-two-card-set-up-panels-on-schematic}}), and the side, front and top panels of the frame are closed. The grid steady4 repeats the levels of steady3, GPU fans 40 to 100&nbsp;% on both cards together, case and radiator fans 800&nbsp;rpm to full speed and power limits 100, 90, 80 and 70&nbsp;%, both cards under the same load. Following the settling analysis of steady3 (<a href="#settle">Section 4.2</a>), each point is held for at least 5 minutes at GPU fans 40 and 50&nbsp;%, 4 at 60&nbsp;% and 3 from 70&nbsp;% up, and then until the core and memory of both cards have stopped rising, the same plateau test as in steady3. The minimum holds alone add up to {mins:.1f}&nbsp;h for the 196 points; with the plateau extensions and the transitions the Lab&rsquo;s estimate is about 12.9&nbsp;h, and we plan for 13 to 16 hours, since both cards must settle in the closed case, against 18.8 for steady3.</p>
-  <p>The grid answers three questions: how much the two cards heat each other, card A&rsquo;s fans facing card B, whose flow-through air leaves towards them, and how that depends on both fan sets; how much the closed case changes the settled temperatures and the role of the case fans, against the open frame of steady3; and what control law two cards need, with one noise budget for the whole machine and the hotter card setting the fans.</p>
+  <p>The grid answers three questions: how much card A, whose fans draw in card B&rsquo;s flow-through exhaust (<a href="#stress1">Section 2.4.4</a>), runs hotter than when alone, and how that depends on both fan sets; how much the closed case changes the settled temperatures and the role of the case fans, against the open frame of steady3; and what control law two cards need, with one noise budget for the whole machine and the hotter card setting the fans.</p>
 <!--setupfig2:start--><!--setupfig2:end-->
 {PCIE}
 {STRESS}"""

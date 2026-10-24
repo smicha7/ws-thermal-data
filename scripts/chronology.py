@@ -29,6 +29,7 @@ NOTE = {
  "2026-10-22-cpu3": ("cpu3", "both fan sets slow, pump at maximum", "no throttling"),
  "2026-10-22-cpu3e": ("cpu3e", "case fans varied at slow radiator fans", "case fans do not cool the processor"),
  "2026-10-23-pl90-case1500": ("pl90", "power limit 90&nbsp;% at case fans 1500&nbsp;rpm", "points for the power term"),
+ "2026-10-24-stress1": ("stress1", "two cards at 575&nbsp;W, fans at full speed: each alone, then both", "card A +11&nbsp;&deg;C core, +10&nbsp;&deg;C memory with both loaded"),
  "2026-10-23-steady3": ("steady3 (final grid)", "all 196 cells, settled", "estimation data of the primary model"),
 }
 def note(rid):
@@ -75,8 +76,8 @@ for raw in sorted(D.glob("**/raw.csv")):
     elif (fo / "points.csv").exists(): pts = sum(1 for _ in open(fo / "points.csv")) - 1
     elif (fo / "grid.csv").exists(): pts = sum(1 for _ in open(fo / "grid.csv")) - 1
     else: pts = None
-    case = str(cj.get("case", "")).lower(); cards = 2 if re.search(r"\b2 (gpu|cards)|two cards", case) else 1
-    enc = "open top" if "open top" in case else ("panels closed" if re.search(r"panels (on|closed)|closed (case|panels)", case) else "open top")
+    case = str(cj.get("case", "")).lower(); cards = 2 if re.search(r"\b2 (gpu|cards|× rtx)|two cards", case) else 1
+    enc = "open frame" if "panels off" in case else "open top" if "open top" in case else ("panels closed" if re.search(r"panels (on|closed)|closed (case|panels)", case) else "open top")
     runs.append(dict(rid=rid, t0=min(t), t1=max(t), gpu_kwh=e / 3.6e6, cpu_kwh=cpu_kwh(fo), pts=pts, cards=cards, enc=enc,
                      state=st.get("state", ""), pump_max="pump at max" in case, load=cj.get("load_mode") or "", folder=str(fo.relative_to(D))))
 CACHE.parent.mkdir(exist_ok=True); json.dump(cache, open(CACHE, "w"), indent=1)

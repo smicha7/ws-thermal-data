@@ -1,0 +1,31 @@
+2026-10-24 11:46:31 start (próba 1), tryb rpmgrid, budżet 1 h, obudowa: OPEN case (panels off); 2 × RTX 5090 FE, A = PCIE1, B = PCIE2; Seb 2026-10-24 stress test at maximum card fan speed: card A alone, card B alone, both — mix64 at stock PL 575 W, card fans 100 %, case + radiator 1600 rpm; each point ≥ 5 min then plateau (< 0.1 °C/min on each card), max 10 min; pump Fixed rpm 2200, AIO Fan on its NVMe curve; NVIDIA defaults otherwise.
+2026-10-24 11:46:31 spis czujników: 380
+2026-10-24 11:46:34 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-24 11:46:34 obciążenie: proces w sesji użytkownika
+2026-10-24 11:46:34 etap: Hold
+2026-10-24 11:46:34 siatka po obrotach: 3 punktów, start 100 % / 1600 rpm
+2026-10-24 obciążenie 11:46:34 start: plik stanu jest, tryb mix64
+2026-10-24 obciążenie 11:46:34 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-24 obciążenie 11:46:34 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-24 obciążenie 11:46:34 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-24 obciążenie 11:46:34 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-24 obciążenie 11:46:34 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-24 obciążenie 11:46:34 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-24 obciążenie 11:46:35 NVIDIA GeForce RTX 5090 (NVIDIA #1): bez obci????enia
+2026-10-24 11:46:40 trzymanie: 48.4 % → 1612 rpm (cel 1600)
+2026-10-24 11:47:30 trzymanie: 47.6 % → 1611 rpm (cel 1600)
+2026-10-24 11:52:10 trzymanie: 46.9 % → 1611 rpm (cel 1600)
+2026-10-24 11:55:25 punkt 1/3: karta A 100 % / 1600 rpm → rdzeń 64.0, pamięć 78.0 °C, 534 s
+2026-10-24 11:55:27 trzymanie: 46.9 % → 1611 rpm (cel 1600)
+2026-10-24 obciążenie 11:55:27 NVIDIA GeForce RTX 5090 (NVIDIA #1): obci????enie
+2026-10-24 obciążenie 11:55:27 NVIDIA GeForce RTX 5090 (NVIDIA #0): bez obci????enia
+2026-10-24 12:01:40 trzymanie: 46.2 % → 1610 rpm (cel 1600)
+2026-10-24 12:01:58 punkt 2/3: karta B 100 % / 1600 rpm → rdzeń 61.0, pamięć 80.0 °C, 393 s
+2026-10-24 12:01:59 trzymanie: 46.2 % → 1598 rpm (cel 1600)
+2026-10-24 obciążenie 12:02:00 NVIDIA GeForce RTX 5090 (NVIDIA #0): obci????enie
+2026-10-24 12:07:57 trzymanie: 44.8 % → 1594 rpm (cel 1600)
+2026-10-24 12:08:22 trzymanie: 46.0 % → 1594 rpm (cel 1600)
+2026-10-24 12:09:44 trzymanie: 45.4 % → 1605 rpm (cel 1600)
+2026-10-24 12:10:04 punkt 3/3: obie 100 % / 1600 rpm → rdzeń 72.0, pamięć 90.0 °C, 486 s
+2026-10-24 12:10:05 aquaero przywrócone: przywrócono aquaero-20261024-114633.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261024-121004.bin
+2026-10-24 12:10:05 ZAKOŃCZONO: siatka zakończona: 3 punktów
