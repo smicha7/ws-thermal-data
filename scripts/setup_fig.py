@@ -10,7 +10,7 @@ CARDS = 1                                   # ponytail: 2 → the PCIE2 card is 
 BH = 305.0; BW = BH * B["aspect"]           # board, mm (E-ATX height 305 mm; width from the board file's aspect)
 FX0, FY0, FX1, FY1 = 30, 40, 520, 440       # upper tier of the frame, top view (schematic, 1 unit ≈ 1 mm)
 X0, Y0 = 100, 70                            # board origin (top-left: rear I/O edge left, CPU power and fan headers at the top)
-CARD_L, CARD_T = 340, 72                    # card footprint: length from the bracket, thickness (about 3.5 slots)
+CARD_L, CARD_T = 304, 40                    # RTX 5090 Founders Edition: 304 mm long, two slots (about 40 mm)
 bx = lambda u: X0 + u * BW; by = lambda v: Y0 + v * BH
 R = lambda k: B["rects"][k]
 EX = {e[0]: e[1:5] for e in B["extras"]}
@@ -35,8 +35,9 @@ for i, k in enumerate(B["pcie"][:2]):
     dashed = i >= CARDS
     cards.append((y, dashed))
     a.append(rect(X0 - 6, y - 2, CARD_L, CARD_T, ('fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"' if dashed else LINE)))
-    if not dashed:   # card fans face sideways (+y): three small marks along the fan side
-        for j in range(3): a.append(rect(X0 + 30 + j * 105, y + CARD_T - 7, 70, 5, FAN))
+    if not dashed:   # FE: two axial fans on the +y face, flow-through: air passes through the fins and leaves on the board side
+        for j in range(2): a.append(rect(X0 + 40 + j * 150, y + CARD_T - 6, 90, 5, FAN))
+        for j in range(2): a.append(f'<path d="M{X0 + 85 + j * 150} {y + CARD_T + 22}V{y - 14}" {ARW} stroke-opacity=".45"/>')
 # case fans: 3 intake on the right wall, 1 exhaust on the left wall by the CPU
 for c in (FY0 + 70, FY0 + 200, FY0 + 330): a.append(rect(FX1 - 6, c - 60, 12, 120, FAN))
 ex_y = by(R("CPU")[1] + R("CPU")[3] / 2); a.append(rect(FX0 - 6, ex_y - 60, 12, 120, FAN))
@@ -52,7 +53,7 @@ lab = [T(FX1 - 14, FY0 - 10, "intake, f" + sub("c"), "end"), T(FX0 + 14, ex_y - 
        T(bx(R("CPU")[0] + R("CPU")[2] / 2), by(R("CPU")[1]) - 8, "CPU, pump", "middle"),
        T(bx(R("A1")[0]) - 2, by(R("A1")[1] + R("A1")[3]) + 18, "DIMMs"),
        T(bx(EX["CPU_FAN2"][0]) - 10, Y0 - 8, "AIO fan, pump headers", "end"),
-       T(X0 + CARD_L / 2, cards[0][0] + CARD_T / 2 - 2, "graphics card (PCIE1), fans f" + sub("g") + " toward PCIE2", "middle", 'dominant-baseline="middle"'),
+       T(X0 + CARD_L / 2, cards[0][0] + CARD_T / 2 - 2, "RTX 5090 FE, f" + sub("g") + " (PCIE1)", "middle", 'dominant-baseline="middle"'),
        T((FX0 + FX1) / 2, FY1 + 30, "(a) top view, upper tier &middot; top open", "middle")]
 if cards[1][1]: lab.append(T(X0 + CARD_L / 2, cards[1][0] + CARD_T / 2 + 2, "second card (PCIE2)", "middle", 'dominant-baseline="middle" fill-opacity=".6"'))
 A = (f'<svg class="ar-svg" viewBox="-20 0 610 490" role="img" aria-labelledby="f1ta"><title id="f1ta">Top view of the upper tier: the motherboard lies flat with the processor, its pump block and the memory; the graphics card stands in the first PCIe slot with its fans facing sideways; three case fans on the right wall blow across the card and board, one fan on the left wall by the processor exhausts; the second PCIe slot is reserved for a second card.</title>'
@@ -62,8 +63,8 @@ A = (f'<svg class="ar-svg" viewBox="-20 0 610 490" role="img" aria-labelledby="f
 Z = {"top": 40, "t1": 230, "t2": 340, "t3": 470}            # open top, tray of the upper tier, floor of the middle tier, bottom
 b = [f'<path d="M{FX0} {Z["top"]}V{Z["t3"]}M{FX1} {Z["top"]}V{Z["t3"]}M{FX0} {Z["t1"]}H{FX1}M{FX0} {Z["t2"]}H{FX1}M{FX0} {Z["t3"]}H{FX1}" {LINE}/>']
 b.append(rect(X0, Z["t1"] - 8, BW, 6, THIN))                                     # board on the tray
-b.append(rect(X0 - 6, Z["t1"] - 8 - 150, CARD_L, 150, LINE))                      # card standing in its slot
-for j in range(3): b.append(f'<circle cx="{X0 + 55 + j * 115}" cy="{Z["t1"] - 83}" r="44" {THIN}/>')
+b.append(rect(X0 - 6, Z["t1"] - 8 - 137, CARD_L, 137, LINE))                      # card standing in its slot
+for j in range(2): b.append(f'<circle cx="{X0 + 80 + j * 150}" cy="{Z["t1"] - 83}" r="52" {THIN}/>')   # FE: two axial fans
 cpu_x = bx(R("CPU")[0] + R("CPU")[2] / 2)
 b.append(rect(FX1 - 6, Z["t1"] - 130, 12, 120, FAN)); b.append(rect(FX0 - 6, Z["t1"] - 130, 12, 120, FAN))
 b.append(f'<path d="M{FX1 + 44} {Z["t1"] - 70}H{FX1 + 10}" {ARW}/><path d="M{FX1 - 14} {Z["t1"] - 175}C380 {Z["t1"] - 175} 200 {Z["t1"] - 70} {FX0 + 12} {Z["t1"] - 70}" {ARW}/>'
@@ -82,8 +83,8 @@ lb = [T(FX1 - 14, Z["top"] + 18, "intake, f" + sub("c"), "end"), T(FX0 + 14, Z["
       T((FX0 + FX1) / 2, Z["t3"] + 40, "(b) side elevation, three tiers", "middle")]
 Bsvg = (f'<svg class="ar-svg" viewBox="-20 0 610 530" role="img" aria-labelledby="f1tb"><title id="f1tb">Side elevation of the open frame: on top the board and the standing graphics card with the case fans blowing across them and an open top; in the middle the power supply with a small fan; at the bottom the processor radiator with its three fans, whose air stays in the bottom tier, and its tubes running up to the pump block.</title>'
         + "".join(b) + '<g class="ar-svg-t" fill="currentColor">' + "".join(lb) + "</g></svg>")
-CAP = ('<figcaption><b>Figure 1.</b> As built; board layout to scale. (a) Top view of the upper tier of the open frame: the motherboard (ASRock X870E Taichi Lite) lies flat, facing up, with the processor and its pump block next to the memory; the graphics card stands in the first PCIe slot (PCIE1) with its fans facing sideways. Three 120&nbsp;mm be quiet! case fans on one side wall blow across the card and the board; one more, on the opposite wall by the processor, is the exhaust; the top is open. The second slot (PCIE2, dashed) is reserved for a second card at the same spacing. '
-       '(b) Side elevation of the three tiers: board and card on top, the power supply with a small fan in the middle, and at the bottom the processor&rsquo;s radiator, mounted upright with its three SilverStone fans, its tubes running up to the pump block. The radiator&rsquo;s air stays in the bottom tier: it does not pass through the tier of the board and the card and does not affect the airflow there. The fan controller (aquaero 6) sits in a slot bracket at the top of the frame; its air sensor, T<sub>in</sub>, is in the bottom tier.</figcaption>')
+CAP = ('<figcaption><b>Figure 1.</b> As built; board layout to scale. (a) Top view of the upper tier of the open frame: the motherboard (ASRock X870E Taichi Lite) lies flat, facing up, with the processor and its pump block next to the memory; the graphics card, an RTX 5090 Founders Edition (two axial fans, flow-through), stands in the first PCIe slot (PCIE1) with its fans facing sideways; their air passes through the fins and leaves on the board side. Three 120&nbsp;mm be quiet! case fans on one side wall blow across the card and the board; one more, on the opposite wall by the processor, is the exhaust; the top is open. The second slot (PCIE2, dashed) takes the second card of the two-card study at the same spacing; it was not fitted for the measurements reported here. '
+       '(b) Side elevation of the three tiers: board and card on top, the power supply with a small fan in the middle, and at the bottom the processor&rsquo;s radiator, mounted upright with its three SilverStone fans, its tubes running up to the pump block. The radiator&rsquo;s air stays in the bottom tier: it does not pass through the tier of the board and the card and does not affect the airflow there. The fan controller (aquaero 6) sits in a slot bracket at the top of the frame; its air sensor, T<sub>in</sub>, is in the bottom tier. As drawn, to be confirmed: the position of T<sub>in</sub>, the direction of the small fan beside the power supply (drawn without one), and the directions of the radiator fans and the case fans.</figcaption>')
 FIG = f'<!--setupfig:start-->\n  <figure class="ar-fig ar-fig-wide ar-setup">\n    <div class="ar-svg2">{A}{Bsvg}</div>\n    {CAP}\n  </figure>\n<!--setupfig:end-->'
 s = F.read_text()
 if "<!--setupfig:start-->" in s:
