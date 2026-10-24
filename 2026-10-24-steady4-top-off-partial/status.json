@@ -1,0 +1,1 @@
+{"id":"2026-10-24-steady4","state":"aborted","note":"zatrzymane na pro\u015Bb\u0119 (requests\\exp-stop.txt)","elapsed_s":11120,"case_min_pct":null,"point":null,"done":0,"queued":0,"at":1792855283,"sensors":445,"load_mode":"mix64","calibration_w":null,"abort_core_c":85,"abort_mem_c":95,"noise_prompt":null,"hold_pct":44.8,"hold_settled":false,"only":null}

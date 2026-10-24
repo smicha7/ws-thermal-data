@@ -148,10 +148,19 @@ s3c = [x for x in csv.DictReader(open(sorted(glob.glob(str(G / "data/steady3-*/g
 zc = [x for x in s3c if x["settled"] == "1" and x["pl_pct"] == "100" and x["gpu_pct"] == "40" and x["case_rpm_target"] == "1600"][-1]
 TWO = f"""  <h4 id="two-cards">Two different cards</h4>
   <p>The single-card study and the two-card study use different cards, and they cool differently. The ZOTAC Gaming RTX 5090 Solid of the single-card study has an open-air cooler: three axial fans blow into a large fin stack, about 3.5 slots thick, and the air leaves at the card&rsquo;s edges. The Founders Edition is a double-slot, flow-through design: two fans push the air through the fins and out on both faces. Alone at 575&nbsp;W, with its fans at only 40&nbsp;% and the case fans at 1600&nbsp;rpm, the ZOTAC settled at {float(zc["cardA_core_nvapi_c"]):.0f}&nbsp;&deg;C core and {float(zc["mem_c_max"]):.0f}&nbsp;&deg;C memory. The Founders Edition pair needs its fans at 90 to 100&nbsp;% to keep card A&rsquo;s memory at 88 to 92&nbsp;&deg;C (<a href="#sweep">Section 2.4.5</a>), and that memory protects itself at about 106&nbsp;&deg;C (<a href="#controller-mem">Section 2.8.2</a>). The cooling law estimated on the ZOTAC therefore does not transfer to the Founders Edition: the two-card study fits its own model to its own grid.</p>"""
+# ---- the steady4 run so far
+S4RUN = ""
+_s4 = sorted(glob.glob(str(G / "data/*steady4*/status.json")))
+if _s4:
+    _st = json.load(open(_s4[-1])); _cj = json.load(open(Path(_s4[-1]).parent / "conditions.json"))
+    _g = list(csv.DictReader(open(Path(_s4[-1]).parent / "grid.csv"))) if (Path(_s4[-1]).parent / "grid.csv").exists() else []
+    _ok = sum(1 for x in _g if x.get("settled") == "1"); _sk = sum(1 for x in _g if x.get("settled") == "-2")
+    _panels = "with the top and side panels off and the front panel with its dust filter on" if "TOP panel OFF" in _cj.get("case", "") else "with the panels on"
+    S4RUN = (f"The first run of the grid, {_panels}, " + ("stopped on request" if _st.get("state") == "aborted" else "has run") + f" after {_st.get('elapsed_s', 0) / 3600:.1f}&nbsp;h with {_ok} settled points" + (f" and {_sk} skipped at a safety limit" if _sk else "") + ".")
 # ---- methods subsection
 mins = sum(28 * hold(gp) for gp in CARDS) / 60
 MET = f"""  <h4 id="steady4-method">The two-card study (in progress)</h4>
-  <p>For the two-card study the ZOTAC was replaced on 24 October by two RTX 5090 Founders Edition cards, card A in the first PCIe slot and card B in the second, at the board&rsquo;s slot spacing ({{fref:fig-two-card-set-up-panels-on-schematic}}); the panels of the frame are to be closed for the grid. The grid steady4 repeats the levels of steady3, GPU fans 40 to 100&nbsp;% on both cards together, case and radiator fans 800&nbsp;rpm to full speed and power limits 100, 90, 80 and 70&nbsp;%, both cards under the same load. Following the settling analysis of steady3 (<a href="#settle">Section 4.2</a>), each point is held for at least 5 minutes at GPU fans 40 and 50&nbsp;%, 4 at 60&nbsp;% and 3 from 70&nbsp;% up, and then until the core and memory of both cards have stopped rising, the same plateau test as in steady3. The minimum holds alone add up to {mins:.1f}&nbsp;h for the 196 points; with the plateau extensions and the transitions the Lab&rsquo;s estimate is about 12.9&nbsp;h, and we plan for 13 to 16 hours, since both cards must settle in the closed case, against 18.8 for steady3.</p>
+  <p>For the two-card study the ZOTAC was replaced on 24 October by two RTX 5090 Founders Edition cards, card A in the first PCIe slot and card B in the second, at the board&rsquo;s slot spacing ({{fref:fig-two-card-set-up-panels-on-schematic}}). The two-card grid steady4 repeats the levels of steady3 on both cards together, with one change forced by the hotter pair: the power limit of 100&nbsp;% is run only at GPU fans of 90&nbsp;% and above, the lowest safe speed found at full power (<a href="#sweep">Section 2.4.5</a>), which leaves 161 of the 198 points. A point ends by the fit rule, at least 2&nbsp;min after a small predicted step and otherwise 5, 4 or 3&nbsp;min by GPU fan speed as the settling analysis of steady3 suggests (<a href="#settle">Section 4.2</a>), then until the fitted final value of each card is known within &plusmn;0.2&nbsp;&deg;C, at most 15&nbsp;min; a point is skipped when either card reaches 95&nbsp;&deg;C memory, 85&nbsp;&deg;C core or 92&nbsp;&deg;C hot spot, and the run aborts at 100&nbsp;&deg;C memory. The measurement microphone records a raw level at every point for later calibration. {S4RUN}</p>
   <p>The grid answers three questions: how much card A, whose fans draw in card B&rsquo;s flow-through exhaust (<a href="#stress1">Section 2.4.4</a>), runs hotter than when alone, and how that depends on both fan sets; how much the closed case changes the settled temperatures and the role of the case fans, against the open frame of steady3; and what control law two cards need, with one noise budget for the whole machine and the hotter card setting the fans.</p>
 <!--setupfig2:start--><!--setupfig2:end-->
 {PCIE}
@@ -159,29 +168,31 @@ MET = f"""  <h4 id="steady4-method">The two-card study (in progress)</h4>
 {SWEEP}
 {TWO}"""
 # ---- live tables
-G4 = sorted(glob.glob(str(G / "data/steady4-*/grid.csv")))
-cells = {}
+G4 = sorted(glob.glob(str(G / "data/*steady4*/grid.csv")))
+cells, SKIP = {}, set()
 if G4:
     r = list(csv.DictReader(open(G4[-1])))
     key = lambda x: (int(x["pl_pct"]), int(x["gpu_pct"]), int(float(x["case_rpm_target"])))
     if len(r) > 1 and key(r[0]) == key(r[-1]): r = r[1:-1]          # anchors at start and end
     f = lambda x, k: float(x[k]) if x.get(k) not in (None, "") else None
     for x in r:
+        if x.get("settled") == "-2": SKIP.add(key(x)); continue
         if x.get("settled") != "1": continue
         cells[key(x)] = dict(A=f(x, "cardA_core_nvapi_c") or f(x, "cardA_core_c"), B=f(x, "cardB_core_nvapi_c") or f(x, "cardB_core_c"),
                              mA=f(x, "cardA_mem_c"), mB=f(x, "cardB_mem_c"), T=f(x, "intake_c"))
-    with open(SITE / "research/data/gpu-map-steady4-cells.csv", "w", newline="") as fo:
+    with open(SITE / "data/gpu-map-steady4-cells.csv", "w", newline="") as fo:
         w = csv.writer(fo); w.writerow(["pl_pct", "gpu_pct", "case_target_rpm", "cardA_core_c", "cardB_core_c", "cardA_mem_c", "cardB_mem_c", "intake_c"])
         for k, v in sorted(cells.items(), key=lambda kv: (-kv[0][0], kv[0][1], kv[0][2])): w.writerow([*k, v["A"], v["B"], v["mA"], v["mB"], v["T"]])
 fmt = lambda v: "&middot;" if v is None else f"{v:.1f}"
+cellv = lambda k, c: "&times;" if k in SKIP and k not in cells else fmt(cells.get(k, {}).get(c))
 def tab(pl, c):
-    body = "".join(f'<tr><td>{gp}&nbsp;%</td>' + "".join(f'<td{" class=\"s3-e\"" if (pl, gp, cc) not in cells else ""}>{fmt(cells.get((pl, gp, cc), {}).get(c))}</td>' for cc in CASES) + "</tr>" for gp in CARDS)
+    body = "".join(f'<tr><td>{gp}&nbsp;%</td>' + "".join(f'<td{" class=\"s3-e\"" if (pl, gp, cc) not in cells else ""}>{cellv((pl, gp, cc), c)}</td>' for cc in CASES) + "</tr>" for gp in CARDS)
     n = sum(1 for k in cells if k[0] == pl)
-    return (f'<h4 class="ar-h4">Card {c}, GPU core temperature in &deg;C at power limit {pl}&nbsp;% ({PLW[pl]}&nbsp;W per card), two cards, panels on: GPU fan speed of both cards (rows) against case and radiator fan target (columns). {n} of 49 settings measured.</h4>\n'
+    return (f'<h4 class="ar-h4">Card {c}, GPU core temperature in &deg;C at power limit {pl}&nbsp;% ({PLW[pl]}&nbsp;W per card), two cards, top and side panels off: GPU fan speed of both cards (rows) against case and radiator fan target (columns). {n} of 49 settings measured.</h4>\n'
             f'<div class="ar-tw ar-tw-wide"><table class="ar-tab ar-num ar-s3 ar-s4"><thead><tr><th scope="col">GPU fans, both cards</th>' + "".join(f'<th scope="col">{("&asymp;2920" if cc == 3000 else cc)}&nbsp;rpm</th>' for cc in CASES) + f'</tr></thead><tbody>{body}</tbody></table></div>\n')
-TB = (f'  <h3 id="steady4-grid">Two-card data: steady4 (in progress)</h3>\n  <p>' + (f'The two-card grid has reached {len(cells)} of 196 points; the tables fill as it runs.' if cells else 'The two-card grid has not started yet; the tables below fill as it runs, one per card and power limit.')
+TB = (f'  <h3 id="steady4-grid">Two-card data: steady4 (in progress)</h3>\n  <p>' + (f'The two-card grid has reached {len(cells)} of its 161 points, with {len(SKIP - set(cells))} skipped at a safety limit; the tables fill as it runs.' if cells else 'The two-card grid has not started yet; the tables below fill as it runs, one per card and power limit.')
       + '</p>\n' + "".join(tab(pl, c) for pl in PLS for c in "AB")
-      + '  <p class="ar-note">A dot (&middot;) means the setting has not been measured yet. Core from the NVAPI sensor of each card. ' + ('<a href="/research/data/gpu-map-steady4-cells.csv">Data (CSV)</a>, with the memory of both cards and the intake air.' if cells else 'The data file appears here once the run starts.') + '</p>')
+      + '  <p class="ar-note">A dot (&middot;) means the setting has not been measured yet; a cross (&times;) that it was skipped because a card reached a safety limit (memory 95, core 85 or hot spot 92&nbsp;&deg;C); at 100&nbsp;% power limit only GPU fans of 90&nbsp;% and above are run. Core from the NVAPI sensor of each card. ' + ('<a href="/research/data/gpu-map-steady4-cells.csv">Data (CSV)</a>, with the memory of both cards and the intake air.' if cells else 'The data file appears here once the run starts.') + '</p>')
 s = F.read_text()
 s = put(s, "settle", SET, before="<!--stats:start-->")
 s = put(s, "s4method", MET, before='<h3 id="models"')

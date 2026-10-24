@@ -1,0 +1,213 @@
+2026-10-24 14:16:03 start (próba 1), tryb rpmgrid, budżet 24 h, obudowa: Case 2026-10-24 14:10: front panel with dust filter ON, TOP panel OFF, BOTH side panels OFF; 2 × RTX 5090 FE, A = PCIE1 (upper), B = PCIE2; Seb 2026-10-24 2-card grid = steady3 grid on BOTH cards together (161 of 198 points): PL 90 / 80 / 70 % with GPU fans 40–100 %, PL 100 % only at GPU fans ≥ 90 % (measured safe floor: sweep-top-off 90 % at 575 W); case AND radiator 800–3000 rpm, serpentine; stop rule fit (min 2 min on small predicted steps, else 5/4/3 min by GPU fan %, T∞ CI ±0.2 °C on each card, max 15 min); a point is skipped (settled −2, reason in log.txt) when either card reaches memory ≥ 95 °C, core ≥ 85 °C or hot spot ≥ 92 °C; hard abort 100 °C memory; measurement mic (Yamaha YPAO, rear pink input, RAW) logs raw dBFS(A) per point for later calibration; pump Fixed 2200 rpm, AIO Fan on its NVMe curve; NVIDIA defaults otherwise.
+2026-10-24 14:16:03 spis czujników: 445
+2026-10-24 14:16:05 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 85, pamięć 95, hot spot 92
+2026-10-24 14:16:05 obciążenie: proces w sesji użytkownika
+2026-10-24 14:16:05 etap: Hold
+2026-10-24 14:16:05 siatka po obrotach: 161 punktów, start 40 % / 3000 rpm
+2026-10-24 obciążenie 14:16:05 start: plik stanu jest, tryb mix64
+2026-10-24 obciążenie 14:16:05 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-24 obciążenie 14:16:05 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-24 obciążenie 14:16:05 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-24 obciążenie 14:16:05 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-24 obciążenie 14:16:05 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-24 obciążenie 14:16:06 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-24 14:18:47 punkt 1/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:48 punkt 2/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:49 punkt 3/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:51 punkt 4/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:52 punkt 5/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:53 punkt 6/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:54 punkt 7/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:56 punkt 8/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:57 punkt 9/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:58 punkt 10/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:18:59 punkt 11/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:00 punkt 12/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:01 punkt 13/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:03 punkt 14/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:04 punkt 15/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:05 punkt 16/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:06 punkt 17/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:07 punkt 18/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:09 punkt 19/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:10 punkt 20/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:11 punkt 21/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:12 punkt 22/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:13 punkt 23/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:15 punkt 24/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:16 punkt 25/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:17 punkt 26/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:18 punkt 27/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:19 punkt 28/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:21 punkt 29/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:22 punkt 30/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:23 punkt 31/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:24 punkt 32/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:25 punkt 33/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:27 punkt 34/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:28 punkt 35/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:29 punkt 36/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:30 punkt 37/161: ZA GORĄCO — karta A rdzeń 79 / pamięć 96 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:31 punkt 38/161: ZA GORĄCO — karta A rdzeń 80 / pamięć 96 / hot spot 88 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:33 punkt 39/161: ZA GORĄCO — karta A rdzeń 80 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:34 punkt 40/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:35 punkt 41/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:36 punkt 42/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:37 punkt 43/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:39 punkt 44/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:40 punkt 45/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:41 punkt 46/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 90 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:42 punkt 47/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:43 punkt 48/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:45 punkt 49/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 90 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:46 punkt 50/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:47 punkt 51/161: ZA GORĄCO — karta A rdzeń 81 / pamięć 98 / hot spot 89 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:48 punkt 52/161: ZA GORĄCO — karta A rdzeń 80 / pamięć 98 / hot spot 88 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:49 punkt 53/161: ZA GORĄCO — karta A rdzeń 80 / pamięć 98 / hot spot 88 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:51 punkt 54/161: ZA GORĄCO — karta A rdzeń 80 / pamięć 98 / hot spot 88 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:52 punkt 55/161: ZA GORĄCO — karta A rdzeń 80 / pamięć 98 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:53 punkt 56/161: ZA GORĄCO — karta A rdzeń 80 / pamięć 98 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:54 punkt 57/161: ZA GORĄCO — karta A rdzeń 80 / pamięć 98 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:55 punkt 58/161: ZA GORĄCO — karta A rdzeń 80 / pamięć 98 / hot spot 87 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:57 punkt 59/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 98 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:58 punkt 60/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 98 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:19:59 punkt 61/161: ZA GORĄCO — karta A rdzeń 78 / pamięć 98 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:00 punkt 62/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 98 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:01 punkt 63/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:03 punkt 64/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:04 punkt 65/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:05 punkt 66/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:06 punkt 67/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 83 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:07 punkt 68/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 83 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:09 punkt 69/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 83 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:10 punkt 70/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 83 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:11 punkt 71/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 83 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:12 punkt 72/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 82 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:13 punkt 73/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:15 punkt 74/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:16 punkt 75/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 84 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:17 punkt 76/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 83 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:18 punkt 77/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 83 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:19 punkt 78/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 83 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:21 punkt 79/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 83 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:22 punkt 80/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:23 punkt 81/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:24 punkt 82/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 86 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:25 punkt 83/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:26 punkt 84/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:28 punkt 85/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:29 punkt 86/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:30 punkt 87/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:31 punkt 88/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:32 punkt 89/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:34 punkt 90/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:35 punkt 91/161: ZA GORĄCO — karta A rdzeń 77 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:36 punkt 92/161: ZA GORĄCO — karta A rdzeń 76 / pamięć 96 / hot spot 85 °C (progi 85 / 95 / 92), punkt pominięty
+2026-10-24 14:20:59 trzymanie: 27.3 % → 1011 rpm (cel 1000)
+2026-10-24 14:21:24 trzymanie: 25.4 % → 1011 rpm (cel 1000)
+2026-10-24 14:25:21 punkt 93/161: obie 80 % / 1000 rpm → rdzeń 66.1, pamięć 86.0 °C, 285 s
+2026-10-24 14:25:53 trzymanie: 35.8 % → 1289 rpm (cel 1300)
+2026-10-24 14:30:24 punkt 94/161: obie 80 % / 1300 rpm → rdzeń 66.0, pamięć 85.5 °C, 303 s
+2026-10-24 14:30:52 trzymanie: 45.5 % → 1585 rpm (cel 1600)
+2026-10-24 14:36:05 punkt 95/161: obie 80 % / 1600 rpm → rdzeń 66.5, pamięć 85.8 °C, 341 s
+2026-10-24 14:36:28 trzymanie: 57.5 % → 1905 rpm (cel 1900)
+2026-10-24 14:41:06 punkt 96/161: obie 80 % / 1900 rpm → rdzeń 66.0, pamięć 84.7 °C, 301 s
+2026-10-24 14:41:24 trzymanie: 79.1 % → 2411 rpm (cel 2400)
+2026-10-24 14:46:07 punkt 97/161: obie 80 % / 2400 rpm → rdzeń 65.8, pamięć 84.0 °C, 301 s
+2026-10-24 14:49:32 punkt 98/161: obie 80 % / 3000 rpm → rdzeń 64.9, pamięć 84.0 °C, 205 s
+2026-10-24 14:53:27 punkt 99/161: obie 80 % / 3000 rpm → rdzeń 60.0, pamięć 78.0 °C, 235 s
+2026-10-24 14:53:49 trzymanie: 80.0 % → 2396 rpm (cel 2400)
+2026-10-24 14:57:02 punkt 100/161: obie 80 % / 2400 rpm → rdzeń 60.7, pamięć 79.2 °C, 215 s
+2026-10-24 14:57:16 trzymanie: 57.9 % → 1896 rpm (cel 1900)
+2026-10-24 15:02:03 punkt 101/161: obie 80 % / 1900 rpm → rdzeń 61.0, pamięć 80.0 °C, 301 s
+2026-10-24 15:02:24 trzymanie: 46.8 % → 1600 rpm (cel 1600)
+2026-10-24 15:04:04 trzymanie: 45.2 % → 1588 rpm (cel 1600)
+2026-10-24 15:04:08 punkt 102/161: obie 80 % / 1600 rpm → rdzeń 61.2, pamięć 80.0 °C, 125 s
+2026-10-24 15:04:28 trzymanie: 36.0 % → 1302 rpm (cel 1300)
+2026-10-24 15:09:09 punkt 103/161: obie 80 % / 1300 rpm → rdzeń 61.0, pamięć 80.0 °C, 301 s
+2026-10-24 15:09:15 trzymanie: 23.0 % → 997 rpm (cel 1000)
+2026-10-24 15:10:06 trzymanie: 25.9 % → 994 rpm (cel 1000)
+2026-10-24 15:10:27 trzymanie: 25.3 % → 1005 rpm (cel 1000)
+2026-10-24 15:13:24 punkt 104/161: obie 80 % / 1000 rpm → rdzeń 61.0, pamięć 80.0 °C, 255 s
+2026-10-24 15:13:48 trzymanie: 19.8 % → 807 rpm (cel 800)
+2026-10-24 15:14:13 trzymanie: 18.6 % → 807 rpm (cel 800)
+2026-10-24 15:14:14 chłodnica staje — minimum 6 %
+2026-10-24 15:16:04 punkt 105/161: obie 80 % / 800 rpm → rdzeń 61.0, pamięć 80.0 °C, 160 s
+2026-10-24 15:16:05 trzymanie: 18.6 % → 794 rpm (cel 800)
+2026-10-24 15:18:19 punkt 106/161: obie 90 % / 800 rpm → rdzeń 58.9, pamięć 78.0 °C, 135 s
+2026-10-24 15:18:36 trzymanie: 24.1 % → 1011 rpm (cel 1000)
+2026-10-24 15:19:04 trzymanie: 25.7 % → 1004 rpm (cel 1000)
+2026-10-24 15:24:56 punkt 107/161: obie 90 % / 1000 rpm → rdzeń 58.1, pamięć 76.7 °C, 397 s
+2026-10-24 15:25:16 trzymanie: 35.0 % → 1304 rpm (cel 1300)
+2026-10-24 15:29:57 punkt 108/161: obie 90 % / 1300 rpm → rdzeń 58.9, pamięć 77.7 °C, 301 s
+2026-10-24 15:30:03 trzymanie: 48.0 % → 1585 rpm (cel 1600)
+2026-10-24 15:30:31 trzymanie: 45.5 % → 1596 rpm (cel 1600)
+2026-10-24 15:30:56 trzymanie: 46.5 % → 1596 rpm (cel 1600)
+2026-10-24 15:34:18 trzymanie: 45.8 % → 1608 rpm (cel 1600)
+2026-10-24 15:34:59 punkt 109/161: obie 90 % / 1600 rpm → rdzeń 58.9, pamięć 78.0 °C, 302 s
+2026-10-24 15:35:23 trzymanie: 57.1 % → 1899 rpm (cel 1900)
+2026-10-24 15:39:49 punkt 110/161: obie 90 % / 1900 rpm → rdzeń 59.0, pamięć 78.0 °C, 290 s
+2026-10-24 15:40:03 trzymanie: 78.5 % → 2396 rpm (cel 2400)
+2026-10-24 15:44:53 punkt 111/161: obie 90 % / 2400 rpm → rdzeń 58.0, pamięć 76.5 °C, 304 s
+2026-10-24 15:47:53 punkt 112/161: obie 90 % / 3000 rpm → rdzeń 58.0, pamięć 76.0 °C, 180 s
+2026-10-24 15:52:23 punkt 113/161: obie 90 % / 3000 rpm → rdzeń 62.0, pamięć 80.8 °C, 270 s
+2026-10-24 15:52:45 trzymanie: 80.2 % → 2413 rpm (cel 2400)
+2026-10-24 15:53:05 trzymanie: 79.4 % → 2413 rpm (cel 2400)
+2026-10-24 15:54:28 punkt 114/161: obie 90 % / 2400 rpm → rdzeń 63.0, pamięć 82.0 °C, 125 s
+2026-10-24 15:54:39 trzymanie: 56.7 % → 1896 rpm (cel 1900)
+2026-10-24 15:55:01 trzymanie: 57.6 % → 1885 rpm (cel 1900)
+2026-10-24 15:56:53 punkt 115/161: obie 90 % / 1900 rpm → rdzeń 63.9, pamięć 82.0 °C, 145 s
+2026-10-24 15:56:59 trzymanie: 44.6 % → 1606 rpm (cel 1600)
+2026-10-24 15:57:24 trzymanie: 46.6 % → 1604 rpm (cel 1600)
+2026-10-24 15:57:46 trzymanie: 46.1 % → 1605 rpm (cel 1600)
+2026-10-24 15:58:58 punkt 116/161: obie 90 % / 1600 rpm → rdzeń 64.0, pamięć 82.0 °C, 125 s
+2026-10-24 15:59:04 trzymanie: 33.1 % → 1300 rpm (cel 1300)
+2026-10-24 15:59:29 trzymanie: 36.0 % → 1314 rpm (cel 1300)
+2026-10-24 15:59:51 trzymanie: 35.2 % → 1314 rpm (cel 1300)
+2026-10-24 16:04:00 punkt 117/161: obie 90 % / 1300 rpm → rdzeń 63.7, pamięć 82.0 °C, 302 s
+2026-10-24 16:04:24 trzymanie: 25.8 % → 988 rpm (cel 1000)
+2026-10-24 16:06:30 punkt 118/161: obie 90 % / 1000 rpm → rdzeń 63.0, pamięć 82.0 °C, 150 s
+2026-10-24 16:07:03 trzymanie: 18.1 % → 813 rpm (cel 800)
+2026-10-24 16:10:45 punkt 119/161: obie 90 % / 800 rpm → rdzeń 63.0, pamięć 82.0 °C, 255 s
+2026-10-24 16:10:46 trzymanie: 18.1 % → 785 rpm (cel 800)
+2026-10-24 16:14:05 punkt 120/161: obie 90 % / 800 rpm → rdzeń 67.9, pamięć 86.0 °C, 200 s
+2026-10-24 16:14:39 trzymanie: 25.3 % → 993 rpm (cel 1000)
+2026-10-24 16:18:45 punkt 121/161: obie 90 % / 1000 rpm → rdzeń 68.4, pamięć 87.5 °C, 280 s
+2026-10-24 16:19:19 trzymanie: 35.5 % → 1302 rpm (cel 1300)
+2026-10-24 16:23:47 punkt 122/161: obie 90 % / 1300 rpm → rdzeń 68.9, pamięć 88.0 °C, 302 s
+2026-10-24 16:24:05 trzymanie: 45.5 % → 1601 rpm (cel 1600)
+2026-10-24 16:28:49 punkt 123/161: obie 90 % / 1600 rpm → rdzeń 69.0, pamięć 88.0 °C, 302 s
+2026-10-24 16:29:10 trzymanie: 55.6 % → 1914 rpm (cel 1900)
+2026-10-24 16:29:35 trzymanie: 57.2 % → 1889 rpm (cel 1900)
+2026-10-24 16:33:19 punkt 124/161: obie 90 % / 1900 rpm → rdzeń 69.0, pamięć 88.0 °C, 270 s
+2026-10-24 16:33:33 trzymanie: 78.1 % → 2398 rpm (cel 2400)
+2026-10-24 16:38:20 punkt 125/161: obie 90 % / 2400 rpm → rdzeń 68.1, pamięć 87.9 °C, 301 s
+2026-10-24 16:42:45 punkt 126/161: obie 90 % / 3000 rpm → rdzeń 67.9, pamięć 86.0 °C, 265 s
+2026-10-24 16:46:30 punkt 127/161: obie 90 % / 3000 rpm → rdzeń 72.0, pamięć 90.2 °C, 225 s
+2026-10-24 16:46:51 trzymanie: 78.8 % → 2388 rpm (cel 2400)
+2026-10-24 16:50:25 punkt 128/161: obie 90 % / 2400 rpm → rdzeń 73.0, pamięć 92.0 °C, 235 s
+2026-10-24 16:50:37 trzymanie: 56.1 % → 1885 rpm (cel 1900)
+2026-10-24 16:51:02 trzymanie: 57.9 % → 1899 rpm (cel 1900)
+2026-10-24 16:52:12 trzymanie: 56.5 % → 1899 rpm (cel 1900)
+2026-10-24 16:53:30 punkt 129/161: obie 90 % / 1900 rpm → rdzeń 74.0, pamięć 92.0 °C, 185 s
+2026-10-24 16:53:36 trzymanie: 43.5 % → 1602 rpm (cel 1600)
+2026-10-24 16:54:04 trzymanie: 45.9 % → 1604 rpm (cel 1600)
+2026-10-24 16:56:25 punkt 130/161: obie 90 % / 1600 rpm → rdzeń 74.6, pamięć 93.0 °C, 175 s
+2026-10-24 16:56:47 trzymanie: 35.6 % → 1311 rpm (cel 1300)
+2026-10-24 16:57:12 trzymanie: 34.2 % → 1299 rpm (cel 1300)
+2026-10-24 17:00:45 punkt 131/161: obie 90 % / 1300 rpm → rdzeń 74.0, pamięć 92.0 °C, 260 s
+2026-10-24 17:01:24 trzymanie: 24.6 % → 1003 rpm (cel 1000)
+2026-10-24 17:05:20 punkt 132/161: obie 90 % / 1000 rpm → rdzeń 74.0, pamięć 92.0 °C, 275 s
+2026-10-24 17:05:43 trzymanie: 19.6 % → 814 rpm (cel 800)
+2026-10-24 17:06:04 trzymanie: 18.8 % → 813 rpm (cel 800)
+2026-10-24 17:09:50 punkt 133/161: obie 90 % / 800 rpm → rdzeń 73.9, pamięć 92.0 °C, 270 s
+2026-10-24 17:09:51 trzymanie: 18.8 % → 802 rpm (cel 800)
+2026-10-24 17:12:25 punkt 134/161: obie 100 % / 800 rpm → rdzeń 71.0, pamięć 89.9 °C, 155 s
+2026-10-24 17:12:59 trzymanie: 25.1 % → 994 rpm (cel 1000)
+2026-10-24 17:15:55 punkt 135/161: obie 100 % / 1000 rpm → rdzeń 70.9, pamięć 89.4 °C, 210 s
+2026-10-24 17:16:15 trzymanie: 34.4 % → 1298 rpm (cel 1300)
+2026-10-24 17:20:55 trzymanie: 35.2 % → 1299 rpm (cel 1300)
+2026-10-24 17:20:56 punkt 136/161: obie 100 % / 1300 rpm → rdzeń 71.0, pamięć 89.8 °C, 301 s
+2026-10-24 17:21:02 trzymanie: 48.2 % → 1609 rpm (cel 1600)
+2026-10-24 17:21:24 aquaero przywrócone: przywrócono aquaero-20261024-141605.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261024-172123.bin
+2026-10-24 17:21:24 PRZERWANO: zatrzymane na prośbę (requests\exp-stop.txt)

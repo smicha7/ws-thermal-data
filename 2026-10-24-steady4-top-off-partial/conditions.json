@@ -1,0 +1,47 @@
+{
+  "id": "2026-10-24-steady4",
+  "started_utc": "2026-10-24 12:16:03Z",
+  "case": "Case 2026-10-24 14:10: front panel with dust filter ON, TOP panel OFF, BOTH side panels OFF; 2 \u00D7 RTX 5090 FE, A = PCIE1 (upper), B = PCIE2; Seb 2026-10-24 2-card grid = steady3 grid on BOTH cards together (161 of 198 points): PL 90 / 80 / 70 % with GPU fans 40\u2013100 %, PL 100 % only at GPU fans \u2265 90 % (measured safe floor: sweep-top-off 90 % at 575 W); case AND radiator 800\u20133000 rpm, serpentine; stop rule fit (min 2 min on small predicted steps, else 5/4/3 min by GPU fan %, T\u221E CI \u00B10.2 \u00B0C on each card, max 15 min); a point is skipped (settled \u22122, reason in log.txt) when either card reaches memory \u2265 95 \u00B0C, core \u2265 85 \u00B0C or hot spot \u2265 92 \u00B0C; hard abort 100 \u00B0C memory; measurement mic (Yamaha YPAO, rear pink input, RAW) logs raw dBFS(A) per point for later calibration; pump Fixed 2200 rpm, AIO Fan on its NVMe curve; NVIDIA defaults otherwise.",
+  "intake_c_at_start": 19.95,
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "gpu_serial_hash": null,
+  "driver": null,
+  "power_limit_w": 575,
+  "power_default_w": 575,
+  "gpu_fan_min_pct": 30,
+  "case_fans": "Case fans \u00D74 (be quiet! Silent Wings Pro 4 120 mm)",
+  "radiator_fans": "Radiator fans \u00D73 (SilverStone 120 mm PWM, Hailstone 360)",
+  "radiator_note": "held on its own curve (Curve 1), logged",
+  "case_min_pct": null,
+  "budget_h": 24,
+  "lab_version": "0.3.90",
+  "steady": "|dT/dt| \u003C 0.2 \u00B0C/min over 120 s (core, memory, hot spot), min 150 s, max 480 s per point; mean of last 60 s",
+  "abort": "memory \u2265 95 \u00B0C, hot spot \u2265 92 \u00B0C, core \u2265 85 \u00B0C (NVML slowdown \u2212 5) \u2192 point marked too_hot, all fans 100 % until cool, next point",
+  "gpu_thresholds_c": {
+    "shutdown": 96,
+    "slowdown": 93,
+    "gpu_max": 90
+  },
+  "load_calibration_w": {},
+  "load_mode": "alu",
+  "mem_working_limit_c": 95,
+  "core_limits_c": [
+    90,
+    93,
+    96
+  ],
+  "sensor_count": 445,
+  "slots": "",
+  "gpus": [
+    {
+      "name": "NVIDIA GeForce RTX 5090",
+      "pci_bus": 1
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5090",
+      "pci_bus": 3
+    }
+  ],
+  "power_limits_w": null,
+  "mode": "steady-state: coarse 4\u00D74 then 8\u00D75 refinement"
+}
