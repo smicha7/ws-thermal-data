@@ -13,7 +13,7 @@ G = Path(__file__).resolve().parent.parent; F = Path.home() / "Claude/gruency-si
 OUT = Path(__file__).resolve().parent / "out/cmp3"; OUT.mkdir(parents=True, exist_ok=True)
 # (label, folder glob, card column prefix, exclude substring) — ponytail: adjust the FE-single glob when its folder name is known
 SETUPS = [("ZOTAC RTX 5090 Solid, single card", "steady3-*", "cardA", None),
-          ("RTX 5090 FE, single card (card B alone)", "*fe-single*", "cardB", None),
+          ("RTX 5090 FE, single card (card B alone)", "*single-card-B*", "cardB", None),
           ("2 &times; RTX 5090 FE, card A (upper)", "*steady4*", "cardA", None),
           ("2 &times; RTX 5090 FE, card B (lower)", "*steady4*", "cardB", None)]
 NAMES = ["θ0", "r∞", "gN", "m", "n½", "gC", "s"]

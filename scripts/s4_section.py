@@ -154,9 +154,12 @@ _s4 = sorted(glob.glob(str(G / "data/*steady4*/status.json")))
 if _s4:
     _st = json.load(open(_s4[-1])); _cj = json.load(open(Path(_s4[-1]).parent / "conditions.json"))
     _g = list(csv.DictReader(open(Path(_s4[-1]).parent / "grid.csv"))) if (Path(_s4[-1]).parent / "grid.csv").exists() else []
-    _ok = sum(1 for x in _g if x.get("settled") == "1"); _sk = sum(1 for x in _g if x.get("settled") == "-2")
+    _ok = sum(1 for x in _g if x.get("settled") == "1")
+    _sk = sum(1 for x in _g if x.get("settled") == "-2" and float(x.get("seconds") or 0) >= 90); _nm = sum(1 for x in _g if x.get("settled") == "-2" and float(x.get("seconds") or 0) < 90)
     _panels = "with the top and side panels off and the front panel with its dust filter on" if "TOP panel OFF" in _cj.get("case", "") else "with the panels on"
-    S4RUN = (f"The first run of the grid, {_panels}, " + ("stopped on request" if _st.get("state") == "aborted" else "has run") + f" after {_st.get('elapsed_s', 0) / 3600:.1f}&nbsp;h with {_ok} settled points" + (f" and {_sk} skipped at a safety limit" if _sk else "") + ".")
+    S4RUN = (f"The first run of the grid, {_panels}, " + ("was stopped on request" if _st.get("state") == "aborted" else "has run") + f" after {_st.get('elapsed_s', 0) / 3600:.1f}&nbsp;h with {_ok} settled points"
+             + (f"; {_sk} point{'s were' if _sk != 1 else ' was'} skipped after holding a safety limit for at least 90&nbsp;s" if _sk else "")
+             + (f", and {_nm} more were not measured at all: a defect in the Lab&rsquo;s skip logic, fixed in version 0.3.96, checked the next points within a second or two of a hot one, before the cards had cooled, and skipped them. The low-fan points, GPU fans 40 to 60&nbsp;%, are therefore still to be measured and are being re-run." if _nm else "."))
 # ---- methods subsection
 mins = sum(28 * hold(gp) for gp in CARDS) / 60
 MET = f"""  <h4 id="steady4-method">The two-card study (in progress)</h4>
@@ -169,14 +172,17 @@ MET = f"""  <h4 id="steady4-method">The two-card study (in progress)</h4>
 {TWO}"""
 # ---- live tables
 G4 = sorted(glob.glob(str(G / "data/*steady4*/grid.csv")))
-cells, SKIP = {}, set()
+cells, SKIP, NOTM = {}, set(), set()
 if G4:
     r = list(csv.DictReader(open(G4[-1])))
     key = lambda x: (int(x["pl_pct"]), int(x["gpu_pct"]), int(float(x["case_rpm_target"])))
     if len(r) > 1 and key(r[0]) == key(r[-1]): r = r[1:-1]          # anchors at start and end
     f = lambda x, k: float(x[k]) if x.get(k) not in (None, "") else None
     for x in r:
-        if x.get("settled") == "-2": SKIP.add(key(x)); continue
+        if x.get("settled") == "-2":   # genuine only after ≥ 90 s over a limit (Lab ≤ 0.3.91 also skipped points without measuring them)
+            if float(x.get("seconds") or 0) >= 90: SKIP.add(key(x))
+            else: NOTM.add(key(x))
+            continue
         if x.get("settled") != "1": continue
         cells[key(x)] = dict(A=f(x, "cardA_core_nvapi_c") or f(x, "cardA_core_c"), B=f(x, "cardB_core_nvapi_c") or f(x, "cardB_core_c"),
                              mA=f(x, "cardA_mem_c"), mB=f(x, "cardB_mem_c"), T=f(x, "intake_c"))
@@ -190,9 +196,9 @@ def tab(pl, c):
     n = sum(1 for k in cells if k[0] == pl)
     return (f'<h4 class="ar-h4">Card {c}, GPU core temperature in &deg;C at power limit {pl}&nbsp;% ({PLW[pl]}&nbsp;W per card), two cards, top and side panels off: GPU fan speed of both cards (rows) against case and radiator fan target (columns). {n} of 49 settings measured.</h4>\n'
             f'<div class="ar-tw ar-tw-wide"><table class="ar-tab ar-num ar-s3 ar-s4"><thead><tr><th scope="col">GPU fans, both cards</th>' + "".join(f'<th scope="col">{("&asymp;2920" if cc == 3000 else cc)}&nbsp;rpm</th>' for cc in CASES) + f'</tr></thead><tbody>{body}</tbody></table></div>\n')
-TB = (f'  <h3 id="steady4-grid">Two-card data: steady4 (in progress)</h3>\n  <p>' + (f'The two-card grid has reached {len(cells)} of its 161 points, with {len(SKIP - set(cells))} skipped at a safety limit; the tables fill as it runs.' if cells else 'The two-card grid has not started yet; the tables below fill as it runs, one per card and power limit.')
+TB = (f'  <h3 id="steady4-grid">Two-card data: steady4 (in progress)</h3>\n  <p>' + (f'The two-card grid has reached {len(cells)} of its 161 points; the tables fill as it runs.' if cells else 'The two-card grid has not started yet; the tables below fill as it runs, one per card and power limit.')
       + '</p>\n' + "".join(tab(pl, c) for pl in PLS for c in "AB")
-      + '  <p class="ar-note">A dot (&middot;) means the setting has not been measured yet; a cross (&times;) that it was skipped because a card reached a safety limit (memory 95, core 85 or hot spot 92&nbsp;&deg;C); at 100&nbsp;% power limit only GPU fans of 90&nbsp;% and above are run. Core from the NVAPI sensor of each card. ' + ('<a href="/research/data/gpu-map-steady4-cells.csv">Data (CSV)</a>, with the memory of both cards and the intake air.' if cells else 'The data file appears here once the run starts.') + '</p>')
+      + '  <p class="ar-note">A dot (&middot;) means the setting has not been measured yet; a cross (&times;) that it was skipped after a card stayed at a safety limit (memory 95, core 85 or hot spot 92&nbsp;&deg;C) for at least 90&nbsp;s; at 100&nbsp;% power limit only GPU fans of 90&nbsp;% and above are run. Core from the NVAPI sensor of each card. ' + ('<a href="/research/data/gpu-map-steady4-cells.csv">Data (CSV)</a>, with the memory of both cards and the intake air.' if cells else 'The data file appears here once the run starts.') + '</p>')
 s = F.read_text()
 s = put(s, "settle", SET, before="<!--stats:start-->")
 s = put(s, "s4method", MET, before='<h3 id="models"')
