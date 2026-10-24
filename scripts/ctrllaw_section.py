@@ -7,8 +7,8 @@ M = json.load(open(G / "results-2026-10-23/modes-noise.json"))
 TEX = [r"$$\hat T_{\mathrm{core}}(N,C,P)=T_{\mathrm{in}}+\theta_0+P\Big[r_\infty+\frac{1}{g_N (N/1000)^{m}+g_C (C/1500)^{s}}\Big]",
        r"$$\hat T_{\mathrm{mem}}(N,C,P)=T_{\mathrm{in}}+\theta_{0,\mathrm{mem}}+P\Big[r'_\infty+\frac{1}{g'_N (N/1000)^{m'}+g'_C (C/1500)^{s'}}\Big]",
        r"$$L(N,C)=10\log_{10}\!\big(10^{L_g(N)/10}+4\cdot 10^{L_f(C)/10}+3\cdot 10^{L_f(C_r)/10}\big),\quad L_g=32.5+50\log_{10}\tfrac{N}{1570},\quad L_f(x)=-167.1+60.2\log_{10}x,\quad C_r=\min(\max(C,888),2745)",
-       r"$$(N^\ast,C^\ast)=\arg\min_{N,C}\ L(N,C)\quad\text{subject to}\quad L(N,C)\le B_{\mathrm{mode}},\ \ \hat T_{\mathrm{core}}\le T_{\mathrm{core}}^{\max}-\Delta_{\mathrm{core}},\ \ \hat T_{\mathrm{mem}}\le T_{\mathrm{mem}}^{\max}-\Delta_{\mathrm{mem}}",
-       r"$$\text{if infeasible: }(N^\ast,C^\ast)=\arg\min_{L(N,C)\le B_{\mathrm{mode}}}\hat T_{\mathrm{core}};\ \text{if that breaks }T^{\max}:\ P_{\lim}\leftarrow\max(P_{\lim}-5\%,70\%)\text{ every }30\text{ s};\ \text{only at }70\%\text{ may }L>B_{\mathrm{mode}}",
+       r"$$\begin{aligned}(N^\ast,C^\ast)&=\arg\min_{N,C}\,L(N,C)\quad\text{subject to}\\ L(N,C)&\le B_{\mathrm{mode}},\\ \hat T_{\mathrm{core}}&\le T_{\mathrm{core}}^{\max}-\Delta_{\mathrm{core}},\\ \hat T_{\mathrm{mem}}&\le T_{\mathrm{mem}}^{\max}-\Delta_{\mathrm{mem}}\end{aligned}",
+       r"$$\begin{aligned}&\text{if infeasible:}\ \ (N^\ast,C^\ast)=\arg\min_{L(N,C)\le B_{\mathrm{mode}}}\hat T_{\mathrm{core}};\\ &\text{if a limit is still broken:}\\ &\quad P_{\lim}\leftarrow\max(P_{\lim}-5\%,\,70\%)\ \text{every 30 s};\\ &\text{only at }P_{\lim}=70\%\text{ may }L>B_{\mathrm{mode}}\end{aligned}",
        r"B_{\mathrm{mode}}", r"T_{\mathrm{core}}^{\max}", r"T_{\mathrm{mem}}^{\max}", r"N", r"C", r"P"]
 H = json.loads(subprocess.run(["node", str(Path(__file__).parent / "tex.js")], input=json.dumps(TEX), capture_output=True, text=True, check=True).stdout)
 _t0 = 1792749600   # 2026-10-23 12:00: only panels of the noise-budget version
@@ -25,10 +25,10 @@ import sys as _s0; _s0.path.insert(0, str(G)); import model3
 S3 = json.load(open(G / "results-2026-10-24/steady3-fit.json")); S3H = json.load(open(G / "data/steady3-2026-10-23/status.json"))["elapsed_s"] / 3600; FC3, FM3 = S3["forms"]["core"][model3.FORM], S3["forms"]["mem"][model3.FORM]
 CP, MP = model3.P_core, model3.P_mem
 def _eq(p, lhs, tag):
-    v = {k: x for k, (x, _) in p.items()}
-    return (r"$$\hat T_{\mathrm{" + lhs + r"}}=T_{\mathrm{in}}+" + f'{v["θ0"]:.2f}' + r"+P\Big[" + f'{v["r∞"]/1000:.4f}' + r"+\frac{1}{\dfrac{" + f'{v["gN"]:.1f}' + r"\,n^{" + f'{v["m"]:.2f}' + r"}}{" + f'{v["n½"]:.2f}' + r"^{" + f'{v["m"]:.2f}' + r"}+n^{" + f'{v["m"]:.2f}' + r"}}+" + f'{v["gC"]:.2f}' + r"\,c^{" + f'{v["s"]:.2f}' + r"}}\Big]\tag{" + tag + "}")
+    v = {k: x for k, (x, _) in p.items()}; g = "G_{\\mathrm{" + lhs + "}}"
+    return (r"$$\begin{aligned}\hat T_{\mathrm{" + lhs + r"}}&=T_{\mathrm{in}}+" + f'{v["θ0"]:.2f}' + r"+P\,\Big[" + f'{v["r∞"]/1000:.4f}' + r"+\frac{1}{" + g + r"}\Big]\\ " + g + r"&=\frac{" + f'{v["gN"]:.1f}' + r"\,n^{" + f'{v["m"]:.2f}' + r"}}{" + f'{v["n½"]:.2f}' + r"^{" + f'{v["m"]:.2f}' + r"}+n^{" + f'{v["m"]:.2f}' + r"}}+" + f'{v["gC"]:.2f}' + r"\,c^{" + f'{v["s"]:.2f}' + r"}\\ n&=N/1000,\quad c=C/1500\end{aligned}\tag{" + tag + "}")
 RT = [_eq(CP, "core", "R1"), _eq(MP, "mem", "R2"),
-      r"$$L=10\log_{10}\!\Big(10^{\,[32.5+50\log_{10}(N/1570)]/10}+4\cdot10^{\,[-167.1+60.2\log_{10}C]/10}+3\cdot10^{\,[-167.1+60.2\log_{10}C_r]/10}\Big),\ \ C_r=\min(\max(C,888),2745)\tag{R3}"]
+      r"$$\begin{aligned}L&=10\log_{10}S\\ S&=10^{L_g/10}+4\cdot10^{L_f(C)/10}+3\cdot10^{L_f(C_r)/10}\\ L_g&=32.5+50\log_{10}(N/1570)\\ L_f(x)&=-167.1+60.2\log_{10}x\\ C_r&=\min(\max(C,888),\,2745)\end{aligned}\tag{R3}"]
 HR = json.loads(subprocess.run(["node", str(Path(__file__).parent / "tex.js")], input=json.dumps(RT), capture_output=True, text=True, check=True).stdout)
 HK = json.loads(subprocess.run(["node", str(Path(__file__).parent / "tex.js")], input=json.dumps([re.sub(r"\\tag\{R\d\}", "", t) for t in RT]), capture_output=True, text=True, check=True).stdout)
 UN = {"θ0": "&deg;C", "r∞": "m&deg;C/W", "gN": "W/&deg;C", "m": "&mdash;", "n½": "1000&nbsp;rpm", "gC": "W/&deg;C", "s": "&mdash;"}
