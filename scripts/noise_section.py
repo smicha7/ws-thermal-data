@@ -75,7 +75,7 @@ def tw(cls, head, rows, top=None):
             i += sp
         hh = "<tr>" + th + "</tr><tr>" + "".join(f'<th scope="col">{h}</th>' for h in h2) + "</tr>"
     else: hh = "<tr>" + "".join(f'<th scope="col">{h}</th>' for h in head) + "</tr>"
-    return ('  <div class="ar-tw">\n  <table class="ar-tab ar-num ' + cls + '"><thead>' + hh +
+    return ('  <div class="ar-tw' + (' ar-tw-wide' if 'ar-rev' in cls else '') + '">\n  <table class="ar-tab ar-num ' + cls + '"><thead>' + hh +
             "</thead><tbody>" + "".join("<tr>" + "".join(f"<td>{x}</td>" for x in r) + "</tr>" for r in rows) + "</tbody></table>\n  </div>\n")
 def wcsv(name, head, rows):
     import re

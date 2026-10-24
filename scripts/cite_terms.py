@@ -115,7 +115,7 @@ def ncols(head):
     return sum(int((re.search(r'colspan="(\d+)"', t) or [0, 1])[1]) for t in re.findall(r"<th[^>]*>", first))
 def wide(cls, head):
     th = re.sub(r"<[^>]+>", "", re.search(r"<th[^>]*>(.*?)</th>", head, re.S).group(1)).strip(); n = ncols(head)
-    return n >= 8 or "ar-s3" in cls or "ar-iso" in cls or th in ("Fan control",) or (th == "Constant" and n >= 7)
+    return n >= 8 or "ar-s3" in cls or "ar-iso" in cls or "ar-rev" in cls or "ar-chrono" in cls or th in ("Fan control",) or (th == "Constant" and n >= 7)
 def fix(m):
     cls, head = m.group(2), m.group(3)
     return f'<div class="ar-tw{" ar-tw-wide" if wide(cls, head) else ""}">{m.group(1)}<table class="{cls}"{m.group(4)}>{head}'
