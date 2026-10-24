@@ -11,8 +11,9 @@ H = os.path.dirname(os.path.abspath(__file__)); out = Path(sys.argv[1]); out.mkd
 J = json.load(open(os.path.join(H, "results-2026-10-22/steady-stats.json"))); MJ = json.load(open(os.path.join(H, "results-2026-10-23/mem-model.json")))
 P = {p["param"]: p["est"] for p in J["params"]}; Q = {k: v[0] for k, v in MJ["params"].items()}
 TIN, TCORE, TMEM = 19.3, 70.0, 80.0
-core = lambda N, C, W: TIN + P["θ0"] + W * (P["r∞"] / 1000 + 1 / (P["gN"] * (N / 1000) ** P["m"] + P["gC"] * (C / 1500) ** P["s"]))
-mem = lambda N, C, W: TIN + Q["θ0m"] + W * (Q["r∞"] / 1000 + 1 / (Q["gN"] * (N / 1000) ** Q["m"] + Q["gC"] * (C / 1500) ** Q["s"]))
+sys.path.insert(0, H); import model3   # primary model (steady3 fit)
+core = lambda N, C, W: model3.core(N, C, W, TIN)
+mem = lambda N, C, W: model3.mem(N, C, W, TIN)
 hwb = np.array([(1281, 20), (1573, 25), (1871, 30), (2274, 35), (2771, 40)], float)
 (a, b), *_ = np.linalg.lstsq(np.column_stack([np.ones(5), np.log10(hwb[:, 0])]), hwb[:, 1], rcond=None)
 Lc7 = lambda r: a + b * np.log10(r) + 10 * np.log10(7)          # seven case + radiator fans together

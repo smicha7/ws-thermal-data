@@ -2,7 +2,7 @@
 Case/radiator 120 mm (SW Pro 4 120): L = a + b·log10(rpm), least squares on Hardware Busters' rpm at 20/25/30/35/40 dBA (1 m).
 GPU (RTX 5090 FE): L = 32.5 + 50·log10(rpm/1570) dBA at 1 m (GamersNexus anchor, 50·log10 fan law), the estimate already in the article.
 Total (eq. 13): L = 10·log10(10^(Lg/10) + 7·10^(Lc/10)): 4 case + 3 radiator fans at the same rpm.
-Core: model (11), reference session, intake 19.3 °C; memory: the provisional memory model.
+Core and memory: the primary model (model3.py, steady3 fit), intake 19.3 °C.
 Writes results-2026-10-23/noise-pareto.json and the article figures. Usage: noise_pareto.py outdir"""
 import json, os, sys
 from pathlib import Path
@@ -15,8 +15,9 @@ H = os.path.dirname(os.path.abspath(__file__)); out = Path(sys.argv[1]); out.mkd
 J = json.load(open(os.path.join(H, "results-2026-10-22/steady-stats.json"))); MJ = json.load(open(os.path.join(H, "results-2026-10-23/mem-model.json")))
 P = {p["param"]: p["est"] for p in J["params"]}; Q = {k: v[0] for k, v in MJ["params"].items()}
 TIN = 19.3
-core = lambda N, C, W, T=TIN: T + P["θ0"] + W * (P["r∞"] / 1000 + 1 / (P["gN"] * (N / 1000) ** P["m"] + P["gC"] * (C / 1500) ** P["s"]))
-mem = lambda N, C, W, T=TIN: T + Q["θ0m"] + W * (Q["r∞"] / 1000 + 1 / (Q["gN"] * (N / 1000) ** Q["m"] + Q["gC"] * (C / 1500) ** Q["s"]))
+import model3   # primary model (steady3 fit)
+core = lambda N, C, W, T=TIN: model3.core(N, C, W, T)
+mem = lambda N, C, W, T=TIN: model3.mem(N, C, W, T)
 # --- fan noise fits
 hwb = np.array([(1281, 20), (1573, 25), (1871, 30), (2274, 35), (2771, 40)], float)
 X = np.column_stack([np.ones(len(hwb)), np.log10(hwb[:, 0])]); (a, b), *_ = np.linalg.lstsq(X, hwb[:, 1], rcond=None)
@@ -63,6 +64,9 @@ res = dict(case_fit=dict(a=round(a, 2), b=round(b, 2), residuals=[round(x, 2) fo
            gpu_fit=dict(level=32.5, ref_rpm=1570, slope=50, anchors=res_g, pcgh=pcgh), table=table, modes=modes, cost=cost,
            pmax=dict(budgets=budgets.tolist(), **{k: [None if not np.isfinite(v) else float(v) for v in vs] for k, vs in PM.items()}),
            clock_by_power={str(int(round(w))): round(float(v)) for w, v in zip(clkW, clkV)})
+def _fr(W):
+    Tc, Tm, L = grid(W); return [dict(gpu_pct=float(GG.ravel()[i]), case_rpm=float(CCm.ravel()[i]), dBA=float(L.ravel()[i]), core=float(Tc.ravel()[i])) for i in frontier(Tc, L)]
+res["frontier"] = {str(W): _fr(W) for W in (575, 402)}
 json.dump(res, open(os.path.join(H, "results-2026-10-23/noise-pareto.json"), "w"), indent=1, default=float)
 print(json.dumps({k: res[k] for k in ("case_fit", "gpu_fit")}, indent=1, default=float)); print(json.dumps(table, indent=0)[:1500]); print(json.dumps(cost)[:800])
 # --- figures

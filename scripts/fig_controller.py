@@ -14,7 +14,7 @@ out = Path(sys.argv[1]); out.mkdir(parents=True, exist_ok=True)
 CTL = [("factory", "Factory curve, case 1000 rpm", lambda: cs.Factory()), ("quiet", "Quiet, ≤ 30 dBA", lambda: cs.Controller("quiet")),
        ("balanced", "Balanced, ≤ 35 dBA", lambda: cs.Controller("balanced")), ("performance", "Performance, ≤ 40 dBA", lambda: cs.Controller("performance"))]
 TITLE = {"step 30->575 W": "Load step, 30 to 575 W", "intake 19->30 °C": "Intake air rising from 19 to 30 °C", "bursts 60 s on/off": "Load bursts, 60 s on and off"}
-RUNS = {name: {k: cs.run(f(), Pf, Tf) for k, _, f in CTL} for name, (Pf, Tf) in cs.SCEN.items()}
+RUNS = {name: {k: cs.run(f(), Pf, Tf) for k, _, f in CTL} for name, (Pf, Tf) in cs.SCEN.items() if name in TITLE}
 THEMES = {"light": dict(bg="#ffffff", fg="#1d1d1f", grid="#d9d9de", dim="#86868b"), "dark": dict(bg="#141414", fg="#f5f5f7", grid="#3a3a3c", dim="#98989d")}
 COL = {"quiet": "#30d158", "balanced": "#0a84ff", "performance": "#ff453a"}
 cpct = lambda r: (np.asarray(r) - 330.4) / 26.13; crpm = lambda q: np.asarray(q) * 26.13 + 330.4

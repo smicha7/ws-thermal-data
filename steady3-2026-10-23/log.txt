@@ -1,0 +1,500 @@
+2026-10-23 08:20:29 start (próba 1), tryb rpmgrid, budżet 30 h, obudowa: open top; 1 GPU (RTX 5090); Seb 2026-10-23 FINAL 1-GPU grid: case AND radiator fans same rpm 800 / 1000 / 1300 / 1600 / 1900 / 2400 / 3000 (radiator at its ~880 rpm minimum below that) × card 40–100 % × PL 100 / 90 / 80 / 70 %, serpentine (card up, PL alternating, case alternating), anchor card 40 % / case 1600 / PL 100 at the start and the end only (path: research/gpu-map/plan/steady3_path.csv, koncertmistrz 2026-10-23); each point ≥ 5 min (card 40 %: ≥ 8 min) then |dT/dt| < 0.1 °C/min, max 15 min; pump untouched; NVIDIA defaults only. Seb GO 2026-10-23.
+2026-10-23 08:20:29 spis czujników: 341
+2026-10-23 08:20:31 progi karty: shutdown 96 °C, slowdown 93 °C, gpu_max 90 °C → przerwanie: rdzeń 88, pamięć 95, hot spot 95
+2026-10-23 08:20:31 obciążenie: proces w sesji użytkownika
+2026-10-23 08:20:31 etap: Hold
+2026-10-23 08:20:31 siatka po obrotach: 198 punktów, start 40 % / 1600 rpm
+2026-10-23 obciążenie 08:20:31 start: plik stanu jest, tryb mix64
+2026-10-23 obciążenie 08:20:31 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-23 obciążenie 08:20:31 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-23 obciążenie 08:20:31 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-23 08:20:47 trzymanie: 47.3 % → 1614 rpm (cel 1600)
+2026-10-23 08:31:21 punkt 1/198: obie 40 % / 1600 rpm → rdzeń 79.0, pamięć 88.0 °C, 652 s
+2026-10-23 08:31:43 trzymanie: 20.8 % → 797 rpm (cel 800)
+2026-10-23 08:32:03 trzymanie: 20.0 % → 811 rpm (cel 800)
+2026-10-23 08:32:03 chłodnica staje — minimum 6 %
+2026-10-23 08:41:27 punkt 2/198: obie 40 % / 800 rpm → rdzeń 85.0, pamięć 94.0 °C, 606 s
+2026-10-23 08:41:53 trzymanie: 25.3 % → 989 rpm (cel 1000)
+2026-10-23 08:42:18 trzymanie: 26.7 % → 1002 rpm (cel 1000)
+2026-10-23 08:49:27 punkt 3/198: obie 40 % / 1000 rpm → rdzeń 83.0, pamięć 92.0 °C, 480 s
+2026-10-23 08:49:58 trzymanie: 36.8 % → 1302 rpm (cel 1300)
+2026-10-23 08:57:27 punkt 4/198: obie 40 % / 1300 rpm → rdzeń 81.3, pamięć 90.0 °C, 480 s
+2026-10-23 08:57:58 trzymanie: 47.7 % → 1605 rpm (cel 1600)
+2026-10-23 08:58:23 trzymanie: 46.7 % → 1594 rpm (cel 1600)
+2026-10-23 08:58:58 trzymanie: 47.3 % → 1595 rpm (cel 1600)
+2026-10-23 09:05:27 punkt 5/198: obie 40 % / 1600 rpm → rdzeń 79.9, pamięć 88.0 °C, 480 s
+2026-10-23 09:05:48 trzymanie: 57.9 % → 1907 rpm (cel 1900)
+2026-10-23 09:06:08 trzymanie: 58.4 % → 1897 rpm (cel 1900)
+2026-10-23 09:13:27 punkt 6/198: obie 40 % / 1900 rpm → rdzeń 78.8, pamięć 86.0 °C, 480 s
+2026-10-23 09:13:38 trzymanie: 79.3 % → 2411 rpm (cel 2400)
+2026-10-23 09:13:58 trzymanie: 78.5 % → 2411 rpm (cel 2400)
+2026-10-23 09:21:27 punkt 7/198: obie 40 % / 2400 rpm → rdzeń 77.0, pamięć 84.0 °C, 480 s
+2026-10-23 09:29:27 punkt 8/198: obie 40 % / 3000 rpm → rdzeń 74.0, pamięć 82.0 °C, 480 s
+2026-10-23 09:37:27 punkt 9/198: obie 40 % / 3000 rpm → rdzeń 69.0, pamięć 78.0 °C, 480 s
+2026-10-23 09:37:33 trzymanie: 77.0 % → 2409 rpm (cel 2400)
+2026-10-23 09:40:23 trzymanie: 77.8 % → 2398 rpm (cel 2400)
+2026-10-23 09:45:27 punkt 10/198: obie 40 % / 2400 rpm → rdzeń 71.0, pamięć 80.0 °C, 480 s
+2026-10-23 09:45:59 trzymanie: 58.5 % → 1909 rpm (cel 1900)
+2026-10-23 09:53:27 punkt 11/198: obie 40 % / 1900 rpm → rdzeń 73.0, pamięć 82.0 °C, 480 s
+2026-10-23 09:53:59 trzymanie: 46.7 % → 1594 rpm (cel 1600)
+2026-10-23 09:54:49 trzymanie: 46.7 % → 1593 rpm (cel 1600)
+2026-10-23 10:01:27 punkt 12/198: obie 40 % / 1600 rpm → rdzeń 74.0, pamięć 83.9 °C, 480 s
+2026-10-23 10:01:53 trzymanie: 37.6 % → 1311 rpm (cel 1300)
+2026-10-23 10:02:13 trzymanie: 36.8 % → 1310 rpm (cel 1300)
+2026-10-23 10:10:08 punkt 13/198: obie 40 % / 1300 rpm → rdzeń 75.0, pamięć 84.6 °C, 521 s
+2026-10-23 10:10:14 trzymanie: 23.8 % → 988 rpm (cel 1000)
+2026-10-23 10:10:49 trzymanie: 26.3 % → 1010 rpm (cel 1000)
+2026-10-23 10:18:09 punkt 14/198: obie 40 % / 1000 rpm → rdzeń 77.0, pamięć 86.0 °C, 481 s
+2026-10-23 10:18:25 trzymanie: 20.8 % → 801 rpm (cel 800)
+2026-10-23 10:18:45 trzymanie: 20.0 % → 814 rpm (cel 800)
+2026-10-23 10:26:09 punkt 15/198: obie 40 % / 800 rpm → rdzeń 78.9, pamięć 88.0 °C, 480 s
+2026-10-23 10:26:10 trzymanie: 20.0 % → 803 rpm (cel 800)
+2026-10-23 10:36:01 punkt 16/198: obie 40 % / 800 rpm → rdzeń 72.0, pamięć 83.7 °C, 592 s
+2026-10-23 10:36:23 trzymanie: 25.7 % → 999 rpm (cel 1000)
+2026-10-23 10:44:01 punkt 17/198: obie 40 % / 1000 rpm → rdzeń 71.0, pamięć 82.0 °C, 480 s
+2026-10-23 10:44:17 trzymanie: 36.4 % → 1306 rpm (cel 1300)
+2026-10-23 10:52:01 punkt 18/198: obie 40 % / 1300 rpm → rdzeń 69.0, pamięć 80.0 °C, 480 s
+2026-10-23 10:52:18 trzymanie: 47.1 % → 1605 rpm (cel 1600)
+2026-10-23 11:00:01 punkt 19/198: obie 40 % / 1600 rpm → rdzeń 68.0, pamięć 78.0 °C, 480 s
+2026-10-23 11:00:17 trzymanie: 58.2 % → 1903 rpm (cel 1900)
+2026-10-23 11:08:01 punkt 20/198: obie 40 % / 1900 rpm → rdzeń 67.0, pamięć 78.0 °C, 480 s
+2026-10-23 11:08:12 trzymanie: 79.6 % → 2409 rpm (cel 2400)
+2026-10-23 11:08:37 trzymanie: 78.2 % → 2409 rpm (cel 2400)
+2026-10-23 11:16:01 punkt 21/198: obie 40 % / 2400 rpm → rdzeń 65.7, pamięć 76.0 °C, 480 s
+2026-10-23 11:24:01 punkt 22/198: obie 40 % / 3000 rpm → rdzeń 63.0, pamięć 74.0 °C, 480 s
+2026-10-23 11:32:01 punkt 23/198: obie 40 % / 3000 rpm → rdzeń 58.0, pamięć 70.0 °C, 480 s
+2026-10-23 11:32:22 trzymanie: 78.3 % → 2405 rpm (cel 2400)
+2026-10-23 11:33:57 trzymanie: 77.7 % → 2405 rpm (cel 2400)
+2026-10-23 11:40:01 punkt 24/198: obie 40 % / 2400 rpm → rdzeń 60.0, pamięć 72.0 °C, 480 s
+2026-10-23 11:40:22 trzymanie: 59.2 % → 1910 rpm (cel 1900)
+2026-10-23 11:40:47 trzymanie: 57.8 % → 1897 rpm (cel 1900)
+2026-10-23 11:48:01 punkt 25/198: obie 40 % / 1900 rpm → rdzeń 61.0, pamięć 74.0 °C, 480 s
+2026-10-23 11:48:18 trzymanie: 47.6 % → 1602 rpm (cel 1600)
+2026-10-23 11:56:01 punkt 26/198: obie 40 % / 1600 rpm → rdzeń 62.0, pamięć 74.0 °C, 480 s
+2026-10-23 11:56:23 trzymanie: 37.3 % → 1290 rpm (cel 1300)
+2026-10-23 12:04:04 punkt 27/198: obie 40 % / 1300 rpm → rdzeń 63.0, pamięć 76.0 °C, 483 s
+2026-10-23 12:04:11 trzymanie: 24.3 % → 1001 rpm (cel 1000)
+2026-10-23 12:04:36 trzymanie: 27.1 % → 1002 rpm (cel 1000)
+2026-10-23 12:12:04 punkt 28/198: obie 40 % / 1000 rpm → rdzeń 64.0, pamięć 76.0 °C, 480 s
+2026-10-23 12:12:36 trzymanie: 19.5 % → 795 rpm (cel 800)
+2026-10-23 12:20:04 punkt 29/198: obie 40 % / 800 rpm → rdzeń 66.0, pamięć 78.0 °C, 480 s
+2026-10-23 12:20:05 trzymanie: 19.5 % → 795 rpm (cel 800)
+2026-10-23 12:26:58 punkt 30/198: obie 50 % / 800 rpm → rdzeń 60.0, pamięć 72.0 °C, 414 s
+2026-10-23 12:27:14 trzymanie: 25.4 % → 1008 rpm (cel 1000)
+2026-10-23 12:27:39 trzymanie: 26.8 % → 996 rpm (cel 1000)
+2026-10-23 12:32:15 punkt 31/198: obie 50 % / 1000 rpm → rdzeń 58.0, pamięć 71.1 °C, 317 s
+2026-10-23 12:32:21 trzymanie: 39.8 % → 1311 rpm (cel 1300)
+2026-10-23 12:32:47 trzymanie: 35.9 % → 1292 rpm (cel 1300)
+2026-10-23 12:33:07 trzymanie: 36.6 % → 1291 rpm (cel 1300)
+2026-10-23 12:37:21 punkt 32/198: obie 50 % / 1300 rpm → rdzeń 58.0, pamięć 70.0 °C, 306 s
+2026-10-23 12:37:42 trzymanie: 47.2 % → 1599 rpm (cel 1600)
+2026-10-23 12:42:21 punkt 33/198: obie 50 % / 1600 rpm → rdzeń 57.1, pamięć 70.0 °C, 300 s
+2026-10-23 12:42:42 trzymanie: 57.8 % → 1886 rpm (cel 1900)
+2026-10-23 12:43:02 trzymanie: 58.6 % → 1886 rpm (cel 1900)
+2026-10-23 12:48:25 punkt 34/198: obie 50 % / 1900 rpm → rdzeń 57.0, pamięć 69.1 °C, 364 s
+2026-10-23 12:48:46 trzymanie: 78.7 % → 2403 rpm (cel 2400)
+2026-10-23 12:53:25 punkt 35/198: obie 50 % / 2400 rpm → rdzeń 56.0, pamięć 68.0 °C, 300 s
+2026-10-23 12:59:35 punkt 36/198: obie 50 % / 3000 rpm → rdzeń 55.0, pamięć 66.3 °C, 370 s
+2026-10-23 13:04:35 punkt 37/198: obie 50 % / 3000 rpm → rdzeń 59.6, pamięć 70.0 °C, 300 s
+2026-10-23 13:04:41 trzymanie: 77.0 % → 2405 rpm (cel 2400)
+2026-10-23 13:05:01 trzymanie: 77.7 % → 2390 rpm (cel 2400)
+2026-10-23 13:10:06 punkt 38/198: obie 50 % / 2400 rpm → rdzeń 61.0, pamięć 72.0 °C, 331 s
+2026-10-23 13:10:17 trzymanie: 56.9 % → 1904 rpm (cel 1900)
+2026-10-23 13:10:42 trzymanie: 59.3 % → 1912 rpm (cel 1900)
+2026-10-23 13:11:02 trzymanie: 58.5 % → 1909 rpm (cel 1900)
+2026-10-23 13:15:06 punkt 39/198: obie 50 % / 1900 rpm → rdzeń 61.9, pamięć 72.0 °C, 300 s
+2026-10-23 13:15:38 trzymanie: 46.8 % → 1602 rpm (cel 1600)
+2026-10-23 13:20:06 punkt 40/198: obie 50 % / 1600 rpm → rdzeń 62.6, pamięć 74.0 °C, 300 s
+2026-10-23 13:20:37 trzymanie: 36.4 % → 1303 rpm (cel 1300)
+2026-10-23 13:25:06 punkt 41/198: obie 50 % / 1300 rpm → rdzeń 63.0, pamięć 74.0 °C, 300 s
+2026-10-23 13:25:38 trzymanie: 26.3 % → 999 rpm (cel 1000)
+2026-10-23 13:30:06 punkt 42/198: obie 50 % / 1000 rpm → rdzeń 63.0, pamięć 74.0 °C, 300 s
+2026-10-23 13:30:23 trzymanie: 20.8 % → 797 rpm (cel 800)
+2026-10-23 13:30:43 trzymanie: 20.0 % → 813 rpm (cel 800)
+2026-10-23 13:36:21 punkt 43/198: obie 50 % / 800 rpm → rdzeń 65.0, pamięć 76.0 °C, 375 s
+2026-10-23 13:36:22 trzymanie: 20.0 % → 802 rpm (cel 800)
+2026-10-23 13:41:43 punkt 44/198: obie 50 % / 800 rpm → rdzeń 70.0, pamięć 80.0 °C, 322 s
+2026-10-23 13:42:00 trzymanie: 25.8 % → 1009 rpm (cel 1000)
+2026-10-23 13:42:25 trzymanie: 26.8 % → 1007 rpm (cel 1000)
+2026-10-23 13:46:56 punkt 45/198: obie 50 % / 1000 rpm → rdzeń 69.0, pamięć 78.1 °C, 313 s
+2026-10-23 13:47:18 trzymanie: 36.2 % → 1295 rpm (cel 1300)
+2026-10-23 13:47:39 trzymanie: 36.7 % → 1297 rpm (cel 1300)
+2026-10-23 13:51:56 punkt 46/198: obie 50 % / 1300 rpm → rdzeń 68.0, pamięć 78.0 °C, 300 s
+2026-10-23 13:52:12 trzymanie: 46.2 % → 1594 rpm (cel 1600)
+2026-10-23 13:52:32 trzymanie: 47.2 % → 1585 rpm (cel 1600)
+2026-10-23 13:56:56 punkt 47/198: obie 50 % / 1600 rpm → rdzeń 68.0, pamięć 78.0 °C, 300 s
+2026-10-23 13:57:03 trzymanie: 60.2 % → 1892 rpm (cel 1900)
+2026-10-23 13:57:28 trzymanie: 58.3 % → 1897 rpm (cel 1900)
+2026-10-23 14:01:56 punkt 48/198: obie 50 % / 1900 rpm → rdzeń 67.0, pamięć 76.0 °C, 300 s
+2026-10-23 14:02:17 trzymanie: 78.7 % → 2407 rpm (cel 2400)
+2026-10-23 14:08:05 punkt 49/198: obie 50 % / 2400 rpm → rdzeń 66.0, pamięć 75.4 °C, 369 s
+2026-10-23 14:13:05 punkt 50/198: obie 50 % / 3000 rpm → rdzeń 64.9, pamięć 74.0 °C, 300 s
+2026-10-23 14:18:17 punkt 51/198: obie 50 % / 3000 rpm → rdzeń 69.0, pamięć 76.0 °C, 312 s
+2026-10-23 14:18:38 trzymanie: 78.2 % → 2388 rpm (cel 2400)
+2026-10-23 obciążenie 14:20:31 koniec: kart 1, plik stanu 0 s temu
+2026-10-23 14:20:32 punkt 52: OBCIĄŻENIE PADŁO — restart i powtórka punktu
+2026-10-23 14:20:32 obciążenie: proces w sesji użytkownika
+2026-10-23 obciążenie 14:20:32 start: plik stanu jest, tryb mix64
+2026-10-23 obciążenie 14:20:32 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-23 obciążenie 14:20:32 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-23 obciążenie 14:20:32 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-23 14:25:58 punkt 52/198: obie 50 % / 2400 rpm → rdzeń 70.9, pamięć 78.1 °C, 326 s
+2026-10-23 14:26:09 trzymanie: 57.5 % → 1907 rpm (cel 1900)
+2026-10-23 14:26:30 trzymanie: 58.2 % → 1892 rpm (cel 1900)
+2026-10-23 14:31:06 punkt 53/198: obie 50 % / 1900 rpm → rdzeń 72.0, pamięć 80.0 °C, 308 s
+2026-10-23 14:31:13 trzymanie: 45.2 % → 1596 rpm (cel 1600)
+2026-10-23 14:31:38 trzymanie: 47.9 % → 1613 rpm (cel 1600)
+2026-10-23 14:31:59 trzymanie: 47.1 % → 1612 rpm (cel 1600)
+2026-10-23 14:37:01 punkt 54/198: obie 50 % / 1600 rpm → rdzeń 72.9, pamięć 80.9 °C, 355 s
+2026-10-23 14:37:37 trzymanie: 36.4 % → 1294 rpm (cel 1300)
+2026-10-23 14:42:01 punkt 55/198: obie 50 % / 1300 rpm → rdzeń 73.0, pamięć 82.0 °C, 300 s
+2026-10-23 14:42:22 trzymanie: 27.0 % → 998 rpm (cel 1000)
+2026-10-23 14:48:15 punkt 56/198: obie 50 % / 1000 rpm → rdzeń 74.0, pamięć 82.1 °C, 374 s
+2026-10-23 14:48:37 trzymanie: 20.9 % → 798 rpm (cel 800)
+2026-10-23 14:49:03 trzymanie: 19.5 % → 793 rpm (cel 800)
+2026-10-23 14:53:15 punkt 57/198: obie 50 % / 800 rpm → rdzeń 75.9, pamięć 84.0 °C, 300 s
+2026-10-23 14:53:16 trzymanie: 19.5 % → 793 rpm (cel 800)
+2026-10-23 15:00:21 punkt 58/198: obie 60 % / 800 rpm → rdzeń 69.9, pamięć 78.0 °C, 426 s
+2026-10-23 15:00:57 trzymanie: 27.3 % → 1013 rpm (cel 1000)
+2026-10-23 15:01:22 trzymanie: 25.7 % → 996 rpm (cel 1000)
+2026-10-23 15:01:42 trzymanie: 26.2 % → 996 rpm (cel 1000)
+2026-10-23 15:05:52 punkt 59/198: obie 60 % / 1000 rpm → rdzeń 68.8, pamięć 76.4 °C, 331 s
+2026-10-23 15:06:23 trzymanie: 36.9 % → 1308 rpm (cel 1300)
+2026-10-23 15:12:34 punkt 60/198: obie 60 % / 1300 rpm → rdzeń 66.5, pamięć 74.3 °C, 402 s
+2026-10-23 15:12:52 trzymanie: 47.0 % → 1602 rpm (cel 1600)
+2026-10-23 15:17:35 punkt 61/198: obie 60 % / 1600 rpm → rdzeń 67.0, pamięć 76.0 °C, 301 s
+2026-10-23 15:18:11 trzymanie: 59.1 % → 1902 rpm (cel 1900)
+2026-10-23 15:22:35 punkt 62/198: obie 60 % / 1900 rpm → rdzeń 67.1, pamięć 76.0 °C, 300 s
+2026-10-23 15:22:46 trzymanie: 79.5 % → 2413 rpm (cel 2400)
+2026-10-23 15:23:06 trzymanie: 78.7 % → 2413 rpm (cel 2400)
+2026-10-23 15:27:35 punkt 63/198: obie 60 % / 2400 rpm → rdzeń 66.8, pamięć 74.0 °C, 300 s
+2026-10-23 15:32:35 punkt 64/198: obie 60 % / 3000 rpm → rdzeń 65.8, pamięć 73.5 °C, 300 s
+2026-10-23 15:37:35 punkt 65/198: obie 60 % / 3000 rpm → rdzeń 61.3, pamięć 70.0 °C, 300 s
+2026-10-23 15:37:58 trzymanie: 78.1 % → 2392 rpm (cel 2400)
+2026-10-23 15:42:35 punkt 66/198: obie 60 % / 2400 rpm → rdzeń 62.0, pamięć 72.0 °C, 300 s
+2026-10-23 15:42:46 trzymanie: 57.4 % → 1902 rpm (cel 1900)
+2026-10-23 15:43:11 trzymanie: 58.8 % → 1901 rpm (cel 1900)
+2026-10-23 15:47:35 punkt 67/198: obie 60 % / 1900 rpm → rdzeń 63.0, pamięć 72.0 °C, 300 s
+2026-10-23 15:47:42 trzymanie: 45.8 % → 1606 rpm (cel 1600)
+2026-10-23 15:48:12 trzymanie: 47.3 % → 1614 rpm (cel 1600)
+2026-10-23 15:53:10 punkt 68/198: obie 60 % / 1600 rpm → rdzeń 62.2, pamięć 72.0 °C, 335 s
+2026-10-23 15:53:16 trzymanie: 34.3 % → 1289 rpm (cel 1300)
+2026-10-23 15:53:41 trzymanie: 37.1 % → 1308 rpm (cel 1300)
+2026-10-23 15:54:01 trzymanie: 36.5 % → 1306 rpm (cel 1300)
+2026-10-23 15:58:10 punkt 69/198: obie 60 % / 1300 rpm → rdzeń 62.0, pamięć 72.0 °C, 300 s
+2026-10-23 15:58:16 trzymanie: 23.5 % → 1012 rpm (cel 1000)
+2026-10-23 15:58:41 trzymanie: 26.9 % → 1005 rpm (cel 1000)
+2026-10-23 16:03:55 punkt 70/198: obie 60 % / 1000 rpm → rdzeń 63.9, pamięć 74.0 °C, 345 s
+2026-10-23 16:04:01 trzymanie: 17.2 % → 792 rpm (cel 800)
+2026-10-23 16:04:37 trzymanie: 19.2 % → 799 rpm (cel 800)
+2026-10-23 16:04:58 trzymanie: 20.0 % → 791 rpm (cel 800)
+2026-10-23 16:08:55 punkt 71/198: obie 60 % / 800 rpm → rdzeń 65.0, pamięć 74.1 °C, 300 s
+2026-10-23 16:08:56 trzymanie: 20.0 % → 802 rpm (cel 800)
+2026-10-23 16:13:55 punkt 72/198: obie 60 % / 800 rpm → rdzeń 60.0, pamięć 72.0 °C, 300 s
+2026-10-23 16:14:26 trzymanie: 26.8 % → 987 rpm (cel 1000)
+2026-10-23 16:18:55 punkt 73/198: obie 60 % / 1000 rpm → rdzeń 59.0, pamięć 70.0 °C, 300 s
+2026-10-23 16:19:26 trzymanie: 37.3 % → 1307 rpm (cel 1300)
+2026-10-23 16:19:51 trzymanie: 36.1 % → 1293 rpm (cel 1300)
+2026-10-23 16:21:44 trzymanie: 36.7 % → 1295 rpm (cel 1300)
+2026-10-23 16:24:22 punkt 74/198: obie 60 % / 1300 rpm → rdzeń 58.0, pamięć 68.7 °C, 327 s
+2026-10-23 16:24:43 trzymanie: 46.8 % → 1600 rpm (cel 1600)
+2026-10-23 16:30:43 punkt 75/198: obie 60 % / 1600 rpm → rdzeń 58.0, pamięć 70.0 °C, 381 s
+2026-10-23 16:31:04 trzymanie: 58.1 % → 1892 rpm (cel 1900)
+2026-10-23 16:32:15 trzymanie: 59.5 % → 1904 rpm (cel 1900)
+2026-10-23 16:32:40 trzymanie: 58.3 % → 1893 rpm (cel 1900)
+2026-10-23 16:35:52 punkt 76/198: obie 60 % / 1900 rpm → rdzeń 58.0, pamięć 69.3 °C, 309 s
+2026-10-23 16:36:03 trzymanie: 79.8 % → 2392 rpm (cel 2400)
+2026-10-23 16:36:24 trzymanie: 78.9 % → 2415 rpm (cel 2400)
+2026-10-23 16:40:52 punkt 77/198: obie 60 % / 2400 rpm → rdzeń 57.8, pamięć 68.0 °C, 300 s
+2026-10-23 16:45:52 punkt 78/198: obie 60 % / 3000 rpm → rdzeń 56.9, pamięć 68.0 °C, 300 s
+2026-10-23 16:50:53 punkt 79/198: obie 60 % / 3000 rpm → rdzeń 52.0, pamięć 64.2 °C, 301 s
+2026-10-23 16:50:59 trzymanie: 77.0 % → 2407 rpm (cel 2400)
+2026-10-23 16:51:24 trzymanie: 78.8 % → 2407 rpm (cel 2400)
+2026-10-23 16:51:44 trzymanie: 78.2 % → 2407 rpm (cel 2400)
+2026-10-23 16:55:53 punkt 80/198: obie 60 % / 2400 rpm → rdzeń 53.0, pamięć 66.0 °C, 300 s
+2026-10-23 16:56:14 trzymanie: 58.5 % → 1890 rpm (cel 1900)
+2026-10-23 17:00:53 punkt 81/198: obie 60 % / 1900 rpm → rdzeń 53.3, pamięć 66.0 °C, 300 s
+2026-10-23 17:01:24 trzymanie: 46.7 % → 1594 rpm (cel 1600)
+2026-10-23 17:02:14 trzymanie: 47.3 % → 1595 rpm (cel 1600)
+2026-10-23 17:05:53 punkt 82/198: obie 60 % / 1600 rpm → rdzeń 53.4, pamięć 66.0 °C, 300 s
+2026-10-23 17:06:10 trzymanie: 36.8 % → 1299 rpm (cel 1300)
+2026-10-23 17:10:53 punkt 83/198: obie 60 % / 1300 rpm → rdzeń 53.0, pamięć 66.0 °C, 300 s
+2026-10-23 17:10:59 trzymanie: 23.8 % → 1013 rpm (cel 1000)
+2026-10-23 17:11:35 trzymanie: 26.2 % → 999 rpm (cel 1000)
+2026-10-23 17:16:00 punkt 84/198: obie 60 % / 1000 rpm → rdzeń 54.0, pamięć 67.9 °C, 307 s
+2026-10-23 17:16:06 trzymanie: 16.5 % → 786 rpm (cel 800)
+2026-10-23 17:16:32 trzymanie: 20.7 % → 809 rpm (cel 800)
+2026-10-23 17:16:52 trzymanie: 20.0 % → 808 rpm (cel 800)
+2026-10-23 17:21:00 punkt 85/198: obie 60 % / 800 rpm → rdzeń 55.0, pamięć 68.0 °C, 300 s
+2026-10-23 17:21:01 trzymanie: 20.0 % → 808 rpm (cel 800)
+2026-10-23 17:26:00 punkt 86/198: obie 70 % / 800 rpm → rdzeń 53.0, pamięć 66.0 °C, 300 s
+2026-10-23 17:26:18 trzymanie: 26.3 % → 1011 rpm (cel 1000)
+2026-10-23 17:31:00 punkt 87/198: obie 70 % / 1000 rpm → rdzeń 52.0, pamięć 65.9 °C, 300 s
+2026-10-23 17:31:32 trzymanie: 36.7 % → 1295 rpm (cel 1300)
+2026-10-23 17:36:00 punkt 88/198: obie 70 % / 1300 rpm → rdzeń 51.0, pamięć 64.0 °C, 300 s
+2026-10-23 17:36:32 trzymanie: 47.6 % → 1595 rpm (cel 1600)
+2026-10-23 17:41:00 punkt 89/198: obie 70 % / 1600 rpm → rdzeń 50.9, pamięć 64.0 °C, 300 s
+2026-10-23 17:41:17 trzymanie: 58.7 % → 1898 rpm (cel 1900)
+2026-10-23 17:46:00 punkt 90/198: obie 70 % / 1900 rpm → rdzeń 51.0, pamięć 64.0 °C, 300 s
+2026-10-23 17:46:22 trzymanie: 78.8 % → 2409 rpm (cel 2400)
+2026-10-23 17:51:00 punkt 91/198: obie 70 % / 2400 rpm → rdzeń 51.0, pamięć 64.0 °C, 300 s
+2026-10-23 17:56:18 punkt 92/198: obie 70 % / 3000 rpm → rdzeń 50.0, pamięć 63.6 °C, 318 s
+2026-10-23 18:01:18 punkt 93/198: obie 70 % / 3000 rpm → rdzeń 54.9, pamięć 66.0 °C, 300 s
+2026-10-23 18:01:24 trzymanie: 77.0 % → 2392 rpm (cel 2400)
+2026-10-23 18:01:44 trzymanie: 78.1 % → 2390 rpm (cel 2400)
+2026-10-23 18:06:18 punkt 94/198: obie 70 % / 2400 rpm → rdzeń 55.0, pamięć 66.0 °C, 300 s
+2026-10-23 18:06:39 trzymanie: 58.7 % → 1889 rpm (cel 1900)
+2026-10-23 18:11:18 punkt 95/198: obie 70 % / 1900 rpm → rdzeń 55.0, pamięć 66.0 °C, 300 s
+2026-10-23 18:11:34 trzymanie: 47.9 % → 1612 rpm (cel 1600)
+2026-10-23 18:11:54 trzymanie: 47.1 % → 1612 rpm (cel 1600)
+2026-10-23 18:16:18 punkt 96/198: obie 70 % / 1600 rpm → rdzeń 55.0, pamięć 66.0 °C, 300 s
+2026-10-23 18:16:35 trzymanie: 37.1 % → 1293 rpm (cel 1300)
+2026-10-23 18:17:25 trzymanie: 36.5 % → 1306 rpm (cel 1300)
+2026-10-23 18:21:25 punkt 97/198: obie 70 % / 1300 rpm → rdzeń 55.6, pamięć 66.5 °C, 307 s
+2026-10-23 18:21:56 trzymanie: 26.0 % → 1000 rpm (cel 1000)
+2026-10-23 18:26:25 punkt 98/198: obie 70 % / 1000 rpm → rdzeń 56.7, pamięć 68.0 °C, 300 s
+2026-10-23 18:26:42 trzymanie: 20.3 % → 785 rpm (cel 800)
+2026-10-23 18:31:29 punkt 99/198: obie 70 % / 800 rpm → rdzeń 57.0, pamięć 68.4 °C, 304 s
+2026-10-23 18:31:30 trzymanie: 20.3 % → 811 rpm (cel 800)
+2026-10-23 18:36:33 punkt 100/198: obie 70 % / 800 rpm → rdzeń 61.9, pamięć 72.0 °C, 304 s
+2026-10-23 18:36:51 trzymanie: 26.1 % → 1004 rpm (cel 1000)
+2026-10-23 18:41:33 punkt 101/198: obie 70 % / 1000 rpm → rdzeń 61.0, pamięć 70.1 °C, 300 s
+2026-10-23 18:41:49 trzymanie: 35.5 % → 1294 rpm (cel 1300)
+2026-10-23 18:42:14 trzymanie: 37.1 % → 1305 rpm (cel 1300)
+2026-10-23 18:42:39 trzymanie: 36.1 % → 1291 rpm (cel 1300)
+2026-10-23 18:46:33 punkt 102/198: obie 70 % / 1300 rpm → rdzeń 60.0, pamięć 70.0 °C, 300 s
+2026-10-23 18:46:55 trzymanie: 46.9 % → 1614 rpm (cel 1600)
+2026-10-23 18:51:42 punkt 103/198: obie 70 % / 1600 rpm → rdzeń 59.0, pamięć 68.5 °C, 309 s
+2026-10-23 18:51:48 trzymanie: 59.9 % → 1898 rpm (cel 1900)
+2026-10-23 18:52:13 trzymanie: 58.3 % → 1890 rpm (cel 1900)
+2026-10-23 18:56:56 punkt 104/198: obie 70 % / 1900 rpm → rdzeń 59.6, pamięć 69.3 °C, 314 s
+2026-10-23 18:57:07 trzymanie: 79.6 % → 2388 rpm (cel 2400)
+2026-10-23 18:57:27 trzymanie: 78.8 % → 2411 rpm (cel 2400)
+2026-10-23 19:02:38 punkt 105/198: obie 70 % / 2400 rpm → rdzeń 59.8, pamięć 68.9 °C, 342 s
+2026-10-23 19:07:38 punkt 106/198: obie 70 % / 3000 rpm → rdzeń 59.0, pamięć 68.0 °C, 300 s
+2026-10-23 19:12:38 punkt 107/198: obie 70 % / 3000 rpm → rdzeń 63.0, pamięć 70.2 °C, 300 s
+2026-10-23 19:12:59 trzymanie: 78.5 % → 2405 rpm (cel 2400)
+2026-10-23 19:17:38 punkt 108/198: obie 70 % / 2400 rpm → rdzeń 63.9, pamięć 72.0 °C, 300 s
+2026-10-23 19:17:49 trzymanie: 57.2 % → 1886 rpm (cel 1900)
+2026-10-23 19:18:10 trzymanie: 58.0 % → 1886 rpm (cel 1900)
+2026-10-23 19:22:38 punkt 109/198: obie 70 % / 1900 rpm → rdzeń 63.6, pamięć 72.0 °C, 300 s
+2026-10-23 19:22:55 trzymanie: 47.5 % → 1599 rpm (cel 1600)
+2026-10-23 19:27:38 punkt 110/198: obie 70 % / 1600 rpm → rdzeń 63.0, pamięć 72.0 °C, 300 s
+2026-10-23 19:27:59 trzymanie: 37.1 % → 1305 rpm (cel 1300)
+2026-10-23 19:28:24 trzymanie: 36.1 % → 1293 rpm (cel 1300)
+2026-10-23 19:32:38 punkt 111/198: obie 70 % / 1300 rpm → rdzeń 64.0, pamięć 72.0 °C, 300 s
+2026-10-23 19:32:55 trzymanie: 26.9 % → 999 rpm (cel 1000)
+2026-10-23 19:37:38 punkt 112/198: obie 70 % / 1000 rpm → rdzeń 65.0, pamięć 74.0 °C, 300 s
+2026-10-23 19:37:44 trzymanie: 17.2 % → 789 rpm (cel 800)
+2026-10-23 19:38:04 trzymanie: 19.9 % → 790 rpm (cel 800)
+2026-10-23 19:43:42 punkt 113/198: obie 70 % / 800 rpm → rdzeń 66.1, pamięć 75.9 °C, 364 s
+2026-10-23 19:43:43 trzymanie: 19.9 % → 801 rpm (cel 800)
+2026-10-23 19:48:42 punkt 114/198: obie 80 % / 800 rpm → rdzeń 63.8, pamięć 72.0 °C, 300 s
+2026-10-23 19:49:09 trzymanie: 26.4 % → 991 rpm (cel 1000)
+2026-10-23 19:53:42 punkt 115/198: obie 80 % / 1000 rpm → rdzeń 63.0, pamięć 72.0 °C, 300 s
+2026-10-23 19:53:58 trzymanie: 35.3 % → 1287 rpm (cel 1300)
+2026-10-23 19:54:18 trzymanie: 36.2 % → 1286 rpm (cel 1300)
+2026-10-23 19:58:42 punkt 116/198: obie 80 % / 1300 rpm → rdzeń 62.0, pamięć 70.0 °C, 300 s
+2026-10-23 19:59:08 trzymanie: 47.1 % → 1592 rpm (cel 1600)
+2026-10-23 20:03:42 punkt 117/198: obie 80 % / 1600 rpm → rdzeń 61.0, pamięć 69.9 °C, 300 s
+2026-10-23 20:03:48 trzymanie: 60.1 % → 1909 rpm (cel 1900)
+2026-10-23 20:04:08 trzymanie: 58.9 % → 1912 rpm (cel 1900)
+2026-10-23 20:08:42 punkt 118/198: obie 80 % / 1900 rpm → rdzeń 61.0, pamięć 70.0 °C, 300 s
+2026-10-23 20:08:53 trzymanie: 79.4 % → 2400 rpm (cel 2400)
+2026-10-23 20:09:58 trzymanie: 78.6 % → 2411 rpm (cel 2400)
+2026-10-23 20:13:42 punkt 119/198: obie 80 % / 2400 rpm → rdzeń 61.0, pamięć 70.0 °C, 300 s
+2026-10-23 20:19:14 punkt 120/198: obie 80 % / 3000 rpm → rdzeń 61.0, pamięć 68.4 °C, 332 s
+2026-10-23 obciążenie 20:20:32 koniec: kart 1, plik stanu 1 s temu
+2026-10-23 20:20:32 punkt 121: OBCIĄŻENIE PADŁO — restart i powtórka punktu
+2026-10-23 20:20:32 obciążenie: proces w sesji użytkownika
+2026-10-23 obciążenie 20:20:32 start: plik stanu jest, tryb mix64
+2026-10-23 obciążenie 20:20:33 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-23 obciążenie 20:20:33 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-23 obciążenie 20:20:33 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-23 20:26:10 punkt 121/198: obie 80 % / 3000 rpm → rdzeń 58.0, pamięć 66.1 °C, 338 s
+2026-10-23 20:26:46 trzymanie: 78.2 % → 2407 rpm (cel 2400)
+2026-10-23 20:32:24 punkt 122/198: obie 80 % / 2400 rpm → rdzeń 58.0, pamięć 67.5 °C, 374 s
+2026-10-23 20:32:45 trzymanie: 58.5 % → 1895 rpm (cel 1900)
+2026-10-23 20:37:24 punkt 123/198: obie 80 % / 1900 rpm → rdzeń 57.8, pamięć 66.6 °C, 300 s
+2026-10-23 20:37:30 trzymanie: 45.5 % → 1610 rpm (cel 1600)
+2026-10-23 20:37:55 trzymanie: 47.4 % → 1601 rpm (cel 1600)
+2026-10-23 20:42:25 punkt 124/198: obie 80 % / 1600 rpm → rdzeń 58.0, pamięć 67.9 °C, 301 s
+2026-10-23 20:43:01 trzymanie: 36.1 % → 1308 rpm (cel 1300)
+2026-10-23 20:47:45 punkt 125/198: obie 80 % / 1300 rpm → rdzeń 59.0, pamięć 68.0 °C, 320 s
+2026-10-23 20:48:37 trzymanie: 26.8 % → 1005 rpm (cel 1000)
+2026-10-23 20:52:45 punkt 126/198: obie 80 % / 1000 rpm → rdzeń 59.9, pamięć 69.8 °C, 300 s
+2026-10-23 20:53:07 trzymanie: 20.8 % → 814 rpm (cel 800)
+2026-10-23 20:53:32 trzymanie: 19.2 % → 796 rpm (cel 800)
+2026-10-23 20:57:45 punkt 127/198: obie 80 % / 800 rpm → rdzeń 60.0, pamięć 70.0 °C, 300 s
+2026-10-23 20:57:46 trzymanie: 19.2 % → 785 rpm (cel 800)
+2026-10-23 21:03:28 punkt 128/198: obie 80 % / 800 rpm → rdzeń 56.0, pamięć 67.3 °C, 343 s
+2026-10-23 21:04:14 trzymanie: 25.8 % → 1013 rpm (cel 1000)
+2026-10-23 21:08:28 punkt 129/198: obie 80 % / 1000 rpm → rdzeń 55.8, pamięć 66.0 °C, 300 s
+2026-10-23 21:08:49 trzymanie: 35.8 % → 1305 rpm (cel 1300)
+2026-10-23 21:09:14 trzymanie: 37.0 % → 1306 rpm (cel 1300)
+2026-10-23 21:13:28 punkt 130/198: obie 80 % / 1300 rpm → rdzeń 55.0, pamięć 66.0 °C, 300 s
+2026-10-23 21:13:59 trzymanie: 47.6 % → 1590 rpm (cel 1600)
+2026-10-23 21:20:06 punkt 131/198: obie 80 % / 1600 rpm → rdzeń 54.0, pamięć 64.6 °C, 398 s
+2026-10-23 21:20:12 trzymanie: 60.6 % → 1914 rpm (cel 1900)
+2026-10-23 21:20:32 trzymanie: 58.9 % → 1915 rpm (cel 1900)
+2026-10-23 21:25:23 punkt 132/198: obie 80 % / 1900 rpm → rdzeń 53.9, pamięć 64.2 °C, 317 s
+2026-10-23 21:25:45 trzymanie: 79.0 % → 2407 rpm (cel 2400)
+2026-10-23 21:30:27 punkt 133/198: obie 80 % / 2400 rpm → rdzeń 54.0, pamięć 64.7 °C, 304 s
+2026-10-23 21:35:27 punkt 134/198: obie 80 % / 3000 rpm → rdzeń 53.8, pamięć 64.0 °C, 300 s
+2026-10-23 21:40:27 punkt 135/198: obie 80 % / 3000 rpm → rdzeń 49.9, pamięć 62.0 °C, 300 s
+2026-10-23 21:40:33 trzymanie: 77.0 % → 2392 rpm (cel 2400)
+2026-10-23 21:41:03 trzymanie: 79.2 % → 2405 rpm (cel 2400)
+2026-10-23 21:41:23 trzymanie: 78.6 % → 2405 rpm (cel 2400)
+2026-10-23 21:45:27 punkt 136/198: obie 80 % / 2400 rpm → rdzeń 50.0, pamięć 62.0 °C, 300 s
+2026-10-23 21:45:48 trzymanie: 59.2 % → 1909 rpm (cel 1900)
+2026-10-23 21:46:08 trzymanie: 58.5 % → 1909 rpm (cel 1900)
+2026-10-23 21:50:27 punkt 137/198: obie 80 % / 1900 rpm → rdzeń 49.0, pamięć 62.1 °C, 300 s
+2026-10-23 21:50:44 trzymanie: 47.7 % → 1606 rpm (cel 1600)
+2026-10-23 21:51:04 trzymanie: 47.1 % → 1606 rpm (cel 1600)
+2026-10-23 21:55:27 punkt 138/198: obie 80 % / 1600 rpm → rdzeń 49.7, pamięć 62.0 °C, 300 s
+2026-10-23 21:55:59 trzymanie: 36.2 % → 1298 rpm (cel 1300)
+2026-10-23 22:00:27 punkt 139/198: obie 80 % / 1300 rpm → rdzeń 50.0, pamięć 63.9 °C, 300 s
+2026-10-23 22:00:58 trzymanie: 26.3 % → 1003 rpm (cel 1000)
+2026-10-23 22:05:27 punkt 140/198: obie 80 % / 1000 rpm → rdzeń 51.0, pamięć 64.0 °C, 300 s
+2026-10-23 22:05:44 trzymanie: 20.8 % → 799 rpm (cel 800)
+2026-10-23 22:06:20 trzymanie: 20.2 % → 796 rpm (cel 800)
+2026-10-23 22:10:27 punkt 141/198: obie 80 % / 800 rpm → rdzeń 51.0, pamięć 64.0 °C, 300 s
+2026-10-23 22:10:28 trzymanie: 20.2 % → 807 rpm (cel 800)
+2026-10-23 22:15:28 punkt 142/198: obie 90 % / 800 rpm → rdzeń 50.0, pamięć 63.3 °C, 301 s
+2026-10-23 22:15:55 trzymanie: 26.7 % → 997 rpm (cel 1000)
+2026-10-23 22:21:43 punkt 143/198: obie 90 % / 1000 rpm → rdzeń 49.8, pamięć 62.7 °C, 375 s
+2026-10-23 22:22:24 trzymanie: 36.8 % → 1311 rpm (cel 1300)
+2026-10-23 22:26:43 punkt 144/198: obie 90 % / 1300 rpm → rdzeń 49.0, pamięć 62.0 °C, 300 s
+2026-10-23 22:26:59 trzymanie: 46.7 % → 1599 rpm (cel 1600)
+2026-10-23 22:31:43 punkt 145/198: obie 90 % / 1600 rpm → rdzeń 48.0, pamięć 62.0 °C, 300 s
+2026-10-23 22:32:04 trzymanie: 58.4 % → 1910 rpm (cel 1900)
+2026-10-23 22:36:43 punkt 146/198: obie 90 % / 1900 rpm → rdzeń 48.0, pamięć 62.0 °C, 300 s
+2026-10-23 22:36:54 trzymanie: 80.1 % → 2415 rpm (cel 2400)
+2026-10-23 22:37:15 trzymanie: 79.2 % → 2415 rpm (cel 2400)
+2026-10-23 22:41:43 punkt 147/198: obie 90 % / 2400 rpm → rdzeń 48.0, pamięć 62.0 °C, 300 s
+2026-10-23 22:46:49 punkt 148/198: obie 90 % / 3000 rpm → rdzeń 48.0, pamięć 61.7 °C, 306 s
+2026-10-23 22:52:12 punkt 149/198: obie 90 % / 3000 rpm → rdzeń 52.0, pamięć 64.0 °C, 323 s
+2026-10-23 22:52:18 trzymanie: 77.0 % → 2405 rpm (cel 2400)
+2026-10-23 22:52:43 trzymanie: 79.0 % → 2403 rpm (cel 2400)
+2026-10-23 22:57:12 punkt 150/198: obie 90 % / 2400 rpm → rdzeń 52.0, pamięć 64.0 °C, 300 s
+2026-10-23 22:57:23 trzymanie: 57.5 % → 1891 rpm (cel 1900)
+2026-10-23 22:57:48 trzymanie: 58.9 % → 1902 rpm (cel 1900)
+2026-10-23 23:02:13 punkt 151/198: obie 90 % / 1900 rpm → rdzeń 52.0, pamięć 64.0 °C, 301 s
+2026-10-23 23:02:19 trzymanie: 45.9 % → 1589 rpm (cel 1600)
+2026-10-23 23:02:39 trzymanie: 47.0 % → 1591 rpm (cel 1600)
+2026-10-23 23:07:13 punkt 152/198: obie 90 % / 1600 rpm → rdzeń 52.0, pamięć 64.0 °C, 300 s
+2026-10-23 23:07:44 trzymanie: 36.4 % → 1302 rpm (cel 1300)
+2026-10-23 23:12:13 punkt 153/198: obie 90 % / 1300 rpm → rdzeń 53.0, pamięć 64.0 °C, 300 s
+2026-10-23 23:12:45 trzymanie: 26.1 % → 999 rpm (cel 1000)
+2026-10-23 23:17:13 punkt 154/198: obie 90 % / 1000 rpm → rdzeń 53.9, pamięć 65.9 °C, 300 s
+2026-10-23 23:17:40 trzymanie: 19.5 % → 797 rpm (cel 800)
+2026-10-23 23:22:14 punkt 155/198: obie 90 % / 800 rpm → rdzeń 54.0, pamięć 65.7 °C, 301 s
+2026-10-23 23:22:15 trzymanie: 19.5 % → 797 rpm (cel 800)
+2026-10-23 23:27:14 punkt 156/198: obie 90 % / 800 rpm → rdzeń 58.0, pamięć 68.0 °C, 300 s
+2026-10-23 23:27:20 trzymanie: 29.2 % → 993 rpm (cel 1000)
+2026-10-23 23:27:55 trzymanie: 27.2 % → 995 rpm (cel 1000)
+2026-10-23 23:28:20 trzymanie: 25.8 % → 997 rpm (cel 1000)
+2026-10-23 23:32:14 punkt 157/198: obie 90 % / 1000 rpm → rdzeń 58.0, pamięć 68.0 °C, 300 s
+2026-10-23 23:32:31 trzymanie: 36.3 % → 1304 rpm (cel 1300)
+2026-10-23 23:37:14 punkt 158/198: obie 90 % / 1300 rpm → rdzeń 57.0, pamięć 66.8 °C, 300 s
+2026-10-23 23:37:50 trzymanie: 47.4 % → 1603 rpm (cel 1600)
+2026-10-23 23:42:14 punkt 159/198: obie 90 % / 1600 rpm → rdzeń 56.1, pamięć 66.0 °C, 300 s
+2026-10-23 23:42:30 trzymanie: 58.3 % → 1902 rpm (cel 1900)
+2026-10-23 23:47:14 punkt 160/198: obie 90 % / 1900 rpm → rdzeń 56.0, pamięć 66.0 °C, 300 s
+2026-10-23 23:47:25 trzymanie: 79.5 % → 2390 rpm (cel 2400)
+2026-10-23 23:49:16 trzymanie: 78.7 % → 2413 rpm (cel 2400)
+2026-10-23 23:52:14 punkt 161/198: obie 90 % / 2400 rpm → rdzeń 56.0, pamięć 66.0 °C, 300 s
+2026-10-23 23:57:14 punkt 162/198: obie 90 % / 3000 rpm → rdzeń 56.0, pamięć 66.0 °C, 300 s
+2026-10-24 00:02:14 punkt 163/198: obie 90 % / 3000 rpm → rdzeń 59.8, pamięć 68.0 °C, 300 s
+2026-10-24 00:02:21 trzymanie: 77.0 % → 2392 rpm (cel 2400)
+2026-10-24 00:02:46 trzymanie: 78.7 % → 2403 rpm (cel 2400)
+2026-10-24 00:07:14 punkt 164/198: obie 90 % / 2400 rpm → rdzeń 59.8, pamięć 68.0 °C, 300 s
+2026-10-24 00:07:26 trzymanie: 56.8 % → 1893 rpm (cel 1900)
+2026-10-24 00:07:51 trzymanie: 58.6 % → 1903 rpm (cel 1900)
+2026-10-24 00:12:14 punkt 165/198: obie 90 % / 1900 rpm → rdzeń 59.8, pamięć 68.0 °C, 300 s
+2026-10-24 00:12:36 trzymanie: 47.3 % → 1602 rpm (cel 1600)
+2026-10-24 00:17:14 punkt 166/198: obie 90 % / 1600 rpm → rdzeń 60.0, pamięć 68.0 °C, 300 s
+2026-10-24 00:17:35 trzymanie: 37.3 % → 1314 rpm (cel 1300)
+2026-10-24 00:17:55 trzymanie: 36.5 % → 1311 rpm (cel 1300)
+2026-10-24 00:22:14 punkt 167/198: obie 90 % / 1300 rpm → rdzeń 60.8, pamięć 68.8 °C, 300 s
+2026-10-24 00:22:30 trzymanie: 27.6 % → 1011 rpm (cel 1000)
+2026-10-24 00:22:55 trzymanie: 25.6 % → 986 rpm (cel 1000)
+2026-10-24 00:25:30 trzymanie: 26.4 % → 989 rpm (cel 1000)
+2026-10-24 00:27:15 punkt 168/198: obie 90 % / 1000 rpm → rdzeń 61.9, pamięć 70.0 °C, 301 s
+2026-10-24 00:27:31 trzymanie: 20.6 % → 809 rpm (cel 800)
+2026-10-24 00:27:56 trzymanie: 19.2 % → 786 rpm (cel 800)
+2026-10-24 00:32:15 punkt 169/198: obie 90 % / 800 rpm → rdzeń 61.8, pamięć 70.0 °C, 300 s
+2026-10-24 00:32:16 trzymanie: 19.2 % → 786 rpm (cel 800)
+2026-10-24 00:37:15 punkt 170/198: obie 100 % / 800 rpm → rdzeń 59.8, pamięć 68.0 °C, 300 s
+2026-10-24 00:37:41 trzymanie: 25.0 % → 990 rpm (cel 1000)
+2026-10-24 00:38:01 trzymanie: 26.2 % → 988 rpm (cel 1000)
+2026-10-24 00:42:15 punkt 171/198: obie 100 % / 1000 rpm → rdzeń 59.9, pamięć 68.0 °C, 300 s
+2026-10-24 00:42:32 trzymanie: 36.1 % → 1309 rpm (cel 1300)
+2026-10-24 00:47:15 punkt 172/198: obie 100 % / 1300 rpm → rdzeń 59.2, pamięć 68.0 °C, 300 s
+2026-10-24 00:47:31 trzymanie: 46.7 % → 1611 rpm (cel 1600)
+2026-10-24 00:52:15 punkt 173/198: obie 100 % / 1600 rpm → rdzeń 58.8, pamięć 66.1 °C, 300 s
+2026-10-24 00:52:37 trzymanie: 58.3 % → 1905 rpm (cel 1900)
+2026-10-24 00:57:15 punkt 174/198: obie 100 % / 1900 rpm → rdzeń 58.0, pamięć 66.0 °C, 300 s
+2026-10-24 00:57:36 trzymanie: 78.5 % → 2401 rpm (cel 2400)
+2026-10-24 01:02:15 punkt 175/198: obie 100 % / 2400 rpm → rdzeń 58.0, pamięć 66.0 °C, 300 s
+2026-10-24 01:07:15 punkt 176/198: obie 100 % / 3000 rpm → rdzeń 58.0, pamięć 66.0 °C, 300 s
+2026-10-24 01:12:15 punkt 177/198: obie 100 % / 3000 rpm → rdzeń 54.9, pamięć 64.0 °C, 300 s
+2026-10-24 01:12:21 trzymanie: 77.0 % → 2403 rpm (cel 2400)
+2026-10-24 01:12:41 trzymanie: 78.0 % → 2392 rpm (cel 2400)
+2026-10-24 01:17:15 punkt 178/198: obie 100 % / 2400 rpm → rdzeń 54.0, pamięć 64.0 °C, 300 s
+2026-10-24 01:17:37 trzymanie: 58.6 % → 1904 rpm (cel 1900)
+2026-10-24 01:22:16 punkt 179/198: obie 100 % / 1900 rpm → rdzeń 54.8, pamięć 64.0 °C, 301 s
+2026-10-24 01:22:22 trzymanie: 45.6 % → 1600 rpm (cel 1600)
+2026-10-24 01:22:42 trzymanie: 46.9 % → 1586 rpm (cel 1600)
+2026-10-24 01:27:17 punkt 180/198: obie 100 % / 1600 rpm → rdzeń 55.0, pamięć 64.3 °C, 301 s
+2026-10-24 01:27:34 trzymanie: 36.6 % → 1287 rpm (cel 1300)
+2026-10-24 01:32:17 punkt 181/198: obie 100 % / 1300 rpm → rdzeń 55.8, pamięć 66.0 °C, 300 s
+2026-10-24 01:32:23 trzymanie: 23.6 % → 1000 rpm (cel 1000)
+2026-10-24 01:32:58 trzymanie: 26.1 % → 1005 rpm (cel 1000)
+2026-10-24 01:37:17 punkt 182/198: obie 100 % / 1000 rpm → rdzeń 56.0, pamięć 66.0 °C, 300 s
+2026-10-24 01:37:49 trzymanie: 19.0 % → 792 rpm (cel 800)
+2026-10-24 01:38:09 trzymanie: 19.6 % → 792 rpm (cel 800)
+2026-10-24 01:42:17 punkt 183/198: obie 100 % / 800 rpm → rdzeń 56.0, pamięć 66.0 °C, 300 s
+2026-10-24 01:42:18 trzymanie: 19.6 % → 792 rpm (cel 800)
+2026-10-24 01:47:17 punkt 184/198: obie 100 % / 800 rpm → rdzeń 52.0, pamięć 64.0 °C, 300 s
+2026-10-24 01:47:35 trzymanie: 26.0 % → 1012 rpm (cel 1000)
+2026-10-24 01:52:17 punkt 185/198: obie 100 % / 1000 rpm → rdzeń 52.0, pamięć 64.0 °C, 300 s
+2026-10-24 01:52:33 trzymanie: 35.4 % → 1286 rpm (cel 1300)
+2026-10-24 01:52:53 trzymanie: 36.2 % → 1286 rpm (cel 1300)
+2026-10-24 01:57:18 punkt 186/198: obie 100 % / 1300 rpm → rdzeń 51.9, pamięć 64.0 °C, 301 s
+2026-10-24 01:57:35 trzymanie: 46.8 % → 1610 rpm (cel 1600)
+2026-10-24 02:02:32 punkt 187/198: obie 100 % / 1600 rpm → rdzeń 51.0, pamięć 62.3 °C, 314 s
+2026-10-24 02:02:38 trzymanie: 59.8 % → 1895 rpm (cel 1900)
+2026-10-24 02:03:04 trzymanie: 58.2 % → 1896 rpm (cel 1900)
+2026-10-24 02:07:32 punkt 188/198: obie 100 % / 1900 rpm → rdzeń 51.0, pamięć 62.0 °C, 300 s
+2026-10-24 02:07:43 trzymanie: 80.6 % → 2407 rpm (cel 2400)
+2026-10-24 02:08:08 trzymanie: 78.6 % → 2400 rpm (cel 2400)
+2026-10-24 02:12:32 punkt 189/198: obie 100 % / 2400 rpm → rdzeń 50.7, pamięć 62.0 °C, 300 s
+2026-10-24 02:17:32 punkt 190/198: obie 100 % / 3000 rpm → rdzeń 51.0, pamięć 62.0 °C, 300 s
+2026-10-24 obciążenie 02:20:32 koniec: kart 1, plik stanu 1 s temu
+2026-10-24 02:20:33 punkt 191: OBCIĄŻENIE PADŁO — restart i powtórka punktu
+2026-10-24 02:20:33 obciążenie: proces w sesji użytkownika
+2026-10-24 obciążenie 02:20:33 start: plik stanu jest, tryb mix64
+2026-10-24 obciążenie 02:20:33 NVIDIA GeForce RTX 5090: obci????enie start
+2026-10-24 obciążenie 02:20:33 NVIDIA GeForce RTX 5090: tryb mix64
+2026-10-24 obciążenie 02:20:33 NVIDIA GeForce RTX 5090: VRAM w strumieniu 22 GiB z 31 GiB
+2026-10-24 02:25:33 punkt 191/198: obie 100 % / 3000 rpm → rdzeń 48.0, pamięć 60.0 °C, 300 s
+2026-10-24 02:25:54 trzymanie: 79.0 % → 2401 rpm (cel 2400)
+2026-10-24 02:30:33 punkt 192/198: obie 100 % / 2400 rpm → rdzeń 48.0, pamięć 60.0 °C, 300 s
+2026-10-24 02:30:54 trzymanie: 59.0 % → 1901 rpm (cel 1900)
+2026-10-24 02:35:33 punkt 193/198: obie 100 % / 1900 rpm → rdzeń 48.0, pamięć 60.0 °C, 300 s
+2026-10-24 02:35:54 trzymanie: 47.4 % → 1585 rpm (cel 1600)
+2026-10-24 02:40:33 punkt 194/198: obie 100 % / 1600 rpm → rdzeń 48.8, pamięć 61.3 °C, 300 s
+2026-10-24 02:40:54 trzymanie: 37.1 % → 1302 rpm (cel 1300)
+2026-10-24 02:45:33 punkt 195/198: obie 100 % / 1300 rpm → rdzeń 49.0, pamięć 62.0 °C, 300 s
+2026-10-24 02:45:49 trzymanie: 27.1 % → 1006 rpm (cel 1000)
+2026-10-24 02:46:09 trzymanie: 26.5 % → 1006 rpm (cel 1000)
+2026-10-24 02:50:33 punkt 196/198: obie 100 % / 1000 rpm → rdzeń 49.0, pamięć 62.0 °C, 300 s
+2026-10-24 02:50:51 trzymanie: 20.8 % → 814 rpm (cel 800)
+2026-10-24 02:51:16 trzymanie: 19.2 % → 789 rpm (cel 800)
+2026-10-24 02:51:36 trzymanie: 19.9 % → 790 rpm (cel 800)
+2026-10-24 02:55:33 punkt 197/198: obie 100 % / 800 rpm → rdzeń 49.0, pamięć 62.0 °C, 300 s
+2026-10-24 02:55:50 trzymanie: 47.1 % → 1613 rpm (cel 1600)
+2026-10-24 03:06:08 punkt 198/198: obie 40 % / 1600 rpm → rdzeń 79.7, pamięć 88.0 °C, 635 s
+2026-10-24 03:06:09 aquaero przywrócone: przywrócono aquaero-20261023-082030.bin · kopia: C:\ProgramData\WS.Sensor\aquaero-backups\aquaero-20261024-030608.bin
+2026-10-24 03:06:09 ZAKOŃCZONO: siatka zakończona: 198 punktów
