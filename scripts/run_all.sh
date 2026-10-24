@@ -35,5 +35,6 @@ $PY article_tools/iso_section.py 1
 $PY article_tools/ctrl_law.py article_tools/out/law >/dev/null
 cp article_tools/out/law/*.webp /Users/smicha/Claude/gruency-site/research/img/
 $PY article_tools/ctrllaw_section.py
+$PY article_tools/s4_section.py
 python3 article_tools/setup_fig.py
 python3 article_tools/cite_terms.py

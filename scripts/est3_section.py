@@ -96,5 +96,5 @@ sec = f"""<!--est3:start-->
 s = F.read_text()
 a, b = s.find("<!--est3:start-->"), s.find("<!--est3:end-->")
 if a >= 0: s = s[:a] + s[b + len("<!--est3:end-->"):]
-i = s.index("<!--stats:start-->"); s = s[:i] + sec + "\n  " + s[i:]
+i = s.find("<!--settle:start-->"); i = i if i >= 0 else s.index("<!--stats:start-->"); s = s[:i] + sec + "\n  " + s[i:]   # 4.1 before the settling analysis
 F.write_text(s); print("est3 written", SZ)
