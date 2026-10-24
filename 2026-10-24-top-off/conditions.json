@@ -1,0 +1,47 @@
+{
+  "id": "2026-10-24-top-off",
+  "started_utc": "2026-10-24 10:58:12Z",
+  "case": "Case 2026-10-24 ~13:00: front panel with dust filter ON, TOP panel OFF (removed), BOTH side panels OFF (away for repainting; side next to card B and side next to the CPU open); 2 \u00D7 RTX 5090 FE, A = PCIE1 (upper), B = PCIE2; top-panel A/B test, run 2 of 2 (top OFF): both cards mix64 at stock PL 575 W, card fans 50 %, case \u002B radiator 1600 rpm, pump Fixed 2200 rpm, AIO Fan on its NVMe curve; stop rule fit (min 6 min, then T\u221E CI \u00B10.2 \u00B0C on each card, max 15 min); NVIDIA defaults otherwise.",
+  "intake_c_at_start": 20.34,
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "gpu_serial_hash": null,
+  "driver": null,
+  "power_limit_w": 575,
+  "power_default_w": 575,
+  "gpu_fan_min_pct": 30,
+  "case_fans": "Case fans \u00D74 (be quiet! Silent Wings Pro 4 120 mm)",
+  "radiator_fans": "Radiator fans \u00D73 (SilverStone 120 mm PWM, Hailstone 360)",
+  "radiator_note": "held on its own curve (Curve 1), logged",
+  "case_min_pct": null,
+  "budget_h": 1,
+  "lab_version": "0.3.82",
+  "steady": "|dT/dt| \u003C 0.2 \u00B0C/min over 120 s (core, memory, hot spot), min 150 s, max 480 s per point; mean of last 60 s",
+  "abort": "memory \u2265 95 \u00B0C, hot spot \u2265 95 \u00B0C, core \u2265 88 \u00B0C (NVML slowdown \u2212 5) \u2192 point marked too_hot, all fans 100 % until cool, next point",
+  "gpu_thresholds_c": {
+    "shutdown": 96,
+    "slowdown": 93,
+    "gpu_max": 90
+  },
+  "load_calibration_w": {},
+  "load_mode": "alu",
+  "mem_working_limit_c": 95,
+  "core_limits_c": [
+    90,
+    93,
+    96
+  ],
+  "sensor_count": 380,
+  "slots": "",
+  "gpus": [
+    {
+      "name": "NVIDIA GeForce RTX 5090",
+      "pci_bus": 1
+    },
+    {
+      "name": "NVIDIA GeForce RTX 5090",
+      "pci_bus": 3
+    }
+  ],
+  "power_limits_w": null,
+  "mode": "steady-state: coarse 4\u00D74 then 8\u00D75 refinement"
+}

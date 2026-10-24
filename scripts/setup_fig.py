@@ -23,6 +23,9 @@ T = lambda x, y, s, a="start", extra="": f'<text x="{x:.0f}" y="{y:.0f}" text-an
 sub = lambda s: f'<tspan baseline-shift="sub" font-size="78%">{s}</tspan>'
 def build(CARDS, closed, tag):
     ARW = ARW0.replace("#ah1", f"#ah{tag}")
+    ZT = CARDS == 1   # single-card study: ZOTAC Gaming RTX 5090 Solid (3 axial fans, open-air, ≈ 3.5 slots); two-card study: 2 × RTX 5090 FE
+    CARD_L, CARD_T = (333, 70) if ZT else (304, 40)
+    NF, FW, FP = (3, 72, 100) if ZT else (2, 90, 150)
     # ---- (a) top view
     a = [rect(FX0, FY0, FX1 - FX0, FY1 - FY0, LINE)]
     a.append(rect(X0, Y0, BW, BH, THIN))                                      # board
@@ -36,9 +39,13 @@ def build(CARDS, closed, tag):
         dashed = i >= CARDS
         cards.append((y, dashed))
         a.append(rect(X0 - 6, y - 2, CARD_L, CARD_T, ('fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"' if dashed else LINE)))
-        if not dashed:   # FE: two axial fans on the +y face, flow-through: air passes through the fins and leaves on the board side
-            for j in range(2): a.append(rect(X0 + 40 + j * 150, y + CARD_T - 6, 90, 5, FAN))
-            for j in range(2): a.append(f'<path d="M{X0 + 85 + j * 150} {y + CARD_T + 22}V{y - 14}" {ARW} stroke-opacity=".45"/>')
+        if not dashed:   # fans on the +y face; FE: flow-through to the board side; ZOTAC: open-air, out at the edges
+            for j in range(NF): a.append(rect(X0 + 30 + j * FP, y + CARD_T - 6, FW, 5, FAN))
+            if ZT:
+                a.append(f'<path d="M{X0 + 166} {y + CARD_T + 22}V{y + CARD_T + 2}" {ARW} stroke-opacity=".45"/>')
+                a.append(f'<path d="M{X0 + CARD_L - 4} {y + CARD_T / 2}H{X0 + CARD_L + 22}" {ARW} stroke-opacity=".45"/><path d="M{X0 - 4} {y + CARD_T / 2}H{X0 - 26}" {ARW} stroke-opacity=".45"/>')
+            else:
+                for j in range(2): a.append(f'<path d="M{X0 + 85 + j * 150} {y + CARD_T + 22}V{y - 14}" {ARW} stroke-opacity=".45"/>')
     # case fans: 3 intake on the right wall, 1 exhaust on the left wall by the CPU
     for c in (FY0 + 70, FY0 + 200, FY0 + 330): a.append(rect(FX1 - 6, c - 60, 12, 120, FAN))
     ex_y = by(R("CPU")[1] + R("CPU")[3] / 2); a.append(rect(FX0 - 6, ex_y - 60, 12, 120, FAN))
@@ -54,7 +61,7 @@ def build(CARDS, closed, tag):
            T(bx(R("CPU")[0] + R("CPU")[2] / 2), by(R("CPU")[1]) - 8, "CPU, pump", "middle"),
            T(bx(R("A1")[0]) - 2, by(R("A1")[1] + R("A1")[3]) + 18, "DIMMs"),
            T(bx(EX["CPU_FAN2"][0]) - 10, Y0 - 8, "AIO fan, pump headers", "end"),
-           T(X0 + CARD_L / 2, cards[0][0] + CARD_T / 2 - 2, ("RTX 5090 FE, card A (PCIE1)" if CARDS == 2 else "RTX 5090 FE, f" + sub("g") + " (PCIE1)"), "middle", 'dominant-baseline="middle"'),
+           T(X0 + CARD_L / 2, cards[0][0] + CARD_T / 2 - 2, ("RTX 5090 FE, card A (PCIE1)" if CARDS == 2 else "ZOTAC RTX 5090 Solid, f" + sub("g") + " (PCIE1)"), "middle", 'dominant-baseline="middle"'),
            T((FX0 + FX1) / 2, FY1 + 30, "(a) top view, upper tier &middot; " + ("panels on" if closed else "top open"), "middle")]
     if not cards[1][1]: lab.append(T(X0 + CARD_L / 2, cards[1][0] + CARD_T / 2 + 2, "RTX 5090 FE, card B (PCIE2)", "middle", 'dominant-baseline="middle"'))
     if closed: a.append(f'<rect x="{FX0 - 3}" y="{FY0 - 3}" width="{FX1 - FX0 + 6}" height="{FY1 - FY0 + 6}" fill="none" stroke="currentColor" stroke-width="4" stroke-opacity=".35"/>')
@@ -67,7 +74,7 @@ def build(CARDS, closed, tag):
     b = [f'<path d="M{FX0} {Z["top"]}V{Z["t3"]}M{FX1} {Z["top"]}V{Z["t3"]}M{FX0} {Z["t1"]}H{FX1}M{FX0} {Z["t2"]}H{FX1}M{FX0} {Z["t3"]}H{FX1}" {LINE}/>']
     b.append(rect(X0, Z["t1"] - 8, BW, 6, THIN))                                     # board on the tray
     b.append(rect(X0 - 6, Z["t1"] - 8 - 137, CARD_L, 137, LINE))                      # card standing in its slot
-    for j in range(2): b.append(f'<circle cx="{X0 + 80 + j * 150}" cy="{Z["t1"] - 83}" r="52" {THIN}/>')   # FE: two axial fans
+    for j in range(NF): b.append(f'<circle cx="{X0 + (60 + j * 105 if ZT else 80 + j * 150)}" cy="{Z["t1"] - 83}" r="{46 if ZT else 52}" {THIN}/>')   # ZOTAC 3 / FE 2 axial fans
     cpu_x = bx(R("CPU")[0] + R("CPU")[2] / 2)
     b.append(rect(FX1 - 6, Z["t1"] - 130, 12, 120, FAN)); b.append(rect(FX0 - 6, Z["t1"] - 130, 12, 120, FAN))
     b.append(f'<path d="M{FX1 + 44} {Z["t1"] - 70}H{FX1 + 10}" {ARW}/><path d="M{FX1 - 14} {Z["t1"] - 175}C380 {Z["t1"] - 175} 200 {Z["t1"] - 70} {FX0 + 12} {Z["t1"] - 70}" {ARW}/>'
@@ -92,7 +99,7 @@ def build(CARDS, closed, tag):
     return A, Bsvg
 A, Bsvg = build(1, False, "set1")
 A2, B2 = build(2, True, "set2")
-CAP = ('<figcaption><b>Figure 1.</b> As built; board layout to scale. (a) Top view of the upper tier of the open frame: the motherboard (ASRock X870E Taichi Lite) lies flat, facing up, with the processor and its pump block next to the memory; the graphics card, an RTX 5090 Founders Edition (two axial fans, flow-through), stands in the first PCIe slot (PCIE1) with its fans facing sideways; their air passes through the fins and leaves on the board side. Three 120&nbsp;mm be quiet! case fans on one side wall blow across the card and the board; one more, on the opposite wall by the processor, is the exhaust; the top is open. The second slot (PCIE2, dashed) takes the second card of the two-card study at the same spacing; it was not fitted for the measurements reported here. '
+CAP = ('<figcaption><b>Figure 1.</b> As built; board layout to scale. (a) Top view of the upper tier of the open frame: the motherboard (ASRock X870E Taichi Lite) lies flat, facing up, with the processor and its pump block next to the memory; the graphics card of the single-card study, a ZOTAC Gaming GeForce RTX 5090 Solid (three axial fans on an open-air cooler about 3.5 slots thick), stands in the first PCIe slot (PCIE1) with its fans facing sideways; their air passes through the fins and leaves at the card&rsquo;s edges. Three 120&nbsp;mm be quiet! case fans on one side wall blow across the card and the board; one more, on the opposite wall by the processor, is the exhaust; the top is open. The second slot (PCIE2, dashed) takes the second card of the two-card study at the same spacing; it was not fitted for the measurements reported here. '
        '(b) Side elevation of the three tiers: board and card on top, the power supply with a small fan in the middle, and at the bottom the processor&rsquo;s radiator, mounted upright with its three SilverStone fans, its tubes running up to the pump block. The radiator&rsquo;s air stays in the bottom tier: it does not pass through the tier of the board and the card and does not affect the airflow there. The fan controller (aquaero 6) sits in a slot bracket at the top of the frame; its air sensor, T<sub>in</sub>, is in the bottom tier. As drawn, to be confirmed: the position of T<sub>in</sub>, the direction of the small fan beside the power supply (drawn without one), and the directions of the radiator fans and the case fans.</figcaption>')
 FIG = f'<!--setupfig:start-->\n  <figure class="ar-fig ar-fig-wide ar-setup">\n    <div class="ar-svg2">{A}{Bsvg}</div>\n    {CAP}\n  </figure>\n<!--setupfig:end-->'
 CAP2 = ('<figcaption><b>Figure 0.</b> Study in progress; board layout to scale. (a) Top view of the upper tier: card A, an RTX 5090 Founders Edition, in the first PCIe slot (PCIE1) and card B, the same model, in the second (PCIE2), at the board&rsquo;s slot spacing; card A&rsquo;s fans face the back of card B, about 40&nbsp;mm away, and draw in its flow-through exhaust (Section 2.4.4). (b) Side elevation: the three tiers with the side, front and top panels fitted (heavy grey lines); fans and airflow as in Figure 1. As drawn, to be confirmed: the panel layout, the position of T<sub>in</sub> and the directions of the radiator, case and small fans.</figcaption>')

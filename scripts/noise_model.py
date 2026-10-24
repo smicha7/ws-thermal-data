@@ -1,5 +1,5 @@
 """Literature-based fan noise at 1 m, dBA (provisional until our own sound map) — one place for every consumer.
-Card (RTX 5090 FE): Lg = 32.5 + 50·log10(N/1570) (GamersNexus anchor, fan law).
+Card: Lg = 32.5 + 50·log10(N/1570) (GamersNexus anchor, fan law).
 Case: 4 × be quiet! Silent Wings Pro 4 120 (aquaero fan 1), Lf(rpm) = −167.1 + 60.2·log10(rpm) (Hardware Busters fit).
 Radiator: 3 × SilverStone Hailstone 360 stock fans (aquaero fan 2); no solid independent noise data, so the SW Pro 4 fit is used
 (similar construction, Seb 2026-10-24; assumption, provisional), evaluated at the radiator's MEASURED speed: on steady3 it follows

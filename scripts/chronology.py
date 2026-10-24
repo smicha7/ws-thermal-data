@@ -29,6 +29,8 @@ NOTE = {
  "2026-10-22-cpu3": ("cpu3", "both fan sets slow, pump at maximum", "no throttling"),
  "2026-10-22-cpu3e": ("cpu3e", "case fans varied at slow radiator fans", "case fans do not cool the processor"),
  "2026-10-23-pl90-case1500": ("pl90", "power limit 90&nbsp;% at case fans 1500&nbsp;rpm", "points for the power term"),
+ "2026-10-24-top-off": ("top-off", "memory let past every limit to find the card&rsquo;s own protection", "GDDR7 protection at about 106&nbsp;&deg;C, reported as a power cap"),
+ "2026-10-24-sweep-top-off": ("fan sweep, top off", "both cards, GPU fans 100 down to 60&nbsp;%, safety stops", "lowest safe GPU fan speed of the pair"),
  "2026-10-24-stress1": ("stress1", "two cards at 575&nbsp;W, fans at full speed: each alone, then both", "card A +11&nbsp;&deg;C core, +10&nbsp;&deg;C memory with both loaded"),
  "2026-10-23-steady3": ("steady3 (final grid)", "all 196 cells, settled", "estimation data of the primary model"),
 }
@@ -77,13 +79,17 @@ for raw in sorted(D.glob("**/raw.csv")):
     elif (fo / "grid.csv").exists(): pts = sum(1 for _ in open(fo / "grid.csv")) - 1
     else: pts = None
     case = str(cj.get("case", "")).lower(); cards = 2 if re.search(r"\b2 (gpu|cards|× rtx)|two cards", case) else 1
+    inv = (fo / "inventory.csv").read_text(errors="ignore") if (fo / "inventory.csv").exists() else ""
+    nf = inv.count("nvml/0/fan/gpu_fan_") or max((len((r.get("gpu_rpm") or "").split("|")) for r in rows[:50]), default=0)
+    if "nvml/1/" in inv: cards = 2
+    model = "FE" if cards == 2 or nf == 2 else "ZOTAC"   # verified 2026-10-24: 3 GPU fans (≈ 3030 rpm max) up to steady3, 2 per card (≈ 2900 rpm) from 24 Oct
     enc = "open frame" if "panels off" in case else "open top" if "open top" in case else ("panels closed" if re.search(r"panels (on|closed)|closed (case|panels)", case) else "open top")
     runs.append(dict(rid=rid, t0=min(t), t1=max(t), gpu_kwh=e / 3.6e6, cpu_kwh=cpu_kwh(fo), pts=pts, cards=cards, enc=enc,
-                     state=st.get("state", ""), pump_max="pump at max" in case, load=cj.get("load_mode") or "", folder=str(fo.relative_to(D))))
+                     state=st.get("state", ""), pump_max="pump at max" in case, model=model, load=cj.get("load_mode") or "", folder=str(fo.relative_to(D))))
 CACHE.parent.mkdir(exist_ok=True); json.dump(cache, open(CACHE, "w"), indent=1)
 # hardware and configuration changes reported by the operator (no log file of their own)
-EVENTS = [(datetime.datetime(2026, 10, 24, 10, 0, tzinfo=Z).timestamp(), "Second RTX 5090 Founders Edition installed in PCIE2; display moved to the processor&rsquo;s integrated graphics (HDMI)"),
-          (datetime.datetime(2026, 10, 24, 12, 0, tzinfo=Z).timestamp() + 0.5, "Side, front and top panels closed for the two-card study; radiator fan and pump settings changed (pump 2200&nbsp;rpm for stress1)")]
+EVENTS = [(datetime.datetime(2026, 10, 24, 10, 0, tzinfo=Z).timestamp(), "ZOTAC RTX 5090 Solid removed; two RTX 5090 Founders Edition installed in PCIE1 and PCIE2; display moved to the processor&rsquo;s integrated graphics (HDMI)"),
+          (datetime.datetime(2026, 10, 24, 13, 0, tzinfo=Z).timestamp(), "Front panel with dust filter fitted, side panels off, top panel tested on and off; pump fixed at 2200&nbsp;rpm")]
 runs.sort(key=lambda r: r["t0"])
 tm = lambda ts, f="%d %b %H:%M": (re.sub(r"^0", "", datetime.datetime.fromtimestamp(ts, Z).strftime(f)) if f.startswith("%d") else datetime.datetime.fromtimestamp(ts, Z).strftime(f))
 endf = lambda a, b: tm(b, "%H:%M") if tm(a, "%d") == tm(b, "%d") else tm(b, "%d %b %H:%M")
@@ -99,7 +105,7 @@ with open(F.parent / "data/gpu-map-chronology.csv", "w", newline="") as fo:
             rows += f'<tr class="ev"><td>{tm(ts, "%d %b, about %H:%M") if ts % 1 == 0 else tm(ts, "%d %b")}</td><td>&mdash;</td><td colspan="2">{x}</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>'
             w.writerow([tm(ts, "%Y-%m-%d %H:%M"), "", "", "event", "", "", "", "", "", "", "", x, ""]); continue
         nm, why, out = note(x["rid"]); d = x["t1"] - x["t0"]
-        cfg = f'{x["cards"]}&nbsp;&times;&nbsp;FE, {x["enc"]}' + (", pump at maximum" if x.get("pump_max") else "")
+        cfg = f'{x["cards"]}&nbsp;&times;&nbsp;{x["model"]}, {x["enc"]}' + (", pump at maximum" if x.get("pump_max") else "")
         rows += (f'<tr><td>{tm(x["t0"])}&ndash;{endf(x["t0"], x["t1"])}</td><td>{dur(d)}</td><td class="tl">{nm}</td><td class="tl">{why}; {out}</td><td class="tl">{cfg}</td>'
                  f'<td>{x["pts"] if x["pts"] is not None else "&mdash;"}</td><td>{x["gpu_kwh"]:.2f}</td><td>{"&mdash;" if x["cpu_kwh"] is None else format(x["cpu_kwh"], ".2f")}</td></tr>')
         w.writerow([tm(x["t0"], "%Y-%m-%d %H:%M"), tm(x["t1"], "%Y-%m-%d %H:%M"), round(d / 60, 1), nm, x["folder"], x["cards"], x["enc"], x["load"], x["pts"], round(x["gpu_kwh"], 3),
@@ -108,8 +114,8 @@ T_h = sum(r["t1"] - r["t0"] for r in runs) / 3600; E_g = sum(r["gpu_kwh"] for r 
 nc = sum(1 for r in runs if r["cpu_kwh"] is not None)
 first, last = runs[0]["t0"], runs[-1]["t1"]
 SEC = f"""  <h3 id="chronology">Experiment chronology</h3>
-  <p>The measurements ran from {tm(first, "%d %B %Y, %H:%M")} to {tm(last, "%d %B %Y, %H:%M")} local time (CEST), in {len(runs)} logged stages ({{tref:chrono}}). They add up to {T_h:.1f}&nbsp;h of logged measurement, during which the graphics card drew {E_g:.1f}&nbsp;kWh, integrated from its board power at 1&nbsp;Hz; the processor package drew {E_c:.1f}&nbsp;kWh in the {nc} stages whose full sensor log includes it. The stages built on one another: the 60-second points of the first night and the second run looked usable until val1 held every point to its steady state and showed them biased, which led to the settled-point protocol of steady2 and steady3; the controller runs ctrl1 to ctrl3 each corrected the fan pumping seen in the one before; the processor runs checked that the slow radiator fans chosen for the card do not limit the processor; and steady3 then measured the whole grid in one uninterrupted session. On 24 October the second card was fitted and the panels closed for the two-card study.</p>
-  <p>The platform power budget grows with the second card: one RTX 5090 draws up to about 575 to 600&nbsp;W, so two cards and the processor at its 200&nbsp;W limit put about 1.35 to 1.4&nbsp;kW on the power supply, a Seasonic PRIME (its rating is not in the logged inventory).</p>
+  <p>The measurements ran from {tm(first, "%d %B %Y, %H:%M")} to {tm(last, "%d %B %Y, %H:%M")} local time (CEST), in {len(runs)} logged stages ({{tref:chrono}}). They add up to {T_h:.1f}&nbsp;h of logged measurement, during which the graphics card drew {E_g:.1f}&nbsp;kWh, integrated from its board power at 1&nbsp;Hz; the processor package drew {E_c:.1f}&nbsp;kWh in the {nc} stages whose full sensor log includes it. The stages built on one another: the 60-second points of the first night and the second run looked usable until val1 held every point to its steady state and showed them biased, which led to the settled-point protocol of steady2 and steady3; the controller runs ctrl1 to ctrl3 each corrected the fan pumping seen in the one before; the processor runs checked that the slow radiator fans chosen for the card do not limit the processor; and steady3 then measured the whole grid in one uninterrupted session. Every stage up to steady3 ran on one ZOTAC Gaming RTX 5090 Solid; on 24 October it was replaced by two RTX 5090 Founders Edition cards for the two-card study.</p>
+  <p>The platform power budget grows with two cards: one RTX 5090 draws up to about 575 to 600&nbsp;W, so two cards and the processor at its 200&nbsp;W limit put about 1.35 to 1.4&nbsp;kW on the power supply, a Seasonic PRIME (its rating is not in the logged inventory).</p>
   <p class="ar-tcap"><b>Experiment chronology: every logged stage and configuration change, with its configuration, purpose, outcome and energy.</b> Times local (CEST); duration from the first to the last 1&nbsp;Hz record; points = settled points where a grid was run; GPU energy integrated from the board power of all cards; CPU energy from the package sensor where the full sensor log exists.</p>
   <div class="ar-tw ar-tw-wide">
   <table class="ar-tab ar-num ar-st ar-chrono">
@@ -117,7 +123,7 @@ SEC = f"""  <h3 id="chronology">Experiment chronology</h3>
     <tbody>{rows}<tr class="tot"><td>Total</td><td>{T_h:.1f}&nbsp;h</td><td class="tl" colspan="3">{len(runs)} stages</td><td>{sum(r["pts"] or 0 for r in runs)}</td><td>{E_g:.1f}</td><td>{E_c:.1f}</td></tr></tbody>
   </table>
   </div>
-  <p class="ar-note">FE: RTX 5090 Founders Edition. Open top: the frame of {{fref:fig-test-set-up-schematic}} without panels; panels closed: the set-up of {{fref:fig-two-card-set-up-panels-on-schematic}}. Configuration changes without a log of their own are reported by the operator and timed approximately. {len(SHORT)} restarts shorter than 5&nbsp;min ({sum(r["gpu_kwh"] for r in SHORT):.2f}&nbsp;kWh) are counted in the totals but not listed. <a href="/research/data/gpu-map-chronology.csv">Data (CSV)</a>.</p>"""
+  <p class="ar-note">ZOTAC: ZOTAC Gaming GeForce RTX 5090 Solid, the card of every single-card stage; FE: RTX 5090 Founders Edition, the two cards of the two-card study; the card is identified from the logged fans (three per card on the ZOTAC, two on the FE). Open top: the frame of {{fref:fig-test-set-up-schematic}} without panels; panels closed: the set-up of {{fref:fig-two-card-set-up-panels-on-schematic}}. Configuration changes without a log of their own are reported by the operator and timed approximately. {len(SHORT)} restarts shorter than 5&nbsp;min ({sum(r["gpu_kwh"] for r in SHORT):.2f}&nbsp;kWh) are counted in the totals but not listed. <a href="/research/data/gpu-map-chronology.csv">Data (CSV)</a>.</p>"""
 s = F.read_text(); blk = f"<!--chrono:start-->\n{SEC}\n<!--chrono:end-->"
 if "<!--chrono:start-->" in s: s = s[:s.index("<!--chrono:start-->")] + blk + s[s.index("<!--chrono:end-->") + len("<!--chrono:end-->"):]
 else: i = s.index('<h2 id="appendix-a">'); i = s.index("</h2>", i) + 5; s = s[:i] + "\n" + blk + s[i:]

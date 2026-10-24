@@ -38,7 +38,7 @@ _ci = lambda p, k: (p[k][0] - 1.96 * p[k][1], p[k][0] + 1.96 * p[k][1])
 prow = "".join(f'<tr><td>{SY[k]}</td><td>{UN[k]}</td><td class="g">{CP[k][0]:.{_d(k)}f}</td><td>{_ci(CP, k)[0]:.{_d(k)}f}</td><td>{_ci(CP, k)[1]:.{_d(k)}f}</td>'
                f'<td class="g">{MP[k][0]:.{_d(k)}f}</td><td>{_ci(MP, k)[0]:.{_d(k)}f}</td><td>{_ci(MP, k)[1]:.{_d(k)}f}</td></tr>' for k in ("θ0", "r∞", "gN", "m", "n½", "gC", "s")).replace("-", "&minus;")
 MAIN = f"""  <div class="ar-main" id="main-result">
-  <p class="ar-main-h"><b>Main result.</b> The control law rests on three estimated equations: (R1) core temperature, (R2) memory temperature and (R3) fan noise, with N the GPU fan speed and C the case and radiator fan speed in rpm, P the board power in W and T<sub>in</sub> the intake air in &deg;C.</p>
+  <p class="ar-main-h"><b>Main result.</b> For the single-card machine, with a ZOTAC Gaming RTX 5090 Solid, the control law rests on three estimated equations: (R1) core temperature, (R2) memory temperature and (R3) fan noise, with N the GPU fan speed and C the case and radiator fan speed in rpm, P the board power in W and T<sub>in</sub> the intake air in &deg;C.</p>
   {HR[0]}{HR[1]}{HR[2]}
   </div>
   <p class="ar-tcap"><b>Estimated parameters of the three equations.</b> Core (R1) and memory (R2): the two-path form with a saturating GPU-fan conductance, fitted by nonlinear least squares to the {S3["n"]} settled points of the final grid (<a href="#est3">Section 4.1</a>); 95&nbsp;% intervals heteroscedasticity-consistent (HC3). Core RMSE {FC3["rmse"]:.2f}&nbsp;&deg;C, leave-one-out {FC3["loo"]:.2f}&nbsp;&deg;C; memory {FM3["rmse"]:.2f} and {FM3["loo"]:.2f}&nbsp;&deg;C.</p>
@@ -106,7 +106,7 @@ VTAB = f"""<!--validation:start-->
 KEY = f"""<!--keyresult:start-->
   <section class="ar-abs ar-keyres" aria-labelledby="kr-h">
     <h2 id="kr-h" class="ar-key-h">Key result</h2>
-    <p>The control law rests on three estimated equations, core temperature, memory temperature and fan noise (R1 to R3, <a href="#main-result">Section 5.1</a>), with N the GPU fan speed and C the case and radiator fan speed in rpm, P the board power in W and T<sub>in</sub> the intake air in &deg;C.</p>
+    <p>For the single-card machine, with a ZOTAC Gaming RTX 5090 Solid, the control law rests on three estimated equations, core temperature, memory temperature and fan noise (R1 to R3, <a href="#main-result">Section 5.1</a>), with N the GPU fan speed and C the case and radiator fan speed in rpm, P the board power in W and T<sub>in</sub> the intake air in &deg;C.</p>
     {HK[0]}{HK[1]}{HK[2]}
     <p>Fitted to the {S3["n"]} settled points of the final grid, the equations give the core within &plusmn;1&nbsp;&deg;C at {FC3["w1"]} of {S3["n"]} points (RMSE {FC3["rmse"]:.2f}&nbsp;&deg;C, leave-one-out {FC3["loo"]:.2f}&nbsp;&deg;C; memory {FM3["rmse"]:.2f}&nbsp;&deg;C; {{tref:params}}). A model estimated on six earlier sessions predicts the same grid within {VC["rmse"]:.2f}&nbsp;&deg;C ({{tref:valid}}).</p>
     <p>From them follows the control curve of each mode ({{fref:fig-the-control-law-fan-speeds-noise-and-pre}}): within a noise budget of 30, 35 or 40&nbsp;dBA the quietest fan pair that keeps the core and memory at the mode&rsquo;s comfort level, and a lower power limit only when the budget cannot hold the safety limits.</p>
@@ -149,7 +149,7 @@ ABS = (f'On a final grid of {S3["n"]} settled points (GPU fans {_gp[0]} to {_gp[
 _bc, _bm = S3["forms"]["core"]["power exponent β"], S3["forms"]["mem"]["power exponent β"]
 _xs = S3["crosscheck_earlier"]["core"]; _sp = S3["forms"]["core"]["spline benchmark (4×4 tensor)"]
 GEN = {
- "hl1": f'A two-path model with a saturating GPU-fan path fits the settled RTX 5090 core within {FC3["rmse"]:.2f}&nbsp;&deg;C on {S3["n"]} points (leave-one-out {FC3["loo"]:.2f}&nbsp;&deg;C).',
+ "hl1": f'A two-path model with a saturating GPU-fan path fits the settled core of a ZOTAC RTX 5090 Solid within {FC3["rmse"]:.2f}&nbsp;&deg;C on {S3["n"]} points (leave-one-out {FC3["loo"]:.2f}&nbsp;&deg;C).',
  "interp": (f'Two cooling paths in parallel, the GPU-fan path saturating above about {CP["n½"][0]*1000:.0f}&nbsp;rpm, fit the {S3["n"]} settled points of the final grid within {FC3["rmse"]:.2f}&nbsp;&deg;C (leave-one-out {FC3["loo"]:.2f}&nbsp;&deg;C); '
             f'without saturation the same form, estimated on six earlier sessions, predicts that grid within {VC["rmse"]:.2f}&nbsp;&deg;C. What remains is a smooth error of shape, about {(FC3["rmse"]**2 - _sp["rmse"]**2)**0.5:.2f}&nbsp;&deg;C root-mean-square, and between sessions an offset of up to about {max(abs(v) for v in _xs["by_session"].values()):.1f}&nbsp;&deg;C, most likely the temperature of the air reaching the card.'),
  "limits": (f'though offset and slope are hard to separate in this range. On the final grid a power exponent on the fan term comes out at {_bc["x"][6]:.2f} &plusmn; {_bc["se"][6]:.2f} for the core and {_bm["x"][6]:.2f} &plusmn; {_bm["se"][6]:.2f} for the memory, so the fan-dependent resistance may grow slightly with power; '
@@ -157,7 +157,8 @@ GEN = {
             f'The earlier sessions differ from it by an offset of up to {max(abs(v) for v in _xs["by_session"].values()):.1f}&nbsp;&deg;C, probably warmer air at the card&rsquo;s intake than at our sensor; a sensor at the card&rsquo;s intake will test this.'),
  "concl": (f'Five findings carry the control law. The card&rsquo;s own fans do most of the cooling, with diminishing returns above about {CP["n½"][0]*1000:.0f}&nbsp;rpm; the case fans matter only when the card&rsquo;s fans are slow. '
            f'A two-path model with a saturating GPU-fan path, estimated on the {S3["n"]} settled points of the final grid, gives the settled core within {FC3["rmse"]:.2f}&nbsp;&deg;C (leave-one-out {FC3["loo"]:.2f}&nbsp;&deg;C), and the earlier-session model predicted the same grid within {VC["rmse"]:.2f}&nbsp;&deg;C. '
-           f'At full power the memory, not the core, reaches its limit first. The quietest fan pairs keep the case fans near their minimum. And a first controller built on the model held its targets on the real card within 1&nbsp;&deg;C.'),
+           f'At full power the memory, not the core, reaches its limit first. The quietest fan pairs keep the case fans near their minimum. And a first controller built on the model held its targets on the real card within 1&nbsp;&deg;C. '
+           f'These results belong to the ZOTAC&rsquo;s open-air cooler: two flow-through Founders Edition cards in one machine run far hotter, the upper card&rsquo;s memory near 90&nbsp;&deg;C even with its fans at full speed, and the two-card study fits its own model.'),
 }
 for _g, _t in GEN.items():
     if f"<!--g:{_g}-->" in s: s = s[:s.index(f"<!--g:{_g}-->") + len(f"<!--g:{_g}-->")] + _t + s[s.index(f"<!--/g:{_g}-->"):]

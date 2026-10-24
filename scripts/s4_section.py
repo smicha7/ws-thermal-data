@@ -96,14 +96,55 @@ if ST:
   <p class="ar-note">Card A: first slot (PCIE1), upper; card B: second slot (PCIE2). Core from the NVAPI sensor; memory in whole degrees. Throttle reasons reported: software power cap only. <a href="https://github.com/smicha7/ws-thermal-data/tree/main/{Path(ST[-1]).parent.name}">Data</a>.</p>"""
 else:
     STRESS = ""
+# ---- fan and power-limit sweeps of the pair (each its own table; PL sweep appears when its folder lands)
+def sweep(pattern, hid, title, var):
+    fs = sorted(glob.glob(str(G / f"data/{pattern}/grid.csv")))
+    if not fs: return "", None
+    rows = list(csv.DictReader(open(fs[-1]))); cj = json.load(open(Path(fs[-1]).parent / "conditions.json")); st = json.load(open(Path(fs[-1]).parent / "status.json"))
+    f = lambda x, k: float(x[k]) if x.get(k) not in (None, "") else float("nan")
+    body = ""
+    for x in rows:
+        stop = x.get("settled") != "1"
+        lab = (f'{x["gpu_pct"]}&nbsp;%' if var == "gpu" else f'{x["pl_pct"]}&nbsp;% ({f(x, "power_w_sum") / 2:.0f}&nbsp;W)') + ("<sup>a</sup>" if stop else "")
+        body += (f'<tr><td>{lab}</td><td class="g">{f(x, "cardA_core_nvapi_c"):.1f}</td><td>{f(x, "cardA_mem_c"):.0f}</td><td>{f(x, "cardA_hot_c"):.1f}</td>'
+                 f'<td class="g">{f(x, "cardB_core_nvapi_c"):.1f}</td><td>{f(x, "cardB_mem_c"):.0f}</td><td>{f(x, "cardB_hot_c"):.1f}</td><td class="g">{f(x, "cardA_fan_rpm"):.0f}</td><td>{x["seconds"]}</td></tr>')
+    tin = sum(f(x, "intake_c") for x in rows) / len(rows)
+    tab = (f'  <p class="ar-tcap"><b>{title}</b> Both cards at the same setting, case and radiator fans about 1600&nbsp;rpm, intake air {tin:.1f}&nbsp;&deg;C, front panel with dust filter on, top and side panels off; {cj["started_utc"][:10]}.</p>\n'
+           f'  <div class="ar-tw ar-tw-wide">\n  <table class="ar-tab ar-num ar-st ar-ms ar-sweep">\n    <thead><tr><th scope="col" rowspan="2">{"GPU fans, both cards" if var == "gpu" else "Power limit, both cards"}</th><th scope="colgroup" colspan="3">Card A (PCIE1), &deg;C</th><th scope="colgroup" colspan="3">Card B (PCIE2), &deg;C</th><th scope="col" rowspan="2" class="g">GPU fans, rpm</th><th scope="col" rowspan="2">Held, s</th></tr>'
+           f'<tr><th scope="col" class="g">core</th><th scope="col">memory</th><th scope="col">hot spot</th><th scope="col" class="g">core</th><th scope="col">memory</th><th scope="col">hot spot</th></tr></thead>\n    <tbody>{body}</tbody>\n  </table>\n  </div>\n'
+           f'  <p class="ar-note"><sup>a</sup> Stopped before settling by the safety rule (memory 95, core 85 or hot spot 92&nbsp;&deg;C on either card); the values are the last readings. Core from the NVAPI sensor; memory in whole degrees. <a href="https://github.com/smicha7/ws-thermal-data/tree/main/{Path(fs[-1]).parent.name}">Data</a>.</p>')
+    return tab, rows
+SW_TAB, SWR = sweep("*sweep-top-off", "sweep", "Fan sweep of the two Founders Edition cards at 575&nbsp;W each: settled temperatures of both cards as the GPU fans of both step down from 100&nbsp;%.", "gpu")
+PL_TAB, PLR = sweep("*plsweep*", "plsweep", "Power-limit sweep of the two Founders Edition cards at GPU fans 90&nbsp;%: settled temperatures of both cards by power limit.", "pl")
+SWEEP = ""
+if SWR:
+    _lg = (Path(sorted(glob.glob(str(G / "data/*sweep-top-off/log.txt")))[-1])).read_text(errors="ignore")
+    _m = re.search(r"karta A rdzeń [\d.]+ / pamięć (\d+)", _lg); STOPM = _m.group(1) if _m else "&mdash;"
+    ok = [x for x in SWR if x.get("settled") == "1"]; bad = [x for x in SWR if x.get("settled") != "1"]
+    d = [float(x["cardA_mem_c"]) - float(x["cardB_mem_c"]) for x in SWR]
+    SWEEP = (f"""  <h4 id="sweep">How slow the fans of the pair can run</h4>
+  <p>With the top panel off and both cards at 575&nbsp;W, the GPU fans of both cards were stepped down from 100&nbsp;% until a safety limit stopped the run ({{tref:sweep}}). At {ok[0]["gpu_pct"]}&nbsp;% card A&rsquo;s memory settled at {float(ok[0]["cardA_mem_c"]):.0f}&nbsp;&deg;C"""
+             + (f""", at {ok[-1]["gpu_pct"]}&nbsp;% at {float(ok[-1]["cardA_mem_c"]):.0f}&nbsp;&deg;C""" if len(ok) > 1 else "")
+             + (f"""; at {bad[0]["gpu_pct"]}&nbsp;% the safety stop ended the run after {bad[0]["seconds"]}&nbsp;s, with card A&rsquo;s memory at {STOPM}&nbsp;&deg;C""" if bad else "")
+             + f""". The lowest safe GPU fan speed of the pair at full power in this configuration is therefore {ok[-1]["gpu_pct"]}&nbsp;%. Card B&rsquo;s memory stayed {min(d):.1f} to {max(d):.1f}&nbsp;&deg;C cooler than card A&rsquo;s throughout: the upper card sets the fans.</p>
+{SW_TAB}""" + (f"""
+  <p>A power-limit sweep at GPU fans 90&nbsp;% followed ({{tref:plsweep}}).</p>
+{PL_TAB}""" if PLR else "\n  <p>A power-limit sweep at GPU fans 90&nbsp;% follows; its results will be added here.</p>"))
+# the two cards compared
+s3c = [x for x in csv.DictReader(open(sorted(glob.glob(str(G / "data/steady3-*/grid.csv")))[-1]))][1:-1]
+zc = [x for x in s3c if x["settled"] == "1" and x["pl_pct"] == "100" and x["gpu_pct"] == "40" and x["case_rpm_target"] == "1600"][-1]
+TWO = f"""  <h4 id="two-cards">Two different cards</h4>
+  <p>The single-card study and the two-card study use different cards, and they cool differently. The ZOTAC Gaming RTX 5090 Solid of the single-card study has an open-air cooler: three axial fans blow into a large fin stack, about 3.5 slots thick, and the air leaves at the card&rsquo;s edges. The Founders Edition is a double-slot, flow-through design: two fans push the air through the fins and out on both faces. Alone at 575&nbsp;W, with its fans at only 40&nbsp;% and the case fans at 1600&nbsp;rpm, the ZOTAC settled at {float(zc["cardA_core_nvapi_c"]):.0f}&nbsp;&deg;C core and {float(zc["mem_c_max"]):.0f}&nbsp;&deg;C memory. The Founders Edition pair needs its fans at 90 to 100&nbsp;% to keep card A&rsquo;s memory at 88 to 92&nbsp;&deg;C (<a href="#sweep">Section 2.4.5</a>), and that memory protects itself at about 106&nbsp;&deg;C (<a href="#controller-mem">Section 2.8.2</a>). The cooling law estimated on the ZOTAC therefore does not transfer to the Founders Edition: the two-card study fits its own model to its own grid.</p>"""
 # ---- methods subsection
 mins = sum(28 * hold(gp) for gp in CARDS) / 60
 MET = f"""  <h4 id="steady4-method">The two-card study (in progress)</h4>
-  <p>A second RTX 5090 Founders Edition is now fitted: card A in the first PCIe slot, card B in the second, at the board&rsquo;s slot spacing ({{fref:fig-two-card-set-up-panels-on-schematic}}), and the side, front and top panels of the frame are closed. The grid steady4 repeats the levels of steady3, GPU fans 40 to 100&nbsp;% on both cards together, case and radiator fans 800&nbsp;rpm to full speed and power limits 100, 90, 80 and 70&nbsp;%, both cards under the same load. Following the settling analysis of steady3 (<a href="#settle">Section 4.2</a>), each point is held for at least 5 minutes at GPU fans 40 and 50&nbsp;%, 4 at 60&nbsp;% and 3 from 70&nbsp;% up, and then until the core and memory of both cards have stopped rising, the same plateau test as in steady3. The minimum holds alone add up to {mins:.1f}&nbsp;h for the 196 points; with the plateau extensions and the transitions the Lab&rsquo;s estimate is about 12.9&nbsp;h, and we plan for 13 to 16 hours, since both cards must settle in the closed case, against 18.8 for steady3.</p>
+  <p>For the two-card study the ZOTAC was replaced on 24 October by two RTX 5090 Founders Edition cards, card A in the first PCIe slot and card B in the second, at the board&rsquo;s slot spacing ({{fref:fig-two-card-set-up-panels-on-schematic}}); the panels of the frame are to be closed for the grid. The grid steady4 repeats the levels of steady3, GPU fans 40 to 100&nbsp;% on both cards together, case and radiator fans 800&nbsp;rpm to full speed and power limits 100, 90, 80 and 70&nbsp;%, both cards under the same load. Following the settling analysis of steady3 (<a href="#settle">Section 4.2</a>), each point is held for at least 5 minutes at GPU fans 40 and 50&nbsp;%, 4 at 60&nbsp;% and 3 from 70&nbsp;% up, and then until the core and memory of both cards have stopped rising, the same plateau test as in steady3. The minimum holds alone add up to {mins:.1f}&nbsp;h for the 196 points; with the plateau extensions and the transitions the Lab&rsquo;s estimate is about 12.9&nbsp;h, and we plan for 13 to 16 hours, since both cards must settle in the closed case, against 18.8 for steady3.</p>
   <p>The grid answers three questions: how much card A, whose fans draw in card B&rsquo;s flow-through exhaust (<a href="#stress1">Section 2.4.4</a>), runs hotter than when alone, and how that depends on both fan sets; how much the closed case changes the settled temperatures and the role of the case fans, against the open frame of steady3; and what control law two cards need, with one noise budget for the whole machine and the hotter card setting the fans.</p>
 <!--setupfig2:start--><!--setupfig2:end-->
 {PCIE}
-{STRESS}"""
+{STRESS}
+{SWEEP}
+{TWO}"""
 # ---- live tables
 G4 = sorted(glob.glob(str(G / "data/steady4-*/grid.csv")))
 cells = {}

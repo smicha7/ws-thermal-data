@@ -31,7 +31,7 @@ SP = {d["param"]: d["est"] for d in SS["params"]}
 import noise_model, model3   # 2026-10-24: feed-forward = the primary model, fitted on steady3 alone (saturating GPU-fan conductance), core AND memory
 SS_MARGIN = max(2 * float(model3.LOO), 1.0)   # rule (2026-10-22): never below 1.0 °C — safety over extra quietness
 
-DUTY_RPM = lambda d: 180 + 28.33 * d            # RTX 5090 FE: fan duty % -> rpm (ws298 measurement)
+DUTY_RPM = lambda d: 180 + 28.33 * d            # ZOTAC RTX 5090 Solid (single-card study): fan duty % -> rpm (ws298 measurement)
 RPM_DUTY = lambda r: (r - 180) / 28.33
 CASE_MAX, CARD_MAX = 2920.0, DUTY_RPM(100)
 A_CARD, A_CASE = 38.0, 33.0                      # noise proxy offsets at 1000 rpm (placeholders, to be replaced by measured dB curves)
