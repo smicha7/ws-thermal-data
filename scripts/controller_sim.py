@@ -44,8 +44,8 @@ MODES = {   # noise budget at 1 m, dBA = a CEILING (Seb 2026-10-23); comfort = �
 CORE_LIMIT_DEFAULT, CORE_LIMIT_HARD = 83.0, 88.0   # core safety limit (user-adjustable, never above 88 / NVIDIA's own limits)
 CASE_MIN = 800.0
 PLAN_HYST_C, PLAN_HYST_DB = 0.3, 0.5
-MEM_MAX, MEM_MARGIN = 95.0, 4.0   # GDDR7 0–95 °C (2026-10-23); panel default limit 90 °C → acting limit = min(mode mem_limit, 95 − 4)
-MEM_DEFAULT = 90.0
+MEM_MAX, MEM_MARGIN = 100.0, 5.0   # Seb 2026-10-24: hard abort 100 °C (cards self-throttle ≈ 104 °C); acting limit = min(mode mem_limit, 100 − 5)
+MEM_DEFAULT = 95.0                 # memory operating limit (controller default)
 TIN_TAU, FF_HYST_DB, UP_DEADBAND, DOWN_DEADBAND, HOLD_AFTER_UP = 60.0, 0.5, 0.0, 50.0, 60.0   # ctrl2 anti-pumping (2026-10-22)
 BOOST_MARGIN, BOOST_MIN_S = 1.0, 120   # transient boost after a load step: extra °C below target for the feedforward, minimum seconds
 

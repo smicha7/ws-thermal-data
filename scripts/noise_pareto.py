@@ -39,7 +39,7 @@ def frontier(Tc, L):
     for i in o:
         if Tc.ravel()[i] < best - 1e-9: best = Tc.ravel()[i]; f.append(i)
     return f
-def quietest(W, target, T=TIN, memmax=90.0):
+def quietest(W, target, T=TIN, memmax=cs.MEM_DEFAULT):
     Tc, Tm, L = grid(W, T); ok = (Tc <= target) & (Tm <= memmax)
     if not ok.any(): return None
     i = np.argmin(np.where(ok, L, np.inf)); g, c = GG.ravel()[i], CCm.ravel()[i]
@@ -55,7 +55,7 @@ def pmax(budget, target, T):
     Ws = np.arange(402, 575.01, 1.0); best = None
     for W in Ws[::-1]:
         Tc, Tm, L = grid(W, T)
-        if ((Tc <= target) & (Tm <= 90) & (L <= budget)).any(): return W
+        if ((Tc <= target) & (Tm <= cs.MEM_DEFAULT) & (L <= budget)).any(): return W
     return np.nan
 PM = {f"{T:.0f}": [pmax(B, 77, T) for B in budgets] for T in (19.3, 30.0)}
 g1 = pd.read_csv(os.path.join(H, "data/grid1c-2026-10-21/grid.csv")); cg = g1.groupby("pl_pct").agg(W=("power_w_sum", "mean"), f=("cardA_clock_mhz", "mean")).sort_values("W")

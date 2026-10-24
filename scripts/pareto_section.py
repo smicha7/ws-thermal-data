@@ -42,13 +42,13 @@ par = f"""<!--pareto:start-->
     <tbody>{rows}</tbody>
   </table>
   </div>
-  <p class="ar-note">The quietest pair whose settled core is at or below the target and whose memory stays at or below the default memory limit of 90&nbsp;&deg;C. Fan speeds on a grid of 1&nbsp;% and 50&nbsp;rpm; the GPU fans never go below 40&nbsp;% under load. Levels &plusmn;3&nbsp;dB or more (<a href="#noise-gpu">the GPU-fan noise estimate</a>).</p>
+  <p class="ar-note">The quietest pair whose settled core is at or below the target and whose memory stays at or below the default memory limit of 95&nbsp;&deg;C. Fan speeds on a grid of 1&nbsp;% and 50&nbsp;rpm; the GPU fans never go below 40&nbsp;% under load. Levels &plusmn;3&nbsp;dB or more (<a href="#noise-gpu">the GPU-fan noise estimate</a>).</p>
 <!--pareto:end-->"""
 pm = f"""<!--pmax:start-->
   <p>The same models give equation (14). For a core target of 77&nbsp;&deg;C, {{fref:fig-highest-power-within-a-noise-budget}} shows the highest power the card can hold within each noise budget, for intake air at 19.3 and at 30&nbsp;&deg;C, and the table below gives the quietest total level at each power limit; look at how much each step down in power limit saves in a cool and in a warm room.</p>
   <figure class="ar-fig">
     {pic('gpu-map-noise-pmax', f'Highest sustainable power for a core target of 77 °C against the noise budget in dBA at 1 m, for intake air at 19.3 and 30 °C, with a second axis giving the average graphics clock at that power; at 19.3 °C full power is reached at about {FP["19"]:.0f} dBA, at 30 °C only at about {FP["30"]:.0f} dBA', 1600, 1040, 1000, 1200)}
-    <figcaption><b>Figure 19.</b> Highest power with the core at or below 77&nbsp;&deg;C and the memory at or below 90&nbsp;&deg;C, against the noise budget of all fans at 1&nbsp;m, for intake air at 19.3&nbsp;&deg;C (blue) and 30&nbsp;&deg;C (red). Right axis: the average graphics clock measured at that power in the second run, a proxy for performance. Literature-based noise, provisional.</figcaption>
+    <figcaption><b>Figure 19.</b> Highest power with the core at or below 77&nbsp;&deg;C and the memory at or below 95&nbsp;&deg;C, against the noise budget of all fans at 1&nbsp;m, for intake air at 19.3&nbsp;&deg;C (blue) and 30&nbsp;&deg;C (red). Right axis: the average graphics clock measured at that power in the second run, a proxy for performance. Literature-based noise, provisional.</figcaption>
   </figure>
   <div class="ar-tw">
   <table class="ar-tab ar-num ar-st">
@@ -56,7 +56,7 @@ pm = f"""<!--pmax:start-->
     <tbody>{crow}</tbody>
   </table>
   </div>
-  <p class="ar-note">Each cell: the quietest total level of all fans at 1&nbsp;m that holds the core target with the memory at or below 90&nbsp;&deg;C (equations (R1) and (R2), literature-based noise). In parentheses: change from the column to the left, in dB. The core targets 77 and 80&nbsp;&deg;C are those of Balanced and Quiet in the first, temperature-target version of the controller. A level of 28.9&nbsp;dBA is the floor: GPU fans at 40&nbsp;% and case fans at 800&nbsp;rpm.</p>
+  <p class="ar-note">Each cell: the quietest total level of all fans at 1&nbsp;m that holds the core target with the memory at or below 95&nbsp;&deg;C (equations (R1) and (R2), literature-based noise). In parentheses: change from the column to the left, in dB. The core targets 77 and 80&nbsp;&deg;C are those of Balanced and Quiet in the first, temperature-target version of the controller. A level of 28.9&nbsp;dBA is the floor: GPU fans at 40&nbsp;% and case fans at 800&nbsp;rpm.</p>
   <p>In a cool room the power limit buys little quiet: from 575 to 518&nbsp;W about {C['19']['77']['100']['dBA']-C['19']['77']['90']['dBA']:.1f}&nbsp;dB at 77&nbsp;&deg;C, and below that the fans are already at their floor. On a warm day it buys about 3&nbsp;dB for each 10&nbsp;%. The price is speed: the average clock in the second run was {clk['575']}, {clk['518']}, {clk['460']} and {clk['402']}&nbsp;MHz at 575, 518, 460 and 402&nbsp;W. That is why the controller lowers the power limit only when a temperature limit cannot be held within the mode&rsquo;s noise budget.</p>
 <!--pmax:end-->"""
 def replace_fig(n, new):

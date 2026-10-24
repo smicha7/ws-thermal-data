@@ -35,9 +35,9 @@ sec = f'''<!--modes:start-->
     <tbody>{rows}</tbody>
   </table>
   </div>
-  <p class="ar-note">Comfort levels are set below the default limits of 83&nbsp;&deg;C (core) and 90&nbsp;&deg;C (memory). <sup>a</sup> The comfort level cannot be reached within the budget; the coolest pair within the budget is used, still inside the safety limits.</p>
+  <p class="ar-note">Comfort levels are set below the default limits of 83&nbsp;&deg;C (core) and 95&nbsp;&deg;C (memory). <sup>a</sup> The comfort level cannot be reached within the budget; the coolest pair within the budget is used, still inside the safety limits.</p>
   <ul>
-    <li><b>Safety constraints.</b> The core stays at or below its safety limit, 83&nbsp;&deg;C by default and at most 88&nbsp;&deg;C, and the memory at or below 90&nbsp;&deg;C by default and never above 91&nbsp;&deg;C, the 95&nbsp;&deg;C hard limit less a 4&nbsp;&deg;C margin (<a href="#templimits">Section 2.2</a>). The feed-forward keeps a model margin of at least 1&nbsp;&deg;C below each limit.</li>
+    <li><b>Safety constraints.</b> The core stays at or below its safety limit, 83&nbsp;&deg;C by default and at most 88&nbsp;&deg;C, and the memory at or below its operating limit of 95&nbsp;&deg;C, 5&nbsp;&deg;C under the hard abort at 100&nbsp;&deg;C (<a href="#templimits">Section 2.2</a>). The feed-forward keeps a model margin of at least 1&nbsp;&deg;C below each limit.</li>
     <li><b>Power before noise.</b> When the budget cannot hold the safety limits, the power limit is lowered before the budget is exceeded (<a href="#control-law">Section 5.1</a>).</li>
     <li><b>Floors and ramps.</b> At light load every mode runs at the fan floors, GPU fans 30&nbsp;% rising to 40&nbsp;% with load, case fans 800&nbsp;rpm, never 0&nbsp;rpm. The fans speed up quickly and slow down slowly, and a pair is kept until a new one is clearly quieter, so the fans do not hunt.</li>
   </ul>
